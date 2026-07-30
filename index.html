@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Abu's Europe Trip · Aug – Oct 2026</title>
-<link rel="stylesheet" href="style.css?v=5">
+<link rel="stylesheet" href="style.css?v=6">
 </head>
 <body>
 
@@ -47,7 +47,10 @@
 
   <div class="route" id="routeStrip"></div>
 
-  <a href="userguide.pdf" target="_blank" rel="noopener" class="btn-primary user-guide-btn" data-i18n="user_guide_btn">📄 User Guide (PDF)</a>
+  <div class="user-guide-row">
+    <a href="userguide.pdf" target="_blank" rel="noopener" class="btn-primary user-guide-btn" id="userGuideBtnEn" data-i18n="user_guide_btn">📄 User Guide (PDF)</a>
+    <a href="userguide-urdu.pdf" target="_blank" rel="noopener" class="btn-primary user-guide-btn" id="userGuideBtnUr" style="display:none;">📄 اردو یوزر گائیڈ (PDF)</a>
+  </div>
 </header>
 
 <section id="planner">
@@ -269,6 +272,6 @@
   </div>
 </div>
 
-<script src="script.js?v=5"></script>
+<script src="script.js?v=6"></script>
 </body>
 </html>
