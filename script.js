@@ -299,6 +299,8 @@
     document.documentElement.setAttribute('lang', lang === 'ur' ? 'ur' : 'en');
     document.documentElement.setAttribute('dir', lang === 'ur' ? 'rtl' : 'ltr');
     document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+    document.getElementById('userGuideBtnEn').style.display = lang === 'ur' ? 'none' : 'inline-block';
+    document.getElementById('userGuideBtnUr').style.display = lang === 'ur' ? 'inline-block' : 'none';
     applyStaticTranslations();
     renderEverything();
   }
