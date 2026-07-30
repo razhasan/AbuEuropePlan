@@ -33,6 +33,7 @@
       hero_subtitle_html: 'Cologne Bonn → Bonn (Busrah) → Verneuil-en-Halatte, Paris (us) → Stuttgart (Abdullah) → Bonn (Busrah) → home.<br>10 August – 19 October 2026',
       cd_days: 'Days', cd_hours: 'Hours', cd_mins: 'Minutes', cd_secs: 'Seconds',
       route_stops: ['CGN Airport', 'Bonn (Busrah)', 'Paris (You)', 'Stuttgart (Abdullah)', 'Bonn (Busrah)', 'Flight Home'],
+      user_guide_btn: '📄 User Guide (PDF)',
 
       step1: 'Step 1', step2: 'Step 2', step3: 'Step 3', step4: 'Step 4', step5: 'Step 5', step6: 'Step 6', step7: 'Step 7', step8: 'Step 8',
 
@@ -151,6 +152,7 @@
       hero_subtitle_html: 'کولون بون → بون (بشریٰ) → ورنوے آں ہالات، پیرس (ہمارے ہاں) → سٹٹگارٹ (عبداللہ) → بون (بشریٰ) → گھر واپسی۔<br>10 اگست – 19 اکتوبر 2026',
       cd_days: 'دن', cd_hours: 'گھنٹے', cd_mins: 'منٹ', cd_secs: 'سیکنڈ',
       route_stops: ['کولون بون ایئرپورٹ', 'بون (بشریٰ)', 'پیرس (آپ)', 'سٹٹگارٹ (عبداللہ)', 'بون (بشریٰ)', 'واپسی پرواز'],
+      user_guide_btn: '📄 صارف رہنما (PDF)',
 
       step1: 'قدم 1', step2: 'قدم 2', step3: 'قدم 3', step4: 'قدم 4', step5: 'قدم 5', step6: 'قدم 6', step7: 'قدم 7', step8: 'قدم 8',
 
