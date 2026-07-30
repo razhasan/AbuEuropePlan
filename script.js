@@ -7,10 +7,10 @@
   const BROTHER_WEEKS = 1; // fixed
 
   const COLORS = {
-    sisterFirst: '#0055A4',
-    withYou: '#EF4135',
-    brother: '#22262F',
-    sisterFinal: '#C9A227'
+    sisterFirst: '#1E88E5',
+    withYou: '#FF5A5F',
+    brother: '#7C4DFF',
+    sisterFinal: '#FFC93C'
   };
 
   const state = {
@@ -279,10 +279,21 @@
   }
 
   function placeMediaHTML(place) {
-    return `<img src="${place.img}" alt="${place.name}" loading="lazy"
+    const custom = getCustomImageSrc(place.id);
+    return `<img src="${custom || place.img}" alt="${place.name}" loading="lazy"
       onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
       <span class="emoji-fallback" style="display:none">${place.emoji}</span>
-      <span class="place-badge">${place.visited ? 'Revisit' : 'New'}</span>`;
+      <span class="place-badge">${place.visited ? 'Revisit' : 'New'}</span>
+      <button type="button" class="media-edit-btn" data-editid="${place.id}">${custom ? '✎ Edit Photo' : '+ Add Photo'}</button>`;
+  }
+
+  function bindMediaEditButtons(scope) {
+    scope.querySelectorAll('.media-edit-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openImageEditModal(btn.dataset.editid);
+      });
+    });
   }
 
   function renderPlaceGrid() {
@@ -300,6 +311,7 @@
         </div>
       </div>
     `).join('') || '<p>No places in this category.</p>';
+    bindMediaEditButtons(grid);
   }
 
   /* ===================== DAY-BY-DAY ITINERARY ===================== */
@@ -358,17 +370,22 @@
   function renderGallery() {
     const grid = document.getElementById('galleryGrid');
     const list = PLACES.filter(p => activeGalleryTab === 'new' ? !p.visited : p.visited);
-    grid.innerHTML = list.map(p => `
+    grid.innerHTML = list.map(p => {
+      const custom = getCustomImageSrc(p.id);
+      return `
       <div class="gallery-item" data-id="${p.id}">
-        <img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <img src="${custom || p.img}" alt="${p.name}" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
         <span class="emoji-fallback" style="display:none">${p.emoji}</span>
+        <button type="button" class="media-edit-btn" data-editid="${p.id}">${custom ? '✎ Edit' : '+ Add Photo'}</button>
         <div class="cap">${p.name}</div>
       </div>
-    `).join('');
+    `;
+    }).join('');
 
     grid.querySelectorAll('.gallery-item').forEach(item => {
       item.addEventListener('click', () => openLightbox(item.dataset.id));
     });
+    bindMediaEditButtons(grid);
   }
 
   function initGalleryTabs() {
@@ -388,7 +405,8 @@
     document.getElementById('lightboxTitle').textContent = place.name;
     document.getElementById('lightboxDesc').textContent = place.desc;
     const media = document.getElementById('lightboxMedia');
-    media.innerHTML = `<img src="${place.img}" alt="${place.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+    const custom = getCustomImageSrc(place.id);
+    media.innerHTML = `<img src="${custom || place.img}" alt="${place.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
       <span class="emoji-fallback" style="display:none">${place.emoji}</span>`;
     document.getElementById('lightbox').classList.add('open');
   }
@@ -455,6 +473,241 @@
       approvedCount === PEOPLE.length ? '🎉 Everyone has approved the plan!' : `${approvedCount} of ${PEOPLE.length} family members have approved so far.`;
   }
 
+  /* ===================== CUSTOM IMAGES (per-card, one image each) ===================== */
+  const CUSTOM_IMAGES_KEY = 'europeTripCustomImages';
+
+  function loadCustomImages() {
+    try { return JSON.parse(localStorage.getItem(CUSTOM_IMAGES_KEY)) || {}; } catch (e) { return {}; }
+  }
+  function saveCustomImages(data) {
+    localStorage.setItem(CUSTOM_IMAGES_KEY, JSON.stringify(data));
+  }
+  function getCustomImageSrc(id) {
+    return loadCustomImages()[id] || null;
+  }
+
+  /* ===================== IMAGE COMPRESSION HELPER ===================== */
+  function compressImage(file, maxDim, quality) {
+    maxDim = maxDim || 1000;
+    quality = quality || 0.72;
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          let { width, height } = img;
+          if (width > maxDim || height > maxDim) {
+            if (width > height) { height = Math.round(height * maxDim / width); width = maxDim; }
+            else { width = Math.round(width * maxDim / height); height = maxDim; }
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = width; canvas.height = height;
+          canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+          resolve(canvas.toDataURL('image/jpeg', quality));
+        };
+        img.onerror = reject;
+        img.src = e.target.result;
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  /* ===================== IMAGE EDIT MODAL (used by Paris Guide + Gallery cards) ===================== */
+  let currentEditPlaceId = null;
+  let pendingFileSrc = null;
+
+  function setModalMode(mode) {
+    document.querySelectorAll('.modal-tabs button').forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
+    document.getElementById('imageUrlInput').style.display = mode === 'url' ? 'block' : 'none';
+    document.getElementById('imageFileDrop').style.display = mode === 'file' ? 'block' : 'none';
+  }
+
+  function openImageEditModal(placeId) {
+    const place = PLACES.find(p => p.id === placeId);
+    if (!place) return;
+    currentEditPlaceId = placeId;
+    pendingFileSrc = null;
+    const custom = getCustomImageSrc(placeId);
+    document.getElementById('imageEditTitle').textContent = `Photo for ${place.name}`;
+    document.getElementById('imageUrlInput').value = (custom && !custom.startsWith('data:')) ? custom : '';
+    document.getElementById('imageFileInput').value = '';
+    document.getElementById('imageEditPreview').innerHTML = custom
+      ? `<img src="${custom}" alt="">`
+      : `<span class="none">No image set — the ${place.emoji} placeholder is showing.</span>`;
+    setModalMode('url');
+    document.getElementById('imageEditModal').classList.add('open');
+  }
+
+  function closeImageEditModal() {
+    document.getElementById('imageEditModal').classList.remove('open');
+  }
+
+  function initImageEditModal() {
+    document.querySelectorAll('.modal-tabs button').forEach(btn => {
+      btn.addEventListener('click', () => setModalMode(btn.dataset.mode));
+    });
+    document.getElementById('imageFileInput').addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      pendingFileSrc = await compressImage(file);
+      document.getElementById('imageEditPreview').innerHTML = `<img src="${pendingFileSrc}" alt="">`;
+    });
+    document.getElementById('imageSaveBtn').addEventListener('click', () => {
+      const mode = document.querySelector('.modal-tabs button.active').dataset.mode;
+      const src = mode === 'file' ? pendingFileSrc : document.getElementById('imageUrlInput').value.trim();
+      if (!src) { alert('Please paste an image URL or choose a photo from your device first.'); return; }
+      const data = loadCustomImages();
+      data[currentEditPlaceId] = src;
+      saveCustomImages(data);
+      closeImageEditModal();
+      renderPlaceGrid();
+      renderGallery();
+    });
+    document.getElementById('imageRemoveBtn').addEventListener('click', () => {
+      const data = loadCustomImages();
+      delete data[currentEditPlaceId];
+      saveCustomImages(data);
+      closeImageEditModal();
+      renderPlaceGrid();
+      renderGallery();
+    });
+    document.getElementById('imageEditClose').addEventListener('click', closeImageEditModal);
+    document.getElementById('imageEditModal').addEventListener('click', (e) => {
+      if (e.target.id === 'imageEditModal') closeImageEditModal();
+    });
+  }
+
+  /* ===================== SOUVENIRS ===================== */
+  const SOUVENIR_KEY = 'europeTripSouvenirs';
+
+  function loadSouvenirs() {
+    try { return JSON.parse(localStorage.getItem(SOUVENIR_KEY)) || []; } catch (e) { return []; }
+  }
+  function saveSouvenirs(list) {
+    localStorage.setItem(SOUVENIR_KEY, JSON.stringify(list));
+  }
+  function uid(prefix) {
+    return prefix + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+  }
+
+  function renderSouvenirs() {
+    const list = loadSouvenirs();
+    const grid = document.getElementById('souvenirGrid');
+    if (!list.length) {
+      grid.innerHTML = '<p class="souvenir-empty">No categories yet — click "+ Add Category" above to start keeping a photo record (e.g. "Eiffel Tower", "Garden").</p>';
+      return;
+    }
+
+    grid.innerHTML = list.map(cat => `
+      <div class="souvenir-category">
+        <div class="souvenir-cat-header">
+          <h4>${cat.name}</h4>
+          <button type="button" class="icon-btn cat-delete" data-cat="${cat.id}" title="Delete category">🗑</button>
+        </div>
+        <div class="souvenir-photos">
+          ${cat.photos.map(p => `
+            <div class="souvenir-photo">
+              <img src="${p.src}" alt="${p.caption || cat.name}">
+              <button type="button" class="photo-delete" data-cat="${cat.id}" data-photo="${p.id}" title="Delete photo">&times;</button>
+              ${p.caption ? `<div class="cap">${p.caption}</div>` : ''}
+            </div>
+          `).join('')}
+          <label class="souvenir-add-tile">
+            <span>+ Add<br>Photo</span>
+            <input type="file" accept="image/*" hidden class="souvenir-file-input" data-cat="${cat.id}">
+          </label>
+        </div>
+      </div>
+    `).join('');
+
+    grid.querySelectorAll('.cat-delete').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (!confirm('Delete this whole category and its photos?')) return;
+        saveSouvenirs(loadSouvenirs().filter(c => c.id !== btn.dataset.cat));
+        renderSouvenirs();
+      });
+    });
+    grid.querySelectorAll('.photo-delete').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const data = loadSouvenirs();
+        const cat = data.find(c => c.id === btn.dataset.cat);
+        if (cat) cat.photos = cat.photos.filter(p => p.id !== btn.dataset.photo);
+        saveSouvenirs(data);
+        renderSouvenirs();
+      });
+    });
+    grid.querySelectorAll('.souvenir-file-input').forEach(input => {
+      input.addEventListener('change', async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const src = await compressImage(file);
+        const caption = (prompt('Optional caption for this photo (leave blank to skip):', '') || '').trim();
+        const data = loadSouvenirs();
+        const cat = data.find(c => c.id === input.dataset.cat);
+        if (cat) cat.photos.push({ id: uid('p'), src, caption });
+        saveSouvenirs(data);
+        renderSouvenirs();
+      });
+    });
+  }
+
+  function initSouvenirs() {
+    document.getElementById('addCategoryBtn').addEventListener('click', () => {
+      const name = (prompt('Category name (e.g. "Eiffel Tower", "Garden"):') || '').trim();
+      if (!name) return;
+      const data = loadSouvenirs();
+      data.push({ id: uid('c'), name, photos: [] });
+      saveSouvenirs(data);
+      renderSouvenirs();
+    });
+  }
+
+  /* ===================== BACKUP EXPORT / IMPORT ===================== */
+  function exportBackup() {
+    const payload = {
+      approval: loadApproval(),
+      customImages: loadCustomImages(),
+      souvenirs: loadSouvenirs(),
+      exportedAt: new Date().toISOString()
+    };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'abu-europe-trip-backup.json';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  function initBackup() {
+    document.getElementById('exportBackupBtn').addEventListener('click', exportBackup);
+    document.getElementById('importBackupInput').addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const payload = JSON.parse(reader.result);
+          if (payload.approval) saveApproval(payload.approval);
+          if (payload.customImages) saveCustomImages(payload.customImages);
+          if (payload.souvenirs) saveSouvenirs(payload.souvenirs);
+          renderApproval();
+          renderPlaceGrid();
+          renderGallery();
+          renderSouvenirs();
+          alert('Backup restored successfully.');
+        } catch (err) {
+          alert('Could not read that backup file — make sure it\'s an export from this page.');
+        }
+        e.target.value = '';
+      };
+      reader.readAsText(file);
+    });
+  }
+
   /* ===================== FOOTER STATS ===================== */
   function renderFooter() {
     const { legs, calculatedEnd } = computeSchedule();
@@ -492,7 +745,11 @@
     initGalleryTabs();
     renderGallery();
     initLightbox();
+    initImageEditModal();
     renderApproval();
+    initSouvenirs();
+    renderSouvenirs();
+    initBackup();
     renderAll();
 
     renderCountdown();
