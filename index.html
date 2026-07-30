@@ -18,6 +18,7 @@
     <li><a href="#guide">Paris Guide</a></li>
     <li><a href="#itinerary">Day Plan</a></li>
     <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#souvenirs">Souvenirs</a></li>
     <li><a href="#approval">Approval</a></li>
   </ul>
 </nav>
@@ -128,6 +129,25 @@
   <div class="gallery-grid" id="galleryGrid"></div>
 </section>
 
+<section id="souvenirs">
+  <div class="section-label">Step 8</div>
+  <h2>Souvenirs</h2>
+  <p class="section-intro">A place to keep a photo record of souvenirs picked up along the way — one category per
+  place or theme (e.g. "Eiffel Tower", "Garden"), with as many photos as you like inside each. Saved right on this
+  device, like a WhatsApp media folder.</p>
+
+  <div class="souvenir-toolbar">
+    <button class="btn-primary" id="addCategoryBtn">+ Add Category</button>
+    <div class="backup-buttons">
+      <button class="btn-ghost" id="exportBackupBtn">⬇ Export Backup</button>
+      <label class="btn-ghost" for="importBackupInput" style="cursor:pointer;">⬆ Import Backup</label>
+      <input type="file" id="importBackupInput" accept="application/json" hidden>
+    </div>
+  </div>
+
+  <div id="souvenirGrid" class="souvenir-grid"></div>
+</section>
+
 <section id="approval">
   <div class="section-label">Step 7</div>
   <h2>Family Approval</h2>
@@ -153,6 +173,29 @@
     <div class="lightbox-media" id="lightboxMedia"></div>
     <h3 id="lightboxTitle"></h3>
     <p id="lightboxDesc"></p>
+  </div>
+</div>
+
+<div class="modal" id="imageEditModal">
+  <div class="modal-box">
+    <button class="modal-close" id="imageEditClose">&times;</button>
+    <h3 id="imageEditTitle">Add Image</h3>
+    <div class="modal-current" id="imageEditPreview"></div>
+    <div class="modal-tabs">
+      <button type="button" class="active" data-mode="url">Paste URL</button>
+      <button type="button" data-mode="file">Upload from Device</button>
+    </div>
+    <div class="modal-body">
+      <input type="text" id="imageUrlInput" placeholder="https://example.com/photo.jpg">
+      <label class="file-drop" id="imageFileDrop" style="display:none;">
+        Tap to choose a photo from your device
+        <input type="file" id="imageFileInput" accept="image/*" hidden>
+      </label>
+    </div>
+    <div class="modal-actions">
+      <button class="danger" id="imageRemoveBtn">Remove Image</button>
+      <button class="primary" id="imageSaveBtn">Save</button>
+    </div>
   </div>
 </div>
 
