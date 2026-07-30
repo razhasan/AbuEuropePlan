@@ -4,12 +4,12 @@
   /* ===================== CONFIG ===================== */
   const TRIP_START = new Date(2026, 7, 10, 18, 10);  // Aug 10 2026, 18:10 — landing at CGN
   const TRIP_END   = new Date(2026, 9, 19, 19, 0);   // Oct 19 2026, 19:00 — return flight
-  const BROTHER_WEEKS = 1; // fixed
+  const Abdullah_WEEKS = 1; // fixed
 
   const COLORS = {
     sisterFirst: '#1E88E5',
     withYou: '#FF5A5F',
-    brother: '#7C4DFF',
+    Abdullah: '#7C4DFF',
     sisterFinal: '#FFC93C'
   };
 
@@ -30,21 +30,21 @@
       nav_dayplan: 'Day Plan', nav_gallery: 'Gallery', nav_souvenirs: 'Souvenirs', nav_approval: 'Approval',
 
       hero_title: "Abu's Europe Visit",
-      hero_subtitle_html: 'Cologne Bonn → Bonn (Busrah) → Verneuil-en-Halatte, Paris (us) → Stuttgart (brother) → Bonn (Busrah) → home.<br>10 August – 19 October 2026',
+      hero_subtitle_html: 'Cologne Bonn → Bonn (Busrah) → Verneuil-en-Halatte, Paris (us) → Stuttgart (Abdullah) → Bonn (Busrah) → home.<br>10 August – 19 October 2026',
       cd_days: 'Days', cd_hours: 'Hours', cd_mins: 'Minutes', cd_secs: 'Seconds',
-      route_stops: ['CGN Airport', 'Bonn (Busrah)', 'Paris (You)', 'Stuttgart (Brother)', 'Bonn (Busrah)', 'Flight Home'],
+      route_stops: ['CGN Airport', 'Bonn (Busrah)', 'Paris (You)', 'Stuttgart (Abdullah)', 'Bonn (Busrah)', 'Flight Home'],
 
       step1: 'Step 1', step2: 'Step 2', step3: 'Step 3', step4: 'Step 4', step5: 'Step 5', step6: 'Step 6', step7: 'Step 7', step8: 'Step 8',
 
       planner_h2: 'Trip Duration Planner',
-      planner_intro: "Landing (Aug 10, 18:10) and the return flight (Oct 19, 19:00) are fixed — that's exactly 10 weeks. One week with your brother in Stuttgart is fixed too. Drag the sliders below to divide the remaining 9 weeks between Busrah's first stay, your stay in Paris, and Busrah's final stay — every date on this page updates instantly.",
+      planner_intro: "Landing (Aug 10, 18:10) and the return flight (Oct 19, 19:00) are fixed — that's exactly 10 weeks. One week with your Abdullah in Stuttgart is fixed too. Drag the sliders below to divide the remaining 9 weeks between Busrah's first stay, your stay in Paris, and Busrah's final stay — every date on this page updates instantly.",
       planner_field_sisterFirst_label: 'Bonn — Arrival stay (Busrah)',
       planner_field_sisterFirst_hint: 'Right after landing, before heading to Paris',
       planner_field_withYou_label: 'Paris / Verneuil-en-Halatte (You)',
       planner_field_withYou_hint: 'Rest week + sightseeing',
-      planner_field_brother_label: 'Stuttgart — Brother',
-      planner_field_brother_value: '1 week',
-      planner_field_brother_hint: 'Fixed as requested',
+      planner_field_Abdullah_label: 'Stuttgart — Abdullah',
+      planner_field_Abdullah_value: '1 week',
+      planner_field_Abdullah_hint: 'Fixed as requested',
       planner_field_sisterFinal_label: 'Bonn — Final stay (Busrah)',
       planner_field_sisterFinal_hint: 'Until the Oct 19 flight home',
       week_singular: 'week', week_plural: 'weeks',
@@ -60,8 +60,8 @@
       leg_sisterFirst_detail: 'Landing at Cologne Bonn Airport at 18:10 on {date}, picked up by Busrah. Rest and settle in before the trip to Paris.',
       leg_withYou_name: 'Paris / Verneuil-en-Halatte — with you',
       leg_withYou_detail: 'Travel by train from Bonn to Paris (car as backup option), picked up by you. First week is rest, then Paris sightseeing — see the Day-by-Day Plan section below.',
-      leg_brother_name: 'Stuttgart — with your brother',
-      leg_brother_detail: 'Travel by train from Paris to Stuttgart. One week staying with your brother.',
+      leg_Abdullah_name: 'Stuttgart — with your Abdullah',
+      leg_Abdullah_detail: 'Travel by train from Paris to Stuttgart. One week staying with your Abdullah.',
       leg_sisterFinal_name: 'Bonn — Final stay with Busrah',
       leg_sisterFinal_detail: 'Back to Bonn by train from Stuttgart. Final stretch before the return flight home on {date} at 19:00.',
 
@@ -110,12 +110,12 @@
 
       approval_h2: 'Family Approval',
       approval_intro_html: "Rate the plan and mark your approval. Saved on this device/browser. <em>Note: since this is a simple offline page, approvals don't sync automatically between different phones — each person approves on the device they're viewing from, or you can share a screenshot.</em>",
-      person_you: 'You', person_busrah: 'Busrah', person_brother: 'Brother',
+      person_you: 'You', person_busrah: 'Busrah', person_Abdullah: 'Abdullah',
       approve_btn: 'Approve Plan', approved_btn: '✓ Approved', saved_device_note: 'Saved on this device only',
       overall_all_approved: '🎉 Everyone has approved the plan!',
       overall_partial: '{count} of {total} family members have approved so far.',
 
-      footer_stats: '{days} days across 3 cities (Bonn, Paris/Verneuil-en-Halatte, Stuttgart) · {sisterWeeks} weeks with Busrah · {youWeeks} weeks with you · {brotherWeeks} week with brother.',
+      footer_stats: '{days} days across 3 cities (Bonn, Paris/Verneuil-en-Halatte, Stuttgart) · {sisterWeeks} weeks with Busrah · {youWeeks} weeks with you · {AbdullahWeeks} week with Abdullah.',
       footer_tagline: "Made with love for Abu's big Europe adventure ✈️",
 
       modal_title_default: 'Add Image', modal_title_for: 'Photo for {name}',
@@ -132,21 +132,21 @@
       nav_dayplan: 'روزانہ منصوبہ', nav_gallery: 'گیلری', nav_souvenirs: 'یادگاریں', nav_approval: 'منظوری',
 
       hero_title: 'ابو کا یورپ کا سفر',
-      hero_subtitle_html: 'کولون بون → بون (بشریٰ) → ورنوے آں ہالات، پیرس (ہمارے ہاں) → سٹٹگارٹ (بھائی) → بون (بشریٰ) → گھر واپسی۔<br>10 اگست – 19 اکتوبر 2026',
+      hero_subtitle_html: 'کولون بون → بون (بشریٰ) → ورنوے آں ہالات، پیرس (ہمارے ہاں) → سٹٹگارٹ (عبداللہ) → بون (بشریٰ) → گھر واپسی۔<br>10 اگست – 19 اکتوبر 2026',
       cd_days: 'دن', cd_hours: 'گھنٹے', cd_mins: 'منٹ', cd_secs: 'سیکنڈ',
-      route_stops: ['کولون بون ایئرپورٹ', 'بون (بشریٰ)', 'پیرس (آپ)', 'سٹٹگارٹ (بھائی)', 'بون (بشریٰ)', 'واپسی پرواز'],
+      route_stops: ['کولون بون ایئرپورٹ', 'بون (بشریٰ)', 'پیرس (آپ)', 'سٹٹگارٹ (عبداللہ)', 'بون (بشریٰ)', 'واپسی پرواز'],
 
       step1: 'قدم 1', step2: 'قدم 2', step3: 'قدم 3', step4: 'قدم 4', step5: 'قدم 5', step6: 'قدم 6', step7: 'قدم 7', step8: 'قدم 8',
 
       planner_h2: 'سفر کے دورانیے کا منصوبہ',
-      planner_intro: 'پہنچنے کا وقت (10 اگست، 18:10) اور واپسی کی پرواز (19 اکتوبر، 19:00) طے شدہ ہیں — یعنی مکمل 10 ہفتے۔ سٹٹگارٹ میں بھائی کے پاس ایک ہفتہ بھی طے ہے۔ نیچے دیے گئے سلائیڈرز کو حرکت دے کر باقی 9 ہفتے بشریٰ کے پاس پہلے قیام، پیرس میں آپ کے پاس قیام، اور بشریٰ کے پاس آخری قیام کے درمیان تقسیم کریں — اس صفحے کی ہر تاریخ فوراً اپ ڈیٹ ہو جائے گی۔',
+      planner_intro: 'پہنچنے کا وقت (10 اگست، 18:10) اور واپسی کی پرواز (19 اکتوبر، 19:00) طے شدہ ہیں — یعنی مکمل 10 ہفتے۔ سٹٹگارٹ میں عبداللہ کے پاس ایک ہفتہ بھی طے ہے۔ نیچے دیے گئے سلائیڈرز کو حرکت دے کر باقی 9 ہفتے بشریٰ کے پاس پہلے قیام، پیرس میں آپ کے پاس قیام، اور بشریٰ کے پاس آخری قیام کے درمیان تقسیم کریں — اس صفحے کی ہر تاریخ فوراً اپ ڈیٹ ہو جائے گی۔',
       planner_field_sisterFirst_label: 'بون — آمد پر قیام (بشریٰ)',
       planner_field_sisterFirst_hint: 'پہنچنے کے فوراً بعد، پیرس جانے سے پہلے',
       planner_field_withYou_label: 'پیرس / ورنوے آں ہالات (آپ)',
       planner_field_withYou_hint: 'آرام کا ہفتہ + سیر و تفریح',
-      planner_field_brother_label: 'سٹٹگارٹ — بھائی',
-      planner_field_brother_value: '1 ہفتہ',
-      planner_field_brother_hint: 'درخواست کے مطابق طے شدہ',
+      planner_field_Abdullah_label: 'سٹٹگارٹ — عبداللہ',
+      planner_field_Abdullah_value: '1 ہفتہ',
+      planner_field_Abdullah_hint: 'درخواست کے مطابق طے شدہ',
       planner_field_sisterFinal_label: 'بون — آخری قیام (بشریٰ)',
       planner_field_sisterFinal_hint: '19 اکتوبر کی واپسی پرواز تک',
       week_singular: 'ہفتہ', week_plural: 'ہفتے',
@@ -162,8 +162,8 @@
       leg_sisterFirst_detail: '{date} کو 18:10 بجے کولون بون ایئرپورٹ پر پہنچنا، بشریٰ کی جانب سے استقبال۔ پیرس جانے سے پہلے آرام اور سکون۔',
       leg_withYou_name: 'پیرس / ورنوے آں ہالات — آپ کے ساتھ',
       leg_withYou_detail: 'بون سے پیرس تک ٹرین کا سفر (متبادل کے طور پر گاڑی)، آپ کی جانب سے استقبال۔ پہلا ہفتہ آرام کا، پھر پیرس کی سیر — نیچے روزانہ منصوبہ دیکھیں۔',
-      leg_brother_name: 'سٹٹگارٹ — بھائی کے ساتھ',
-      leg_brother_detail: 'پیرس سے سٹٹگارٹ تک ٹرین کا سفر۔ بھائی کے ساتھ ایک ہفتہ قیام۔',
+      leg_Abdullah_name: 'سٹٹگارٹ — عبداللہ کے ساتھ',
+      leg_Abdullah_detail: 'پیرس سے سٹٹگارٹ تک ٹرین کا سفر۔ عبداللہ کے ساتھ ایک ہفتہ قیام۔',
       leg_sisterFinal_name: 'بون — بشریٰ کے ہاں آخری قیام',
       leg_sisterFinal_detail: 'سٹٹگارٹ سے ٹرین کے ذریعے واپس بون۔ {date} کو 19:00 بجے واپسی پرواز سے پہلے آخری مرحلہ۔',
 
@@ -212,12 +212,12 @@
 
       approval_h2: 'خاندانی منظوری',
       approval_intro_html: 'منصوبے کو ریٹ کریں اور اپنی منظوری درج کریں۔ اس ڈیوائس/براؤزر پر محفوظ ہوتا ہے۔ <em>نوٹ: چونکہ یہ ایک سادہ آف لائن صفحہ ہے، منظوریاں مختلف فونز کے درمیان خودکار مطابقت پذیر نہیں ہوتیں — ہر فرد اپنے دیکھنے والے ڈیوائس پر منظوری دے، یا اسکرین شاٹ شیئر کریں۔</em>',
-      person_you: 'آپ', person_busrah: 'بشریٰ', person_brother: 'بھائی',
+      person_you: 'آپ', person_busrah: 'بشریٰ', person_Abdullah: 'عبداللہ',
       approve_btn: 'منصوبہ منظور کریں', approved_btn: '✓ منظور شدہ', saved_device_note: 'صرف اس ڈیوائس پر محفوظ',
       overall_all_approved: '🎉 سب نے منصوبہ منظور کر لیا ہے!',
       overall_partial: 'اب تک {total} میں سے {count} خاندان کے افراد نے منظوری دی ہے۔',
 
-      footer_stats: '3 شہروں (بون، پیرس/ورنوے آں ہالات، سٹٹگارٹ) میں {days} دن · بشریٰ کے ساتھ {sisterWeeks} ہفتے · آپ کے ساتھ {youWeeks} ہفتے · بھائی کے ساتھ {brotherWeeks} ہفتہ۔',
+      footer_stats: '3 شہروں (بون، پیرس/ورنوے آں ہالات، سٹٹگارٹ) میں {days} دن · بشریٰ کے ساتھ {sisterWeeks} ہفتے · آپ کے ساتھ {youWeeks} ہفتے · عبداللہ کے ساتھ {AbdullahWeeks} ہفتہ۔',
       footer_tagline: 'ابو کے یورپ کے بڑے سفر کے لیے محبت سے تیار کیا گیا ✈️',
 
       modal_title_default: 'تصویر شامل کریں', modal_title_for: '{name} کی تصویر',
@@ -409,13 +409,13 @@
     });
     cursor = withYouEnd;
 
-    const brotherEnd = addDays(cursor, BROTHER_WEEKS * 7);
+    const AbdullahEnd = addDays(cursor, Abdullah_WEEKS * 7);
     legs.push({
-      key: 'brother', name: t('leg_brother_name'), color: COLORS.brother,
-      start: cursor, end: brotherEnd,
-      detail: t('leg_brother_detail')
+      key: 'Abdullah', name: t('leg_Abdullah_name'), color: COLORS.Abdullah,
+      start: cursor, end: AbdullahEnd,
+      detail: t('leg_Abdullah_detail')
     });
-    cursor = brotherEnd;
+    cursor = AbdullahEnd;
 
     const sisterFinalEnd = addDays(cursor, state.sisterFinal * 7);
     legs.push({
@@ -468,7 +468,7 @@
     document.getElementById('val-sisterFinal').textContent = weekLabel(state.sisterFinal);
 
     const { calculatedEnd } = computeSchedule();
-    const totalWeeks = state.sisterFirst + state.withYou + BROTHER_WEEKS + state.sisterFinal;
+    const totalWeeks = state.sisterFirst + state.withYou + Abdullah_WEEKS + state.sisterFinal;
     const totalDays = Math.round((calculatedEnd - TRIP_START) / 86400000);
     const statusEl = document.getElementById('plannerStatus');
 
@@ -751,7 +751,7 @@
   const PEOPLE = [
     { id: 'you', key: 'person_you' },
     { id: 'busrah', key: 'person_busrah' },
-    { id: 'brother', key: 'person_brother' }
+    { id: 'Abdullah', key: 'person_Abdullah' }
   ];
 
   function loadApproval() {
@@ -1091,7 +1091,7 @@
       days: totalDays,
       sisterWeeks: state.sisterFirst + state.sisterFinal,
       youWeeks: state.withYou,
-      brotherWeeks: BROTHER_WEEKS
+      AbdullahWeeks: Abdullah_WEEKS
     });
   }
 
