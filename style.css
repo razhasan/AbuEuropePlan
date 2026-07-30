@@ -322,6 +322,9 @@ a { color: var(--fr-blue); }
 .overall-approval { text-align: center; margin-top: 30px; font-family: Georgia, serif; font-size: 1.2rem; color: var(--navy); }
 
 /* ===== Souvenirs ===== */
+.subheading { font-size: 1.1rem; margin-top: 28px; margin-bottom: 6px; }
+.subheading:first-of-type { margin-top: 0; }
+#staticSouvenirGrid { margin-bottom: 40px; }
 .souvenir-toolbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; margin-bottom: 26px; }
 .btn-primary {
   background: linear-gradient(135deg, var(--fr-blue), var(--purple)); color: #fff; border: none; padding: 10px 20px;

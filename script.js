@@ -93,6 +93,10 @@
       tab_new: 'New Places to Visit', tab_visited: 'Already Visited',
 
       souvenirs_h2: 'Souvenirs',
+      souvenirs_static_h3: 'Permanent Souvenir Photos',
+      souvenirs_static_intro_html: 'Added directly to the <code>images/souvenirs</code> folder in the GitHub repo — visible to everyone who visits the site.',
+      souvenirs_static_empty: 'No permanent souvenir photos yet — add files named souvenir1.jpg, souvenir2.jpg, etc. to images/souvenirs on GitHub to see them here.',
+      souvenirs_personal_h3: 'Your Own Additions (this device only)',
       souvenirs_intro: 'A place to keep a photo record of souvenirs picked up along the way — one category per place or theme (e.g. "Eiffel Tower", "Garden"), with as many photos as you like inside each. Saved right on this device, like a WhatsApp media folder.',
       add_category_btn: '+ Add Category', export_backup_btn: '⬇ Export Backup', import_backup_btn: '⬆ Import Backup',
       souvenir_empty: 'No categories yet — click "+ Add Category" above to start keeping a photo record (e.g. "Eiffel Tower", "Garden").',
@@ -191,6 +195,10 @@
       tab_new: 'دیکھنے کے لیے نئی جگہیں', tab_visited: 'پہلے دیکھی گئی جگہیں',
 
       souvenirs_h2: 'یادگاریں',
+      souvenirs_static_h3: 'مستقل یادگار تصاویر',
+      souvenirs_static_intro_html: '<code>images/souvenirs</code> فولڈر میں براہ راست شامل کی گئیں — سائٹ پر آنے والے ہر شخص کو نظر آتی ہیں۔',
+      souvenirs_static_empty: 'ابھی تک کوئی مستقل یادگار تصویر نہیں — گٹ ہب پر images/souvenirs میں souvenir1.jpg، souvenir2.jpg وغیرہ ناموں سے فائلیں شامل کریں تاکہ یہ یہاں نظر آئیں۔',
+      souvenirs_personal_h3: 'آپ کی اپنی شامل کردہ تصاویر (صرف اس ڈیوائس پر)',
       souvenirs_intro: 'راستے میں لی گئی یادگاروں کی تصویری ریکارڈ رکھنے کی جگہ — ہر جگہ یا موضوع کے لیے ایک زمرہ (مثلاً "ایفل ٹاور"، "باغ")، جس میں آپ جتنی چاہیں تصاویر رکھ سکتے ہیں۔ بالکل اسی ڈیوائس پر محفوظ، واٹس ایپ میڈیا فولڈر کی طرح۔',
       add_category_btn: '+ زمرہ شامل کریں', export_backup_btn: '⬇ بیک اپ ایکسپورٹ کریں', import_backup_btn: '⬆ بیک اپ درآمد کریں',
       souvenir_empty: 'ابھی تک کوئی زمرہ نہیں — تصویری ریکارڈ شروع کرنے کے لیے اوپر "+ زمرہ شامل کریں" پر کلک کریں (مثلاً "ایفل ٹاور"، "باغ")۔',
@@ -247,6 +255,8 @@
     if (galleryIntro) galleryIntro.innerHTML = t('gallery_intro_html');
     const approvalIntro = document.getElementById('approvalIntro');
     if (approvalIntro) approvalIntro.innerHTML = t('approval_intro_html');
+    const souvenirsStaticIntro = document.getElementById('souvenirsStaticIntro');
+    if (souvenirsStaticIntro) souvenirsStaticIntro.innerHTML = t('souvenirs_static_intro_html');
     document.title = t('page_title');
   }
 
@@ -899,7 +909,51 @@
     });
   }
 
-  /* ===================== SOUVENIRS ===================== */
+  /* ===================== STATIC SOUVENIRS (from images/souvenirs, shared for everyone) ===================== */
+  const STATIC_SOUVENIR_COUNT = 12;
+
+  function checkImageExists(src) {
+    return new Promise(resolve => {
+      const img = new Image();
+      img.onload = () => resolve(true);
+      img.onerror = () => resolve(false);
+      img.src = src;
+    });
+  }
+
+  async function renderStaticSouvenirs() {
+    const grid = document.getElementById('staticSouvenirGrid');
+    const slots = Array.from({ length: STATIC_SOUVENIR_COUNT }, (_, idx) => idx + 1);
+    const results = await Promise.all(slots.map(n => {
+      const src = `images/souvenirs/souvenir${n}.jpg`;
+      return checkImageExists(src).then(ok => ({ ok, src, n }));
+    }));
+    const present = results.filter(r => r.ok);
+
+    if (!present.length) {
+      grid.innerHTML = `<p class="souvenir-empty">${t('souvenirs_static_empty')}</p>`;
+      return;
+    }
+
+    grid.innerHTML = present.map(r => `
+      <div class="gallery-item" data-src="${r.src}">
+        <img src="${r.src}" alt="Souvenir ${r.n}">
+      </div>
+    `).join('');
+
+    grid.querySelectorAll('.gallery-item').forEach(item => {
+      item.addEventListener('click', () => openImageLightbox(item.dataset.src));
+    });
+  }
+
+  function openImageLightbox(src) {
+    document.getElementById('lightboxTitle').textContent = '';
+    document.getElementById('lightboxDesc').textContent = '';
+    document.getElementById('lightboxMedia').innerHTML = `<img src="${src}" alt="">`;
+    document.getElementById('lightbox').classList.add('open');
+  }
+
+  /* ===================== SOUVENIRS (personal, this device only) ===================== */
   const SOUVENIR_KEY = 'europeTripSouvenirs';
 
   function loadSouvenirs() {
@@ -1066,6 +1120,7 @@
     renderPlaceGrid();
     renderGallery();
     renderApproval();
+    renderStaticSouvenirs();
     renderSouvenirs();
     renderAll();
   }
@@ -1083,6 +1138,7 @@
     initLightbox();
     initImageEditModal();
     renderApproval();
+    renderStaticSouvenirs();
     initSouvenirs();
     renderSouvenirs();
     initBackup();
