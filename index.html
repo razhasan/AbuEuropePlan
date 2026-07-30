@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abu's Europe Trip · Aug – Oct 2026</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-brand">🧳 Abu's Europe Journey</div>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#planner">Planner</a></li>
+    <li><a href="#timeline">Timeline</a></li>
+    <li><a href="#calendar">Calendar</a></li>
+    <li><a href="#guide">Paris Guide</a></li>
+    <li><a href="#itinerary">Day Plan</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#approval">Approval</a></li>
+  </ul>
+</nav>
+
+<header class="hero">
+  <div class="flag-stripe">
+    <span class="fr1"></span><span class="fr2"></span><span class="fr3"></span>
+    <span class="de1"></span><span class="de2"></span><span class="de3"></span>
+  </div>
+  <h1>Abu's Grand Europe Visit</h1>
+  <p class="subtitle">Cologne Bonn → Bonn (Busrah) → Verneuil-en-Halatte, Paris (us) → Stuttgart (brother) → Bonn (Busrah) → home.<br>
+  10 August – 19 October 2026</p>
+
+  <div class="countdown" id="countdown">
+    <div class="cd-box"><div class="cd-num" id="cd-days">--</div><div class="cd-label">Days</div></div>
+    <div class="cd-box"><div class="cd-num" id="cd-hours">--</div><div class="cd-label">Hours</div></div>
+    <div class="cd-box"><div class="cd-num" id="cd-mins">--</div><div class="cd-label">Minutes</div></div>
+    <div class="cd-box"><div class="cd-num" id="cd-secs">--</div><div class="cd-label">Seconds</div></div>
+  </div>
+
+  <div class="route" id="routeStrip"></div>
+</header>
+
+<section id="planner">
+  <div class="section-label">Step 1</div>
+  <h2>Trip Duration Planner</h2>
+  <p class="section-intro">Landing (Aug 10, 18:10) and the return flight (Oct 19, 19:00) are fixed — that's exactly
+  10 weeks. One week with your brother in Stuttgart is fixed too. Drag the sliders below to divide the remaining
+  9 weeks between Busrah's first stay, your stay in Paris, and Busrah's final stay — every date on this page updates instantly.</p>
+
+  <div class="planner-card">
+    <div class="planner-grid">
+      <div class="planner-field">
+        <label>Bonn — Arrival stay (Busrah) <span class="planner-value" id="val-sisterFirst"></span></label>
+        <input type="range" id="sisterFirst" min="1" max="6" step="1" value="1">
+        <span class="hint">Right after landing, before heading to Paris</span>
+      </div>
+      <div class="planner-field">
+        <label>Paris / Verneuil-en-Halatte (You) <span class="planner-value" id="val-withYou"></span></label>
+        <input type="range" id="withYou" min="1" max="6" step="1" value="4">
+        <span class="hint">Rest week + sightseeing</span>
+      </div>
+      <div class="planner-field locked">
+        <label>Stuttgart — Brother <span class="planner-value">1 week</span></label>
+        <input type="range" min="1" max="1" value="1" disabled>
+        <span class="hint">Fixed as requested</span>
+      </div>
+      <div class="planner-field">
+        <label>Bonn — Final stay (Busrah) <span class="planner-value" id="val-sisterFinal"></span></label>
+        <input type="range" id="sisterFinal" min="1" max="6" step="1" value="4">
+        <span class="hint">Until the Oct 19 flight home</span>
+      </div>
+    </div>
+
+    <div class="planner-status" id="plannerStatus"></div>
+
+    <div class="planner-summary">
+      <div><div class="num" id="sum-total">--</div><div class="lbl">Total weeks</div></div>
+      <div><div class="num" id="sum-days">--</div><div class="lbl">Total days</div></div>
+      <div><div class="num" id="sum-sister">--</div><div class="lbl">Weeks w/ Busrah</div></div>
+      <div><div class="num" id="sum-you">--</div><div class="lbl">Weeks w/ You</div></div>
+      <div><div class="num" id="sum-end">--</div><div class="lbl">Calculated return</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="timeline">
+  <div class="section-label">Step 2</div>
+  <h2>Interactive Timeline</h2>
+  <p class="section-intro">Click any stop to expand the details. Dates recompute live from the planner above.</p>
+  <div class="timeline" id="timelineContainer"></div>
+</section>
+
+<section id="calendar">
+  <div class="section-label">Step 3</div>
+  <h2>Full Calendar View</h2>
+  <p class="section-intro">August, September and October 2026 at a glance, color-coded by who he's staying with.</p>
+  <div class="cal-legend" id="calLegend"></div>
+  <div class="cal-months" id="calMonths"></div>
+</section>
+
+<section id="guide">
+  <div class="section-label">Step 4</div>
+  <h2>Paris Sightseeing Guide</h2>
+  <p class="section-intro">He's already seen the Eiffel Tower, La Défense, the Bateau Mouche cruise and the Champs-Élysées.
+  Here are fresh places to make this visit even more memorable — filter by type below.</p>
+  <div class="filter-bar" id="filterBar"></div>
+  <div class="card-grid" id="placeGrid"></div>
+</section>
+
+<section id="itinerary">
+  <div class="section-label">Step 5</div>
+  <h2>Suggested Day-by-Day Plan</h2>
+  <p class="section-intro">Auto-generated from your Paris stay length: a settle-in rest week, then sightseeing days
+  alternated with rest days so it stays comfortable and unhurried.</p>
+  <div id="itineraryContainer"></div>
+</section>
+
+<section id="gallery">
+  <div class="section-label">Step 6</div>
+  <h2>Photo Gallery</h2>
+  <p class="section-intro">Drop real photos into the <code>/images</code> folder using the filenames below and they'll
+  appear automatically — until then, placeholder icons are shown.</p>
+  <div class="gallery-tabs">
+    <button class="active" data-tab="new">New Places to Visit</button>
+    <button data-tab="visited">Already Visited</button>
+  </div>
+  <div class="gallery-grid" id="galleryGrid"></div>
+</section>
+
+<section id="approval">
+  <div class="section-label">Step 7</div>
+  <h2>Family Approval</h2>
+  <p class="section-intro">Rate the plan and mark your approval. Saved on this device/browser.
+  <em>Note: since this is a simple offline page, approvals don't sync automatically between different phones —
+  each person approves on the device they're viewing from, or you can share a screenshot.</em></p>
+  <div class="approval-grid" id="approvalGrid"></div>
+  <div class="overall-approval" id="overallApproval"></div>
+</section>
+
+<footer>
+  <div class="flag-stripe">
+    <span class="fr1"></span><span class="fr2"></span><span class="fr3"></span>
+    <span class="de1"></span><span class="de2"></span><span class="de3"></span>
+  </div>
+  <p id="footerStats">Loading trip summary…</p>
+  <p>Made with love for Abu's big Europe adventure ✈️</p>
+</footer>
+
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose">&times;</button>
+  <div class="lightbox-content">
+    <div class="lightbox-media" id="lightboxMedia"></div>
+    <h3 id="lightboxTitle"></h3>
+    <p id="lightboxDesc"></p>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
