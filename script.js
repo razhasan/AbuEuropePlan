@@ -260,6 +260,125 @@
       modal_remove_btn: 'تصویر ہٹائیں', modal_save_btn: 'محفوظ کریں',
       modal_no_image: 'کوئی تصویر مقرر نہیں — {emoji} نمائندہ نشان دکھایا جا رہا ہے۔',
       modal_no_image_alert: 'براہ کرم پہلے تصویر کا لنک چسپاں کریں یا ڈیوائس سے تصویر منتخب کریں۔'
+    },
+    fr: {
+      page_title: "Voyage d'Abu en Europe · Août – Oct 2026",
+      nav_brand: "🧳 Le Voyage d'Abu en Europe",
+      nav_planner: 'Planificateur', nav_timeline: 'Chronologie', nav_calendar: 'Calendrier', nav_guide: 'Guide de Paris',
+      nav_dayplan: 'Programme du Jour', nav_gallery: 'Galerie', nav_souvenirs: 'Souvenirs', nav_approval: 'Approbation',
+
+      hero_title: "Voyage d'Abu en Europe",
+      hero_subtitle_html: 'Cologne Bonn → Bonn (Busrah) → Verneuil-en-Halatte, Paris (chez nous) → Stuttgart (Abdullah) → Bonn (Busrah) → retour à la maison.<br>10 août – 19 octobre 2026',
+      cd_days: 'Jours', cd_hours: 'Heures', cd_mins: 'Minutes', cd_secs: 'Secondes',
+      route_stops: ['Aéroport de Cologne', 'Bonn (Busrah)', 'Paris (Vous)', 'Stuttgart (Abdullah)', 'Bonn (Busrah)', 'Vol de retour'],
+      user_guide_btn: "📄 Guide d'utilisation (PDF)",
+
+      step1: 'Étape 1', step2: 'Étape 2', step3: 'Étape 3', step4: 'Étape 4', step5: 'Étape 5', step6: 'Étape 6', step7: 'Étape 7', step8: 'Étape 8',
+
+      planner_h2: 'Planificateur de Durée du Voyage',
+      planner_intro: "L'atterrissage (10 août, 18h10) et le vol de retour (19 octobre, 19h00) sont fixes — soit exactement 10 semaines. Une semaine avec Abdullah à Stuttgart est fixe aussi. Faites glisser les curseurs ci-dessous pour répartir les 9 semaines restantes entre le premier séjour de Busrah, votre séjour à Paris, et le séjour final de Busrah — chaque date sur cette page se met à jour instantanément.",
+      planner_field_sisterFirst_label: "Bonn — Séjour à l'arrivée (Busrah)",
+      planner_field_sisterFirst_hint: "Juste après l'atterrissage, avant de partir pour Paris",
+      planner_field_withYou_label: 'Paris / Verneuil-en-Halatte (Vous)',
+      planner_field_withYou_hint: 'Semaine de repos + visites',
+      planner_field_Abdullah_label: 'Stuttgart — Abdullah',
+      planner_field_Abdullah_value: '1 semaine',
+      planner_field_Abdullah_hint: 'Fixé comme demandé',
+      planner_field_sisterFinal_label: 'Bonn — Séjour final (Busrah)',
+      planner_field_sisterFinal_hint: "Jusqu'au vol de retour du 19 octobre",
+      week_singular: 'semaine', week_plural: 'semaines',
+      planner_status_ok: '✓ Correspond parfaitement au vol de retour du 19 octobre ({weeks} semaines au total).',
+      planner_status_over: "⚠ Cette combinaison dépasse le vol de retour du 19 octobre de {days} jour(s). Réduisez l'une des durées ci-dessus.",
+      planner_status_under: '⚠ Cette combinaison se termine {days} jour(s) avant le vol de retour du 19 octobre. Ajoutez plus de jours ci-dessus.',
+      planner_sum_total: 'Semaines totales', planner_sum_days: 'Jours totaux', planner_sum_sister: 'Semaines avec Busrah',
+      planner_sum_you: 'Semaines avec vous', planner_sum_end: 'Retour calculé',
+
+      timeline_h2: 'Chronologie Interactive',
+      timeline_intro: 'Cliquez sur une étape pour voir les détails. Les dates se recalculent en direct depuis le planificateur ci-dessus.',
+      leg_sisterFirst_name: "Bonn — Séjour à l'arrivée avec Busrah",
+      leg_sisterFirst_detail: "Atterrissage à l'aéroport de Cologne-Bonn à 18h10 le {date}, accueil par Busrah. Repos avant le voyage vers Paris.",
+      leg_withYou_name: 'Paris / Verneuil-en-Halatte — avec vous',
+      leg_withYou_detail: "Voyage en train de Bonn à Paris (voiture en option), accueil par vous. Première semaine de repos, puis visites de Paris — voir la section Programme du Jour ci-dessous.",
+      leg_Abdullah_name: 'Stuttgart — avec Abdullah',
+      leg_Abdullah_detail: 'Voyage en train de Paris à Stuttgart. Une semaine de séjour avec Abdullah.',
+      leg_sisterFinal_name: 'Bonn — Séjour final avec Busrah',
+      leg_sisterFinal_detail: 'Retour à Bonn en train depuis Stuttgart. Dernière étape avant le vol de retour le {date} à 19h00.',
+
+      calendar_h2: 'Vue du Calendrier Complet',
+      calendar_intro: "Août, septembre et octobre 2026 en un coup d'œil, avec des couleurs selon la personne chez qui il séjourne.",
+      month_names: ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
+      dow_short: ['L','M','M','J','V','S','D'],
+
+      guide_h2: 'Guide Touristique de Paris',
+      guide_intro: "Il a déjà vu la Tour Eiffel, La Défense, la croisière en Bateau Mouche, les Champs-Élysées, l'Arc de Triomphe et les jardins du Trocadéro. Voici de nouveaux endroits pour rendre cette visite encore plus mémorable — filtrez par type ci-dessous.",
+      cat_all: 'Tout', cat_culture: 'Culture', cat_view: 'Vues', cat_museum: 'Musées', cat_walk: 'Promenades Faciles', cat_daytrip: 'Excursion',
+      badge_new: 'Nouveau', badge_revisit: 'À Revoir',
+      add_photo_btn: '+ Ajouter une Photo', edit_photo_btn: '✎ Modifier la Photo', edit_btn_short: '✎ Modifier',
+      no_places_msg: 'Aucun lieu dans cette catégorie.',
+      add_place_btn: '+ Ajouter un Lieu',
+      add_place_title: 'Ajouter un Lieu',
+      add_place_name_label: 'Nom',
+      add_place_status_label: 'Statut',
+      add_place_status_new: 'À Visiter',
+      add_place_status_visited: 'Déjà Visité',
+      add_place_category_label: 'Catégorie',
+      add_place_desc_label: 'Description (facultatif)',
+      add_place_duration_label: 'Durée (facultatif)',
+      add_place_best_label: 'Meilleur moment (facultatif)',
+      add_place_photo_label: 'Photo (facultatif)',
+      add_place_save_btn: 'Enregistrer le Lieu',
+      add_place_cancel_btn: 'Annuler',
+      add_place_name_required_alert: 'Veuillez entrer un nom pour ce lieu.',
+      delete_place_title: 'Supprimer ce lieu',
+      confirm_delete_place: "Supprimer cette carte de lieu ? Cela n'affecte que cet appareil.",
+
+      dayplan_h2: 'Programme Jour par Jour Suggéré',
+      dayplan_intro: "Généré automatiquement selon la durée de votre séjour à Paris : une semaine de repos pour s'installer, puis des jours de visites alternés avec des jours de repos pour que ce soit confortable et sans précipitation.",
+      day_arrival: 'Arrivée chez vous — dîner de bienvenue, aucun programme, juste du temps en famille.',
+      day_rest_recover: 'Jour de repos — récupérer du voyage, se promener dans le quartier, repas faits maison.',
+      day_free: "Jour libre — revisite facultative d'un endroit préféré, shopping, ou simplement se détendre à la maison.",
+      day_rest_between: 'Jour de repos entre les sorties — garder un rythme confortable.',
+      outing_template: '{emoji} Visite de <strong>{name}</strong> — {desc} (Meilleur moment : {best}, ~{duration}).',
+      tag_outing: 'Sortie', tag_rest: 'Repos',
+      day_label: 'Jour {n}',
+      increase_duration_msg: 'Augmentez la durée de "Paris / Verneuil-en-Halatte" dans le planificateur pour générer un programme.',
+
+      gallery_h2: 'Galerie Photo',
+      gallery_intro_html: "Déposez de vraies photos dans le dossier <code>/images</code> en utilisant les noms de fichiers ci-dessous et elles apparaîtront automatiquement — en attendant, des icônes provisoires sont affichées.",
+      tab_new: 'Nouveaux Lieux à Visiter', tab_visited: 'Déjà Visités',
+
+      souvenirs_h2: 'Souvenirs',
+      souvenirs_static_h3: 'Photos de Souvenirs Permanentes',
+      souvenirs_static_intro_html: 'Ajoutées directement dans le dossier <code>images/souvenirs</code> du dépôt GitHub — visibles pour tous les visiteurs du site.',
+      souvenirs_static_empty: "Aucune photo de souvenir permanente pour l'instant — ajoutez des fichiers nommés souvenir1.jpg, souvenir2.jpg, etc. dans images/souvenirs sur GitHub pour les voir ici.",
+      souvenirs_personal_h3: 'Vos Propres Ajouts (cet appareil uniquement)',
+      souvenirs_intro: 'Un endroit pour garder une trace photo des souvenirs récupérés en chemin — une catégorie par lieu ou thème (ex. "Tour Eiffel", "Jardin"), avec autant de photos que vous le souhaitez dans chacune. Enregistré directement sur cet appareil, comme un dossier média WhatsApp.',
+      add_category_btn: '+ Ajouter une Catégorie', export_backup_btn: '⬇ Exporter la Sauvegarde', import_backup_btn: '⬆ Importer une Sauvegarde',
+      souvenir_empty: 'Aucune catégorie pour l\'instant — cliquez sur "+ Ajouter une Catégorie" ci-dessus pour commencer une trace photo (ex. "Tour Eiffel", "Jardin").',
+      souvenir_add_photo: '+ Ajouter une Photo',
+      category_prompt: 'Nom de la catégorie (ex. "Tour Eiffel", "Jardin") :',
+      caption_prompt: 'Légende facultative pour cette photo (laissez vide pour ignorer) :',
+      confirm_delete_category: 'Supprimer toute cette catégorie et ses photos ?',
+      delete_category_title: 'Supprimer la catégorie', delete_photo_title: 'Supprimer la photo',
+      backup_restored_alert: 'Sauvegarde restaurée avec succès.',
+      backup_invalid_alert: "Impossible de lire ce fichier de sauvegarde — assurez-vous qu'il s'agit d'un export de cette page.",
+
+      approval_h2: 'Approbation Familiale',
+      approval_intro_html: "Notez le plan et donnez votre approbation. Enregistré sur cet appareil/navigateur. <em>Remarque : comme il s'agit d'une simple page hors ligne, les approbations ne se synchronisent pas automatiquement entre les téléphones — chaque personne approuve depuis l'appareil qu'elle utilise, ou vous pouvez partager une capture d'écran.</em>",
+      person_you: 'Vous', person_busrah: 'Busrah', person_Abdullah: 'Abdullah',
+      approve_btn: 'Approuver le Plan', approved_btn: '✓ Approuvé', saved_device_note: 'Enregistré sur cet appareil uniquement',
+      overall_all_approved: '🎉 Tout le monde a approuvé le plan !',
+      overall_partial: "{count} membres de la famille sur {total} ont approuvé jusqu'à présent.",
+
+      footer_stats: '{days} jours à travers 3 villes (Bonn, Paris/Verneuil-en-Halatte, Stuttgart) · {sisterWeeks} semaines avec Busrah · {youWeeks} semaines avec vous · {AbdullahWeeks} semaine avec Abdullah.',
+      footer_tagline: "Réalisé avec amour pour la grande aventure européenne d'Abu ✈️",
+
+      modal_title_default: 'Ajouter une Image', modal_title_for: 'Photo pour {name}',
+      modal_tab_url: 'Coller un Lien', modal_tab_file: "Télécharger depuis l'Appareil",
+      modal_file_drop_text: 'Appuyez pour choisir une photo depuis votre appareil',
+      modal_remove_btn: "Supprimer l'Image", modal_save_btn: 'Enregistrer',
+      modal_no_image: 'Aucune image définie — le symbole {emoji} est affiché.',
+      modal_no_image_alert: "Veuillez coller un lien d'image ou choisir une photo depuis votre appareil d'abord."
     }
   };
 
@@ -296,11 +415,12 @@
 
   function setLang(lang) {
     LANG = lang;
-    document.documentElement.setAttribute('lang', lang === 'ur' ? 'ur' : 'en');
+    document.documentElement.setAttribute('lang', lang);
     document.documentElement.setAttribute('dir', lang === 'ur' ? 'rtl' : 'ltr');
     document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
-    document.getElementById('userGuideBtnEn').style.display = lang === 'ur' ? 'none' : 'inline-block';
+    document.getElementById('userGuideBtnEn').style.display = lang === 'en' ? 'inline-block' : 'none';
     document.getElementById('userGuideBtnUr').style.display = lang === 'ur' ? 'inline-block' : 'none';
+    document.getElementById('userGuideBtnFr').style.display = lang === 'fr' ? 'inline-block' : 'none';
     applyStaticTranslations();
     renderEverything();
   }
@@ -316,72 +436,86 @@
     { id: 'eiffel', visited: true, category: 'view', emoji: '🗼', img: 'images/eiffel-tower.jpg',
       i18n: {
         en: { name: 'Eiffel Tower', desc: 'Already visited — a great spot to revisit at night when it sparkles on the hour.', duration: '2-3 hrs', best: 'Evening' },
-        ur: { name: 'ایفل ٹاور', desc: 'پہلے دیکھا جا چکا ہے — رات کو جب یہ ہر گھنٹے چمکتا ہے تو دوبارہ دیکھنے کی بہترین جگہ۔', duration: '2-3 گھنٹے', best: 'شام' }
+        ur: { name: 'ایفل ٹاور', desc: 'پہلے دیکھا جا چکا ہے — رات کو جب یہ ہر گھنٹے چمکتا ہے تو دوبارہ دیکھنے کی بہترین جگہ۔', duration: '2-3 گھنٹے', best: 'شام' },
+        fr: { name: 'Tour Eiffel', desc: 'Déjà visitée — un excellent endroit à revoir la nuit quand elle scintille à chaque heure.', duration: '2-3 h', best: 'Soir' }
       } },
     { id: 'ladefense', visited: true, category: 'walk', emoji: '🏙️', img: 'images/la-defense.jpg',
       i18n: {
         en: { name: 'La Défense', desc: "Already visited — Paris's modern skyline and the Grande Arche.", duration: '2 hrs', best: 'Afternoon' },
-        ur: { name: 'لا ڈیفانس', desc: 'پہلے دیکھا جا چکا ہے — پیرس کی جدید عمارتیں اور گرینڈ آرش۔', duration: '2 گھنٹے', best: 'دوپہر' }
+        ur: { name: 'لا ڈیفانس', desc: 'پہلے دیکھا جا چکا ہے — پیرس کی جدید عمارتیں اور گرینڈ آرش۔', duration: '2 گھنٹے', best: 'دوپہر' },
+        fr: { name: 'La Défense', desc: 'Déjà visitée — les gratte-ciels modernes de Paris et la Grande Arche.', duration: '2 h', best: 'Après-midi' }
       } },
     { id: 'bateaumouche', visited: true, category: 'view', emoji: '🚤', img: 'images/bateau-mouche.jpg',
       i18n: {
         en: { name: 'Bateau Mouche (Seine Cruise)', desc: "Already visited — the classic river cruise past Paris's landmarks.", duration: '1 hr', best: 'Evening' },
-        ur: { name: 'باتو موش (دریائے سین کروز)', desc: 'پہلے دیکھا جا چکا ہے — پیرس کے مشہور مقامات کے پاس سے کلاسیکی دریائی کروز۔', duration: '1 گھنٹہ', best: 'شام' }
+        ur: { name: 'باتو موش (دریائے سین کروز)', desc: 'پہلے دیکھا جا چکا ہے — پیرس کے مشہور مقامات کے پاس سے کلاسیکی دریائی کروز۔', duration: '1 گھنٹہ', best: 'شام' },
+        fr: { name: 'Bateau Mouche (Croisière sur la Seine)', desc: 'Déjà visité — la croisière classique sur la Seine devant les monuments de Paris.', duration: '1 h', best: 'Soir' }
       } },
     { id: 'champs', visited: true, category: 'walk', emoji: '🛍️', img: 'images/champs-elysees.jpg',
       i18n: {
         en: { name: 'Champs-Élysées', desc: 'Already visited — the grand avenue of shops and cafés.', duration: '2 hrs', best: 'Afternoon' },
-        ur: { name: 'شانزے لیزے', desc: 'پہلے دیکھا جا چکا ہے — دکانوں اور کیفوں کی شاندار سڑک۔', duration: '2 گھنٹے', best: 'دوپہر' }
+        ur: { name: 'شانزے لیزے', desc: 'پہلے دیکھا جا چکا ہے — دکانوں اور کیفوں کی شاندار سڑک۔', duration: '2 گھنٹے', best: 'دوپہر' },
+        fr: { name: 'Champs-Élysées', desc: 'Déjà visités — la grande avenue des boutiques et cafés.', duration: '2 h', best: 'Après-midi' }
       } },
     { id: 'sacrecoeur', visited: false, category: 'culture', emoji: '⛪', img: 'images/sacre-coeur.jpg',
       i18n: {
         en: { name: 'Sacré-Cœur & Montmartre', desc: "A hilltop basilica with the best panoramic view of Paris, plus the artists' square of Montmartre.", duration: '3 hrs', best: 'Morning' },
-        ur: { name: 'ساکرے کور اور مونمارتغ', desc: 'پہاڑی پر واقع گرجا گھر جہاں سے پیرس کا بہترین نظارہ ملتا ہے، ساتھ ہی مونمارتغ کا مصوروں کا چوک۔', duration: '3 گھنٹے', best: 'صبح' }
+        ur: { name: 'ساکرے کور اور مونمارتغ', desc: 'پہاڑی پر واقع گرجا گھر جہاں سے پیرس کا بہترین نظارہ ملتا ہے، ساتھ ہی مونمارتغ کا مصوروں کا چوک۔', duration: '3 گھنٹے', best: 'صبح' },
+        fr: { name: 'Sacré-Cœur & Montmartre', desc: "Une basilique en haut d'une colline avec la meilleure vue panoramique de Paris, ainsi que la place des artistes de Montmartre.", duration: '3 h', best: 'Matin' }
       } },
     { id: 'notredame', visited: false, category: 'culture', emoji: '🕍', img: 'images/notre-dame.jpg',
       i18n: {
         en: { name: 'Notre-Dame & Sainte-Chapelle', desc: 'The newly reopened cathedral and the jewel-box stained-glass chapel nearby on Île de la Cité.', duration: '2-3 hrs', best: 'Morning' },
-        ur: { name: 'نوتردام اور سینت شاپیل', desc: 'نئے سرے سے کھلنے والا مشہور گرجا گھر اور اس کے قریب رنگین شیشوں والا خوبصورت چیپل۔', duration: '2-3 گھنٹے', best: 'صبح' }
+        ur: { name: 'نوتردام اور سینت شاپیل', desc: 'نئے سرے سے کھلنے والا مشہور گرجا گھر اور اس کے قریب رنگین شیشوں والا خوبصورت چیپل۔', duration: '2-3 گھنٹے', best: 'صبح' },
+        fr: { name: 'Notre-Dame & Sainte-Chapelle', desc: "La cathédrale récemment rouverte et la chapelle aux vitraux joyaux tout près, sur l'Île de la Cité.", duration: '2-3 h', best: 'Matin' }
       } },
     { id: 'arc', visited: true, category: 'view', emoji: '🏛️', img: 'images/arc-de-triomphe.jpg',
       i18n: {
         en: { name: 'Arc de Triomphe', desc: 'Already visited — the rooftop view straight down the Champs-Élysées.', duration: '1-2 hrs', best: 'Late afternoon' },
-        ur: { name: 'آرک دی تریومف', desc: 'پہلے دیکھا جا چکا ہے — چھت سے سیدھا شانزے لیزے کا خوبصورت نظارہ۔', duration: '1-2 گھنٹے', best: 'سہ پہر' }
+        ur: { name: 'آرک دی تریومف', desc: 'پہلے دیکھا جا چکا ہے — چھت سے سیدھا شانزے لیزے کا خوبصورت نظارہ۔', duration: '1-2 گھنٹے', best: 'سہ پہر' },
+        fr: { name: 'Arc de Triomphe', desc: 'Déjà visité — la vue depuis le toit tout droit sur les Champs-Élysées.', duration: '1-2 h', best: "Fin d'après-midi" }
       } },
     { id: 'trocadero', visited: true, category: 'view', emoji: '🌳', img: 'images/trocadero.jpg',
       i18n: {
         en: { name: 'Trocadéro Gardens', desc: 'Already visited — the postcard view of the Eiffel Tower from across the river.', duration: '1 hr', best: 'Golden hour' },
-        ur: { name: 'تروکادیرو باغات', desc: 'پہلے دیکھا جا چکا ہے — دریا کے پار سے ایفل ٹاور کا خوبصورت نظارہ۔', duration: '1 گھنٹہ', best: 'غروب آفتاب کے قریب' }
+        ur: { name: 'تروکادیرو باغات', desc: 'پہلے دیکھا جا چکا ہے — دریا کے پار سے ایفل ٹاور کا خوبصورت نظارہ۔', duration: '1 گھنٹہ', best: 'غروب آفتاب کے قریب' },
+        fr: { name: 'Jardins du Trocadéro', desc: "Déjà visités — la vue carte postale de la Tour Eiffel depuis l'autre côté de la rivière.", duration: '1 h', best: 'Heure dorée' }
       } },
     { id: 'louvre', visited: false, category: 'museum', emoji: '🖼️', img: 'images/louvre.jpg',
       i18n: {
         en: { name: 'Louvre Museum', desc: "The world's most famous museum — even a short visit to see the Mona Lisa and the glass pyramid is memorable.", duration: '3-4 hrs', best: 'Morning' },
-        ur: { name: 'لوور میوزیم', desc: 'دنیا کا مشہور ترین عجائب گھر — مونا لیزا اور شیشے کے اہرام کو دیکھنے کے لیے مختصر وزٹ بھی یادگار ہے۔', duration: '3-4 گھنٹے', best: 'صبح' }
+        ur: { name: 'لوور میوزیم', desc: 'دنیا کا مشہور ترین عجائب گھر — مونا لیزا اور شیشے کے اہرام کو دیکھنے کے لیے مختصر وزٹ بھی یادگار ہے۔', duration: '3-4 گھنٹے', best: 'صبح' },
+        fr: { name: 'Musée du Louvre', desc: 'Le musée le plus célèbre au monde — même une courte visite pour voir la Joconde et la pyramide de verre est mémorable.', duration: '3-4 h', best: 'Matin' }
       } },
     { id: 'orsay', visited: false, category: 'museum', emoji: '🎨', img: 'images/orsay.jpg',
       i18n: {
         en: { name: "Musée d'Orsay", desc: 'A grand former railway station full of Impressionist masterpieces — smaller and calmer than the Louvre.', duration: '2-3 hrs', best: 'Morning' },
-        ur: { name: 'میوزے دورسے', desc: 'ایک سابقہ ریلوے اسٹیشن جو تاثراتی فن پاروں سے بھرا ہوا ہے — لوور کے مقابلے میں چھوٹا اور پرسکون۔', duration: '2-3 گھنٹے', best: 'صبح' }
+        ur: { name: 'میوزے دورسے', desc: 'ایک سابقہ ریلوے اسٹیشن جو تاثراتی فن پاروں سے بھرا ہوا ہے — لوور کے مقابلے میں چھوٹا اور پرسکون۔', duration: '2-3 گھنٹے', best: 'صبح' },
+        fr: { name: "Musée d'Orsay", desc: "Une ancienne gare grandiose remplie de chefs-d'œuvre impressionnistes — plus petit et plus calme que le Louvre.", duration: '2-3 h', best: 'Matin' }
       } },
     { id: 'latin', visited: false, category: 'culture', emoji: '📚', img: 'images/latin-quarter.jpg',
       i18n: {
         en: { name: 'Latin Quarter & Panthéon', desc: "Historic student quarter, narrow streets, and the domed Panthéon resting place of France's great figures.", duration: '2-3 hrs', best: 'Afternoon' },
-        ur: { name: 'لاطینی محلہ اور پینتھیون', desc: 'طلبہ کا تاریخی علاقہ، تنگ گلیاں، اور گنبد والا پینتھیون جہاں فرانس کی عظیم شخصیات آرام فرما ہیں۔', duration: '2-3 گھنٹے', best: 'دوپہر' }
+        ur: { name: 'لاطینی محلہ اور پینتھیون', desc: 'طلبہ کا تاریخی علاقہ، تنگ گلیاں، اور گنبد والا پینتھیون جہاں فرانس کی عظیم شخصیات آرام فرما ہیں۔', duration: '2-3 گھنٹے', best: 'دوپہر' },
+        fr: { name: 'Quartier Latin & Panthéon', desc: "Quartier étudiant historique, rues étroites, et le Panthéon à coupole où reposent les grandes figures de France.", duration: '2-3 h', best: 'Après-midi' }
       } },
     { id: 'luxembourg', visited: false, category: 'walk', emoji: '🌷', img: 'images/luxembourg-gardens.jpg',
       i18n: {
         en: { name: 'Luxembourg Gardens', desc: 'A gentle, beautiful park to relax in — fountains, tree-lined paths, easy on the legs.', duration: '1-2 hrs', best: 'Late morning' },
-        ur: { name: 'لکسمبرگ باغات', desc: 'آرام کرنے کے لیے ایک خوبصورت اور پرسکون باغ — فوارے، درختوں والے راستے، چلنے میں آسان۔', duration: '1-2 گھنٹے', best: 'دیر صبح' }
+        ur: { name: 'لکسمبرگ باغات', desc: 'آرام کرنے کے لیے ایک خوبصورت اور پرسکون باغ — فوارے، درختوں والے راستے، چلنے میں آسان۔', duration: '1-2 گھنٹے', best: 'دیر صبح' },
+        fr: { name: 'Jardin du Luxembourg', desc: "Un parc paisible et magnifique pour se détendre — fontaines, allées bordées d'arbres, facile pour les jambes.", duration: '1-2 h', best: 'Fin de matinée' }
       } },
     { id: 'versailles', visited: false, category: 'daytrip', emoji: '👑', img: 'images/versailles.jpg',
       i18n: {
         en: { name: 'Palace of Versailles', desc: 'A full day trip to the opulent royal palace and gardens just outside Paris — book ahead, wear comfortable shoes.', duration: 'Full day', best: 'Early morning start' },
-        ur: { name: 'محل ورسائی', desc: 'پیرس کے قریب شاہی محل اور باغات کا مکمل دن کا سفر — پہلے سے بکنگ کریں اور آرام دہ جوتے پہنیں۔', duration: 'پورا دن', best: 'صبح سویرے آغاز' }
+        ur: { name: 'محل ورسائی', desc: 'پیرس کے قریب شاہی محل اور باغات کا مکمل دن کا سفر — پہلے سے بکنگ کریں اور آرام دہ جوتے پہنیں۔', duration: 'پورا دن', best: 'صبح سویرے آغاز' },
+        fr: { name: 'Château de Versailles', desc: "Une excursion d'une journée complète vers le somptueux palais royal et ses jardins juste à l'extérieur de Paris — réservez à l'avance, portez des chaussures confortables.", duration: 'Journée complète', best: 'Départ tôt le matin' }
       } },
     { id: 'chantilly', visited: false, category: 'daytrip', emoji: '🏰', img: 'images/chantilly.jpg',
       i18n: {
         en: { name: 'Château de Chantilly', desc: 'A fairy-tale castle by a lake with beautiful gardens and a famous horse museum — being close to Verneuil-en-Halatte, it makes for an easy, relaxed day trip.', duration: 'Half day', best: 'Morning' },
-        ur: { name: 'شاتو دی شانتیی', desc: 'جھیل کنارے ایک پریوں کی کہانی جیسا محل، خوبصورت باغات اور گھوڑوں کا مشہور عجائب گھر — ورنوے آں ہالات کے قریب ہونے کی وجہ سے ایک آسان اور آرام دہ دن کا سفر۔', duration: 'آدھا دن', best: 'صبح' }
+        ur: { name: 'شاتو دی شانتیی', desc: 'جھیل کنارے ایک پریوں کی کہانی جیسا محل، خوبصورت باغات اور گھوڑوں کا مشہور عجائب گھر — ورنوے آں ہالات کے قریب ہونے کی وجہ سے ایک آسان اور آرام دہ دن کا سفر۔', duration: 'آدھا دن', best: 'صبح' },
+        fr: { name: 'Château de Chantilly', desc: "Un château de conte de fées au bord d'un lac avec de beaux jardins et un célèbre musée du cheval — étant proche de Verneuil-en-Halatte, c'est une excursion facile et détendue.", duration: 'Demi-journée', best: 'Matin' }
       } }
   ];
 
@@ -427,7 +561,7 @@
     const o = { day: 'numeric', month: 'short' };
     if (withWeekday) o.weekday = 'short';
     if (withYear) o.year = 'numeric';
-    return date.toLocaleDateString('en-GB', o);
+    return date.toLocaleDateString(LANG === 'fr' ? 'fr-FR' : 'en-GB', o);
   }
   function fmt(date) {
     return formatDate(date, { weekday: true, year: true });
