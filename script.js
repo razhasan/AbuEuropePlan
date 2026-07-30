@@ -189,7 +189,7 @@
     container.innerHTML = legs.map((leg, i) => `
       <div class="tl-item">
         <div class="tl-dot" style="border-color:${leg.color}"></div>
-        <div class="tl-card" data-idx="${i}">
+        <div class="tl-card" data-idx="${i}" style="border-left-color:${leg.color}">
           <span class="chevron">▾</span>
           <h4>${leg.name}</h4>
           <div class="tl-dates">${fmt(leg.start)} → ${fmt(leg.end)}</div>
@@ -240,8 +240,9 @@
       cells += `<div class="cal-day${isToday ? ' today' : ''}" style="background:${bg};${border}" title="${leg ? leg.name : ''}">${d}</div>`;
     }
 
+    const monthAccent = ['#1E88E5', '#7C4DFF', '#FFC93C'][month % 3];
     return `
-      <div class="cal-month">
+      <div class="cal-month" style="border-top-color:${monthAccent}">
         <h4>${monthNames[month]} ${year}</h4>
         <div class="cal-grid">
           ${['M','T','W','T','F','S','S'].map(d => `<div class="dow">${d}</div>`).join('')}
