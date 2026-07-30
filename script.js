@@ -76,6 +76,22 @@
       badge_new: 'New', badge_revisit: 'Revisit',
       add_photo_btn: '+ Add Photo', edit_photo_btn: '✎ Edit Photo', edit_btn_short: '✎ Edit',
       no_places_msg: 'No places in this category.',
+      add_place_btn: '+ Add Place',
+      add_place_title: 'Add a Place',
+      add_place_name_label: 'Name',
+      add_place_status_label: 'Status',
+      add_place_status_new: 'New to Visit',
+      add_place_status_visited: 'Already Visited',
+      add_place_category_label: 'Category',
+      add_place_desc_label: 'Description (optional)',
+      add_place_duration_label: 'Duration (optional)',
+      add_place_best_label: 'Best time (optional)',
+      add_place_photo_label: 'Photo (optional)',
+      add_place_save_btn: 'Save Place',
+      add_place_cancel_btn: 'Cancel',
+      add_place_name_required_alert: 'Please enter a name for the place.',
+      delete_place_title: 'Delete this place',
+      confirm_delete_place: 'Delete this place card? This only affects this device.',
 
       dayplan_h2: 'Suggested Day-by-Day Plan',
       dayplan_intro: 'Auto-generated from your Paris stay length: a settle-in rest week, then sightseeing days alternated with rest days so it stays comfortable and unhurried.',
@@ -178,6 +194,22 @@
       badge_new: 'نیا', badge_revisit: 'دوبارہ ملاحظہ',
       add_photo_btn: '+ تصویر شامل کریں', edit_photo_btn: '✎ تصویر میں تبدیلی', edit_btn_short: '✎ ترمیم',
       no_places_msg: 'اس زمرے میں کوئی جگہ نہیں۔',
+      add_place_btn: '+ جگہ شامل کریں',
+      add_place_title: 'جگہ شامل کریں',
+      add_place_name_label: 'نام',
+      add_place_status_label: 'حیثیت',
+      add_place_status_new: 'دیکھنے کے لیے نئی',
+      add_place_status_visited: 'پہلے دیکھی گئی',
+      add_place_category_label: 'قسم',
+      add_place_desc_label: 'تفصیل (اختیاری)',
+      add_place_duration_label: 'دورانیہ (اختیاری)',
+      add_place_best_label: 'بہترین وقت (اختیاری)',
+      add_place_photo_label: 'تصویر (اختیاری)',
+      add_place_save_btn: 'جگہ محفوظ کریں',
+      add_place_cancel_btn: 'منسوخ کریں',
+      add_place_name_required_alert: 'براہ کرم جگہ کا نام درج کریں۔',
+      delete_place_title: 'یہ جگہ حذف کریں',
+      confirm_delete_place: 'کیا یہ جگہ کارڈ حذف کر دیا جائے؟ یہ صرف اسی ڈیوائس پر اثر انداز ہوگا۔',
 
       dayplan_h2: 'تجویز کردہ روزانہ منصوبہ',
       dayplan_intro: 'آپ کے پیرس میں قیام کی مدت کے حساب سے خودکار ترتیب: ابتدائی آرام کا ہفتہ، پھر سیر کے دن آرام کے دنوں کے ساتھ باری باری تاکہ سفر آرام دہ اور بے فکر رہے۔',
@@ -341,6 +373,11 @@
       i18n: {
         en: { name: 'Palace of Versailles', desc: 'A full day trip to the opulent royal palace and gardens just outside Paris — book ahead, wear comfortable shoes.', duration: 'Full day', best: 'Early morning start' },
         ur: { name: 'محل ورسائی', desc: 'پیرس کے قریب شاہی محل اور باغات کا مکمل دن کا سفر — پہلے سے بکنگ کریں اور آرام دہ جوتے پہنیں۔', duration: 'پورا دن', best: 'صبح سویرے آغاز' }
+      } },
+    { id: 'chantilly', visited: false, category: 'daytrip', emoji: '🏰', img: 'images/chantilly.jpg',
+      i18n: {
+        en: { name: 'Château de Chantilly', desc: 'A fairy-tale castle by a lake with beautiful gardens and a famous horse museum — being close to Verneuil-en-Halatte, it makes for an easy, relaxed day trip.', duration: 'Half day', best: 'Morning' },
+        ur: { name: 'شاتو دی شانتیی', desc: 'جھیل کنارے ایک پریوں کی کہانی جیسا محل، خوبصورت باغات اور گھوڑوں کا مشہور عجائب گھر — ورنوے آں ہالات کے قریب ہونے کی وجہ سے ایک آسان اور آرام دہ دن کا سفر۔', duration: 'آدھا دن', best: 'صبح' }
       } }
   ];
 
@@ -350,6 +387,19 @@
 
   const CATEGORY_ORDER = ['all', 'culture', 'view', 'museum', 'walk', 'daytrip'];
   const CATEGORY_KEYS = { all: 'cat_all', culture: 'cat_culture', view: 'cat_view', museum: 'cat_museum', walk: 'cat_walk', daytrip: 'cat_daytrip' };
+
+  /* ===================== CUSTOM PLACES (user-added cards, this device only) ===================== */
+  const CUSTOM_PLACES_KEY = 'europeTripCustomPlaces';
+
+  function loadCustomPlaces() {
+    try { return JSON.parse(localStorage.getItem(CUSTOM_PLACES_KEY)) || []; } catch (e) { return []; }
+  }
+  function saveCustomPlaces(list) {
+    localStorage.setItem(CUSTOM_PLACES_KEY, JSON.stringify(list));
+  }
+  function getAllPlaces() {
+    return PLACES.concat(loadCustomPlaces());
+  }
 
   /* ===================== DATE HELPERS ===================== */
   function addDays(date, days) {
@@ -598,28 +648,49 @@
     });
   }
 
-  function placeMediaHTML(place) {
-    const custom = getCustomImageSrc(place.id);
-    const tr = placeText(place);
-    return `<img src="${custom || place.img}" alt="${tr.name}" loading="lazy"
-      onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-      <span class="emoji-fallback" style="display:none">${place.emoji}</span>
-      <span class="place-badge">${place.visited ? t('badge_revisit') : t('badge_new')}</span>
-      <button type="button" class="media-edit-btn" data-editid="${place.id}">${custom ? t('edit_photo_btn') : t('add_photo_btn')}</button>`;
+  function mediaHTML(src, emoji) {
+    if (src) {
+      return `<img src="${src}" alt="" loading="lazy"
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <span class="emoji-fallback" style="display:none">${emoji}</span>`;
+    }
+    return `<span class="emoji-fallback" style="display:flex">${emoji}</span>`;
   }
 
-  function bindMediaEditButtons(scope) {
+  function placeMediaHTML(place) {
+    const custom = getCustomImageSrc(place.id);
+    const src = custom || place.img;
+    const deleteBtn = place.custom
+      ? `<button type="button" class="place-delete-btn" data-deleteid="${place.id}" title="${t('delete_place_title')}">🗑</button>`
+      : '';
+    return `${mediaHTML(src, place.emoji)}
+      <span class="place-badge">${place.visited ? t('badge_revisit') : t('badge_new')}</span>
+      ${deleteBtn}
+      <button type="button" class="media-edit-btn" data-editid="${place.id}">${custom || (place.custom && place.img) ? t('edit_photo_btn') : t('add_photo_btn')}</button>`;
+  }
+
+  function bindPlaceCardButtons(scope) {
     scope.querySelectorAll('.media-edit-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
         openImageEditModal(btn.dataset.editid);
       });
     });
+    scope.querySelectorAll('.place-delete-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (!confirm(t('confirm_delete_place'))) return;
+        saveCustomPlaces(loadCustomPlaces().filter(p => p.id !== btn.dataset.deleteid));
+        renderPlaceGrid();
+        renderGallery();
+        renderItinerary();
+      });
+    });
   }
 
   function renderPlaceGrid() {
     const grid = document.getElementById('placeGrid');
-    const newPlaces = PLACES.filter(p => !p.visited);
+    const newPlaces = getAllPlaces().filter(p => !p.visited);
     const list = activeFilter === 'all' ? newPlaces : newPlaces.filter(p => p.category === activeFilter);
     grid.innerHTML = list.map(p => {
       const tr = placeText(p);
@@ -635,7 +706,7 @@
       </div>
     `;
     }).join('') || `<p>${t('no_places_msg')}</p>`;
-    bindMediaEditButtons(grid);
+    bindPlaceCardButtons(grid);
   }
 
   /* ===================== DAY-BY-DAY ITINERARY ===================== */
@@ -644,7 +715,7 @@
     const withYouLeg = legs.find(l => l.key === 'withYou');
     const totalDays = Math.round((withYouLeg.end - withYouLeg.start) / 86400000);
     const restDays = Math.min(7, totalDays);
-    const newPlaces = PLACES.filter(p => !p.visited);
+    const newPlaces = getAllPlaces().filter(p => !p.visited);
 
     const container = document.getElementById('itineraryContainer');
     let html = '';
@@ -693,14 +764,18 @@
 
   function renderGallery() {
     const grid = document.getElementById('galleryGrid');
-    const list = PLACES.filter(p => activeGalleryTab === 'new' ? !p.visited : p.visited);
+    const list = getAllPlaces().filter(p => activeGalleryTab === 'new' ? !p.visited : p.visited);
     grid.innerHTML = list.map(p => {
       const custom = getCustomImageSrc(p.id);
+      const src = custom || p.img;
       const tr = placeText(p);
+      const deleteBtn = p.custom
+        ? `<button type="button" class="place-delete-btn" data-deleteid="${p.id}" title="${t('delete_place_title')}">🗑</button>`
+        : '';
       return `
       <div class="gallery-item" data-id="${p.id}">
-        <img src="${custom || p.img}" alt="${tr.name}" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-        <span class="emoji-fallback" style="display:none">${p.emoji}</span>
+        ${mediaHTML(src, p.emoji)}
+        ${deleteBtn}
         <button type="button" class="media-edit-btn" data-editid="${p.id}">${custom ? t('edit_btn_short') : t('add_photo_btn')}</button>
         <div class="cap">${tr.name}</div>
       </div>
@@ -710,7 +785,7 @@
     grid.querySelectorAll('.gallery-item').forEach(item => {
       item.addEventListener('click', () => openLightbox(item.dataset.id));
     });
-    bindMediaEditButtons(grid);
+    bindPlaceCardButtons(grid);
   }
 
   function initGalleryTabs() {
@@ -725,15 +800,14 @@
   }
 
   function openLightbox(id) {
-    const place = PLACES.find(p => p.id === id);
+    const place = getAllPlaces().find(p => p.id === id);
     if (!place) return;
     const tr = placeText(place);
     document.getElementById('lightboxTitle').textContent = tr.name;
     document.getElementById('lightboxDesc').textContent = tr.desc;
     const media = document.getElementById('lightboxMedia');
     const custom = getCustomImageSrc(place.id);
-    media.innerHTML = `<img src="${custom || place.img}" alt="${tr.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-      <span class="emoji-fallback" style="display:none">${place.emoji}</span>`;
+    media.innerHTML = mediaHTML(custom || place.img, place.emoji);
     document.getElementById('lightbox').classList.add('open');
   }
 
@@ -848,13 +922,13 @@
   let pendingFileSrc = null;
 
   function setModalMode(mode) {
-    document.querySelectorAll('.modal-tabs button').forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
+    document.querySelectorAll('#imageEditModal .modal-tabs button').forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
     document.getElementById('imageUrlInput').style.display = mode === 'url' ? 'block' : 'none';
     document.getElementById('imageFileDrop').style.display = mode === 'file' ? 'block' : 'none';
   }
 
   function openImageEditModal(placeId) {
-    const place = PLACES.find(p => p.id === placeId);
+    const place = getAllPlaces().find(p => p.id === placeId);
     if (!place) return;
     const tr = placeText(place);
     currentEditPlaceId = placeId;
@@ -875,7 +949,7 @@
   }
 
   function initImageEditModal() {
-    document.querySelectorAll('.modal-tabs button').forEach(btn => {
+    document.querySelectorAll('#imageEditModal .modal-tabs button').forEach(btn => {
       btn.addEventListener('click', () => setModalMode(btn.dataset.mode));
     });
     document.getElementById('imageFileInput').addEventListener('change', async (e) => {
@@ -885,7 +959,7 @@
       document.getElementById('imageEditPreview').innerHTML = `<img src="${pendingFileSrc}" alt="">`;
     });
     document.getElementById('imageSaveBtn').addEventListener('click', () => {
-      const mode = document.querySelector('.modal-tabs button.active').dataset.mode;
+      const mode = document.querySelector('#imageEditModal .modal-tabs button.active').dataset.mode;
       const src = mode === 'file' ? pendingFileSrc : document.getElementById('imageUrlInput').value.trim();
       if (!src) { alert(t('modal_no_image_alert')); return; }
       const data = loadCustomImages();
@@ -906,6 +980,89 @@
     document.getElementById('imageEditClose').addEventListener('click', closeImageEditModal);
     document.getElementById('imageEditModal').addEventListener('click', (e) => {
       if (e.target.id === 'imageEditModal') closeImageEditModal();
+    });
+  }
+
+  /* ===================== ADD PLACE MODAL (user-added cards, this device only) ===================== */
+  let addPlacePendingFileSrc = null;
+  let addPlaceDefaultVisited = false;
+
+  function populateAddPlaceCategorySelect() {
+    const select = document.getElementById('addPlaceCategory');
+    select.innerHTML = CATEGORY_ORDER.filter(c => c !== 'all')
+      .map(c => `<option value="${c}">${t(CATEGORY_KEYS[c])}</option>`).join('');
+  }
+
+  function setAddPlaceModalMode(mode) {
+    document.querySelectorAll('#addPlaceModal .modal-tabs button').forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
+    document.getElementById('addPlaceUrlInput').style.display = mode === 'url' ? 'block' : 'none';
+    document.getElementById('addPlaceFileDrop').style.display = mode === 'file' ? 'block' : 'none';
+  }
+
+  function openAddPlaceModal(defaultVisited) {
+    addPlaceDefaultVisited = !!defaultVisited;
+    addPlacePendingFileSrc = null;
+    document.getElementById('addPlaceName').value = '';
+    document.getElementById('addPlaceDesc').value = '';
+    document.getElementById('addPlaceDuration').value = '';
+    document.getElementById('addPlaceBest').value = '';
+    document.getElementById('addPlaceUrlInput').value = '';
+    document.getElementById('addPlaceFileInput').value = '';
+    document.getElementById('addPlaceVisited').value = String(addPlaceDefaultVisited);
+    populateAddPlaceCategorySelect();
+    setAddPlaceModalMode('url');
+    document.getElementById('addPlaceModal').classList.add('open');
+  }
+
+  function closeAddPlaceModal() {
+    document.getElementById('addPlaceModal').classList.remove('open');
+  }
+
+  function initAddPlaceModal() {
+    document.getElementById('addPlaceBtnGuide').addEventListener('click', () => openAddPlaceModal(false));
+    document.getElementById('addPlaceBtnGallery').addEventListener('click', () => openAddPlaceModal(activeGalleryTab === 'visited'));
+
+    document.querySelectorAll('#addPlaceModal .modal-tabs button').forEach(btn => {
+      btn.addEventListener('click', () => setAddPlaceModalMode(btn.dataset.mode));
+    });
+    document.getElementById('addPlaceFileInput').addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      addPlacePendingFileSrc = await compressImage(file);
+    });
+
+    document.getElementById('addPlaceSaveBtn').addEventListener('click', () => {
+      const name = document.getElementById('addPlaceName').value.trim();
+      if (!name) { alert(t('add_place_name_required_alert')); return; }
+      const mode = document.querySelector('#addPlaceModal .modal-tabs button.active').dataset.mode;
+      const photo = mode === 'file' ? addPlacePendingFileSrc : document.getElementById('addPlaceUrlInput').value.trim();
+      const desc = document.getElementById('addPlaceDesc').value.trim();
+      const duration = document.getElementById('addPlaceDuration').value.trim();
+      const best = document.getElementById('addPlaceBest').value.trim();
+      const category = document.getElementById('addPlaceCategory').value;
+      const visited = document.getElementById('addPlaceVisited').value === 'true';
+
+      const entry = {
+        id: uid('cp'), custom: true, visited, category, emoji: '📍', img: photo || '',
+        i18n: {
+          en: { name, desc, duration, best },
+          ur: { name, desc, duration, best }
+        }
+      };
+      const list = loadCustomPlaces();
+      list.push(entry);
+      saveCustomPlaces(list);
+      closeAddPlaceModal();
+      renderFilterBar();
+      renderPlaceGrid();
+      renderGallery();
+      renderItinerary();
+    });
+
+    document.getElementById('addPlaceCancelBtn').addEventListener('click', closeAddPlaceModal);
+    document.getElementById('addPlaceClose').addEventListener('click', closeAddPlaceModal);
+    document.getElementById('addPlaceModal').addEventListener('click', (e) => {
+      if (e.target.id === 'addPlaceModal') closeAddPlaceModal();
     });
   }
 
@@ -1137,6 +1294,7 @@
     renderGallery();
     initLightbox();
     initImageEditModal();
+    initAddPlaceModal();
     renderApproval();
     renderStaticSouvenirs();
     initSouvenirs();
