@@ -37,7 +37,7 @@
       step1: 'Step 1', step2: 'Step 2', step3: 'Step 3', step4: 'Step 4', step5: 'Step 5', step6: 'Step 6', step7: 'Step 7', step8: 'Step 8',
 
       planner_h2: 'Trip Duration Planner',
-      planner_intro: "Landing (Aug 10, 18:10) and the return flight (Oct 19, 19:00) are fixed — that's exactly 10 weeks. One week with your Abdullah in Stuttgart is fixed too. Drag the sliders below to divide the remaining 9 weeks between Busrah's first stay, your stay in Paris, and Busrah's final stay — every date on this page updates instantly.",
+      planner_intro: "Landing (Aug 10, 18:10) and the return flight (Oct 19, 19:00) are fixed — that's exactly 10 weeks. One week with Abdullah in Stuttgart is fixed too. Drag the sliders below to divide the remaining 9 weeks between Busrah's first stay, your stay in Paris, and Busrah's final stay — every date on this page updates instantly.",
       planner_field_sisterFirst_label: 'Bonn — Arrival stay (Busrah)',
       planner_field_sisterFirst_hint: 'Right after landing, before heading to Paris',
       planner_field_withYou_label: 'Paris / Verneuil-en-Halatte (You)',
@@ -60,8 +60,8 @@
       leg_sisterFirst_detail: 'Landing at Cologne Bonn Airport at 18:10 on {date}, picked up by Busrah. Rest and settle in before the trip to Paris.',
       leg_withYou_name: 'Paris / Verneuil-en-Halatte — with you',
       leg_withYou_detail: 'Travel by train from Bonn to Paris (car as backup option), picked up by you. First week is rest, then Paris sightseeing — see the Day-by-Day Plan section below.',
-      leg_Abdullah_name: 'Stuttgart — with your Abdullah',
-      leg_Abdullah_detail: 'Travel by train from Paris to Stuttgart. One week staying with your Abdullah.',
+      leg_Abdullah_name: 'Stuttgart — with Abdullah',
+      leg_Abdullah_detail: 'Travel by train from Paris to Stuttgart. One week staying with Abdullah.',
       leg_sisterFinal_name: 'Bonn — Final stay with Busrah',
       leg_sisterFinal_detail: 'Back to Bonn by train from Stuttgart. Final stretch before the return flight home on {date} at 19:00.',
 
