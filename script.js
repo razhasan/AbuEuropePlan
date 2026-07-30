@@ -71,7 +71,7 @@
       dow_short: ['M','T','W','T','F','S','S'],
 
       guide_h2: 'Paris Sightseeing Guide',
-      guide_intro: "He's already seen the Eiffel Tower, La Défense, the Bateau Mouche cruise and the Champs-Élysées. Here are fresh places to make this visit even more memorable — filter by type below.",
+      guide_intro: "He's already seen the Eiffel Tower, La Défense, the Bateau Mouche cruise, the Champs-Élysées, the Arc de Triomphe and Trocadéro Gardens. Here are fresh places to make this visit even more memorable — filter by type below.",
       cat_all: 'All', cat_culture: 'Culture', cat_view: 'Views', cat_museum: 'Museums', cat_walk: 'Easy Walks', cat_daytrip: 'Day Trip',
       badge_new: 'New', badge_revisit: 'Revisit',
       add_photo_btn: '+ Add Photo', edit_photo_btn: '✎ Edit Photo', edit_btn_short: '✎ Edit',
@@ -169,7 +169,7 @@
       dow_short: ['پیر','منگل','بدھ','جمعرات','جمعہ','ہفتہ','اتوار'],
 
       guide_h2: 'پیرس سیر کی گائیڈ',
-      guide_intro: 'وہ پہلے ہی ایفل ٹاور، لا ڈیفانس، باتو موش کروز اور شانزے لیزے دیکھ چکے ہیں۔ اس بار سفر کو مزید یادگار بنانے کے لیے کچھ نئی جگہیں یہ رہیں — نیچے قسم کے مطابق فلٹر کریں۔',
+      guide_intro: 'وہ پہلے ہی ایفل ٹاور، لا ڈیفانس، باتو موش کروز، شانزے لیزے، آرک دی تریومف اور تروکادیرو باغات دیکھ چکے ہیں۔ اس بار سفر کو مزید یادگار بنانے کے لیے کچھ نئی جگہیں یہ رہیں — نیچے قسم کے مطابق فلٹر کریں۔',
       cat_all: 'تمام', cat_culture: 'ثقافت', cat_view: 'نظارے', cat_museum: 'عجائب گھر', cat_walk: 'آسان سیر', cat_daytrip: 'دن کا سفر',
       badge_new: 'نیا', badge_revisit: 'دوبارہ ملاحظہ',
       add_photo_btn: '+ تصویر شامل کریں', edit_photo_btn: '✎ تصویر میں تبدیلی', edit_btn_short: '✎ ترمیم',
@@ -297,15 +297,15 @@
         en: { name: 'Notre-Dame & Sainte-Chapelle', desc: 'The newly reopened cathedral and the jewel-box stained-glass chapel nearby on Île de la Cité.', duration: '2-3 hrs', best: 'Morning' },
         ur: { name: 'نوتردام اور سینت شاپیل', desc: 'نئے سرے سے کھلنے والا مشہور گرجا گھر اور اس کے قریب رنگین شیشوں والا خوبصورت چیپل۔', duration: '2-3 گھنٹے', best: 'صبح' }
       } },
-    { id: 'arc', visited: false, category: 'view', emoji: '🏛️', img: 'images/arc-de-triomphe.jpg',
+    { id: 'arc', visited: true, category: 'view', emoji: '🏛️', img: 'images/arc-de-triomphe.jpg',
       i18n: {
-        en: { name: 'Arc de Triomphe', desc: 'Climb to the rooftop for a view straight down the Champs-Élysées — a nice pairing with his last visit there.', duration: '1-2 hrs', best: 'Late afternoon' },
-        ur: { name: 'آرک دی تریومف', desc: 'چھت پر چڑھ کر سیدھا شانزے لیزے کا نظارہ کریں — ان کی پچھلی وہاں کی سیر کے ساتھ اچھا موافق۔', duration: '1-2 گھنٹے', best: 'سہ پہر' }
+        en: { name: 'Arc de Triomphe', desc: 'Already visited — the rooftop view straight down the Champs-Élysées.', duration: '1-2 hrs', best: 'Late afternoon' },
+        ur: { name: 'آرک دی تریومف', desc: 'پہلے دیکھا جا چکا ہے — چھت سے سیدھا شانزے لیزے کا خوبصورت نظارہ۔', duration: '1-2 گھنٹے', best: 'سہ پہر' }
       } },
-    { id: 'trocadero', visited: false, category: 'view', emoji: '🌳', img: 'images/trocadero.jpg',
+    { id: 'trocadero', visited: true, category: 'view', emoji: '🌳', img: 'images/trocadero.jpg',
       i18n: {
-        en: { name: 'Trocadéro Gardens', desc: 'The postcard view of the Eiffel Tower from across the river — easy walking, lots of benches.', duration: '1 hr', best: 'Golden hour' },
-        ur: { name: 'تروکادیرو باغات', desc: 'دریا کے پار سے ایفل ٹاور کا خوبصورت نظارہ — آسان چہل قدمی، بیٹھنے کے لیے کافی بینچیں۔', duration: '1 گھنٹہ', best: 'غروب آفتاب کے قریب' }
+        en: { name: 'Trocadéro Gardens', desc: 'Already visited — the postcard view of the Eiffel Tower from across the river.', duration: '1 hr', best: 'Golden hour' },
+        ur: { name: 'تروکادیرو باغات', desc: 'پہلے دیکھا جا چکا ہے — دریا کے پار سے ایفل ٹاور کا خوبصورت نظارہ۔', duration: '1 گھنٹہ', best: 'غروب آفتاب کے قریب' }
       } },
     { id: 'louvre', visited: false, category: 'museum', emoji: '🖼️', img: 'images/louvre.jpg',
       i18n: {
