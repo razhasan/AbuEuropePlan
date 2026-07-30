@@ -29,7 +29,7 @@
       nav_planner: 'Planner', nav_timeline: 'Timeline', nav_calendar: 'Calendar', nav_guide: 'Paris Guide',
       nav_dayplan: 'Day Plan', nav_gallery: 'Gallery', nav_souvenirs: 'Souvenirs', nav_approval: 'Approval',
 
-      hero_title: "Abu's Grand Europe Visit",
+      hero_title: "Abu's Europe Visit",
       hero_subtitle_html: 'Cologne Bonn → Bonn (Busrah) → Verneuil-en-Halatte, Paris (us) → Stuttgart (brother) → Bonn (Busrah) → home.<br>10 August – 19 October 2026',
       cd_days: 'Days', cd_hours: 'Hours', cd_mins: 'Minutes', cd_secs: 'Seconds',
       route_stops: ['CGN Airport', 'Bonn (Busrah)', 'Paris (You)', 'Stuttgart (Brother)', 'Bonn (Busrah)', 'Flight Home'],
