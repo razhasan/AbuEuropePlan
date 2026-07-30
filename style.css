@@ -76,12 +76,22 @@ a { color: var(--fr-blue); }
   padding: 14px 24px;
 }
 .nav-brand { font-family: Georgia, serif; font-weight: 700; color: var(--navy); font-size: 1.1rem; }
+.nav-right { display: flex; align-items: center; gap: 18px; }
 .nav-links { display: flex; gap: 22px; list-style: none; margin: 0; padding: 0; }
 .nav-links a {
   text-decoration: none; color: var(--ink); font-size: 0.9rem; font-weight: 600;
   border-bottom: 2px solid transparent; padding-bottom: 3px; transition: border-color .2s, color .2s;
 }
 .nav-links a:hover { color: var(--fr-blue); border-color: var(--de-gold); }
+
+/* ===== Language switch ===== */
+.lang-switch { display: flex; gap: 6px; background: #EAF3FE; padding: 4px; border-radius: 20px; }
+.lang-btn {
+  border: none; background: transparent; padding: 6px 10px; border-radius: 16px; cursor: pointer;
+  font-size: 0.85rem; font-weight: 700; color: var(--navy); transition: all .15s; display: flex; align-items: center; gap: 4px;
+}
+.lang-btn.active { background: linear-gradient(135deg, var(--fr-blue), var(--purple)); color: #fff; box-shadow: var(--shadow); }
+.lang-btn:not(.active):hover { background: rgba(30,136,229,0.15); }
 .nav-toggle { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--navy); }
 
 @media (max-width: 760px) {
@@ -412,3 +422,28 @@ footer p { margin: 4px 0; font-size: 0.85rem; opacity: 0.85; }
   .hero h1 { font-size: 1.8rem; }
   section { padding: 50px 16px; }
 }
+
+/* ===== RTL (Urdu) ===== */
+:root[dir="rtl"] body { font-family: "Noto Nastaliq Urdu", "Jameel Noori Nastaleeq", "Geeza Pro", Tahoma, sans-serif; }
+:root[dir="rtl"] .timeline::before { left: auto; right: 20px; }
+:root[dir="rtl"] .tl-item { padding-left: 0; padding-right: 56px; }
+:root[dir="rtl"] .tl-dot { left: auto; right: 11px; }
+:root[dir="rtl"] .tl-card { border-left: 1px solid var(--line); border-right-width: 5px; border-right-style: solid; }
+:root[dir="rtl"] .tl-card:hover { transform: translateX(-4px); }
+:root[dir="rtl"] .tl-card .chevron { float: left; }
+:root[dir="rtl"] .itin-day { border-left: 1px solid var(--line); border-right: 5px solid var(--de-gold); }
+:root[dir="rtl"] .itin-day:has(.tag.outing) { border-right-color: var(--fr-blue); border-left-color: var(--line); }
+:root[dir="rtl"] .place-badge { right: auto; left: 10px; }
+:root[dir="rtl"] .media-edit-btn { right: auto; left: 8px; }
+:root[dir="rtl"] .souvenir-photo .photo-delete { right: auto; left: 3px; }
+:root[dir="rtl"] .place-body .stats,
+:root[dir="rtl"] .cal-legend,
+:root[dir="rtl"] .planner-summary,
+:root[dir="rtl"] .filter-bar,
+:root[dir="rtl"] .gallery-tabs,
+:root[dir="rtl"] .souvenir-toolbar,
+:root[dir="rtl"] .backup-buttons,
+:root[dir="rtl"] .modal-tabs,
+:root[dir="rtl"] .modal-actions { direction: rtl; }
+:root[dir="rtl"] .lightbox-close,
+:root[dir="rtl"] .modal-close { right: auto; left: 16px; }
