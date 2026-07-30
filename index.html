@@ -112,6 +112,7 @@
   <p class="section-intro" data-i18n="guide_intro">He's already seen the Eiffel Tower, La Défense, the Bateau Mouche cruise, the Champs-Élysées, the Arc de Triomphe and Trocadéro Gardens.
   Here are fresh places to make this visit even more memorable — filter by type below.</p>
   <div class="filter-bar" id="filterBar"></div>
+  <button class="btn-primary add-place-btn" id="addPlaceBtnGuide" data-i18n="add_place_btn">+ Add Place</button>
   <div class="card-grid" id="placeGrid"></div>
 </section>
 
@@ -132,6 +133,7 @@
     <button class="active" data-tab="new" data-i18n="tab_new">New Places to Visit</button>
     <button data-tab="visited" data-i18n="tab_visited">Already Visited</button>
   </div>
+  <button class="btn-primary add-place-btn" id="addPlaceBtnGallery" data-i18n="add_place_btn">+ Add Place</button>
   <div class="gallery-grid" id="galleryGrid"></div>
 </section>
 
@@ -207,6 +209,60 @@
     <div class="modal-actions">
       <button class="danger" id="imageRemoveBtn" data-i18n="modal_remove_btn">Remove Image</button>
       <button class="primary" id="imageSaveBtn" data-i18n="modal_save_btn">Save</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="addPlaceModal">
+  <div class="modal-box add-place-box">
+    <button class="modal-close" id="addPlaceClose">&times;</button>
+    <h3 data-i18n="add_place_title">Add a Place</h3>
+    <div class="modal-body add-place-form">
+      <label class="form-field">
+        <span data-i18n="add_place_name_label">Name</span>
+        <input type="text" id="addPlaceName">
+      </label>
+      <label class="form-field">
+        <span data-i18n="add_place_status_label">Status</span>
+        <select id="addPlaceVisited">
+          <option value="false" data-i18n="add_place_status_new">New to Visit</option>
+          <option value="true" data-i18n="add_place_status_visited">Already Visited</option>
+        </select>
+      </label>
+      <label class="form-field">
+        <span data-i18n="add_place_category_label">Category</span>
+        <select id="addPlaceCategory"></select>
+      </label>
+      <label class="form-field">
+        <span data-i18n="add_place_desc_label">Description (optional)</span>
+        <textarea id="addPlaceDesc" rows="2"></textarea>
+      </label>
+      <div class="form-row">
+        <label class="form-field">
+          <span data-i18n="add_place_duration_label">Duration (optional)</span>
+          <input type="text" id="addPlaceDuration">
+        </label>
+        <label class="form-field">
+          <span data-i18n="add_place_best_label">Best time (optional)</span>
+          <input type="text" id="addPlaceBest">
+        </label>
+      </div>
+      <label class="form-field">
+        <span data-i18n="add_place_photo_label">Photo (optional)</span>
+      </label>
+      <div class="modal-tabs">
+        <button type="button" class="active" data-mode="url" data-i18n="modal_tab_url">Paste URL</button>
+        <button type="button" data-mode="file" data-i18n="modal_tab_file">Upload from Device</button>
+      </div>
+      <input type="text" id="addPlaceUrlInput" placeholder="https://example.com/photo.jpg">
+      <label class="file-drop" id="addPlaceFileDrop" style="display:none;">
+        <span data-i18n="modal_file_drop_text">Tap to choose a photo from your device</span>
+        <input type="file" id="addPlaceFileInput" accept="image/*" hidden>
+      </label>
+    </div>
+    <div class="modal-actions">
+      <button class="danger" id="addPlaceCancelBtn" data-i18n="add_place_cancel_btn">Cancel</button>
+      <button class="primary" id="addPlaceSaveBtn" data-i18n="add_place_save_btn">Save Place</button>
     </div>
   </div>
 </div>

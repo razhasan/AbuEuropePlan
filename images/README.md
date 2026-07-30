@@ -9,14 +9,20 @@ but you can rename to `.png`/`.jpeg` and update the reference in `script.js` if 
 - `la-defense.jpg`
 - `bateau-mouche.jpg`
 - `champs-elysees.jpg`
+- `arc-de-triomphe.jpg`
+- `trocadero.jpg`
 
 ## New places to visit
 - `sacre-coeur.jpg`
 - `notre-dame.jpg`
-- `arc-de-triomphe.jpg`
-- `trocadero.jpg`
 - `louvre.jpg`
 - `orsay.jpg`
 - `latin-quarter.jpg`
 - `luxembourg-gardens.jpg`
 - `versailles.jpg`
+- `chantilly.jpg`
+
+## Adding your own place cards
+Use the "+ Add Place" button on the Paris Sightseeing Guide or Gallery sections to add further
+cards yourself, for either "places to visit" or "already visited" — no code changes needed. Those
+are saved on your device (localStorage), including any photo you attach.

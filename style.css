@@ -247,6 +247,12 @@ a { color: var(--fr-blue); }
   backdrop-filter: blur(3px); transition: background .15s; z-index: 2;
 }
 .media-edit-btn:hover { background: rgba(20,20,30,0.85); }
+.place-delete-btn {
+  position: absolute; top: 8px; left: 8px; width: 24px; height: 24px; border-radius: 50%; border: none;
+  background: rgba(20,20,30,0.55); color: #fff; font-size: 0.85rem; cursor: pointer; z-index: 2;
+  backdrop-filter: blur(3px); transition: background .15s;
+}
+.place-delete-btn:hover { background: var(--fr-red); }
 .place-body { padding: 16px 18px; }
 .place-body h4 { margin-bottom: 4px; font-size: 1rem; }
 .place-body .meta { font-size: 0.75rem; color: var(--de-gold); font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 8px; }
@@ -404,6 +410,19 @@ a { color: var(--fr-blue); }
   color: var(--muted); font-size: 0.85rem; transition: border-color .15s;
 }
 .modal-body .file-drop:hover { border-color: var(--fr-blue); }
+
+/* ===== Add Place form ===== */
+.add-place-btn { margin: 6px 0 26px; }
+.add-place-box { max-width: 480px; max-height: 85vh; overflow-y: auto; }
+.add-place-form { display: flex; flex-direction: column; gap: 14px; }
+.add-place-form .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form-field { display: flex; flex-direction: column; gap: 6px; font-size: 0.82rem; font-weight: 700; color: var(--navy); }
+.form-field input[type="text"], .form-field select, .form-field textarea {
+  width: 100%; padding: 9px 12px; border: 1px solid var(--line); border-radius: 10px; font-size: 0.88rem;
+  font-family: inherit; font-weight: 400; color: var(--ink); background: var(--paper);
+}
+.form-field textarea { resize: vertical; }
+#addPlaceUrlInput { width: 100%; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; font-size: 0.9rem; margin-bottom: 4px; }
 .modal-actions { display: flex; justify-content: space-between; gap: 10px; margin-top: 20px; }
 .modal-actions .danger {
   background: #FFE8EA; color: var(--fr-red); border: none; padding: 9px 16px; border-radius: 16px;
@@ -438,6 +457,7 @@ footer p { margin: 4px 0; font-size: 0.85rem; opacity: 0.85; }
 :root[dir="rtl"] .itin-day:has(.tag.outing) { border-right-color: var(--fr-blue); border-left-color: var(--line); }
 :root[dir="rtl"] .place-badge { right: auto; left: 10px; }
 :root[dir="rtl"] .media-edit-btn { right: auto; left: 8px; }
+:root[dir="rtl"] .place-delete-btn { left: auto; right: 8px; }
 :root[dir="rtl"] .souvenir-photo .photo-delete { right: auto; left: 3px; }
 :root[dir="rtl"] .place-body .stats,
 :root[dir="rtl"] .cal-legend,
