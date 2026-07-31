@@ -26,6 +26,7 @@ but you can rename to `.png`/`.jpeg` and update the reference in `script.js` if 
 - `tuileries-garden.jpg`
 - `place-de-la-concorde.jpg`
 - `galeries-lafayette-rooftop.jpg`
+- `cable-a-creteil.jpg`
 
 ## Adding your own place cards
 Use the "+ Add Place" button on the Paris Sightseeing Guide or Gallery sections to add further

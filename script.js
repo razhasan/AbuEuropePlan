@@ -546,6 +546,12 @@
         en: { name: 'Galeries Lafayette rooftop', desc: 'Free 360° terrace with the Eiffel Tower and Opéra Garnier in view, much less crowded than paid observation decks.', duration: '30-45 mins', best: 'Golden hour' },
         ur: { name: 'گیلری لافایت کی چھت', desc: 'مفت 360° چھت جہاں سے ایفل ٹاور اور اوپیرا گارنیے نظر آتے ہیں، ادائیگی والے مشاہداتی ڈیکس کے مقابلے میں کہیں کم ہجوم۔', duration: '30-45 منٹ', best: 'غروب آفتاب کے قریب' },
         fr: { name: 'Toit des Galeries Lafayette', desc: "Terrasse gratuite à 360° avec vue sur la Tour Eiffel et l'Opéra Garnier, bien moins fréquentée que les plateformes d'observation payantes.", duration: '30-45 min', best: 'Heure dorée' }
+      } },
+    { id: 'cableacreteil', visited: false, category: 'view', emoji: '🚡', img: 'images/cable-a-creteil.jpg',
+      i18n: {
+        en: { name: 'Câble A (Créteil Cable Car)', desc: 'The first urban cable car in the Paris region — glide over the A86 motorway and green space between Créteil and Villeneuve-Saint-Georges for sweeping aerial views over the southeastern suburbs, Créteil Lake and forest.', duration: '20-30 mins', best: 'Clear daylight' },
+        ur: { name: 'کیبل اے (کریتے کیبل کار)', desc: 'پیرس کے علاقے کی پہلی شہری کیبل کار — کریتے اور ویلنوو-سان-جارج کے درمیان A86 موٹروے اور سبزہ زاروں کے اوپر سے گزرتے ہوئے جنوب مشرقی مضافات، کریتے جھیل اور جنگل کا شاندار فضائی نظارہ ملتا ہے۔', duration: '20-30 منٹ', best: 'صاف دن کی روشنی میں' },
+        fr: { name: 'Câble A (téléphérique de Créteil)', desc: "Le premier téléphérique urbain de la région parisienne — survolez l'autoroute A86 et les espaces verts entre Créteil et Villeneuve-Saint-Georges pour une vue aérienne saisissante sur les banlieues du sud-est, le lac de Créteil et la forêt.", duration: '20-30 min', best: 'Journée ensoleillée' }
       } }
   ];
 
