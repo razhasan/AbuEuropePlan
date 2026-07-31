@@ -516,6 +516,36 @@
         en: { name: 'Château de Chantilly', desc: 'A fairy-tale castle by a lake with beautiful gardens and a famous horse museum — being close to Verneuil-en-Halatte, it makes for an easy, relaxed day trip.', duration: 'Half day', best: 'Morning' },
         ur: { name: 'شاتو دی شانتیی', desc: 'جھیل کنارے ایک پریوں کی کہانی جیسا محل، خوبصورت باغات اور گھوڑوں کا مشہور عجائب گھر — ورنوے آں ہالات کے قریب ہونے کی وجہ سے ایک آسان اور آرام دہ دن کا سفر۔', duration: 'آدھا دن', best: 'صبح' },
         fr: { name: 'Château de Chantilly', desc: "Un château de conte de fées au bord d'un lac avec de beaux jardins et un célèbre musée du cheval — étant proche de Verneuil-en-Halatte, c'est une excursion facile et détendue.", duration: 'Demi-journée', best: 'Matin' }
+      } },
+    { id: 'birhakeim', visited: false, category: 'view', emoji: '🌉', img: 'images/pont-de-bir-hakeim.jpg',
+      i18n: {
+        en: { name: 'Pont de Bir-Hakeim', desc: 'Quiet, romantic two-level bridge with a great Eiffel Tower angle over the Seine.', duration: '30-45 mins', best: 'Evening' },
+        ur: { name: 'پونٹ دی بیر حکیم', desc: 'ایک پرسکون، رومانوی دو منزلہ پل جہاں سے دریائے سین کے اوپر ایفل ٹاور کا شاندار زاویہ نظر آتا ہے۔', duration: '30-45 منٹ', best: 'شام' },
+        fr: { name: 'Pont de Bir-Hakeim', desc: "Un pont romantique et tranquille à deux niveaux avec un bel angle sur la Tour Eiffel au-dessus de la Seine.", duration: '30-45 min', best: 'Soir' }
+      } },
+    { id: 'vertgalant', visited: false, category: 'view', emoji: '🌳', img: 'images/square-du-vert-galant.jpg',
+      i18n: {
+        en: { name: 'Square du Vert-Galant', desc: 'Peaceful garden at the tip of Île de la Cité, more about riverside calm than panorama.', duration: '30-45 mins', best: 'Late afternoon' },
+        ur: { name: 'سکوائر دی ویغ گالاں', desc: 'آئل دی لا سیتے کی نوک پر واقع پرسکون باغ، پانورامے کے بجائے دریا کنارے سکون پر مرکوز۔', duration: '30-45 منٹ', best: 'سہ پہر' },
+        fr: { name: 'Square du Vert-Galant', desc: "Jardin paisible à la pointe de l'Île de la Cité, plus pour le calme au bord de l'eau que pour le panorama.", duration: '30-45 min', best: "Fin d'après-midi" }
+      } },
+    { id: 'tuileries', visited: false, category: 'view', emoji: '🌷', img: 'images/tuileries-garden.jpg',
+      i18n: {
+        en: { name: 'Tuileries Garden', desc: 'Nice elevated view toward Place de la Concorde and the Eiffel Tower from the upper terrace.', duration: '1 hr', best: 'Afternoon' },
+        ur: { name: 'توئلری باغ', desc: 'اوپر کی چھت سے پلاس دی لا کونکورد اور ایفل ٹاور کا خوبصورت بلند منظر۔', duration: '1 گھنٹہ', best: 'دوپہر' },
+        fr: { name: 'Jardin des Tuileries', desc: 'Belle vue surélevée vers la Place de la Concorde et la Tour Eiffel depuis la terrasse supérieure.', duration: '1 h', best: 'Après-midi' }
+      } },
+    { id: 'concorde', visited: false, category: 'view', emoji: '⛲', img: 'images/place-de-la-concorde.jpg',
+      i18n: {
+        en: { name: 'Place de la Concorde', desc: "It's an open square with sweeping sightlines toward the Champs-Élysées, the Eiffel Tower, and the Tuileries, rather than a museum or a walkable culture site in the way Notre-Dame or the Panthéon are.", duration: '30-45 mins', best: 'Afternoon' },
+        ur: { name: 'پلاس دی لا کونکورد', desc: 'ایک کھلا چوک جہاں سے شانزے لیزے، ایفل ٹاور اور توئلری کی طرف وسیع نظارے ملتے ہیں — یہ کسی عجائب گھر یا نوتردام و پینتھیون جیسی ثقافتی جگہ کے بجائے محض ایک قابلِ سیر مقام ہے۔', duration: '30-45 منٹ', best: 'دوپہر' },
+        fr: { name: 'Place de la Concorde', desc: "Une place ouverte avec des perspectives dégagées vers les Champs-Élysées, la Tour Eiffel et les Tuileries, plutôt qu'un musée ou un site culturel à parcourir comme le sont Notre-Dame ou le Panthéon.", duration: '30-45 min', best: 'Après-midi' }
+      } },
+    { id: 'lafayetterooftop', visited: false, category: 'view', emoji: '🏙️', img: 'images/galeries-lafayette-rooftop.jpg',
+      i18n: {
+        en: { name: 'Galeries Lafayette rooftop', desc: 'Free 360° terrace with the Eiffel Tower and Opéra Garnier in view, much less crowded than paid observation decks.', duration: '30-45 mins', best: 'Golden hour' },
+        ur: { name: 'گیلری لافایت کی چھت', desc: 'مفت 360° چھت جہاں سے ایفل ٹاور اور اوپیرا گارنیے نظر آتے ہیں، ادائیگی والے مشاہداتی ڈیکس کے مقابلے میں کہیں کم ہجوم۔', duration: '30-45 منٹ', best: 'غروب آفتاب کے قریب' },
+        fr: { name: 'Toit des Galeries Lafayette', desc: "Terrasse gratuite à 360° avec vue sur la Tour Eiffel et l'Opéra Garnier, bien moins fréquentée que les plateformes d'observation payantes.", duration: '30-45 min', best: 'Heure dorée' }
       } }
   ];
 
