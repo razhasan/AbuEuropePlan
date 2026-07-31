@@ -451,7 +451,7 @@
         ur: { name: 'باتو موش (دریائے سین کروز)', desc: 'پہلے دیکھا جا چکا ہے — پیرس کے مشہور مقامات کے پاس سے کلاسیکی دریائی کروز۔', duration: '1 گھنٹہ', best: 'شام' },
         fr: { name: 'Bateau Mouche (Croisière sur la Seine)', desc: 'Déjà visité — la croisière classique sur la Seine devant les monuments de Paris.', duration: '1 h', best: 'Soir' }
       } },
-    { id: 'champs', visited: true, category: 'walk', emoji: '🛍️', img: 'images/champs-elysees.jpg',
+    { id: 'champs', visited: true, category: 'walk', emoji: '🛍️', img: 'images/champselysee.jpg',
       i18n: {
         en: { name: 'Champs-Élysées', desc: 'Already visited — the grand avenue of shops and cafés.', duration: '2 hrs', best: 'Afternoon' },
         ur: { name: 'شانزے لیزے', desc: 'پہلے دیکھا جا چکا ہے — دکانوں اور کیفوں کی شاندار سڑک۔', duration: '2 گھنٹے', best: 'دوپہر' },

@@ -8,7 +8,7 @@ but you can rename to `.png`/`.jpeg` and update the reference in `script.js` if 
 - `eiffel-tower.jpg`
 - `la-defense.jpg`
 - `bateau-mouche.jpg`
-- `champs-elysees.jpg`
+- `champselysee.jpg`
 - `arc-de-triomphe.jpg`
 - `trocadero.jpg`
 
