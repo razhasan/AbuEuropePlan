@@ -398,6 +398,7 @@ a { color: var(--fr-blue); }
 .subheading { font-size: 1.1rem; margin-top: 28px; margin-bottom: 6px; }
 .subheading:first-of-type { margin-top: 0; }
 #staticSouvenirGrid { margin-bottom: 40px; }
+.souvenir-static-share-btn { margin-bottom: 20px; }
 .souvenir-toolbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; margin-bottom: 26px; }
 .btn-primary {
   display: inline-block; background: linear-gradient(135deg, var(--fr-blue), var(--purple)); color: #fff; border: none; padding: 10px 20px;
@@ -424,6 +425,7 @@ a { color: var(--fr-blue); }
 .souvenir-category:nth-of-type(4n+4) { border-top-color: var(--de-gold); }
 .souvenir-cat-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
 .souvenir-cat-header h4 { margin: 0; }
+.souvenir-cat-actions { display: flex; gap: 2px; }
 .icon-btn {
   background: none; border: none; cursor: pointer; font-size: 1rem; color: var(--muted); padding: 4px 8px;
   border-radius: 8px; transition: background .15s, color .15s;

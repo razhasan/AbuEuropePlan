@@ -139,11 +139,15 @@
       souvenirs_static_h3: 'Permanent Souvenir Photos',
       souvenirs_static_intro_html: 'Added directly to the <code>images/souvenirs</code> folder in the GitHub repo — visible to everyone who visits the site.',
       souvenirs_static_empty: 'No permanent souvenir photos yet — add files named souvenir1.jpg, souvenir2.jpg, etc. to images/souvenirs on GitHub to see them here.',
+      souvenirs_static_share_btn: '📤 Share on WhatsApp',
       souvenirs_personal_h3: 'Your Own Additions (this device only)',
       souvenirs_intro: 'A place to keep a photo record of souvenirs picked up along the way — one category per place or theme (e.g. "Eiffel Tower", "Garden"), with as many photos as you like inside each. Saved right on this device, like a WhatsApp media folder.',
       add_category_btn: '+ Add Category', export_backup_btn: '⬇ Export Backup', import_backup_btn: '⬆ Import Backup',
       souvenir_empty: 'No categories yet — click "+ Add Category" above to start keeping a photo record (e.g. "Eiffel Tower", "Garden").',
       souvenir_add_photo: '+ Add Photo',
+      souvenir_share_btn: 'Share this category on WhatsApp',
+      share_no_photos_alert: 'No photos in this category yet — add some first.',
+      share_fallback_alert: "Your browser can't attach photos directly here. We'll open WhatsApp with a message instead — you can attach the photos there manually.",
       category_prompt: 'Category name (e.g. "Eiffel Tower", "Garden"):',
       caption_prompt: 'Optional caption for this photo (leave blank to skip):',
       confirm_delete_category: 'Delete this whole category and its photos?',
@@ -283,11 +287,15 @@
       souvenirs_static_h3: 'مستقل یادگار تصاویر',
       souvenirs_static_intro_html: '<code>images/souvenirs</code> فولڈر میں براہ راست شامل کی گئیں — سائٹ پر آنے والے ہر شخص کو نظر آتی ہیں۔',
       souvenirs_static_empty: 'ابھی تک کوئی مستقل یادگار تصویر نہیں — گٹ ہب پر images/souvenirs میں souvenir1.jpg، souvenir2.jpg وغیرہ ناموں سے فائلیں شامل کریں تاکہ یہ یہاں نظر آئیں۔',
+      souvenirs_static_share_btn: '📤 واٹس ایپ پر شیئر کریں',
       souvenirs_personal_h3: 'آپ کی اپنی شامل کردہ تصاویر (صرف اس ڈیوائس پر)',
       souvenirs_intro: 'راستے میں لی گئی یادگاروں کی تصویری ریکارڈ رکھنے کی جگہ — ہر جگہ یا موضوع کے لیے ایک زمرہ (مثلاً "ایفل ٹاور"، "باغ")، جس میں آپ جتنی چاہیں تصاویر رکھ سکتے ہیں۔ بالکل اسی ڈیوائس پر محفوظ، واٹس ایپ میڈیا فولڈر کی طرح۔',
       add_category_btn: '+ زمرہ شامل کریں', export_backup_btn: '⬇ بیک اپ ایکسپورٹ کریں', import_backup_btn: '⬆ بیک اپ درآمد کریں',
       souvenir_empty: 'ابھی تک کوئی زمرہ نہیں — تصویری ریکارڈ شروع کرنے کے لیے اوپر "+ زمرہ شامل کریں" پر کلک کریں (مثلاً "ایفل ٹاور"، "باغ")۔',
       souvenir_add_photo: '+ تصویر شامل کریں',
+      souvenir_share_btn: 'اس زمرے کو واٹس ایپ پر شیئر کریں',
+      share_no_photos_alert: 'اس زمرے میں ابھی تک کوئی تصویر نہیں — پہلے کچھ شامل کریں۔',
+      share_fallback_alert: 'آپ کا براؤزر یہاں براہ راست تصاویر منسلک نہیں کر سکتا۔ اس کے بجائے واٹس ایپ ایک پیغام کے ساتھ کھولا جا رہا ہے — آپ وہاں تصاویر خود منسلک کر سکتے ہیں۔',
       category_prompt: 'زمرے کا نام (مثلاً "ایفل ٹاور"، "باغ"):',
       caption_prompt: 'اس تصویر کے لیے اختیاری کیپشن (خالی چھوڑ سکتے ہیں):',
       confirm_delete_category: 'کیا یہ پورا زمرہ اور اس کی تصاویر حذف کر دی جائیں؟',
@@ -427,11 +435,15 @@
       souvenirs_static_h3: 'Photos de Souvenirs Permanentes',
       souvenirs_static_intro_html: 'Ajoutées directement dans le dossier <code>images/souvenirs</code> du dépôt GitHub — visibles pour tous les visiteurs du site.',
       souvenirs_static_empty: "Aucune photo de souvenir permanente pour l'instant — ajoutez des fichiers nommés souvenir1.jpg, souvenir2.jpg, etc. dans images/souvenirs sur GitHub pour les voir ici.",
+      souvenirs_static_share_btn: '📤 Partager sur WhatsApp',
       souvenirs_personal_h3: 'Vos Propres Ajouts (cet appareil uniquement)',
       souvenirs_intro: 'Un endroit pour garder une trace photo des souvenirs récupérés en chemin — une catégorie par lieu ou thème (ex. "Tour Eiffel", "Jardin"), avec autant de photos que vous le souhaitez dans chacune. Enregistré directement sur cet appareil, comme un dossier média WhatsApp.',
       add_category_btn: '+ Ajouter une Catégorie', export_backup_btn: '⬇ Exporter la Sauvegarde', import_backup_btn: '⬆ Importer une Sauvegarde',
       souvenir_empty: 'Aucune catégorie pour l\'instant — cliquez sur "+ Ajouter une Catégorie" ci-dessus pour commencer une trace photo (ex. "Tour Eiffel", "Jardin").',
       souvenir_add_photo: '+ Ajouter une Photo',
+      souvenir_share_btn: 'Partager cette catégorie sur WhatsApp',
+      share_no_photos_alert: "Aucune photo dans cette catégorie pour l'instant — ajoutez-en d'abord.",
+      share_fallback_alert: "Votre navigateur ne peut pas joindre les photos directement ici. WhatsApp va s'ouvrir avec un message à la place — vous pourrez y joindre les photos vous-même.",
       category_prompt: 'Nom de la catégorie (ex. "Tour Eiffel", "Jardin") :',
       caption_prompt: 'Légende facultative pour cette photo (laissez vide pour ignorer) :',
       confirm_delete_category: 'Supprimer toute cette catégorie et ses photos ?',
@@ -1335,6 +1347,8 @@
     });
   }
 
+  let staticSouvenirSrcs = [];
+
   async function renderStaticSouvenirs() {
     const grid = document.getElementById('staticSouvenirGrid');
     const slots = Array.from({ length: STATIC_SOUVENIR_COUNT }, (_, idx) => idx + 1);
@@ -1343,6 +1357,10 @@
       return checkImageExists(src).then(ok => ({ ok, src, n }));
     }));
     const present = results.filter(r => r.ok);
+    staticSouvenirSrcs = present.map(r => r.src);
+
+    const shareBtn = document.getElementById('staticSouvenirShareBtn');
+    if (shareBtn) shareBtn.style.display = present.length ? 'inline-block' : 'none';
 
     if (!present.length) {
       grid.innerHTML = `<p class="souvenir-empty">${t('souvenirs_static_empty')}</p>`;
@@ -1357,6 +1375,14 @@
 
     grid.querySelectorAll('.gallery-item').forEach(item => {
       item.addEventListener('click', () => openImageLightbox(item.dataset.src));
+    });
+  }
+
+  function initStaticSouvenirShare() {
+    const btn = document.getElementById('staticSouvenirShareBtn');
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+      sharePhotosViaWhatsApp(staticSouvenirSrcs, t('souvenirs_static_h3'));
     });
   }
 
@@ -1392,7 +1418,10 @@
       <div class="souvenir-category">
         <div class="souvenir-cat-header">
           <h4>${cat.name}</h4>
-          <button type="button" class="icon-btn cat-delete" data-cat="${cat.id}" title="${t('delete_category_title')}">🗑</button>
+          <div class="souvenir-cat-actions">
+            <button type="button" class="icon-btn cat-share" data-cat="${cat.id}" title="${t('souvenir_share_btn')}">📤</button>
+            <button type="button" class="icon-btn cat-delete" data-cat="${cat.id}" title="${t('delete_category_title')}">🗑</button>
+          </div>
         </div>
         <div class="souvenir-photos">
           ${cat.photos.map(p => `
@@ -1415,6 +1444,13 @@
         if (!confirm(t('confirm_delete_category'))) return;
         saveSouvenirs(loadSouvenirs().filter(c => c.id !== btn.dataset.cat));
         renderSouvenirs();
+      });
+    });
+    grid.querySelectorAll('.cat-share').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const cat = loadSouvenirs().find(c => c.id === btn.dataset.cat);
+        if (!cat) return;
+        sharePhotosViaWhatsApp(cat.photos.map(p => p.src), cat.name);
       });
     });
     grid.querySelectorAll('.photo-delete').forEach(btn => {
@@ -1619,6 +1655,25 @@
     btn.href = 'https://wa.me/?text=' + encodeURIComponent(text);
   }
 
+  async function sharePhotosViaWhatsApp(photoSrcs, titleText) {
+    if (!photoSrcs || !photoSrcs.length) { alert(t('share_no_photos_alert')); return; }
+    try {
+      const files = await Promise.all(photoSrcs.map(async (src, i) => {
+        const blob = await (await fetch(src)).blob();
+        const ext = blob.type.includes('png') ? 'png' : 'jpg';
+        return new File([blob], `souvenir-${i + 1}.${ext}`, { type: blob.type });
+      }));
+      if (navigator.canShare && navigator.canShare({ files })) {
+        await navigator.share({ files, title: titleText, text: titleText });
+        return;
+      }
+    } catch (e) {
+      if (e && e.name === 'AbortError') return; // user cancelled the native share sheet
+    }
+    alert(t('share_fallback_alert'));
+    window.open('https://wa.me/?text=' + encodeURIComponent(titleText + ' — ' + SITE_URL), '_blank');
+  }
+
   /* ===================== CONFETTI ===================== */
   function triggerConfetti() {
     const container = document.getElementById('confettiContainer');
@@ -1770,6 +1825,7 @@
     initImageEditModal();
     initAddPlaceModal();
     renderApproval();
+    initStaticSouvenirShare();
     renderStaticSouvenirs();
     initSouvenirs();
     renderSouvenirs();
