@@ -8,13 +8,16 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#123C82">
-<link rel="stylesheet" href="style.css?v=12">
+<link rel="stylesheet" href="style.css?v=13">
+<script>(function(){try{if(localStorage.getItem('europeTripTheme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
 </head>
 <body>
 
 <nav class="nav">
+  <div class="trip-progress"><div class="trip-progress-fill" id="tripProgressFill"></div></div>
   <a href="#" class="nav-brand" id="navBrandHome" data-i18n="nav_brand">🧳 Abu's Europe Journey</a>
   <div class="nav-right">
+    <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌙</button>
     <div class="lang-switch" id="langSwitch">
       <button type="button" class="lang-btn active" data-lang="en" aria-label="English">🇬🇧 <span>EN</span></button>
       <button type="button" class="lang-btn" data-lang="ur" aria-label="Urdu">🇵🇰 <span>اردو</span></button>
@@ -25,8 +28,10 @@
       <li><a href="#planner" data-i18n="nav_planner">Planner</a></li>
       <li><a href="#timeline" data-i18n="nav_timeline">Timeline</a></li>
       <li><a href="#calendar" data-i18n="nav_calendar">Calendar</a></li>
+      <li><a href="#tripmap" data-i18n="nav_map">Map</a></li>
       <li><a href="#guide" data-i18n="nav_guide">Paris Guide</a></li>
       <li><a href="#itinerary" data-i18n="nav_dayplan">Day Plan</a></li>
+      <li><a href="#packing" data-i18n="nav_packing">Packing</a></li>
       <li><a href="#gallery" data-i18n="nav_gallery">Gallery</a></li>
       <li><a href="#souvenirs" data-i18n="nav_souvenirs">Souvenirs</a></li>
       <li><a href="#approval" data-i18n="nav_approval">Approval</a></li>
@@ -43,6 +48,8 @@
   <p class="subtitle" id="heroSubtitle">Cologne Bonn → Bonn (Busrah) → Verneuil-en-Halatte, Paris (us) → Stuttgart (Abdullah) → Bonn (Busrah) → home.<br>
   10 August – 19 October 2026</p>
 
+  <div class="current-location" id="currentLocationBanner" style="display:none;"></div>
+
   <div class="countdown" id="countdown">
     <div class="cd-box"><div class="cd-num" id="cd-days">--</div><div class="cd-label" data-i18n="cd_days">Days</div></div>
     <div class="cd-box"><div class="cd-num" id="cd-hours">--</div><div class="cd-label" data-i18n="cd_hours">Hours</div></div>
@@ -56,6 +63,7 @@
     <a href="userguide.pdf" target="_blank" rel="noopener" class="btn-primary user-guide-btn" id="userGuideBtnEn" data-i18n="user_guide_btn">📄 User Guide (PDF)</a>
     <a href="userguide-urdu.pdf" target="_blank" rel="noopener" class="btn-primary user-guide-btn" id="userGuideBtnUr" style="display:none;">📄 اردو یوزر گائیڈ (PDF)</a>
     <a href="userguide-french.pdf" target="_blank" rel="noopener" class="btn-primary user-guide-btn" id="userGuideBtnFr" style="display:none;">📄 Guide d'utilisation (PDF)</a>
+    <a href="#" target="_blank" rel="noopener" class="btn-primary user-guide-btn whatsapp-share-btn" id="shareWhatsappBtn" data-i18n="share_whatsapp_btn">💬 Share on WhatsApp</a>
   </div>
 </header>
 
@@ -132,6 +140,18 @@
   </div>
 </section>
 
+<section id="tripmap" class="collapsible-section">
+  <button type="button" class="section-header">
+    <span class="section-label" data-i18n="label_map">🗺️ Map</span>
+    <h2 data-i18n="map_h2">Trip Map</h2>
+    <span class="section-chevron">▾</span>
+  </button>
+  <div class="section-body">
+  <p class="section-intro" data-i18n="map_intro">All the trip stops and Paris sightseeing spots in one interactive map — tap a pin for details.</p>
+  <div id="mapContainer" class="map-container"></div>
+  </div>
+</section>
+
 <section id="guide" class="collapsible-section">
   <button type="button" class="section-header">
     <span class="section-label" data-i18n="step4">Step 4</span>
@@ -157,6 +177,22 @@
   <p class="section-intro" data-i18n="dayplan_intro">Auto-generated from your Paris stay length: a settle-in rest week, then sightseeing days
   alternated with rest days so it stays comfortable and unhurried.</p>
   <div id="itineraryContainer"></div>
+  </div>
+</section>
+
+<section id="packing" class="collapsible-section">
+  <button type="button" class="section-header">
+    <span class="section-label" data-i18n="label_packing">🎒 Packing</span>
+    <h2 data-i18n="packing_h2">Packing Checklist</h2>
+    <span class="section-chevron">▾</span>
+  </button>
+  <div class="section-body">
+  <p class="section-intro" data-i18n="packing_intro">A simple checklist to help Abu pack — check items off as they're packed, or add your own. Saved on this device only.</p>
+  <div class="packing-toolbar">
+    <input type="text" id="packingAddInput" data-i18n-placeholder="packing_add_placeholder" placeholder="Add an item…">
+    <button class="btn-primary" id="packingAddBtn" data-i18n="packing_add_btn">+ Add</button>
+  </div>
+  <div id="packingList" class="packing-list"></div>
   </div>
 </section>
 
@@ -317,6 +353,10 @@
   </div>
 </div>
 
-<script src="script.js?v=12"></script>
+<div class="confetti-container" id="confettiContainer"></div>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="script.js?v=13"></script>
 </body>
 </html>

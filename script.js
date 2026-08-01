@@ -5,6 +5,7 @@
   const TRIP_START = new Date(2026, 7, 10, 18, 10);  // Aug 10 2026, 18:10 — landing at CGN
   const TRIP_END   = new Date(2026, 9, 19, 19, 0);   // Oct 19 2026, 19:00 — return flight
   const Abdullah_WEEKS = 1; // fixed
+  const SITE_URL = 'https://razhasan.github.io/AbuEuropePlan/';
 
   const COLORS = {
     sisterFirst: '#1E88E5',
@@ -26,16 +27,22 @@
     en: {
       page_title: "Abu's Europe Trip · Aug – Oct 2026",
       nav_brand: "🧳 Abu's Europe Journey",
-      nav_planner: 'Planner', nav_timeline: 'Timeline', nav_calendar: 'Calendar', nav_guide: 'Paris Guide',
-      nav_dayplan: 'Day Plan', nav_gallery: 'Gallery', nav_souvenirs: 'Souvenirs', nav_approval: 'Approval',
+      nav_planner: 'Planner', nav_timeline: 'Timeline', nav_calendar: 'Calendar', nav_map: 'Map', nav_guide: 'Paris Guide',
+      nav_dayplan: 'Day Plan', nav_packing: 'Packing', nav_gallery: 'Gallery', nav_souvenirs: 'Souvenirs', nav_approval: 'Approval',
 
       hero_title: "Abu's Europe Visit",
       hero_subtitle_html: 'Cologne Bonn → Bonn (Busrah) → Verneuil-en-Halatte, Paris (us) → Stuttgart (Abdullah) → Bonn (Busrah) → home.<br>10 August – 19 October 2026',
       cd_days: 'Days', cd_hours: 'Hours', cd_mins: 'Minutes', cd_secs: 'Seconds',
       route_stops: ['CGN Airport', 'Bonn (Busrah)', 'Paris (You)', 'Stuttgart (Abdullah)', 'Bonn (Busrah)', 'Flight Home'],
       user_guide_btn: '📄 User Guide (PDF)',
+      share_whatsapp_btn: '💬 Share on WhatsApp',
+      share_whatsapp_text: "Abu's Europe Trip planner — dates, Paris guide, photos and more:",
+      current_location_now: '📍 Right now: {name}',
+      current_location_before: '✈️ The trip starts in {days} day(s) — check back on {date}!',
+      current_location_after: '🎉 The trip is complete — thanks for following along!',
 
       step1: 'Step 1', step2: 'Step 2', step3: 'Step 3', step4: 'Step 4', step5: 'Step 5', step6: 'Step 6', step7: 'Step 7', step8: 'Step 8',
+      label_map: '🗺️ Map', label_packing: '🎒 Packing',
 
       planner_h2: 'Trip Duration Planner',
       planner_intro: "Landing (Aug 10, 18:10) and the return flight (Oct 19, 19:00) are fixed — that's exactly 10 weeks. One week with Abdullah in Stuttgart is fixed too. Drag the sliders below to divide the remaining 9 weeks between Busrah's first stay, your stay in Paris, and Busrah's final stay — every date on this page updates instantly.",
@@ -71,6 +78,9 @@
       month_names: ['January','February','March','April','May','June','July','August','September','October','November','December'],
       dow_short: ['M','T','W','T','F','S','S'],
 
+      map_h2: 'Trip Map',
+      map_intro: 'All the trip stops and Paris sightseeing spots in one interactive map — tap a pin for details.',
+
       guide_h2: 'Paris Sightseeing Guide',
       guide_intro: "He's already seen the Eiffel Tower, La Défense, the Bateau Mouche cruise, the Champs-Élysées, the Arc de Triomphe and Trocadéro Gardens. Here are fresh places to make this visit even more memorable — filter by type below.",
       cat_all: 'All', cat_culture: 'Culture', cat_view: 'Views', cat_museum: 'Museums', cat_walk: 'Easy Walks', cat_daytrip: 'Day Trip',
@@ -104,6 +114,22 @@
       tag_outing: 'Outing', tag_rest: 'Rest',
       day_label: 'Day {n}',
       increase_duration_msg: 'Increase the "Paris / Verneuil-en-Halatte" duration in the planner to generate a day plan.',
+
+      packing_h2: 'Packing Checklist',
+      packing_intro: "A simple checklist to help Abu pack — check items off as they're packed, or add your own. Saved on this device only.",
+      packing_add_placeholder: 'Add an item…',
+      packing_add_btn: '+ Add',
+      packing_delete_title: 'Remove item',
+      packing_item_passport: 'Passport / ID card',
+      packing_item_medications: 'Medications',
+      packing_item_charger: 'Phone charger & EU adapter',
+      packing_item_shoes: 'Comfortable walking shoes',
+      packing_item_clothing: 'Weather-appropriate clothing',
+      packing_item_camera: 'Camera',
+      packing_item_sunglasses: 'Sunglasses / hat',
+      packing_item_bottle: 'Reusable water bottle',
+      packing_item_snacks: 'Travel snacks',
+      packing_item_umbrella: 'Umbrella / light raincoat',
 
       gallery_h2: 'Photo Gallery',
       gallery_intro_html: "Drop real photos into the <code>/images</code> folder using the filenames below and they'll appear automatically — until then, placeholder icons are shown.",
@@ -145,16 +171,22 @@
     ur: {
       page_title: 'ابو کا یورپ سفر · اگست – اکتوبر 2026',
       nav_brand: '🧳 ابو کا یورپ سفر',
-      nav_planner: 'منصوبہ ساز', nav_timeline: 'ٹائم لائن', nav_calendar: 'کیلنڈر', nav_guide: 'پیرس گائیڈ',
-      nav_dayplan: 'روزانہ منصوبہ', nav_gallery: 'گیلری', nav_souvenirs: 'یادگاریں', nav_approval: 'منظوری',
+      nav_planner: 'منصوبہ ساز', nav_timeline: 'ٹائم لائن', nav_calendar: 'کیلنڈر', nav_map: 'نقشہ', nav_guide: 'پیرس گائیڈ',
+      nav_dayplan: 'روزانہ منصوبہ', nav_packing: 'سامان کی فہرست', nav_gallery: 'گیلری', nav_souvenirs: 'یادگاریں', nav_approval: 'منظوری',
 
       hero_title: 'ابو کا یورپ کا سفر',
       hero_subtitle_html: 'کولون بون → بون (بشریٰ) → ورنوے آں ہالات، پیرس (ہمارے ہاں) → سٹٹگارٹ (عبداللہ) → بون (بشریٰ) → گھر واپسی۔<br>10 اگست – 19 اکتوبر 2026',
       cd_days: 'دن', cd_hours: 'گھنٹے', cd_mins: 'منٹ', cd_secs: 'سیکنڈ',
       route_stops: ['کولون بون ایئرپورٹ', 'بون (بشریٰ)', 'پیرس (آپ)', 'سٹٹگارٹ (عبداللہ)', 'بون (بشریٰ)', 'واپسی پرواز'],
       user_guide_btn: '📄 صارف رہنما (PDF)',
+      share_whatsapp_btn: '💬 واٹس ایپ پر شیئر کریں',
+      share_whatsapp_text: 'ابو کے یورپ کے سفر کا منصوبہ — تاریخیں، پیرس گائیڈ، تصاویر اور مزید:',
+      current_location_now: '📍 اس وقت: {name}',
+      current_location_before: '✈️ سفر شروع ہونے میں {days} دن باقی ہیں — {date} کو دوبارہ چیک کریں!',
+      current_location_after: '🎉 سفر مکمل ہو چکا ہے — ساتھ رہنے کا شکریہ!',
 
       step1: 'قدم 1', step2: 'قدم 2', step3: 'قدم 3', step4: 'قدم 4', step5: 'قدم 5', step6: 'قدم 6', step7: 'قدم 7', step8: 'قدم 8',
+      label_map: '🗺️ نقشہ', label_packing: '🎒 سامان کی فہرست',
 
       planner_h2: 'سفر کے دورانیے کا منصوبہ',
       planner_intro: 'پہنچنے کا وقت (10 اگست، 18:10) اور واپسی کی پرواز (19 اکتوبر، 19:00) طے شدہ ہیں — یعنی مکمل 10 ہفتے۔ سٹٹگارٹ میں عبداللہ کے پاس ایک ہفتہ بھی طے ہے۔ نیچے دیے گئے سلائیڈرز کو حرکت دے کر باقی 9 ہفتے بشریٰ کے پاس پہلے قیام، پیرس میں آپ کے پاس قیام، اور بشریٰ کے پاس آخری قیام کے درمیان تقسیم کریں — اس صفحے کی ہر تاریخ فوراً اپ ڈیٹ ہو جائے گی۔',
@@ -190,6 +222,9 @@
       month_names: ['جنوری','فروری','مارچ','اپریل','مئی','جون','جولائی','اگست','ستمبر','اکتوبر','نومبر','دسمبر'],
       dow_short: ['پیر','منگل','بدھ','جمعرات','جمعہ','ہفتہ','اتوار'],
 
+      map_h2: 'سفر کا نقشہ',
+      map_intro: 'سفر کے تمام پڑاؤ اور پیرس کی سیر کی جگہیں ایک انٹرایکٹو نقشے میں — تفصیلات کے لیے کسی بھی پن پر ٹیپ کریں۔',
+
       guide_h2: 'پیرس سیر کی گائیڈ',
       guide_intro: 'وہ پہلے ہی ایفل ٹاور، لا ڈیفانس، باتو موش کروز، شانزے لیزے، آرک دی تریومف اور تروکادیرو باغات دیکھ چکے ہیں۔ اس بار سفر کو مزید یادگار بنانے کے لیے کچھ نئی جگہیں یہ رہیں — نیچے قسم کے مطابق فلٹر کریں۔',
       cat_all: 'تمام', cat_culture: 'ثقافت', cat_view: 'نظارے', cat_museum: 'عجائب گھر', cat_walk: 'آسان سیر', cat_daytrip: 'دن کا سفر',
@@ -223,6 +258,22 @@
       tag_outing: 'سیر', tag_rest: 'آرام',
       day_label: 'دن {n}',
       increase_duration_msg: 'روزانہ منصوبہ بنانے کے لیے اوپر منصوبہ ساز میں "پیرس / ورنوے آں ہالات" کا دورانیہ بڑھائیں۔',
+
+      packing_h2: 'سامان کی فہرست',
+      packing_intro: 'ابو کے سامان باندھنے میں مدد کے لیے ایک آسان فہرست — سامان باندھنے پر آئٹم کو نشان زد کریں، یا اپنا آئٹم شامل کریں۔ صرف اسی ڈیوائس پر محفوظ۔',
+      packing_add_placeholder: 'آئٹم شامل کریں…',
+      packing_add_btn: '+ شامل کریں',
+      packing_delete_title: 'آئٹم ہٹائیں',
+      packing_item_passport: 'پاسپورٹ / شناختی کارڈ',
+      packing_item_medications: 'ادویات',
+      packing_item_charger: 'فون چارجر اور یورپی اڈاپٹر',
+      packing_item_shoes: 'چلنے کے آرام دہ جوتے',
+      packing_item_clothing: 'موسم کے مطابق کپڑے',
+      packing_item_camera: 'کیمرہ',
+      packing_item_sunglasses: 'دھوپ کا چشمہ / ٹوپی',
+      packing_item_bottle: 'دوبارہ استعمال ہونے والی پانی کی بوتل',
+      packing_item_snacks: 'سفر کے لیے ناشتہ',
+      packing_item_umbrella: 'چھتری / ہلکا بارشی کوٹ',
 
       gallery_h2: 'تصویری گیلری',
       gallery_intro_html: '<code>/images</code> فولڈر میں نیچے دیے گئے ناموں کے مطابق اصل تصاویر ڈالیں تو وہ خودکار طور پر نظر آئیں گی — اس وقت تک نمائندہ آئیکن دکھائے جا رہے ہیں۔',
@@ -264,16 +315,22 @@
     fr: {
       page_title: "Voyage d'Abu en Europe · Août – Oct 2026",
       nav_brand: "🧳 Le Voyage d'Abu en Europe",
-      nav_planner: 'Planificateur', nav_timeline: 'Chronologie', nav_calendar: 'Calendrier', nav_guide: 'Guide de Paris',
-      nav_dayplan: 'Programme du Jour', nav_gallery: 'Galerie', nav_souvenirs: 'Souvenirs', nav_approval: 'Approbation',
+      nav_planner: 'Planificateur', nav_timeline: 'Chronologie', nav_calendar: 'Calendrier', nav_map: 'Carte', nav_guide: 'Guide de Paris',
+      nav_dayplan: 'Programme du Jour', nav_packing: 'Bagages', nav_gallery: 'Galerie', nav_souvenirs: 'Souvenirs', nav_approval: 'Approbation',
 
       hero_title: "Voyage d'Abu en Europe",
       hero_subtitle_html: 'Cologne Bonn → Bonn (Busrah) → Verneuil-en-Halatte, Paris (chez nous) → Stuttgart (Abdullah) → Bonn (Busrah) → retour à la maison.<br>10 août – 19 octobre 2026',
       cd_days: 'Jours', cd_hours: 'Heures', cd_mins: 'Minutes', cd_secs: 'Secondes',
       route_stops: ['Aéroport de Cologne', 'Bonn (Busrah)', 'Paris (Vous)', 'Stuttgart (Abdullah)', 'Bonn (Busrah)', 'Vol de retour'],
       user_guide_btn: "📄 Guide d'utilisation (PDF)",
+      share_whatsapp_btn: '💬 Partager sur WhatsApp',
+      share_whatsapp_text: "Planificateur du voyage d'Abu en Europe — dates, guide de Paris, photos et plus :",
+      current_location_now: '📍 En ce moment : {name}',
+      current_location_before: '✈️ Le voyage commence dans {days} jour(s) — revenez le {date} !',
+      current_location_after: '🎉 Le voyage est terminé — merci de nous avoir suivis !',
 
       step1: 'Étape 1', step2: 'Étape 2', step3: 'Étape 3', step4: 'Étape 4', step5: 'Étape 5', step6: 'Étape 6', step7: 'Étape 7', step8: 'Étape 8',
+      label_map: '🗺️ Carte', label_packing: '🎒 Bagages',
 
       planner_h2: 'Planificateur de Durée du Voyage',
       planner_intro: "L'atterrissage (10 août, 18h10) et le vol de retour (19 octobre, 19h00) sont fixes — soit exactement 10 semaines. Une semaine avec Abdullah à Stuttgart est fixe aussi. Faites glisser les curseurs ci-dessous pour répartir les 9 semaines restantes entre le premier séjour de Busrah, votre séjour à Paris, et le séjour final de Busrah — chaque date sur cette page se met à jour instantanément.",
@@ -309,6 +366,9 @@
       month_names: ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
       dow_short: ['L','M','M','J','V','S','D'],
 
+      map_h2: 'Carte du Voyage',
+      map_intro: "Tous les arrêts du voyage et les sites touristiques de Paris sur une carte interactive — appuyez sur un repère pour les détails.",
+
       guide_h2: 'Guide Touristique de Paris',
       guide_intro: "Il a déjà vu la Tour Eiffel, La Défense, la croisière en Bateau Mouche, les Champs-Élysées, l'Arc de Triomphe et les jardins du Trocadéro. Voici de nouveaux endroits pour rendre cette visite encore plus mémorable — filtrez par type ci-dessous.",
       cat_all: 'Tout', cat_culture: 'Culture', cat_view: 'Vues', cat_museum: 'Musées', cat_walk: 'Promenades Faciles', cat_daytrip: 'Excursion',
@@ -342,6 +402,22 @@
       tag_outing: 'Sortie', tag_rest: 'Repos',
       day_label: 'Jour {n}',
       increase_duration_msg: 'Augmentez la durée de "Paris / Verneuil-en-Halatte" dans le planificateur pour générer un programme.',
+
+      packing_h2: 'Liste de Bagages',
+      packing_intro: "Une liste simple pour aider Abu à faire ses bagages — cochez les articles au fur et à mesure, ou ajoutez les vôtres. Enregistré sur cet appareil uniquement.",
+      packing_add_placeholder: 'Ajouter un article…',
+      packing_add_btn: '+ Ajouter',
+      packing_delete_title: "Retirer l'article",
+      packing_item_passport: "Passeport / carte d'identité",
+      packing_item_medications: 'Médicaments',
+      packing_item_charger: 'Chargeur de téléphone et adaptateur européen',
+      packing_item_shoes: 'Chaussures de marche confortables',
+      packing_item_clothing: 'Vêtements adaptés à la météo',
+      packing_item_camera: 'Appareil photo',
+      packing_item_sunglasses: 'Lunettes de soleil / chapeau',
+      packing_item_bottle: "Bouteille d'eau réutilisable",
+      packing_item_snacks: 'Collations pour le voyage',
+      packing_item_umbrella: 'Parapluie / imperméable léger',
 
       gallery_h2: 'Galerie Photo',
       gallery_intro_html: "Déposez de vraies photos dans le dossier <code>/images</code> en utilisant les noms de fichiers ci-dessous et elles apparaîtront automatiquement — en attendant, des icônes provisoires sont affichées.",
@@ -402,6 +478,9 @@
     document.querySelectorAll('[data-i18n]').forEach(el => {
       el.textContent = t(el.dataset.i18n);
     });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      el.setAttribute('placeholder', t(el.dataset.i18nPlaceholder));
+    });
     const heroSubtitle = document.getElementById('heroSubtitle');
     if (heroSubtitle) heroSubtitle.innerHTML = t('hero_subtitle_html');
     const galleryIntro = document.getElementById('galleryIntro');
@@ -411,6 +490,7 @@
     const souvenirsStaticIntro = document.getElementById('souvenirsStaticIntro');
     if (souvenirsStaticIntro) souvenirsStaticIntro.innerHTML = t('souvenirs_static_intro_html');
     document.title = t('page_title');
+    updateWhatsappShareLink();
   }
 
   function setLang(lang) {
@@ -433,121 +513,121 @@
 
   /* ===================== PLACES DATA ===================== */
   const PLACES = [
-    { id: 'eiffel', visited: true, category: 'view', emoji: '🗼', img: 'images/eiffel-tower.jpg',
+    { id: 'eiffel', visited: true, category: 'view', emoji: '🗼', img: 'images/eiffel-tower.jpg', lat: 48.8584, lng: 2.2945,
       i18n: {
         en: { name: 'Eiffel Tower', desc: 'Already visited — a great spot to revisit at night when it sparkles on the hour.', duration: '2-3 hrs', best: 'Evening' },
         ur: { name: 'ایفل ٹاور', desc: 'پہلے دیکھا جا چکا ہے — رات کو جب یہ ہر گھنٹے چمکتا ہے تو دوبارہ دیکھنے کی بہترین جگہ۔', duration: '2-3 گھنٹے', best: 'شام' },
         fr: { name: 'Tour Eiffel', desc: 'Déjà visitée — un excellent endroit à revoir la nuit quand elle scintille à chaque heure.', duration: '2-3 h', best: 'Soir' }
       } },
-    { id: 'ladefense', visited: true, category: 'walk', emoji: '🏙️', img: 'images/la-defense.jpg',
+    { id: 'ladefense', visited: true, category: 'walk', emoji: '🏙️', img: 'images/la-defense.jpg', lat: 48.8918, lng: 2.236,
       i18n: {
         en: { name: 'La Défense', desc: "Already visited — Paris's modern skyline and the Grande Arche.", duration: '2 hrs', best: 'Afternoon' },
         ur: { name: 'لا ڈیفانس', desc: 'پہلے دیکھا جا چکا ہے — پیرس کی جدید عمارتیں اور گرینڈ آرش۔', duration: '2 گھنٹے', best: 'دوپہر' },
         fr: { name: 'La Défense', desc: 'Déjà visitée — les gratte-ciels modernes de Paris et la Grande Arche.', duration: '2 h', best: 'Après-midi' }
       } },
-    { id: 'bateaumouche', visited: true, category: 'view', emoji: '🚤', img: 'images/bateau-mouche.jpg',
+    { id: 'bateaumouche', visited: true, category: 'view', emoji: '🚤', img: 'images/bateau-mouche.jpg', lat: 48.8639, lng: 2.3011,
       i18n: {
         en: { name: 'Bateau Mouche (Seine Cruise)', desc: "Already visited — the classic river cruise past Paris's landmarks.", duration: '1 hr', best: 'Evening' },
         ur: { name: 'باتو موش (دریائے سین کروز)', desc: 'پہلے دیکھا جا چکا ہے — پیرس کے مشہور مقامات کے پاس سے کلاسیکی دریائی کروز۔', duration: '1 گھنٹہ', best: 'شام' },
         fr: { name: 'Bateau Mouche (Croisière sur la Seine)', desc: 'Déjà visité — la croisière classique sur la Seine devant les monuments de Paris.', duration: '1 h', best: 'Soir' }
       } },
-    { id: 'champs', visited: true, category: 'walk', emoji: '🛍️', img: 'images/champselysee.jpg',
+    { id: 'champs', visited: true, category: 'walk', emoji: '🛍️', img: 'images/champselysee.jpg', lat: 48.8698, lng: 2.3079,
       i18n: {
         en: { name: 'Champs-Élysées', desc: 'Already visited — the grand avenue of shops and cafés.', duration: '2 hrs', best: 'Afternoon' },
         ur: { name: 'شانزے لیزے', desc: 'پہلے دیکھا جا چکا ہے — دکانوں اور کیفوں کی شاندار سڑک۔', duration: '2 گھنٹے', best: 'دوپہر' },
         fr: { name: 'Champs-Élysées', desc: 'Déjà visités — la grande avenue des boutiques et cafés.', duration: '2 h', best: 'Après-midi' }
       } },
-    { id: 'sacrecoeur', visited: false, category: 'culture', emoji: '⛪', img: 'images/sacre-coeur.jpg',
+    { id: 'sacrecoeur', visited: false, category: 'culture', emoji: '⛪', img: 'images/sacre-coeur.jpg', lat: 48.8867, lng: 2.3431,
       i18n: {
         en: { name: 'Sacré-Cœur & Montmartre', desc: "A hilltop basilica with the best panoramic view of Paris, plus the artists' square of Montmartre.", duration: '3 hrs', best: 'Morning' },
         ur: { name: 'ساکرے کور اور مونمارتغ', desc: 'پہاڑی پر واقع گرجا گھر جہاں سے پیرس کا بہترین نظارہ ملتا ہے، ساتھ ہی مونمارتغ کا مصوروں کا چوک۔', duration: '3 گھنٹے', best: 'صبح' },
         fr: { name: 'Sacré-Cœur & Montmartre', desc: "Une basilique en haut d'une colline avec la meilleure vue panoramique de Paris, ainsi que la place des artistes de Montmartre.", duration: '3 h', best: 'Matin' }
       } },
-    { id: 'notredame', visited: false, category: 'culture', emoji: '🕍', img: 'images/notre-dame.jpg',
+    { id: 'notredame', visited: false, category: 'culture', emoji: '🕍', img: 'images/notre-dame.jpg', lat: 48.853, lng: 2.3499,
       i18n: {
         en: { name: 'Notre-Dame & Sainte-Chapelle', desc: 'The newly reopened cathedral and the jewel-box stained-glass chapel nearby on Île de la Cité.', duration: '2-3 hrs', best: 'Morning' },
         ur: { name: 'نوتردام اور سینت شاپیل', desc: 'نئے سرے سے کھلنے والا مشہور گرجا گھر اور اس کے قریب رنگین شیشوں والا خوبصورت چیپل۔', duration: '2-3 گھنٹے', best: 'صبح' },
         fr: { name: 'Notre-Dame & Sainte-Chapelle', desc: "La cathédrale récemment rouverte et la chapelle aux vitraux joyaux tout près, sur l'Île de la Cité.", duration: '2-3 h', best: 'Matin' }
       } },
-    { id: 'arc', visited: true, category: 'view', emoji: '🏛️', img: 'images/arc-de-triomphe.jpg',
+    { id: 'arc', visited: true, category: 'view', emoji: '🏛️', img: 'images/arc-de-triomphe.jpg', lat: 48.8738, lng: 2.295,
       i18n: {
         en: { name: 'Arc de Triomphe', desc: 'Already visited — the rooftop view straight down the Champs-Élysées.', duration: '1-2 hrs', best: 'Late afternoon' },
         ur: { name: 'آرک دی تریومف', desc: 'پہلے دیکھا جا چکا ہے — چھت سے سیدھا شانزے لیزے کا خوبصورت نظارہ۔', duration: '1-2 گھنٹے', best: 'سہ پہر' },
         fr: { name: 'Arc de Triomphe', desc: 'Déjà visité — la vue depuis le toit tout droit sur les Champs-Élysées.', duration: '1-2 h', best: "Fin d'après-midi" }
       } },
-    { id: 'trocadero', visited: true, category: 'view', emoji: '🌳', img: 'images/trocadero.jpg',
+    { id: 'trocadero', visited: true, category: 'view', emoji: '🌳', img: 'images/trocadero.jpg', lat: 48.862, lng: 2.2887,
       i18n: {
         en: { name: 'Trocadéro Gardens', desc: 'Already visited — the postcard view of the Eiffel Tower from across the river.', duration: '1 hr', best: 'Golden hour' },
         ur: { name: 'تروکادیرو باغات', desc: 'پہلے دیکھا جا چکا ہے — دریا کے پار سے ایفل ٹاور کا خوبصورت نظارہ۔', duration: '1 گھنٹہ', best: 'غروب آفتاب کے قریب' },
         fr: { name: 'Jardins du Trocadéro', desc: "Déjà visités — la vue carte postale de la Tour Eiffel depuis l'autre côté de la rivière.", duration: '1 h', best: 'Heure dorée' }
       } },
-    { id: 'louvre', visited: false, category: 'museum', emoji: '🖼️', img: 'images/louvre.jpg',
+    { id: 'louvre', visited: false, category: 'museum', emoji: '🖼️', img: 'images/louvre.jpg', lat: 48.8606, lng: 2.3376,
       i18n: {
         en: { name: 'Louvre Museum', desc: "The world's most famous museum — even a short visit to see the Mona Lisa and the glass pyramid is memorable.", duration: '3-4 hrs', best: 'Morning' },
         ur: { name: 'لوور میوزیم', desc: 'دنیا کا مشہور ترین عجائب گھر — مونا لیزا اور شیشے کے اہرام کو دیکھنے کے لیے مختصر وزٹ بھی یادگار ہے۔', duration: '3-4 گھنٹے', best: 'صبح' },
         fr: { name: 'Musée du Louvre', desc: 'Le musée le plus célèbre au monde — même une courte visite pour voir la Joconde et la pyramide de verre est mémorable.', duration: '3-4 h', best: 'Matin' }
       } },
-    { id: 'orsay', visited: false, category: 'museum', emoji: '🎨', img: 'images/orsay.jpg',
+    { id: 'orsay', visited: false, category: 'museum', emoji: '🎨', img: 'images/orsay.jpg', lat: 48.86, lng: 2.3266,
       i18n: {
         en: { name: "Musée d'Orsay", desc: 'A grand former railway station full of Impressionist masterpieces — smaller and calmer than the Louvre.', duration: '2-3 hrs', best: 'Morning' },
         ur: { name: 'میوزے دورسے', desc: 'ایک سابقہ ریلوے اسٹیشن جو تاثراتی فن پاروں سے بھرا ہوا ہے — لوور کے مقابلے میں چھوٹا اور پرسکون۔', duration: '2-3 گھنٹے', best: 'صبح' },
         fr: { name: "Musée d'Orsay", desc: "Une ancienne gare grandiose remplie de chefs-d'œuvre impressionnistes — plus petit et plus calme que le Louvre.", duration: '2-3 h', best: 'Matin' }
       } },
-    { id: 'latin', visited: false, category: 'culture', emoji: '📚', img: 'images/latin-quarter.jpg',
+    { id: 'latin', visited: false, category: 'culture', emoji: '📚', img: 'images/latin-quarter.jpg', lat: 48.8462, lng: 2.3464,
       i18n: {
         en: { name: 'Latin Quarter & Panthéon', desc: "Historic student quarter, narrow streets, and the domed Panthéon resting place of France's great figures.", duration: '2-3 hrs', best: 'Afternoon' },
         ur: { name: 'لاطینی محلہ اور پینتھیون', desc: 'طلبہ کا تاریخی علاقہ، تنگ گلیاں، اور گنبد والا پینتھیون جہاں فرانس کی عظیم شخصیات آرام فرما ہیں۔', duration: '2-3 گھنٹے', best: 'دوپہر' },
         fr: { name: 'Quartier Latin & Panthéon', desc: "Quartier étudiant historique, rues étroites, et le Panthéon à coupole où reposent les grandes figures de France.", duration: '2-3 h', best: 'Après-midi' }
       } },
-    { id: 'luxembourg', visited: false, category: 'walk', emoji: '🌷', img: 'images/luxembourg-gardens.jpg',
+    { id: 'luxembourg', visited: false, category: 'walk', emoji: '🌷', img: 'images/luxembourg-gardens.jpg', lat: 48.8462, lng: 2.3372,
       i18n: {
         en: { name: 'Luxembourg Gardens', desc: 'A gentle, beautiful park to relax in — fountains, tree-lined paths, easy on the legs.', duration: '1-2 hrs', best: 'Late morning' },
         ur: { name: 'لکسمبرگ باغات', desc: 'آرام کرنے کے لیے ایک خوبصورت اور پرسکون باغ — فوارے، درختوں والے راستے، چلنے میں آسان۔', duration: '1-2 گھنٹے', best: 'دیر صبح' },
         fr: { name: 'Jardin du Luxembourg', desc: "Un parc paisible et magnifique pour se détendre — fontaines, allées bordées d'arbres, facile pour les jambes.", duration: '1-2 h', best: 'Fin de matinée' }
       } },
-    { id: 'versailles', visited: false, category: 'daytrip', emoji: '👑', img: 'images/versailles.jpg',
+    { id: 'versailles', visited: false, category: 'daytrip', emoji: '👑', img: 'images/versailles.jpg', lat: 48.8049, lng: 2.1204,
       i18n: {
         en: { name: 'Palace of Versailles', desc: 'A full day trip to the opulent royal palace and gardens just outside Paris — book ahead, wear comfortable shoes.', duration: 'Full day', best: 'Early morning start' },
         ur: { name: 'محل ورسائی', desc: 'پیرس کے قریب شاہی محل اور باغات کا مکمل دن کا سفر — پہلے سے بکنگ کریں اور آرام دہ جوتے پہنیں۔', duration: 'پورا دن', best: 'صبح سویرے آغاز' },
         fr: { name: 'Château de Versailles', desc: "Une excursion d'une journée complète vers le somptueux palais royal et ses jardins juste à l'extérieur de Paris — réservez à l'avance, portez des chaussures confortables.", duration: 'Journée complète', best: 'Départ tôt le matin' }
       } },
-    { id: 'chantilly', visited: false, category: 'daytrip', emoji: '🏰', img: 'images/chantilly.jpg',
+    { id: 'chantilly', visited: false, category: 'daytrip', emoji: '🏰', img: 'images/chantilly.jpg', lat: 49.1936, lng: 2.487,
       i18n: {
         en: { name: 'Château de Chantilly', desc: 'A fairy-tale castle by a lake with beautiful gardens and a famous horse museum — being close to Verneuil-en-Halatte, it makes for an easy, relaxed day trip.', duration: 'Half day', best: 'Morning' },
         ur: { name: 'شاتو دی شانتیی', desc: 'جھیل کنارے ایک پریوں کی کہانی جیسا محل، خوبصورت باغات اور گھوڑوں کا مشہور عجائب گھر — ورنوے آں ہالات کے قریب ہونے کی وجہ سے ایک آسان اور آرام دہ دن کا سفر۔', duration: 'آدھا دن', best: 'صبح' },
         fr: { name: 'Château de Chantilly', desc: "Un château de conte de fées au bord d'un lac avec de beaux jardins et un célèbre musée du cheval — étant proche de Verneuil-en-Halatte, c'est une excursion facile et détendue.", duration: 'Demi-journée', best: 'Matin' }
       } },
-    { id: 'birhakeim', visited: false, category: 'view', emoji: '🌉', img: 'images/pont-de-bir-hakeim.jpg',
+    { id: 'birhakeim', visited: false, category: 'view', emoji: '🌉', img: 'images/pont-de-bir-hakeim.jpg', lat: 48.8535, lng: 2.2885,
       i18n: {
         en: { name: 'Pont de Bir-Hakeim', desc: 'Quiet, romantic two-level bridge with a great Eiffel Tower angle over the Seine.', duration: '30-45 mins', best: 'Evening' },
         ur: { name: 'پونٹ دی بیر حکیم', desc: 'ایک پرسکون، رومانوی دو منزلہ پل جہاں سے دریائے سین کے اوپر ایفل ٹاور کا شاندار زاویہ نظر آتا ہے۔', duration: '30-45 منٹ', best: 'شام' },
         fr: { name: 'Pont de Bir-Hakeim', desc: "Un pont romantique et tranquille à deux niveaux avec un bel angle sur la Tour Eiffel au-dessus de la Seine.", duration: '30-45 min', best: 'Soir' }
       } },
-    { id: 'vertgalant', visited: false, category: 'view', emoji: '🌳', img: 'images/square-du-vert-galant.jpg',
+    { id: 'vertgalant', visited: false, category: 'view', emoji: '🌳', img: 'images/square-du-vert-galant.jpg', lat: 48.8567, lng: 2.3412,
       i18n: {
         en: { name: 'Square du Vert-Galant', desc: 'Peaceful garden at the tip of Île de la Cité, more about riverside calm than panorama.', duration: '30-45 mins', best: 'Late afternoon' },
         ur: { name: 'سکوائر دی ویغ گالاں', desc: 'آئل دی لا سیتے کی نوک پر واقع پرسکون باغ، پانورامے کے بجائے دریا کنارے سکون پر مرکوز۔', duration: '30-45 منٹ', best: 'سہ پہر' },
         fr: { name: 'Square du Vert-Galant', desc: "Jardin paisible à la pointe de l'Île de la Cité, plus pour le calme au bord de l'eau que pour le panorama.", duration: '30-45 min', best: "Fin d'après-midi" }
       } },
-    { id: 'tuileries', visited: false, category: 'view', emoji: '🌷', img: 'images/tuileries-garden.jpg',
+    { id: 'tuileries', visited: false, category: 'view', emoji: '🌷', img: 'images/tuileries-garden.jpg', lat: 48.8635, lng: 2.3275,
       i18n: {
         en: { name: 'Tuileries Garden', desc: 'Nice elevated view toward Place de la Concorde and the Eiffel Tower from the upper terrace.', duration: '1 hr', best: 'Afternoon' },
         ur: { name: 'توئلری باغ', desc: 'اوپر کی چھت سے پلاس دی لا کونکورد اور ایفل ٹاور کا خوبصورت بلند منظر۔', duration: '1 گھنٹہ', best: 'دوپہر' },
         fr: { name: 'Jardin des Tuileries', desc: 'Belle vue surélevée vers la Place de la Concorde et la Tour Eiffel depuis la terrasse supérieure.', duration: '1 h', best: 'Après-midi' }
       } },
-    { id: 'concorde', visited: false, category: 'view', emoji: '⛲', img: 'images/place-de-la-concorde.jpg',
+    { id: 'concorde', visited: false, category: 'view', emoji: '⛲', img: 'images/place-de-la-concorde.jpg', lat: 48.8656, lng: 2.3212,
       i18n: {
         en: { name: 'Place de la Concorde', desc: "It's an open square with sweeping sightlines toward the Champs-Élysées, the Eiffel Tower, and the Tuileries, rather than a museum or a walkable culture site in the way Notre-Dame or the Panthéon are.", duration: '30-45 mins', best: 'Afternoon' },
         ur: { name: 'پلاس دی لا کونکورد', desc: 'ایک کھلا چوک جہاں سے شانزے لیزے، ایفل ٹاور اور توئلری کی طرف وسیع نظارے ملتے ہیں — یہ کسی عجائب گھر یا نوتردام و پینتھیون جیسی ثقافتی جگہ کے بجائے محض ایک قابلِ سیر مقام ہے۔', duration: '30-45 منٹ', best: 'دوپہر' },
         fr: { name: 'Place de la Concorde', desc: "Une place ouverte avec des perspectives dégagées vers les Champs-Élysées, la Tour Eiffel et les Tuileries, plutôt qu'un musée ou un site culturel à parcourir comme le sont Notre-Dame ou le Panthéon.", duration: '30-45 min', best: 'Après-midi' }
       } },
-    { id: 'lafayetterooftop', visited: false, category: 'view', emoji: '🏙️', img: 'images/galeries-lafayette-rooftop.jpg',
+    { id: 'lafayetterooftop', visited: false, category: 'view', emoji: '🏙️', img: 'images/galeries-lafayette-rooftop.jpg', lat: 48.8737, lng: 2.3323,
       i18n: {
         en: { name: 'Galeries Lafayette rooftop', desc: 'Free 360° terrace with the Eiffel Tower and Opéra Garnier in view, much less crowded than paid observation decks.', duration: '30-45 mins', best: 'Golden hour' },
         ur: { name: 'گیلری لافایت کی چھت', desc: 'مفت 360° چھت جہاں سے ایفل ٹاور اور اوپیرا گارنیے نظر آتے ہیں، ادائیگی والے مشاہداتی ڈیکس کے مقابلے میں کہیں کم ہجوم۔', duration: '30-45 منٹ', best: 'غروب آفتاب کے قریب' },
         fr: { name: 'Toit des Galeries Lafayette', desc: "Terrasse gratuite à 360° avec vue sur la Tour Eiffel et l'Opéra Garnier, bien moins fréquentée que les plateformes d'observation payantes.", duration: '30-45 min', best: 'Heure dorée' }
       } },
-    { id: 'cableacreteil', visited: false, category: 'view', emoji: '🚡', img: 'images/cable-a-creteil.jpg',
+    { id: 'cableacreteil', visited: false, category: 'view', emoji: '🚡', img: 'images/cable-a-creteil.jpg', lat: 48.7909, lng: 2.4556,
       i18n: {
         en: { name: 'Câble A (Créteil Cable Car)', desc: 'The first urban cable car in the Paris region — glide over the A86 motorway and green space between Créteil and Villeneuve-Saint-Georges for sweeping aerial views over the southeastern suburbs, Créteil Lake and forest.', duration: '20-30 mins', best: 'Clear daylight' },
         ur: { name: 'کیبل اے (کریتے کیبل کار)', desc: 'پیرس کے علاقے کی پہلی شہری کیبل کار — کریتے اور ویلنوو-سان-جارج کے درمیان A86 موٹروے اور سبزہ زاروں کے اوپر سے گزرتے ہوئے جنوب مشرقی مضافات، کریتے جھیل اور جنگل کا شاندار فضائی نظارہ ملتا ہے۔', duration: '20-30 منٹ', best: 'صاف دن کی روشنی میں' },
@@ -1039,10 +1119,13 @@
       });
       card.querySelector('button').addEventListener('click', () => {
         const data = loadApproval();
+        const wasAllApproved = PEOPLE.every(p => (data[p.id] || {}).approved);
         data[personId] = data[personId] || { stars: 0, approved: false };
         data[personId].approved = !data[personId].approved;
         saveApproval(data);
         renderApproval();
+        const nowAllApproved = PEOPLE.every(p => (data[p.id] || {}).approved);
+        if (!wasAllApproved && nowAllApproved) triggerConfetti();
       });
     });
 
@@ -1445,11 +1528,20 @@
   }
 
   /* ===================== COLLAPSIBLE SECTIONS ===================== */
+  function handleSectionOpened(sec) {
+    if (!sec) return;
+    if (sec.id === 'tripmap') {
+      if (!tripMapInstance) initTripMapIfNeeded();
+      else setTimeout(() => tripMapInstance.invalidateSize(), 200);
+    }
+  }
+
   function openCollapsibleSection(id) {
     const target = document.getElementById(id);
     if (!target || !target.classList.contains('collapsible-section')) return;
     document.querySelectorAll('.collapsible-section').forEach(s => s.classList.remove('open'));
     target.classList.add('open');
+    handleSectionOpened(target);
   }
 
   function initCollapsibleSections() {
@@ -1457,8 +1549,185 @@
       sec.querySelector('.section-header').addEventListener('click', () => {
         const wasOpen = sec.classList.contains('open');
         document.querySelectorAll('.collapsible-section').forEach(s => s.classList.remove('open'));
-        if (!wasOpen) sec.classList.add('open');
+        if (!wasOpen) {
+          sec.classList.add('open');
+          handleSectionOpened(sec);
+        }
       });
+    });
+  }
+
+  /* ===================== THEME TOGGLE ===================== */
+  const THEME_KEY = 'europeTripTheme';
+  function applyThemeIcon() {
+    const btn = document.getElementById('themeToggle');
+    if (!btn) return;
+    btn.textContent = document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
+  }
+  function initThemeToggle() {
+    applyThemeIcon();
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      if (isDark) {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem(THEME_KEY, 'light');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem(THEME_KEY, 'dark');
+      }
+      applyThemeIcon();
+    });
+  }
+
+  /* ===================== TRIP PROGRESS BAR ===================== */
+  function renderTripProgress() {
+    const fill = document.getElementById('tripProgressFill');
+    if (!fill) return;
+    const pct = Math.min(100, Math.max(0, ((Date.now() - TRIP_START) / (TRIP_END - TRIP_START)) * 100));
+    fill.style.width = pct + '%';
+  }
+
+  /* ===================== CURRENT LOCATION BANNER ===================== */
+  function renderCurrentLocationBanner() {
+    const el = document.getElementById('currentLocationBanner');
+    if (!el) return;
+    const now = new Date();
+    if (now < TRIP_START) {
+      const days = Math.ceil((TRIP_START - now) / 86400000);
+      el.textContent = t('current_location_before', { days, date: fmtShort(TRIP_START) });
+      el.style.display = 'inline-block';
+    } else if (now > TRIP_END) {
+      el.textContent = t('current_location_after');
+      el.style.display = 'inline-block';
+    } else {
+      const { legs } = computeSchedule();
+      const leg = legForDate(legs, now);
+      if (leg) {
+        el.textContent = t('current_location_now', { name: leg.name });
+        el.style.display = 'inline-block';
+      } else {
+        el.style.display = 'none';
+      }
+    }
+  }
+
+  /* ===================== WHATSAPP SHARE ===================== */
+  function updateWhatsappShareLink() {
+    const btn = document.getElementById('shareWhatsappBtn');
+    if (!btn) return;
+    const text = t('share_whatsapp_text') + ' ' + SITE_URL;
+    btn.href = 'https://wa.me/?text=' + encodeURIComponent(text);
+  }
+
+  /* ===================== CONFETTI ===================== */
+  function triggerConfetti() {
+    const container = document.getElementById('confettiContainer');
+    if (!container) return;
+    const colors = ['#1E88E5', '#FF5A5F', '#FFC93C', '#7C4DFF', '#2ECC71'];
+    for (let i = 0; i < 120; i++) {
+      const piece = document.createElement('span');
+      piece.className = 'confetti-piece';
+      piece.style.left = (Math.random() * 100) + '%';
+      piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+      piece.style.animationDuration = (2.2 + Math.random() * 1.8) + 's';
+      piece.style.animationDelay = (Math.random() * 0.4) + 's';
+      piece.style.transform = 'rotate(' + Math.floor(Math.random() * 360) + 'deg)';
+      container.appendChild(piece);
+      piece.addEventListener('animationend', () => piece.remove());
+    }
+  }
+
+  /* ===================== TRIP MAP (Leaflet, lazy-init on first open) ===================== */
+  let tripMapInstance = null;
+  function initTripMapIfNeeded() {
+    if (tripMapInstance || typeof L === 'undefined') return;
+    const mapEl = document.getElementById('mapContainer');
+    if (!mapEl) return;
+    const map = L.map('mapContainer').setView([49.3, 4.2], 6);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors', maxZoom: 18
+    }).addTo(map);
+
+    const cityStops = [
+      { lat: 50.7374, lng: 7.0982, color: COLORS.sisterFirst, get name() { return t('leg_sisterFirst_name'); } },
+      { lat: 49.2686, lng: 2.5495, color: COLORS.withYou, get name() { return t('leg_withYou_name'); } },
+      { lat: 48.7758, lng: 9.1829, color: COLORS.Abdullah, get name() { return t('leg_Abdullah_name'); } }
+    ];
+    cityStops.forEach(c => {
+      L.circleMarker([c.lat, c.lng], { radius: 11, color: c.color, fillColor: c.color, fillOpacity: 0.85, weight: 2 })
+        .addTo(map)
+        .bindPopup('<span class="map-popup-name">' + c.name + '</span>');
+    });
+
+    getAllPlaces().forEach(p => {
+      if (typeof p.lat !== 'number' || typeof p.lng !== 'number') return;
+      const tr = placeText(p);
+      L.marker([p.lat, p.lng]).addTo(map)
+        .bindPopup('<span class="map-popup-name">' + p.emoji + ' ' + tr.name + '</span><br><span class="map-popup-desc">' + tr.desc + '</span>');
+    });
+
+    tripMapInstance = map;
+    setTimeout(() => map.invalidateSize(), 250);
+  }
+
+  /* ===================== PACKING CHECKLIST (this device only) ===================== */
+  const PACKING_KEY = 'europeTripPacking';
+  const DEFAULT_PACKING_ITEMS = ['passport', 'medications', 'charger', 'shoes', 'clothing', 'camera', 'sunglasses', 'bottle', 'snacks', 'umbrella'];
+
+  function loadPacking() {
+    let data;
+    try { data = JSON.parse(localStorage.getItem(PACKING_KEY)); } catch (e) { data = null; }
+    if (!Array.isArray(data)) {
+      data = DEFAULT_PACKING_ITEMS.map(id => ({ id, key: 'packing_item_' + id, checked: false }));
+      savePacking(data);
+    }
+    return data;
+  }
+  function savePacking(list) {
+    localStorage.setItem(PACKING_KEY, JSON.stringify(list));
+  }
+
+  function renderPacking() {
+    const list = loadPacking();
+    const container = document.getElementById('packingList');
+    if (!container) return;
+    container.innerHTML = list.map(item => `
+      <div class="packing-item${item.checked ? ' checked' : ''}" data-id="${item.id}">
+        <input type="checkbox" ${item.checked ? 'checked' : ''}>
+        <span class="label">${item.key ? t(item.key) : item.label}</span>
+        <button type="button" class="packing-delete" title="${t('packing_delete_title')}">🗑</button>
+      </div>
+    `).join('');
+
+    container.querySelectorAll('.packing-item').forEach(row => {
+      const id = row.dataset.id;
+      row.querySelector('input[type="checkbox"]').addEventListener('change', (e) => {
+        const data = loadPacking();
+        const item = data.find(i => i.id === id);
+        if (item) item.checked = e.target.checked;
+        savePacking(data);
+        renderPacking();
+      });
+      row.querySelector('.packing-delete').addEventListener('click', () => {
+        savePacking(loadPacking().filter(i => i.id !== id));
+        renderPacking();
+      });
+    });
+  }
+
+  function initPackingChecklist() {
+    document.getElementById('packingAddBtn').addEventListener('click', () => {
+      const input = document.getElementById('packingAddInput');
+      const label = input.value.trim();
+      if (!label) return;
+      const data = loadPacking();
+      data.push({ id: uid('pk'), label, checked: false });
+      savePacking(data);
+      input.value = '';
+      renderPacking();
+    });
+    document.getElementById('packingAddInput').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') document.getElementById('packingAddBtn').click();
     });
   }
 
@@ -1469,6 +1738,8 @@
     renderCalendar();
     renderItinerary();
     renderFooter();
+    renderCurrentLocationBanner();
+    renderTripProgress();
   }
 
   function renderEverything() {
@@ -1479,6 +1750,7 @@
     renderApproval();
     renderStaticSouvenirs();
     renderSouvenirs();
+    renderPacking();
     renderAll();
   }
 
@@ -1488,6 +1760,7 @@
     renderRouteStrip();
     initNav();
     initCollapsibleSections();
+    initThemeToggle();
     initPlanner();
     renderFilterBar();
     renderPlaceGrid();
@@ -1501,9 +1774,15 @@
     initSouvenirs();
     renderSouvenirs();
     initBackup();
+    initPackingChecklist();
+    renderPacking();
     renderAll();
 
     renderCountdown();
-    setInterval(renderCountdown, 1000);
+    setInterval(() => {
+      renderCountdown();
+      renderTripProgress();
+      renderCurrentLocationBanner();
+    }, 1000);
   });
 })();
