@@ -1432,7 +1432,33 @@
       document.getElementById('navLinks').classList.toggle('open');
     });
     document.querySelectorAll('.nav-links a').forEach(a => {
-      a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
+      a.addEventListener('click', () => {
+        document.getElementById('navLinks').classList.remove('open');
+        const id = a.getAttribute('href').slice(1);
+        openCollapsibleSection(id);
+      });
+    });
+    document.getElementById('navBrandHome').addEventListener('click', (e) => {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  /* ===================== COLLAPSIBLE SECTIONS ===================== */
+  function openCollapsibleSection(id) {
+    const target = document.getElementById(id);
+    if (!target || !target.classList.contains('collapsible-section')) return;
+    document.querySelectorAll('.collapsible-section').forEach(s => s.classList.remove('open'));
+    target.classList.add('open');
+  }
+
+  function initCollapsibleSections() {
+    document.querySelectorAll('.collapsible-section').forEach(sec => {
+      sec.querySelector('.section-header').addEventListener('click', () => {
+        const wasOpen = sec.classList.contains('open');
+        document.querySelectorAll('.collapsible-section').forEach(s => s.classList.remove('open'));
+        if (!wasOpen) sec.classList.add('open');
+      });
     });
   }
 
@@ -1461,6 +1487,7 @@
     initLangSwitch();
     renderRouteStrip();
     initNav();
+    initCollapsibleSections();
     initPlanner();
     renderFilterBar();
     renderPlaceGrid();

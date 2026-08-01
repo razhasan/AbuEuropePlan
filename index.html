@@ -8,12 +8,12 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#123C82">
-<link rel="stylesheet" href="style.css?v=11">
+<link rel="stylesheet" href="style.css?v=12">
 </head>
 <body>
 
 <nav class="nav">
-  <div class="nav-brand" data-i18n="nav_brand">🧳 Abu's Europe Journey</div>
+  <a href="#" class="nav-brand" id="navBrandHome" data-i18n="nav_brand">🧳 Abu's Europe Journey</a>
   <div class="nav-right">
     <div class="lang-switch" id="langSwitch">
       <button type="button" class="lang-btn active" data-lang="en" aria-label="English">🇬🇧 <span>EN</span></button>
@@ -59,9 +59,13 @@
   </div>
 </header>
 
-<section id="planner">
-  <div class="section-label" data-i18n="step1">Step 1</div>
-  <h2 data-i18n="planner_h2">Trip Duration Planner</h2>
+<section id="planner" class="collapsible-section">
+  <button type="button" class="section-header">
+    <span class="section-label" data-i18n="step1">Step 1</span>
+    <h2 data-i18n="planner_h2">Trip Duration Planner</h2>
+    <span class="section-chevron">▾</span>
+  </button>
+  <div class="section-body">
   <p class="section-intro" data-i18n="planner_intro">Landing (Aug 10, 18:10) and the return flight (Oct 19, 19:00) are fixed — that's exactly
   10 weeks. One week with Abdullah in Stuttgart is fixed too. Drag the sliders below to divide the remaining
   9 weeks between Busrah's first stay, your stay in Paris, and Busrah's final stay — every date on this page updates instantly.</p>
@@ -100,44 +104,69 @@
       <div><div class="num" id="sum-end">--</div><div class="lbl" data-i18n="planner_sum_end">Calculated return</div></div>
     </div>
   </div>
+  </div>
 </section>
 
-<section id="timeline">
-  <div class="section-label" data-i18n="step2">Step 2</div>
-  <h2 data-i18n="timeline_h2">Interactive Timeline</h2>
+<section id="timeline" class="collapsible-section">
+  <button type="button" class="section-header">
+    <span class="section-label" data-i18n="step2">Step 2</span>
+    <h2 data-i18n="timeline_h2">Interactive Timeline</h2>
+    <span class="section-chevron">▾</span>
+  </button>
+  <div class="section-body">
   <p class="section-intro" data-i18n="timeline_intro">Click any stop to expand the details. Dates recompute live from the planner above.</p>
   <div class="timeline" id="timelineContainer"></div>
+  </div>
 </section>
 
-<section id="calendar">
-  <div class="section-label" data-i18n="step3">Step 3</div>
-  <h2 data-i18n="calendar_h2">Full Calendar View</h2>
+<section id="calendar" class="collapsible-section">
+  <button type="button" class="section-header">
+    <span class="section-label" data-i18n="step3">Step 3</span>
+    <h2 data-i18n="calendar_h2">Full Calendar View</h2>
+    <span class="section-chevron">▾</span>
+  </button>
+  <div class="section-body">
   <p class="section-intro" data-i18n="calendar_intro">August, September and October 2026 at a glance, color-coded by who he's staying with.</p>
   <div class="cal-legend" id="calLegend"></div>
   <div class="cal-months" id="calMonths"></div>
+  </div>
 </section>
 
-<section id="guide">
-  <div class="section-label" data-i18n="step4">Step 4</div>
-  <h2 data-i18n="guide_h2">Paris Sightseeing Guide</h2>
+<section id="guide" class="collapsible-section">
+  <button type="button" class="section-header">
+    <span class="section-label" data-i18n="step4">Step 4</span>
+    <h2 data-i18n="guide_h2">Paris Sightseeing Guide</h2>
+    <span class="section-chevron">▾</span>
+  </button>
+  <div class="section-body">
   <p class="section-intro" data-i18n="guide_intro">He's already seen the Eiffel Tower, La Défense, the Bateau Mouche cruise, the Champs-Élysées, the Arc de Triomphe and Trocadéro Gardens.
   Here are fresh places to make this visit even more memorable — filter by type below.</p>
   <div class="filter-bar" id="filterBar"></div>
   <button class="btn-primary add-place-btn" id="addPlaceBtnGuide" data-i18n="add_place_btn">+ Add Place</button>
   <div class="card-grid" id="placeGrid"></div>
+  </div>
 </section>
 
-<section id="itinerary">
-  <div class="section-label" data-i18n="step5">Step 5</div>
-  <h2 data-i18n="dayplan_h2">Suggested Day-by-Day Plan</h2>
+<section id="itinerary" class="collapsible-section">
+  <button type="button" class="section-header">
+    <span class="section-label" data-i18n="step5">Step 5</span>
+    <h2 data-i18n="dayplan_h2">Suggested Day-by-Day Plan</h2>
+    <span class="section-chevron">▾</span>
+  </button>
+  <div class="section-body">
   <p class="section-intro" data-i18n="dayplan_intro">Auto-generated from your Paris stay length: a settle-in rest week, then sightseeing days
   alternated with rest days so it stays comfortable and unhurried.</p>
   <div id="itineraryContainer"></div>
+  </div>
 </section>
 
-<section id="gallery">
-  <div class="section-label" data-i18n="step6">Step 6</div>
-  <h2 data-i18n="gallery_h2">Photo Gallery</h2>
+<section id="gallery" class="collapsible-section">
+  <button type="button" class="section-header">
+    <span class="section-label" data-i18n="step6">Step 6</span>
+    <h2 data-i18n="gallery_h2">Photo Gallery</h2>
+    <span class="section-chevron">▾</span>
+  </button>
+  <div class="section-body">
   <p class="section-intro" id="galleryIntro">Drop real photos into the <code>/images</code> folder using the filenames below and they'll
   appear automatically — until then, placeholder icons are shown.</p>
   <div class="gallery-tabs">
@@ -146,12 +175,16 @@
   </div>
   <button class="btn-primary add-place-btn" id="addPlaceBtnGallery" data-i18n="add_place_btn">+ Add Place</button>
   <div class="gallery-grid" id="galleryGrid"></div>
+  </div>
 </section>
 
-<section id="souvenirs">
-  <div class="section-label" data-i18n="step8">Step 8</div>
-  <h2 data-i18n="souvenirs_h2">Souvenirs</h2>
-
+<section id="souvenirs" class="collapsible-section">
+  <button type="button" class="section-header">
+    <span class="section-label" data-i18n="step8">Step 8</span>
+    <h2 data-i18n="souvenirs_h2">Souvenirs</h2>
+    <span class="section-chevron">▾</span>
+  </button>
+  <div class="section-body">
   <h3 class="subheading" data-i18n="souvenirs_static_h3">Permanent Souvenir Photos</h3>
   <p class="section-intro" id="souvenirsStaticIntro">Added directly to the <code>images/souvenirs</code> folder in the GitHub repo — visible to everyone who visits the site.</p>
   <div id="staticSouvenirGrid" class="gallery-grid"></div>
@@ -171,16 +204,22 @@
   </div>
 
   <div id="souvenirGrid" class="souvenir-grid"></div>
+  </div>
 </section>
 
-<section id="approval">
-  <div class="section-label" data-i18n="step7">Step 7</div>
-  <h2 data-i18n="approval_h2">Family Approval</h2>
+<section id="approval" class="collapsible-section">
+  <button type="button" class="section-header">
+    <span class="section-label" data-i18n="step7">Step 7</span>
+    <h2 data-i18n="approval_h2">Family Approval</h2>
+    <span class="section-chevron">▾</span>
+  </button>
+  <div class="section-body">
   <p class="section-intro" id="approvalIntro">Rate the plan and mark your approval. Saved on this device/browser.
   <em>Note: since this is a simple offline page, approvals don't sync automatically between different phones —
   each person approves on the device they're viewing from, or you can share a screenshot.</em></p>
   <div class="approval-grid" id="approvalGrid"></div>
   <div class="overall-approval" id="overallApproval"></div>
+  </div>
 </section>
 
 <footer>
@@ -278,6 +317,6 @@
   </div>
 </div>
 
-<script src="script.js?v=11"></script>
+<script src="script.js?v=12"></script>
 </body>
 </html>

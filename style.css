@@ -49,6 +49,28 @@ section h2 {
 }
 
 section { padding: 70px 20px; max-width: 1100px; margin: 0 auto; }
+
+/* ===== Collapsible sections ===== */
+.collapsible-section { padding-top: 26px; padding-bottom: 26px; border-bottom: 1px solid var(--line); transition: padding .2s ease; }
+.collapsible-section.open { padding-top: 50px; padding-bottom: 60px; }
+.collapsible-section:last-of-type { border-bottom: none; }
+.section-header {
+  display: flex; align-items: center; gap: 16px; width: 100%;
+  background: none; border: none; cursor: pointer; padding: 6px 4px; margin: 0;
+  font: inherit; color: inherit; text-align: left; border-radius: 10px;
+  transition: background .15s ease;
+}
+.section-header:hover { background: rgba(30,136,229,0.06); }
+.section-header .section-label { margin-bottom: 0; flex-shrink: 0; }
+.section-header h2 { margin: 0; flex: 1; }
+.section-chevron { font-size: 1.3rem; color: var(--fr-blue); transition: transform .25s ease; flex-shrink: 0; }
+.collapsible-section.open .section-chevron { transform: rotate(180deg); }
+.section-body { display: none; margin-top: 22px; }
+.collapsible-section.open .section-body { display: block; }
+@media (max-width: 600px) {
+  .section-header { flex-wrap: wrap; }
+  .section-header h2 { font-size: 1.25rem; }
+}
 .section-label {
   display: inline-block;
   text-transform: uppercase;
@@ -75,7 +97,7 @@ a { color: var(--fr-blue); }
   display: flex; align-items: center; justify-content: space-between;
   padding: 14px 24px;
 }
-.nav-brand { font-family: Georgia, serif; font-weight: 700; color: var(--navy); font-size: 1.1rem; }
+.nav-brand { font-family: Georgia, serif; font-weight: 700; color: var(--navy); font-size: 1.1rem; text-decoration: none; cursor: pointer; }
 .nav-right { display: flex; align-items: center; gap: 18px; }
 .nav-links { display: flex; gap: 22px; list-style: none; margin: 0; padding: 0; }
 .nav-links a {
@@ -470,6 +492,7 @@ footer p { margin: 4px 0; font-size: 0.85rem; opacity: 0.85; }
 :root[dir="rtl"] .souvenir-toolbar,
 :root[dir="rtl"] .backup-buttons,
 :root[dir="rtl"] .modal-tabs,
-:root[dir="rtl"] .modal-actions { direction: rtl; }
+:root[dir="rtl"] .modal-actions,
+:root[dir="rtl"] .section-header { direction: rtl; }
 :root[dir="rtl"] .lightbox-close,
 :root[dir="rtl"] .modal-close { right: auto; left: 16px; }
