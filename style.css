@@ -289,6 +289,7 @@ a { color: var(--fr-blue); }
 .planner-status.warn { background: var(--status-warn-bg); color: var(--status-warn-fg); }
 
 .planner-summary { display: flex; gap: 26px; flex-wrap: wrap; margin-top: 22px; }
+.planner-share-btn { margin-top: 24px; }
 .planner-summary div { text-align: center; }
 .planner-summary .num { font-size: 1.4rem; font-weight: 700; color: var(--navy); font-family: Georgia, serif; }
 .planner-summary .lbl { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); }

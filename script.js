@@ -60,6 +60,11 @@
       planner_status_under: '⚠ This combination finishes {days} day(s) before the Oct 19 return flight. Add more days above.',
       planner_sum_total: 'Total weeks', planner_sum_days: 'Total days', planner_sum_sister: 'Weeks w/ Busrah',
       planner_sum_you: 'Weeks w/ You', planner_sum_end: 'Calculated return',
+      planner_share_btn: '📤 Share This Plan on WhatsApp',
+      planner_share_header: "🧳✈️ *Abu's Europe Trip — Planned Schedule*",
+      planner_share_landing: '🛬 Landing in Cologne/Bonn: {date}',
+      planner_share_return: '🛫 Return flight home: {date}',
+      planner_share_cta: "💬 What do you think — does this plan work for you? Let us know if you'd like to suggest any changes!",
 
       timeline_h2: 'Interactive Timeline',
       timeline_intro: 'Click any stop to expand the details. Dates recompute live from the planner above.',
@@ -211,6 +216,11 @@
       planner_status_under: '⚠ یہ ترتیب 19 اکتوبر کی واپسی پرواز سے {days} دن پہلے ختم ہو جاتی ہے۔ اوپر مزید دن شامل کریں۔',
       planner_sum_total: 'کل ہفتے', planner_sum_days: 'کل دن', planner_sum_sister: 'بشریٰ کے ساتھ ہفتے',
       planner_sum_you: 'آپ کے ساتھ ہفتے', planner_sum_end: 'حساب شدہ واپسی',
+      planner_share_btn: '📤 یہ منصوبہ واٹس ایپ پر شیئر کریں',
+      planner_share_header: '🧳✈️ *ابو کے یورپ کے سفر کا طے شدہ شیڈول*',
+      planner_share_landing: '🛬 کولون بون میں آمد: {date}',
+      planner_share_return: '🛫 گھر واپسی پرواز: {date}',
+      planner_share_cta: '💬 آپ کا کیا خیال ہے — کیا یہ منصوبہ آپ کے لیے مناسب ہے؟ اگر کوئی تبدیلی تجویز کرنی ہو تو بتائیں!',
 
       timeline_h2: 'انٹرایکٹو ٹائم لائن',
       timeline_intro: 'تفصیلات دیکھنے کے لیے کسی بھی سٹاپ پر کلک کریں۔ تاریخیں اوپر دیے گئے منصوبہ ساز سے فوری اپ ڈیٹ ہوتی ہیں۔',
@@ -362,6 +372,11 @@
       planner_status_under: '⚠ Cette combinaison se termine {days} jour(s) avant le vol de retour du 19 octobre. Ajoutez plus de jours ci-dessus.',
       planner_sum_total: 'Semaines totales', planner_sum_days: 'Jours totaux', planner_sum_sister: 'Semaines avec Busrah',
       planner_sum_you: 'Semaines avec vous', planner_sum_end: 'Retour calculé',
+      planner_share_btn: '📤 Partager ce Plan sur WhatsApp',
+      planner_share_header: "🧳✈️ *Voyage d'Abu en Europe — Programme Prévu*",
+      planner_share_landing: '🛬 Atterrissage à Cologne/Bonn : {date}',
+      planner_share_return: '🛫 Vol de retour : {date}',
+      planner_share_cta: "💬 Qu'en pensez-vous — ce plan vous convient-il ? Dites-nous si vous souhaitez proposer des changements !",
 
       timeline_h2: 'Chronologie Interactive',
       timeline_intro: 'Cliquez sur une étape pour voir les détails. Les dates se recalculent en direct depuis le planificateur ci-dessus.',
@@ -1770,6 +1785,34 @@
     btn.href = 'https://wa.me/?text=' + encodeURIComponent(text);
   }
 
+  const LEG_EMOJI = { sisterFirst: '🏠', withYou: '🗼', Abdullah: '🏡', sisterFinal: '🏠' };
+
+  function buildPlannerShareText() {
+    const { legs } = computeSchedule();
+    const legLines = legs.map(leg =>
+      (LEG_EMOJI[leg.key] || '📍') + ' ' + leg.name + ': ' + fmtShort(leg.start) + ' → ' + fmtShort(leg.end)
+    ).join('\n');
+    return [
+      t('planner_share_header'),
+      '',
+      t('planner_share_landing', { date: fmtShort(TRIP_START) }),
+      legLines,
+      t('planner_share_return', { date: fmtShort(TRIP_END) }),
+      '',
+      t('planner_share_cta'),
+      '',
+      '🔗 ' + SITE_URL
+    ].join('\n');
+  }
+
+  function initPlannerShare() {
+    const btn = document.getElementById('plannerShareBtn');
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+      window.open('https://wa.me/?text=' + encodeURIComponent(buildPlannerShareText()), '_blank');
+    });
+  }
+
   async function sharePhotosViaWhatsApp(photoSrcs, titleText) {
     if (!photoSrcs || !photoSrcs.length) { alert(t('share_no_photos_alert')); return; }
     try {
@@ -1932,6 +1975,7 @@
     initCollapsibleSections();
     initThemeToggle();
     initPlanner();
+    initPlannerShare();
     renderFilterBar();
     renderPlaceGrid();
     initGalleryTabs();
