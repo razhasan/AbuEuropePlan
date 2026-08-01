@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#123C82">
-<link rel="stylesheet" href="style.css?v=17">
+<link rel="stylesheet" href="style.css?v=18">
 <script>(function(){try{if(localStorage.getItem('europeTripTheme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
 </head>
 <body>
@@ -126,7 +126,7 @@
   </button>
   <div class="section-body">
   <p class="section-intro" data-i18n="timeline_intro">Click any stop to expand the details. Dates recompute live from the planner above.</p>
-  <div class="timeline" id="timelineContainer"></div>
+  <div class="timeline stagger" id="timelineContainer"></div>
   </div>
 </section>
 
@@ -139,7 +139,7 @@
   <div class="section-body">
   <p class="section-intro" data-i18n="calendar_intro">August, September and October 2026 at a glance, color-coded by who he's staying with.</p>
   <div class="cal-legend" id="calLegend"></div>
-  <div class="cal-months" id="calMonths"></div>
+  <div class="cal-months stagger" id="calMonths"></div>
   </div>
 </section>
 
@@ -166,7 +166,7 @@
   Here are fresh places to make this visit even more memorable — filter by type below.</p>
   <div class="filter-bar" id="filterBar"></div>
   <button class="btn-primary add-place-btn" id="addPlaceBtnGuide" data-i18n="add_place_btn">+ Add Place</button>
-  <div class="card-grid" id="placeGrid"></div>
+  <div class="card-grid stagger" id="placeGrid"></div>
   </div>
 </section>
 
@@ -179,7 +179,7 @@
   <div class="section-body">
   <p class="section-intro" data-i18n="dayplan_intro">Auto-generated from your Paris stay length: a settle-in rest week, then sightseeing days
   alternated with rest days so it stays comfortable and unhurried.</p>
-  <div id="itineraryContainer"></div>
+  <div id="itineraryContainer" class="stagger"></div>
   </div>
 </section>
 
@@ -213,7 +213,7 @@
     <button data-tab="visited" data-i18n="tab_visited">Already Visited</button>
   </div>
   <button class="btn-primary add-place-btn" id="addPlaceBtnGallery" data-i18n="add_place_btn">+ Add Place</button>
-  <div class="gallery-grid" id="galleryGrid"></div>
+  <div class="gallery-grid stagger" id="galleryGrid"></div>
   </div>
 </section>
 
@@ -230,7 +230,7 @@
     <button type="button" class="btn-primary whatsapp-share-btn souvenir-static-share-btn" id="staticSouvenirShareBtn" data-i18n="souvenirs_static_share_btn">📤 Share on WhatsApp</button>
     <button type="button" class="btn-ghost" id="staticShareCancelBtn" data-i18n="share_cancel_btn" style="display:none;">✕ Cancel</button>
   </div>
-  <div id="staticSouvenirGrid" class="gallery-grid"></div>
+  <div id="staticSouvenirGrid" class="gallery-grid stagger"></div>
 
   <h3 class="subheading" data-i18n="souvenirs_personal_h3">Your Own Additions (this device only)</h3>
   <p class="section-intro" data-i18n="souvenirs_intro">A place to keep a photo record of souvenirs picked up along the way — one category per
@@ -246,7 +246,7 @@
     </div>
   </div>
 
-  <div id="souvenirGrid" class="souvenir-grid"></div>
+  <div id="souvenirGrid" class="souvenir-grid stagger"></div>
   </div>
 </section>
 
@@ -364,6 +364,6 @@
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="script.js?v=17"></script>
+<script src="script.js?v=18"></script>
 </body>
 </html>
