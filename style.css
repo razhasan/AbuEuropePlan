@@ -398,7 +398,23 @@ a { color: var(--fr-blue); }
 .subheading { font-size: 1.1rem; margin-top: 28px; margin-bottom: 6px; }
 .subheading:first-of-type { margin-top: 0; }
 #staticSouvenirGrid { margin-bottom: 40px; }
-.souvenir-static-share-btn { margin-bottom: 20px; }
+.share-toolbar { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+.share-tap-hint { color: var(--muted); font-size: 0.82rem; margin: 0 0 14px; }
+
+/* ===== Photo selection for WhatsApp share ===== */
+.share-photo, .gallery-item.share-photo { position: relative; cursor: pointer; }
+.share-check {
+  display: none; position: absolute; top: 8px; right: 8px; width: 24px; height: 24px; border-radius: 50%;
+  background: rgba(255,255,255,0.85); color: transparent; align-items: center; justify-content: center;
+  font-size: 0.85rem; font-weight: 700; border: 2px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  transition: background .15s, color .15s; z-index: 3;
+}
+.selecting .share-check { display: flex; }
+.share-photo.selected .share-check { background: var(--fr-blue); color: #fff; border-color: var(--fr-blue); }
+.share-photo.selected { outline: 3px solid var(--fr-blue); outline-offset: -3px; }
+.souvenir-category.selecting .souvenir-photo { cursor: pointer; }
+.souvenir-category.selecting .photo-delete { opacity: 0.35; pointer-events: none; }
+.souvenir-category.selecting .souvenir-add-tile { opacity: 0.5; pointer-events: none; }
 .souvenir-toolbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; margin-bottom: 26px; }
 .btn-primary {
   display: inline-block; background: linear-gradient(135deg, var(--fr-blue), var(--purple)); color: #fff; border: none; padding: 10px 20px;
@@ -569,6 +585,7 @@ footer p { margin: 4px 0; font-size: 0.85rem; opacity: 0.85; }
 :root[dir="rtl"] .media-edit-btn { right: auto; left: 8px; }
 :root[dir="rtl"] .place-delete-btn { left: auto; right: 8px; }
 :root[dir="rtl"] .souvenir-photo .photo-delete { right: auto; left: 3px; }
+:root[dir="rtl"] .share-check { right: auto; left: 8px; }
 :root[dir="rtl"] .place-body .stats,
 :root[dir="rtl"] .cal-legend,
 :root[dir="rtl"] .planner-summary,

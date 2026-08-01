@@ -8,7 +8,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#123C82">
-<link rel="stylesheet" href="style.css?v=14">
+<link rel="stylesheet" href="style.css?v=15">
 <script>(function(){try{if(localStorage.getItem('europeTripTheme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
 </head>
 <body>
@@ -223,7 +223,10 @@
   <div class="section-body">
   <h3 class="subheading" data-i18n="souvenirs_static_h3">Permanent Souvenir Photos</h3>
   <p class="section-intro" id="souvenirsStaticIntro">Added directly to the <code>images/souvenirs</code> folder in the GitHub repo — visible to everyone who visits the site.</p>
-  <button type="button" class="btn-primary whatsapp-share-btn souvenir-static-share-btn" id="staticSouvenirShareBtn" data-i18n="souvenirs_static_share_btn">📤 Share on WhatsApp</button>
+  <div class="share-toolbar">
+    <button type="button" class="btn-primary whatsapp-share-btn souvenir-static-share-btn" id="staticSouvenirShareBtn" data-i18n="souvenirs_static_share_btn">📤 Share on WhatsApp</button>
+    <button type="button" class="btn-ghost" id="staticShareCancelBtn" data-i18n="share_cancel_btn" style="display:none;">✕ Cancel</button>
+  </div>
   <div id="staticSouvenirGrid" class="gallery-grid"></div>
 
   <h3 class="subheading" data-i18n="souvenirs_personal_h3">Your Own Additions (this device only)</h3>
@@ -358,6 +361,6 @@
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="script.js?v=14"></script>
+<script src="script.js?v=15"></script>
 </body>
 </html>

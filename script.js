@@ -148,6 +148,10 @@
       souvenir_share_btn: 'Share this category on WhatsApp',
       share_no_photos_alert: 'No photos in this category yet — add some first.',
       share_fallback_alert: "Your browser can't attach photos directly here. We'll open WhatsApp with a message instead — you can attach the photos there manually.",
+      share_send_btn: '✅ Send ({count})',
+      share_cancel_btn: '✕ Cancel',
+      share_select_photos_alert: 'Tap the photos you want to share first, then tap Send.',
+      share_tap_hint: 'Tap the photos you want to share, then tap Send.',
       category_prompt: 'Category name (e.g. "Eiffel Tower", "Garden"):',
       caption_prompt: 'Optional caption for this photo (leave blank to skip):',
       confirm_delete_category: 'Delete this whole category and its photos?',
@@ -296,6 +300,10 @@
       souvenir_share_btn: 'اس زمرے کو واٹس ایپ پر شیئر کریں',
       share_no_photos_alert: 'اس زمرے میں ابھی تک کوئی تصویر نہیں — پہلے کچھ شامل کریں۔',
       share_fallback_alert: 'آپ کا براؤزر یہاں براہ راست تصاویر منسلک نہیں کر سکتا۔ اس کے بجائے واٹس ایپ ایک پیغام کے ساتھ کھولا جا رہا ہے — آپ وہاں تصاویر خود منسلک کر سکتے ہیں۔',
+      share_send_btn: '✅ بھیجیں ({count})',
+      share_cancel_btn: '✕ منسوخ کریں',
+      share_select_photos_alert: 'پہلے وہ تصاویر منتخب کریں جو آپ شیئر کرنا چاہتے ہیں، پھر بھیجیں پر ٹیپ کریں۔',
+      share_tap_hint: 'جو تصاویر شیئر کرنی ہیں ان پر ٹیپ کریں، پھر بھیجیں پر ٹیپ کریں۔',
       category_prompt: 'زمرے کا نام (مثلاً "ایفل ٹاور"، "باغ"):',
       caption_prompt: 'اس تصویر کے لیے اختیاری کیپشن (خالی چھوڑ سکتے ہیں):',
       confirm_delete_category: 'کیا یہ پورا زمرہ اور اس کی تصاویر حذف کر دی جائیں؟',
@@ -444,6 +452,10 @@
       souvenir_share_btn: 'Partager cette catégorie sur WhatsApp',
       share_no_photos_alert: "Aucune photo dans cette catégorie pour l'instant — ajoutez-en d'abord.",
       share_fallback_alert: "Votre navigateur ne peut pas joindre les photos directement ici. WhatsApp va s'ouvrir avec un message à la place — vous pourrez y joindre les photos vous-même.",
+      share_send_btn: '✅ Envoyer ({count})',
+      share_cancel_btn: '✕ Annuler',
+      share_select_photos_alert: "Touchez d'abord les photos à partager, puis touchez Envoyer.",
+      share_tap_hint: 'Touchez les photos que vous voulez partager, puis touchez Envoyer.',
       category_prompt: 'Nom de la catégorie (ex. "Tour Eiffel", "Jardin") :',
       caption_prompt: 'Légende facultative pour cette photo (laissez vide pour ignorer) :',
       confirm_delete_category: 'Supprimer toute cette catégorie et ses photos ?',
@@ -1348,6 +1360,7 @@
   }
 
   let staticSouvenirSrcs = [];
+  let staticShareMode = false;
 
   async function renderStaticSouvenirs() {
     const grid = document.getElementById('staticSouvenirGrid');
@@ -1364,26 +1377,70 @@
 
     if (!present.length) {
       grid.innerHTML = `<p class="souvenir-empty">${t('souvenirs_static_empty')}</p>`;
+      updateStaticShareUI();
       return;
     }
 
     grid.innerHTML = present.map(r => `
-      <div class="gallery-item" data-src="${r.src}">
+      <div class="gallery-item share-photo" data-src="${r.src}">
         <img src="${r.src}" alt="Souvenir ${r.n}">
+        <span class="share-check">✓</span>
       </div>
     `).join('');
+    grid.classList.toggle('selecting', staticShareMode);
 
     grid.querySelectorAll('.gallery-item').forEach(item => {
-      item.addEventListener('click', () => openImageLightbox(item.dataset.src));
+      item.addEventListener('click', () => {
+        if (staticShareMode) {
+          item.classList.toggle('selected');
+          updateStaticShareUI();
+        } else {
+          openImageLightbox(item.dataset.src);
+        }
+      });
     });
+  }
+
+  function toggleStaticShareMode(forceOff) {
+    const grid = document.getElementById('staticSouvenirGrid');
+    staticShareMode = forceOff ? false : !staticShareMode;
+    grid.classList.toggle('selecting', staticShareMode);
+    if (!staticShareMode) {
+      grid.querySelectorAll('.share-photo.selected').forEach(el => el.classList.remove('selected'));
+    }
+    updateStaticShareUI();
+  }
+
+  function updateStaticShareUI() {
+    const btn = document.getElementById('staticSouvenirShareBtn');
+    const cancelBtn = document.getElementById('staticShareCancelBtn');
+    if (!btn || !cancelBtn) return;
+    if (!staticShareMode) {
+      btn.textContent = t('souvenirs_static_share_btn');
+      cancelBtn.style.display = 'none';
+      return;
+    }
+    const count = document.querySelectorAll('#staticSouvenirGrid .share-photo.selected').length;
+    btn.textContent = t('share_send_btn', { count });
+    cancelBtn.style.display = 'inline-block';
   }
 
   function initStaticSouvenirShare() {
     const btn = document.getElementById('staticSouvenirShareBtn');
-    if (!btn) return;
+    const cancelBtn = document.getElementById('staticShareCancelBtn');
+    if (!btn || !cancelBtn) return;
     btn.addEventListener('click', () => {
-      sharePhotosViaWhatsApp(staticSouvenirSrcs, t('souvenirs_static_h3'));
+      if (!staticShareMode) {
+        if (!staticSouvenirSrcs.length) { alert(t('share_no_photos_alert')); return; }
+        toggleStaticShareMode();
+        return;
+      }
+      const selected = Array.from(document.querySelectorAll('#staticSouvenirGrid .share-photo.selected')).map(el => el.dataset.src);
+      if (!selected.length) { alert(t('share_select_photos_alert')); return; }
+      sharePhotosViaWhatsApp(selected, t('souvenirs_static_h3'));
+      toggleStaticShareMode(true);
     });
+    cancelBtn.addEventListener('click', () => toggleStaticShareMode(true));
   }
 
   function openImageLightbox(src) {
@@ -1406,6 +1463,32 @@
     return prefix + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
   }
 
+  const activeShareCats = new Set();
+
+  function toggleCatShareMode(catId, forceOff) {
+    const on = forceOff ? false : !activeShareCats.has(catId);
+    if (on) activeShareCats.add(catId); else activeShareCats.delete(catId);
+    updateCatShareUI(catId);
+  }
+
+  function updateCatShareUI(catId) {
+    const card = document.querySelector(`.souvenir-category[data-catid="${catId}"]`);
+    if (!card) return;
+    const on = activeShareCats.has(catId);
+    card.classList.toggle('selecting', on);
+    const shareBtn = card.querySelector('.cat-share');
+    const cancelBtn = card.querySelector('.cat-share-cancel');
+    if (!on) {
+      card.querySelectorAll('.souvenir-photo.selected').forEach(el => el.classList.remove('selected'));
+      shareBtn.textContent = '📤';
+      cancelBtn.style.display = 'none';
+      return;
+    }
+    const count = card.querySelectorAll('.souvenir-photo.selected').length;
+    shareBtn.textContent = count ? '✅ ' + count : '📤';
+    cancelBtn.style.display = 'inline-block';
+  }
+
   function renderSouvenirs() {
     const list = loadSouvenirs();
     const grid = document.getElementById('souvenirGrid');
@@ -1415,19 +1498,21 @@
     }
 
     grid.innerHTML = list.map(cat => `
-      <div class="souvenir-category">
+      <div class="souvenir-category${activeShareCats.has(cat.id) ? ' selecting' : ''}" data-catid="${cat.id}">
         <div class="souvenir-cat-header">
           <h4>${cat.name}</h4>
           <div class="souvenir-cat-actions">
             <button type="button" class="icon-btn cat-share" data-cat="${cat.id}" title="${t('souvenir_share_btn')}">📤</button>
+            <button type="button" class="icon-btn cat-share-cancel" data-cat="${cat.id}" title="${t('share_cancel_btn')}" style="display:none;">✕</button>
             <button type="button" class="icon-btn cat-delete" data-cat="${cat.id}" title="${t('delete_category_title')}">🗑</button>
           </div>
         </div>
         <div class="souvenir-photos">
           ${cat.photos.map(p => `
-            <div class="souvenir-photo">
+            <div class="souvenir-photo" data-src="${p.src}">
               <img src="${p.src}" alt="${p.caption || cat.name}">
               <button type="button" class="photo-delete" data-cat="${cat.id}" data-photo="${p.id}" title="${t('delete_photo_title')}">&times;</button>
+              <span class="share-check">✓</span>
               ${p.caption ? `<div class="cap">${p.caption}</div>` : ''}
             </div>
           `).join('')}
@@ -1442,19 +1527,44 @@
     grid.querySelectorAll('.cat-delete').forEach(btn => {
       btn.addEventListener('click', () => {
         if (!confirm(t('confirm_delete_category'))) return;
+        activeShareCats.delete(btn.dataset.cat);
         saveSouvenirs(loadSouvenirs().filter(c => c.id !== btn.dataset.cat));
         renderSouvenirs();
       });
     });
     grid.querySelectorAll('.cat-share').forEach(btn => {
       btn.addEventListener('click', () => {
-        const cat = loadSouvenirs().find(c => c.id === btn.dataset.cat);
+        const catId = btn.dataset.cat;
+        const cat = loadSouvenirs().find(c => c.id === catId);
         if (!cat) return;
-        sharePhotosViaWhatsApp(cat.photos.map(p => p.src), cat.name);
+        if (!activeShareCats.has(catId)) {
+          if (!cat.photos.length) { alert(t('share_no_photos_alert')); return; }
+          toggleCatShareMode(catId);
+          return;
+        }
+        const card = btn.closest('.souvenir-category');
+        const selected = Array.from(card.querySelectorAll('.souvenir-photo.selected')).map(el => el.dataset.src);
+        if (!selected.length) { alert(t('share_select_photos_alert')); return; }
+        sharePhotosViaWhatsApp(selected, cat.name);
+        toggleCatShareMode(catId, true);
+      });
+    });
+    grid.querySelectorAll('.cat-share-cancel').forEach(btn => {
+      btn.addEventListener('click', () => toggleCatShareMode(btn.dataset.cat, true));
+    });
+    grid.querySelectorAll('.souvenir-photo').forEach(tile => {
+      tile.addEventListener('click', (e) => {
+        const card = tile.closest('.souvenir-category');
+        const catId = card.dataset.catid;
+        if (!activeShareCats.has(catId)) return;
+        if (e.target.closest('.photo-delete')) return;
+        tile.classList.toggle('selected');
+        updateCatShareUI(catId);
       });
     });
     grid.querySelectorAll('.photo-delete').forEach(btn => {
-      btn.addEventListener('click', () => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
         const data = loadSouvenirs();
         const cat = data.find(c => c.id === btn.dataset.cat);
         if (cat) cat.photos = cat.photos.filter(p => p.id !== btn.dataset.photo);
