@@ -1478,15 +1478,18 @@
     card.classList.toggle('selecting', on);
     const shareBtn = card.querySelector('.cat-share');
     const cancelBtn = card.querySelector('.cat-share-cancel');
+    const hint = card.querySelector('.cat-share-hint');
     if (!on) {
       card.querySelectorAll('.souvenir-photo.selected').forEach(el => el.classList.remove('selected'));
-      shareBtn.textContent = '📤';
+      shareBtn.textContent = t('souvenirs_static_share_btn');
       cancelBtn.style.display = 'none';
+      if (hint) hint.style.display = 'none';
       return;
     }
     const count = card.querySelectorAll('.souvenir-photo.selected').length;
-    shareBtn.textContent = count ? '✅ ' + count : '📤';
+    shareBtn.textContent = count ? t('share_send_btn', { count }) : t('souvenirs_static_share_btn');
     cancelBtn.style.display = 'inline-block';
+    if (hint) hint.style.display = 'block';
   }
 
   function renderSouvenirs() {
@@ -1497,16 +1500,19 @@
       return;
     }
 
-    grid.innerHTML = list.map(cat => `
-      <div class="souvenir-category${activeShareCats.has(cat.id) ? ' selecting' : ''}" data-catid="${cat.id}">
+    grid.innerHTML = list.map(cat => {
+      const on = activeShareCats.has(cat.id);
+      return `
+      <div class="souvenir-category${on ? ' selecting' : ''}" data-catid="${cat.id}">
         <div class="souvenir-cat-header">
           <h4>${cat.name}</h4>
-          <div class="souvenir-cat-actions">
-            <button type="button" class="icon-btn cat-share" data-cat="${cat.id}" title="${t('souvenir_share_btn')}">📤</button>
-            <button type="button" class="icon-btn cat-share-cancel" data-cat="${cat.id}" title="${t('share_cancel_btn')}" style="display:none;">✕</button>
-            <button type="button" class="icon-btn cat-delete" data-cat="${cat.id}" title="${t('delete_category_title')}">🗑</button>
-          </div>
+          <button type="button" class="icon-btn cat-delete" data-cat="${cat.id}" title="${t('delete_category_title')}">🗑</button>
         </div>
+        <div class="share-toolbar cat-share-toolbar">
+          <button type="button" class="btn-primary whatsapp-share-btn cat-share" data-cat="${cat.id}">${t('souvenirs_static_share_btn')}</button>
+          <button type="button" class="btn-ghost cat-share-cancel" data-cat="${cat.id}" style="display:${on ? 'inline-block' : 'none'};">${t('share_cancel_btn')}</button>
+        </div>
+        <p class="share-tap-hint cat-share-hint" style="display:${on ? 'block' : 'none'};">${t('share_tap_hint')}</p>
         <div class="souvenir-photos">
           ${cat.photos.map(p => `
             <div class="souvenir-photo" data-src="${p.src}">
@@ -1522,7 +1528,8 @@
           </label>
         </div>
       </div>
-    `).join('');
+    `;
+    }).join('');
 
     grid.querySelectorAll('.cat-delete').forEach(btn => {
       btn.addEventListener('click', () => {
