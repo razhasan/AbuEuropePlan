@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#123C82">
-<link rel="stylesheet" href="style.css?v=18">
+<link rel="stylesheet" href="style.css?v=19">
 <script>(function(){try{if(localStorage.getItem('europeTripTheme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
 </head>
 <body>
@@ -93,10 +93,10 @@
         <input type="range" id="withYou" min="1" max="6" step="1" value="4">
         <span class="hint" data-i18n="planner_field_withYou_hint">Rest week + sightseeing</span>
       </div>
-      <div class="planner-field locked">
-        <label><span data-i18n="planner_field_Abdullah_label">Stuttgart — Abdullah</span> <span class="planner-value" data-i18n="planner_field_Abdullah_value">1 week</span></label>
-        <input type="range" min="1" max="1" value="1" disabled>
-        <span class="hint" data-i18n="planner_field_Abdullah_hint">Fixed as requested</span>
+      <div class="planner-field accent-abdullah">
+        <label><span data-i18n="planner_field_Abdullah_label">Stuttgart — Abdullah</span> <span class="planner-value" id="val-Abdullah"></span></label>
+        <input type="range" id="Abdullah" min="1" max="6" step="1" value="1">
+        <span class="hint" data-i18n="planner_field_Abdullah_hint">Flexible — adjust to fit the total</span>
       </div>
       <div class="planner-field">
         <label><span data-i18n="planner_field_sisterFinal_label">Bonn — Final stay (Busrah)</span> <span class="planner-value" id="val-sisterFinal"></span></label>
@@ -364,6 +364,6 @@
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="script.js?v=18"></script>
+<script src="script.js?v=19"></script>
 </body>
 </html>

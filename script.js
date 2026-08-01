@@ -4,7 +4,6 @@
   /* ===================== CONFIG ===================== */
   const TRIP_START = new Date(2026, 7, 10, 18, 10);  // Aug 10 2026, 18:10 — landing at CGN
   const TRIP_END   = new Date(2026, 9, 19, 19, 0);   // Oct 19 2026, 19:00 — return flight
-  const Abdullah_WEEKS = 1; // fixed
   const SITE_URL = 'https://razhasan.github.io/AbuEuropePlan/';
 
   const COLORS = {
@@ -17,6 +16,7 @@
   const state = {
     sisterFirst: 1,
     withYou: 4,
+    Abdullah: 1,
     sisterFinal: 4
   };
 
@@ -45,14 +45,13 @@
       label_map: '🗺️ Map', label_packing: '🎒 Packing',
 
       planner_h2: 'Trip Duration Planner',
-      planner_intro: "Landing (Aug 10, 18:10) and the return flight (Oct 19, 19:00) are fixed — that's exactly 10 weeks. One week with Abdullah in Stuttgart is fixed too. Drag the sliders below to divide the remaining 9 weeks between Busrah's first stay, your stay in Paris, and Busrah's final stay — every date on this page updates instantly.",
+      planner_intro: "Landing (Aug 10, 18:10) and the return flight (Oct 19, 19:00) are fixed — that's exactly 10 weeks. Drag the sliders below to divide those 10 weeks between Busrah's first stay, your stay in Paris, Abdullah's stay in Stuttgart, and Busrah's final stay, in that order — every date on this page updates instantly.",
       planner_field_sisterFirst_label: 'Bonn — Arrival stay (Busrah)',
       planner_field_sisterFirst_hint: 'Right after landing, before heading to Paris',
       planner_field_withYou_label: 'Paris / Verneuil-en-Halatte (You)',
       planner_field_withYou_hint: 'Rest week + sightseeing',
       planner_field_Abdullah_label: 'Stuttgart — Abdullah',
-      planner_field_Abdullah_value: '1 week',
-      planner_field_Abdullah_hint: 'Fixed as requested',
+      planner_field_Abdullah_hint: 'Flexible — adjust to fit the total',
       planner_field_sisterFinal_label: 'Bonn — Final stay (Busrah)',
       planner_field_sisterFinal_hint: 'Until the Oct 19 flight home',
       week_singular: 'week', week_plural: 'weeks',
@@ -197,14 +196,13 @@
       label_map: '🗺️ نقشہ', label_packing: '🎒 سامان کی فہرست',
 
       planner_h2: 'سفر کے دورانیے کا منصوبہ',
-      planner_intro: 'پہنچنے کا وقت (10 اگست، 18:10) اور واپسی کی پرواز (19 اکتوبر، 19:00) طے شدہ ہیں — یعنی مکمل 10 ہفتے۔ سٹٹگارٹ میں عبداللہ کے پاس ایک ہفتہ بھی طے ہے۔ نیچے دیے گئے سلائیڈرز کو حرکت دے کر باقی 9 ہفتے بشریٰ کے پاس پہلے قیام، پیرس میں آپ کے پاس قیام، اور بشریٰ کے پاس آخری قیام کے درمیان تقسیم کریں — اس صفحے کی ہر تاریخ فوراً اپ ڈیٹ ہو جائے گی۔',
+      planner_intro: 'پہنچنے کا وقت (10 اگست، 18:10) اور واپسی کی پرواز (19 اکتوبر، 19:00) طے شدہ ہیں — یعنی مکمل 10 ہفتے۔ نیچے دیے گئے سلائیڈرز کو حرکت دے کر یہ 10 ہفتے اسی ترتیب میں تقسیم کریں: بشریٰ کے پاس پہلا قیام، پیرس میں آپ کے پاس قیام، سٹٹگارٹ میں عبداللہ کے پاس قیام، اور بشریٰ کے پاس آخری قیام — اس صفحے کی ہر تاریخ فوراً اپ ڈیٹ ہو جائے گی۔',
       planner_field_sisterFirst_label: 'بون — آمد پر قیام (بشریٰ)',
       planner_field_sisterFirst_hint: 'پہنچنے کے فوراً بعد، پیرس جانے سے پہلے',
       planner_field_withYou_label: 'پیرس / ورنوے آں ہالات (آپ)',
       planner_field_withYou_hint: 'آرام کا ہفتہ + سیر و تفریح',
       planner_field_Abdullah_label: 'سٹٹگارٹ — عبداللہ',
-      planner_field_Abdullah_value: '1 ہفتہ',
-      planner_field_Abdullah_hint: 'درخواست کے مطابق طے شدہ',
+      planner_field_Abdullah_hint: 'لچکدار — کل میزان کے مطابق ایڈجسٹ کریں',
       planner_field_sisterFinal_label: 'بون — آخری قیام (بشریٰ)',
       planner_field_sisterFinal_hint: '19 اکتوبر کی واپسی پرواز تک',
       week_singular: 'ہفتہ', week_plural: 'ہفتے',
@@ -349,14 +347,13 @@
       label_map: '🗺️ Carte', label_packing: '🎒 Bagages',
 
       planner_h2: 'Planificateur de Durée du Voyage',
-      planner_intro: "L'atterrissage (10 août, 18h10) et le vol de retour (19 octobre, 19h00) sont fixes — soit exactement 10 semaines. Une semaine avec Abdullah à Stuttgart est fixe aussi. Faites glisser les curseurs ci-dessous pour répartir les 9 semaines restantes entre le premier séjour de Busrah, votre séjour à Paris, et le séjour final de Busrah — chaque date sur cette page se met à jour instantanément.",
+      planner_intro: "L'atterrissage (10 août, 18h10) et le vol de retour (19 octobre, 19h00) sont fixes — soit exactement 10 semaines. Faites glisser les curseurs ci-dessous pour répartir ces 10 semaines, dans cet ordre : le premier séjour de Busrah, votre séjour à Paris, le séjour d'Abdullah à Stuttgart, puis le séjour final de Busrah — chaque date sur cette page se met à jour instantanément.",
       planner_field_sisterFirst_label: "Bonn — Séjour à l'arrivée (Busrah)",
       planner_field_sisterFirst_hint: "Juste après l'atterrissage, avant de partir pour Paris",
       planner_field_withYou_label: 'Paris / Verneuil-en-Halatte (Vous)',
       planner_field_withYou_hint: 'Semaine de repos + visites',
       planner_field_Abdullah_label: 'Stuttgart — Abdullah',
-      planner_field_Abdullah_value: '1 semaine',
-      planner_field_Abdullah_hint: 'Fixé comme demandé',
+      planner_field_Abdullah_hint: 'Flexible — ajustez selon le total',
       planner_field_sisterFinal_label: 'Bonn — Séjour final (Busrah)',
       planner_field_sisterFinal_hint: "Jusqu'au vol de retour du 19 octobre",
       week_singular: 'semaine', week_plural: 'semaines',
@@ -737,7 +734,7 @@
     });
     cursor = withYouEnd;
 
-    const AbdullahEnd = addDays(cursor, Abdullah_WEEKS * 7);
+    const AbdullahEnd = addDays(cursor, state.Abdullah * 7);
     legs.push({
       key: 'Abdullah', name: t('leg_Abdullah_name'), color: COLORS.Abdullah,
       start: cursor, end: AbdullahEnd,
@@ -793,10 +790,11 @@
   function renderPlanner() {
     document.getElementById('val-sisterFirst').textContent = weekLabel(state.sisterFirst);
     document.getElementById('val-withYou').textContent = weekLabel(state.withYou);
+    document.getElementById('val-Abdullah').textContent = weekLabel(state.Abdullah);
     document.getElementById('val-sisterFinal').textContent = weekLabel(state.sisterFinal);
 
     const { calculatedEnd } = computeSchedule();
-    const totalWeeks = state.sisterFirst + state.withYou + Abdullah_WEEKS + state.sisterFinal;
+    const totalWeeks = state.sisterFirst + state.withYou + state.Abdullah + state.sisterFinal;
     const totalDays = Math.round((calculatedEnd - TRIP_START) / 86400000);
     const statusEl = document.getElementById('plannerStatus');
 
@@ -819,7 +817,7 @@
   }
 
   function initPlanner() {
-    ['sisterFirst', 'withYou', 'sisterFinal'].forEach(key => {
+    ['sisterFirst', 'withYou', 'Abdullah', 'sisterFinal'].forEach(key => {
       const input = document.getElementById(key);
       input.value = state[key];
       input.addEventListener('input', () => {
@@ -1658,7 +1656,7 @@
       days: totalDays,
       sisterWeeks: state.sisterFirst + state.sisterFinal,
       youWeeks: state.withYou,
-      AbdullahWeeks: Abdullah_WEEKS
+      AbdullahWeeks: state.Abdullah
     });
   }
 
