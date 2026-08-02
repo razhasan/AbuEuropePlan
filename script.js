@@ -14,10 +14,10 @@
   };
 
   const state = {
-    sisterFirst: 1,
-    withYou: 4,
-    Abdullah: 1,
-    sisterFinal: 4
+    sisterFirst: 7,
+    withYou: 28,
+    Abdullah: 7,
+    sisterFinal: 28
   };
 
   /* ===================== LANGUAGE ===================== */
@@ -65,11 +65,10 @@
       day_singular: 'day', day_plural: 'days',
       unit_toggle_weeks: 'Weeks', unit_toggle_days: 'Days',
       planner_sum_sister_days: 'Days w/ Busrah', planner_sum_you_days: 'Days w/ You',
-      planner_status_ok: '✓ Lines up perfectly with the Oct 19 return flight ({weeks} weeks total).',
+      planner_status_ok: '✓ Lines up perfectly with the Oct 19 return flight ({weeks} total).',
       planner_status_over: '⚠ This combination runs {days} day(s) past the Oct 19 return flight. Reduce one of the durations above.',
       planner_status_under: '⚠ This combination finishes {days} day(s) before the Oct 19 return flight. Add more days above.',
-      planner_sum_total: 'Total weeks', planner_sum_days: 'Total days', planner_sum_sister: 'Weeks w/ Busrah',
-      planner_sum_you: 'Weeks w/ You', planner_sum_end: 'Calculated return',
+      planner_sum_total: 'Total weeks', planner_sum_days: 'Total days', planner_sum_end: 'Calculated return',
       planner_share_btn: '📤 Share This Plan on WhatsApp',
       planner_share_header: "🧳✈️ *Abu's Europe Trip — Planned Schedule*",
       planner_share_landing: '🛬 Landing in Cologne/Bonn: {date}',
@@ -182,7 +181,7 @@
       overall_all_approved: '🎉 Everyone has approved the plan!',
       overall_partial: '{count} of {total} family members have approved so far.',
 
-      footer_stats: '{days} days across 3 cities (Bonn, Paris/Verneuil-en-Halatte, Stuttgart) · {sisterWeeks} weeks with Busrah · {youWeeks} weeks with you · {AbdullahWeeks} week with Abdullah.',
+      footer_stats: '{days} days across 3 cities (Bonn, Paris/Verneuil-en-Halatte, Stuttgart) · {sisterWeeks} with Busrah · {youWeeks} with you · {AbdullahWeeks} with Abdullah.',
       footer_tagline: "Made with love for Abu's big Europe adventure ✈️",
 
       modal_title_default: 'Add Image', modal_title_for: 'Photo for {name}',
@@ -226,11 +225,10 @@
       day_singular: 'دن', day_plural: 'دن',
       unit_toggle_weeks: 'ہفتے', unit_toggle_days: 'دن',
       planner_sum_sister_days: 'بشریٰ کے ساتھ دن', planner_sum_you_days: 'آپ کے ساتھ دن',
-      planner_status_ok: '✓ یہ 19 اکتوبر کی واپسی پرواز سے بالکل درست میل کھاتا ہے (کل {weeks} ہفتے)۔',
+      planner_status_ok: '✓ یہ 19 اکتوبر کی واپسی پرواز سے بالکل درست میل کھاتا ہے (کل {weeks})۔',
       planner_status_over: '⚠ یہ ترتیب 19 اکتوبر کی واپسی پرواز سے {days} دن آگے نکل جاتی ہے۔ اوپر کسی دورانیے کو کم کریں۔',
       planner_status_under: '⚠ یہ ترتیب 19 اکتوبر کی واپسی پرواز سے {days} دن پہلے ختم ہو جاتی ہے۔ اوپر مزید دن شامل کریں۔',
-      planner_sum_total: 'کل ہفتے', planner_sum_days: 'کل دن', planner_sum_sister: 'بشریٰ کے ساتھ ہفتے',
-      planner_sum_you: 'آپ کے ساتھ ہفتے', planner_sum_end: 'حساب شدہ واپسی',
+      planner_sum_total: 'کل ہفتے', planner_sum_days: 'کل دن', planner_sum_end: 'حساب شدہ واپسی',
       planner_share_btn: '📤 یہ منصوبہ واٹس ایپ پر شیئر کریں',
       planner_share_header: '🧳✈️ *ابو کے یورپ کے سفر کا طے شدہ شیڈول*',
       planner_share_landing: '🛬 کولون بون میں آمد: {date}',
@@ -343,7 +341,7 @@
       overall_all_approved: '🎉 سب نے منصوبہ منظور کر لیا ہے!',
       overall_partial: 'اب تک {total} میں سے {count} خاندان کے افراد نے منظوری دی ہے۔',
 
-      footer_stats: '3 شہروں (بون، پیرس/ورنوے آں ہالات، سٹٹگارٹ) میں {days} دن · بشریٰ کے ساتھ {sisterWeeks} ہفتے · آپ کے ساتھ {youWeeks} ہفتے · عبداللہ کے ساتھ {AbdullahWeeks} ہفتہ۔',
+      footer_stats: '3 شہروں (بون، پیرس/ورنوے آں ہالات، سٹٹگارٹ) میں {days} دن · بشریٰ کے ساتھ {sisterWeeks} · آپ کے ساتھ {youWeeks} · عبداللہ کے ساتھ {AbdullahWeeks}۔',
       footer_tagline: 'ابو کے یورپ کے بڑے سفر کے لیے محبت سے تیار کیا گیا ✈️',
 
       modal_title_default: 'تصویر شامل کریں', modal_title_for: '{name} کی تصویر',
@@ -387,11 +385,10 @@
       day_singular: 'jour', day_plural: 'jours',
       unit_toggle_weeks: 'Semaines', unit_toggle_days: 'Jours',
       planner_sum_sister_days: 'Jours avec Busrah', planner_sum_you_days: 'Jours avec vous',
-      planner_status_ok: '✓ Correspond parfaitement au vol de retour du 19 octobre ({weeks} semaines au total).',
+      planner_status_ok: '✓ Correspond parfaitement au vol de retour du 19 octobre ({weeks} au total).',
       planner_status_over: "⚠ Cette combinaison dépasse le vol de retour du 19 octobre de {days} jour(s). Réduisez l'une des durées ci-dessus.",
       planner_status_under: '⚠ Cette combinaison se termine {days} jour(s) avant le vol de retour du 19 octobre. Ajoutez plus de jours ci-dessus.',
-      planner_sum_total: 'Semaines totales', planner_sum_days: 'Jours totaux', planner_sum_sister: 'Semaines avec Busrah',
-      planner_sum_you: 'Semaines avec vous', planner_sum_end: 'Retour calculé',
+      planner_sum_total: 'Semaines totales', planner_sum_days: 'Jours totaux', planner_sum_end: 'Retour calculé',
       planner_share_btn: '📤 Partager ce Plan sur WhatsApp',
       planner_share_header: "🧳✈️ *Voyage d'Abu en Europe — Programme Prévu*",
       planner_share_landing: '🛬 Atterrissage à Cologne/Bonn : {date}',
@@ -504,7 +501,7 @@
       overall_all_approved: '🎉 Tout le monde a approuvé le plan !',
       overall_partial: "{count} membres de la famille sur {total} ont approuvé jusqu'à présent.",
 
-      footer_stats: '{days} jours à travers 3 villes (Bonn, Paris/Verneuil-en-Halatte, Stuttgart) · {sisterWeeks} semaines avec Busrah · {youWeeks} semaines avec vous · {AbdullahWeeks} semaine avec Abdullah.',
+      footer_stats: '{days} jours à travers 3 villes (Bonn, Paris/Verneuil-en-Halatte, Stuttgart) · {sisterWeeks} avec Busrah · {youWeeks} avec vous · {AbdullahWeeks} avec Abdullah.',
       footer_tagline: "Réalisé avec amour pour la grande aventure européenne d'Abu ✈️",
 
       modal_title_default: 'Ajouter une Image', modal_title_for: 'Photo pour {name}',
@@ -777,7 +774,7 @@
     const legs = [];
     let cursor = new Date(TRIP_START);
 
-    const sisterFirstEnd = addDays(cursor, state.sisterFirst * 7);
+    const sisterFirstEnd = addDays(cursor, state.sisterFirst);
     legs.push({
       key: 'sisterFirst', name: t('leg_sisterFirst_name'), color: COLORS.sisterFirst,
       start: cursor, end: sisterFirstEnd,
@@ -785,7 +782,7 @@
     });
     cursor = sisterFirstEnd;
 
-    const withYouEnd = addDays(cursor, state.withYou * 7);
+    const withYouEnd = addDays(cursor, state.withYou);
     legs.push({
       key: 'withYou', name: t('leg_withYou_name'), color: COLORS.withYou,
       start: cursor, end: withYouEnd,
@@ -793,7 +790,7 @@
     });
     cursor = withYouEnd;
 
-    const AbdullahEnd = addDays(cursor, state.Abdullah * 7);
+    const AbdullahEnd = addDays(cursor, state.Abdullah);
     legs.push({
       key: 'Abdullah', name: t('leg_Abdullah_name'), color: COLORS.Abdullah,
       start: cursor, end: AbdullahEnd,
@@ -801,7 +798,7 @@
     });
     cursor = AbdullahEnd;
 
-    const sisterFinalEnd = addDays(cursor, state.sisterFinal * 7);
+    const sisterFinalEnd = addDays(cursor, state.sisterFinal);
     legs.push({
       key: 'sisterFinal', name: t('leg_sisterFinal_name'), color: COLORS.sisterFinal,
       start: cursor, end: sisterFinalEnd,
@@ -851,28 +848,41 @@
   }
 
   /* ===================== PLANNER ===================== */
-  function weekLabel(n) {
+  function formatDuration(days) {
     if (displayUnit === 'days') {
-      const d = n * 7;
-      return d + ' ' + (d === 1 ? t('day_singular') : t('day_plural'));
+      return days + ' ' + (days === 1 ? t('day_singular') : t('day_plural'));
     }
-    return n + ' ' + (n === 1 ? t('week_singular') : t('week_plural'));
+    const weeks = Math.floor(days / 7);
+    const rem = days % 7;
+    const weeksPart = weeks + ' ' + (weeks === 1 ? t('week_singular') : t('week_plural'));
+    if (rem === 0) return weeksPart;
+    const daysPart = rem + ' ' + (rem === 1 ? t('day_singular') : t('day_plural'));
+    return weeks === 0 ? daysPart : weeksPart + ' ' + daysPart;
   }
 
   function renderPlanner() {
-    document.getElementById('val-sisterFirst').textContent = weekLabel(state.sisterFirst);
-    document.getElementById('val-withYou').textContent = weekLabel(state.withYou);
-    document.getElementById('val-Abdullah').textContent = weekLabel(state.Abdullah);
-    document.getElementById('val-sisterFinal').textContent = weekLabel(state.sisterFinal);
+    document.getElementById('val-sisterFirst').textContent = formatDuration(state.sisterFirst);
+    document.getElementById('val-withYou').textContent = formatDuration(state.withYou);
+    document.getElementById('val-Abdullah').textContent = formatDuration(state.Abdullah);
+    document.getElementById('val-sisterFinal').textContent = formatDuration(state.sisterFinal);
+
+    ['sisterFirst', 'withYou', 'Abdullah', 'sisterFinal'].forEach(key => {
+      const input = document.getElementById(key);
+      const min = parseInt(input.min, 10);
+      const max = parseInt(input.max, 10);
+      const minusBtn = document.querySelector('.stepper-btn[data-key="' + key + '"][data-dir="-1"]');
+      const plusBtn = document.querySelector('.stepper-btn[data-key="' + key + '"][data-dir="1"]');
+      if (minusBtn) minusBtn.disabled = state[key] <= min;
+      if (plusBtn) plusBtn.disabled = state[key] >= max;
+    });
 
     const { calculatedEnd } = computeSchedule();
-    const totalWeeks = state.sisterFirst + state.withYou + state.Abdullah + state.sisterFinal;
-    const totalDays = Math.round((calculatedEnd - TRIP_START) / 86400000);
+    const totalDays = state.sisterFirst + state.withYou + state.Abdullah + state.sisterFinal;
     const statusEl = document.getElementById('plannerStatus');
 
     if (sameDay(calculatedEnd, TRIP_END)) {
       statusEl.className = 'planner-status ok';
-      statusEl.textContent = t('planner_status_ok', { weeks: totalWeeks });
+      statusEl.textContent = t('planner_status_ok', { weeks: formatDuration(totalDays) });
     } else {
       const diffDays = Math.round((calculatedEnd - TRIP_END) / 86400000);
       statusEl.className = 'planner-status warn';
@@ -881,23 +891,25 @@
         : t('planner_status_under', { days: Math.abs(diffDays) });
     }
 
-    animateNumberTo(document.getElementById('sum-total'), totalWeeks);
+    const totalWeeksVal = totalDays / 7;
+    const sumTotalEl = document.getElementById('sum-total');
+    if (Number.isInteger(totalWeeksVal)) {
+      animateNumberTo(sumTotalEl, totalWeeksVal);
+    } else {
+      sumTotalEl.textContent = totalWeeksVal.toFixed(1);
+    }
     animateNumberTo(document.getElementById('sum-days'), totalDays);
-
-    const sisterWeeks = state.sisterFirst + state.sisterFinal;
-    document.getElementById('sum-sister-label').textContent = displayUnit === 'days' ? t('planner_sum_sister_days') : t('planner_sum_sister');
-    animateNumberTo(document.getElementById('sum-sister'), displayUnit === 'days' ? sisterWeeks * 7 : sisterWeeks);
-    document.getElementById('sum-you-label').textContent = displayUnit === 'days' ? t('planner_sum_you_days') : t('planner_sum_you');
-    animateNumberTo(document.getElementById('sum-you'), displayUnit === 'days' ? state.withYou * 7 : state.withYou);
+    animateNumberTo(document.getElementById('sum-sister'), state.sisterFirst + state.sisterFinal);
+    animateNumberTo(document.getElementById('sum-you'), state.withYou);
 
     document.getElementById('sum-end').textContent = fmtShort(calculatedEnd);
 
-    renderTripDonut(totalWeeks, totalDays);
+    renderTripDonut(totalDays);
   }
 
   let donutTooltipHideTimer = null;
 
-  function renderTripDonut(totalWeeks, totalDays) {
+  function renderTripDonut(totalDays) {
     const svg = document.getElementById('tripDonutSvg');
     const legend = document.getElementById('tripDonutLegend');
     const centerNum = document.getElementById('donutCenterNum');
@@ -910,8 +922,8 @@
 
     let cumulative = 0;
     const segMarkup = legs.map(leg => {
-      const weeks = state[leg.key];
-      const fraction = totalWeeks > 0 ? weeks / totalWeeks : 0;
+      const days = state[leg.key];
+      const fraction = totalDays > 0 ? days / totalDays : 0;
       const len = fraction * circumference;
       const dashoffset = -cumulative;
       cumulative += len;
@@ -928,12 +940,12 @@
       '<li data-key="' + leg.key + '">' +
         '<span class="dot" style="background:' + leg.color + '"></span>' +
         '<span class="name">' + leg.name + '</span>' +
-        '<span class="weeks">' + weekLabel(state[leg.key]) + '</span>' +
+        '<span class="weeks">' + formatDuration(state[leg.key]) + '</span>' +
       '</li>'
     )).join('');
 
     function tooltipText(leg) {
-      return leg.name + ' — ' + weekLabel(state[leg.key]) + ' (' + fmtShort(leg.start) + ' → ' + fmtShort(leg.end) + ')';
+      return leg.name + ' — ' + formatDuration(state[leg.key]) + ' (' + fmtShort(leg.start) + ' → ' + fmtShort(leg.end) + ')';
     }
     function showTooltip(evt, leg) {
       clearTimeout(donutTooltipHideTimer);
@@ -981,6 +993,21 @@
       input.value = state[key];
       input.addEventListener('input', () => {
         state[key] = parseInt(input.value, 10);
+        renderAll();
+      });
+    });
+
+    document.querySelectorAll('.stepper-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const key = btn.dataset.key;
+        const dir = parseInt(btn.dataset.dir, 10);
+        const input = document.getElementById(key);
+        const min = parseInt(input.min, 10);
+        const max = parseInt(input.max, 10);
+        const newVal = Math.max(min, Math.min(max, state[key] + dir));
+        if (newVal === state[key]) return;
+        state[key] = newVal;
+        input.value = newVal;
         renderAll();
       });
     });
@@ -1872,9 +1899,9 @@
     const totalDays = Math.round((calculatedEnd - TRIP_START) / 86400000);
     document.getElementById('footerStats').textContent = t('footer_stats', {
       days: totalDays,
-      sisterWeeks: state.sisterFirst + state.sisterFinal,
-      youWeeks: state.withYou,
-      AbdullahWeeks: state.Abdullah
+      sisterWeeks: formatDuration(state.sisterFirst + state.sisterFinal),
+      youWeeks: formatDuration(state.withYou),
+      AbdullahWeeks: formatDuration(state.Abdullah)
     });
   }
 

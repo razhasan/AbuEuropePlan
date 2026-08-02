@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#123C82">
-<link rel="stylesheet" href="style.css?v=23">
+<link rel="stylesheet" href="style.css?v=24">
 <script>(function(){try{if(localStorage.getItem('europeTripTheme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
 </head>
 <body>
@@ -108,22 +108,38 @@
     <div class="planner-grid">
       <div class="planner-field">
         <label><span data-i18n="planner_field_sisterFirst_label">Bonn — Arrival stay (Busrah)</span> <span class="planner-value" id="val-sisterFirst"></span></label>
-        <input type="range" id="sisterFirst" min="1" max="6" step="1" value="1">
+        <div class="slider-row">
+          <button type="button" class="stepper-btn" data-key="sisterFirst" data-dir="-1" aria-label="Decrease">−</button>
+          <input type="range" id="sisterFirst" min="1" max="42" step="1" value="7">
+          <button type="button" class="stepper-btn" data-key="sisterFirst" data-dir="1" aria-label="Increase">+</button>
+        </div>
         <span class="hint" data-i18n="planner_field_sisterFirst_hint">Right after landing, before heading to Paris</span>
       </div>
       <div class="planner-field">
         <label><span data-i18n="planner_field_withYou_label">Paris / Verneuil-en-Halatte (You)</span> <span class="planner-value" id="val-withYou"></span></label>
-        <input type="range" id="withYou" min="1" max="6" step="1" value="4">
+        <div class="slider-row">
+          <button type="button" class="stepper-btn" data-key="withYou" data-dir="-1" aria-label="Decrease">−</button>
+          <input type="range" id="withYou" min="1" max="42" step="1" value="28">
+          <button type="button" class="stepper-btn" data-key="withYou" data-dir="1" aria-label="Increase">+</button>
+        </div>
         <span class="hint" data-i18n="planner_field_withYou_hint">Rest week + sightseeing</span>
       </div>
       <div class="planner-field accent-abdullah">
         <label><span data-i18n="planner_field_Abdullah_label">Stuttgart — Abdullah</span> <span class="planner-value" id="val-Abdullah"></span></label>
-        <input type="range" id="Abdullah" min="1" max="6" step="1" value="1">
+        <div class="slider-row">
+          <button type="button" class="stepper-btn" data-key="Abdullah" data-dir="-1" aria-label="Decrease">−</button>
+          <input type="range" id="Abdullah" min="1" max="42" step="1" value="7">
+          <button type="button" class="stepper-btn" data-key="Abdullah" data-dir="1" aria-label="Increase">+</button>
+        </div>
         <span class="hint" data-i18n="planner_field_Abdullah_hint">Flexible — adjust to fit the total</span>
       </div>
       <div class="planner-field">
         <label><span data-i18n="planner_field_sisterFinal_label">Bonn — Final stay (Busrah)</span> <span class="planner-value" id="val-sisterFinal"></span></label>
-        <input type="range" id="sisterFinal" min="1" max="6" step="1" value="4">
+        <div class="slider-row">
+          <button type="button" class="stepper-btn" data-key="sisterFinal" data-dir="-1" aria-label="Decrease">−</button>
+          <input type="range" id="sisterFinal" min="1" max="42" step="1" value="28">
+          <button type="button" class="stepper-btn" data-key="sisterFinal" data-dir="1" aria-label="Increase">+</button>
+        </div>
         <span class="hint" data-i18n="planner_field_sisterFinal_hint">Until the Oct 19 flight home</span>
       </div>
     </div>
@@ -133,8 +149,8 @@
     <div class="planner-summary">
       <div><div class="num" id="sum-total">--</div><div class="lbl" data-i18n="planner_sum_total">Total weeks</div></div>
       <div><div class="num" id="sum-days">--</div><div class="lbl" data-i18n="planner_sum_days">Total days</div></div>
-      <div><div class="num" id="sum-sister">--</div><div class="lbl" id="sum-sister-label" data-i18n="planner_sum_sister">Weeks w/ Busrah</div></div>
-      <div><div class="num" id="sum-you">--</div><div class="lbl" id="sum-you-label" data-i18n="planner_sum_you">Weeks w/ You</div></div>
+      <div><div class="num" id="sum-sister">--</div><div class="lbl" data-i18n="planner_sum_sister_days">Days w/ Busrah</div></div>
+      <div><div class="num" id="sum-you">--</div><div class="lbl" data-i18n="planner_sum_you_days">Days w/ You</div></div>
       <div><div class="num" id="sum-end">--</div><div class="lbl" data-i18n="planner_sum_end">Calculated return</div></div>
     </div>
 
@@ -389,6 +405,6 @@
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="script.js?v=23"></script>
+<script src="script.js?v=24"></script>
 </body>
 </html>
