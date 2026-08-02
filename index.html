@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#123C82">
-<link rel="stylesheet" href="style.css?v=26">
+<link rel="stylesheet" href="style.css?v=27">
 <script>(function(){try{if(localStorage.getItem('europeTripTheme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
 </head>
 <body>
@@ -43,10 +43,14 @@
 </nav>
 
 <div class="music-player" id="musicPlayer">
-  <audio id="bgAudio" src="NadiyaChale.mp3" loop preload="auto"></audio>
-  <button type="button" class="music-toggle-btn" id="musicToggleBtn" aria-label="Play or pause music">
-    <span id="musicToggleIcon">▶️</span>
-  </button>
+  <audio id="bgAudio" src="NadiyaChale.mp3" preload="auto"></audio>
+  <div class="music-transport">
+    <button type="button" class="music-nav-btn" id="musicPrevBtn" aria-label="Previous song">⏮</button>
+    <button type="button" class="music-toggle-btn" id="musicToggleBtn" aria-label="Play or pause music">
+      <span id="musicToggleIcon">▶️</span>
+    </button>
+    <button type="button" class="music-nav-btn" id="musicNextBtn" aria-label="Next song">⏭</button>
+  </div>
   <div class="music-info">
     <div class="music-name-row">
       <span class="music-name" id="musicSongName" data-i18n="music_song_name">Nadiya Chale Ya Dhaara</span>
@@ -58,6 +62,28 @@
       <span class="music-time" id="musicDuration">0:00</span>
     </div>
   </div>
+  <button type="button" class="music-queue-toggle" id="musicQueueToggle" aria-label="Show playlist" aria-expanded="false">
+    <span id="musicQueueIcon">🎵</span>
+  </button>
+</div>
+
+<div class="music-queue-panel" id="musicQueuePanel">
+  <div class="music-mode-row">
+    <div class="unit-toggle music-repeat-toggle" role="radiogroup" aria-label="Repeat mode">
+      <label class="unit-toggle-btn">
+        <input type="radio" name="musicRepeatMode" value="once" id="modeOnce" checked>
+        <span data-i18n="music_mode_once">Once</span>
+      </label>
+      <label class="unit-toggle-btn">
+        <input type="radio" name="musicRepeatMode" value="loop" id="modeLoop">
+        <span data-i18n="music_mode_loop">Loop</span>
+      </label>
+    </div>
+    <button type="button" class="music-shuffle-btn" id="musicShuffleBtn" aria-pressed="false">
+      <span>🔀</span> <span data-i18n="music_mode_shuffle">Shuffle</span>
+    </button>
+  </div>
+  <ol class="music-playlist-list" id="musicPlaylistList"></ol>
 </div>
 
 <header class="hero">
@@ -423,6 +449,6 @@
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="script.js?v=26"></script>
+<script src="script.js?v=27"></script>
 </body>
 </html>

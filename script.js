@@ -41,6 +41,7 @@
       music_song_caption: "Abu's favourite song 💙",
       music_play: 'Play', music_pause: 'Pause',
       music_tap_hint: 'Tap play to start the music',
+      music_mode_once: 'Once', music_mode_loop: 'Loop', music_mode_shuffle: 'Shuffle',
 
       hero_title: "Abu's Europe Visit",
       hero_subtitle_html: 'Cologne Bonn → Bonn (Busrah) → Verneuil-en-Halatte, Paris (us) → Stuttgart (Abdullah) → Bonn (Busrah) → home.<br>10 August – 19 October 2026',
@@ -206,6 +207,7 @@
       music_song_caption: 'ابو کا پسندیدہ گانا 💙',
       music_play: 'چلائیں', music_pause: 'روکیں',
       music_tap_hint: 'گانا شروع کرنے کے لیے پلے دبائیں',
+      music_mode_once: 'ایک بار', music_mode_loop: 'دہرائیں', music_mode_shuffle: 'اختلاط',
 
       hero_title: 'ابو کا یورپ کا سفر',
       hero_subtitle_html: 'کولون بون → بون (بشریٰ) → ورنوے آں ہالات، پیرس (ہمارے ہاں) → سٹٹگارٹ (عبداللہ) → بون (بشریٰ) → گھر واپسی۔<br>10 اگست – 19 اکتوبر 2026',
@@ -371,6 +373,7 @@
       music_song_caption: "La chanson préférée d'Abu 💙",
       music_play: 'Lecture', music_pause: 'Pause',
       music_tap_hint: 'Appuyez sur lecture pour démarrer la musique',
+      music_mode_once: 'Une fois', music_mode_loop: 'Boucle', music_mode_shuffle: 'Aléatoire',
 
       hero_title: "Voyage d'Abu en Europe",
       hero_subtitle_html: 'Cologne Bonn → Bonn (Busrah) → Verneuil-en-Halatte, Paris (chez nous) → Stuttgart (Abdullah) → Bonn (Busrah) → retour à la maison.<br>10 août – 19 octobre 2026',
@@ -2050,6 +2053,28 @@
     ].join('\n');
   }
 
+  // Track 0 is the original song — its file, autoplay-on-load behavior,
+  // and i18n title key are unchanged from the single-song player.
+  const PLAYLIST = [
+    { src: 'NadiyaChale.mp3', titleKey: 'music_song_name' },
+    { src: 'LaDerniereDanse.mp3', title: 'La Dernière Danse' },
+    { src: 'GutGenug.mp3', title: 'Gut Genug' },
+    { src: 'HawaHawa.mp3', title: 'Hawa Hawa' }
+  ];
+  let musicCurrentIdx = 0;
+
+  function trackTitle(track) {
+    return track.titleKey ? t(track.titleKey) : track.title;
+  }
+
+  function renderMusicPlayerTexts() {
+    const nameEl = document.getElementById('musicSongName');
+    if (nameEl) nameEl.textContent = trackTitle(PLAYLIST[musicCurrentIdx]);
+    document.querySelectorAll('#musicPlaylistList .playlist-track-title').forEach((el, i) => {
+      if (PLAYLIST[i]) el.textContent = trackTitle(PLAYLIST[i]);
+    });
+  }
+
   function initMusicPlayer() {
     const audio = document.getElementById('bgAudio');
     const toggleBtn = document.getElementById('musicToggleBtn');
@@ -2057,7 +2082,20 @@
     const seek = document.getElementById('musicSeek');
     const curEl = document.getElementById('musicCurrentTime');
     const durEl = document.getElementById('musicDuration');
+    const prevBtn = document.getElementById('musicPrevBtn');
+    const nextBtn = document.getElementById('musicNextBtn');
+    const queueToggle = document.getElementById('musicQueueToggle');
+    const queuePanel = document.getElementById('musicQueuePanel');
+    const shuffleBtn = document.getElementById('musicShuffleBtn');
+    const modeOnce = document.getElementById('modeOnce');
+    const modeLoop = document.getElementById('modeLoop');
+    const listEl = document.getElementById('musicPlaylistList');
     if (!audio || !toggleBtn) return;
+
+    let repeatMode = 'once';
+    let shuffleOn = false;
+    let shuffleOrder = [];
+    let shufflePos = 0;
 
     function fmtTime(sec) {
       if (!isFinite(sec) || sec < 0) sec = 0;
@@ -2072,6 +2110,98 @@
       toggleBtn.setAttribute('aria-label', isPlaying ? t('music_pause') : t('music_play'));
     }
 
+    function shuffleArray(arr) {
+      const a = arr.slice();
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+      }
+      return a;
+    }
+
+    // anchorIdx: keep this track first (used when shuffle is switched on
+    // mid-playback), or null for a fresh reshuffle of the whole playlist.
+    function buildShuffleOrder(anchorIdx) {
+      const all = PLAYLIST.map((_, i) => i);
+      if (anchorIdx === null || anchorIdx === undefined) {
+        shuffleOrder = shuffleArray(all);
+      } else {
+        shuffleOrder = [anchorIdx, ...shuffleArray(all.filter(i => i !== anchorIdx))];
+      }
+      shufflePos = 0;
+    }
+
+    function renderPlaylistUI() {
+      if (!listEl) return;
+      listEl.innerHTML = '';
+      PLAYLIST.forEach((track, i) => {
+        const li = document.createElement('li');
+        li.className = 'playlist-track' + (i === musicCurrentIdx ? ' active' : '');
+        const num = document.createElement('span');
+        num.className = 'playlist-track-num';
+        num.textContent = String(i + 1);
+        const title = document.createElement('span');
+        title.className = 'playlist-track-title';
+        title.textContent = trackTitle(track);
+        const icon = document.createElement('span');
+        icon.className = 'playlist-track-playing-icon';
+        icon.textContent = '🔊';
+        li.append(num, title, icon);
+        li.addEventListener('click', () => loadTrack(i, true));
+        listEl.appendChild(li);
+      });
+    }
+
+    function loadTrack(idx, autoplay) {
+      musicCurrentIdx = idx;
+      audio.src = PLAYLIST[idx].src;
+      seek.value = 0;
+      curEl.textContent = '0:00';
+      durEl.textContent = '0:00';
+      renderPlaylistUI();
+      renderMusicPlayerTexts();
+      if (shuffleOn) {
+        const pos = shuffleOrder.indexOf(idx);
+        if (pos >= 0) shufflePos = pos;
+      }
+      if (autoplay) audio.play().catch(() => {});
+    }
+
+    // Manual prev/next: always cycles through the list, independent of
+    // the once/loop setting (that setting only governs auto-advance).
+    function manualStep(direction) {
+      if (shuffleOn) {
+        shufflePos = (shufflePos + direction + shuffleOrder.length) % shuffleOrder.length;
+        loadTrack(shuffleOrder[shufflePos], true);
+      } else {
+        const idx = (musicCurrentIdx + direction + PLAYLIST.length) % PLAYLIST.length;
+        loadTrack(idx, true);
+      }
+    }
+
+    // Auto-advance when a track finishes: respects once (stop at the end)
+    // vs loop (wrap around and keep going), in either sequential or shuffle order.
+    function autoAdvance() {
+      if (shuffleOn) {
+        shufflePos++;
+        if (shufflePos >= shuffleOrder.length) {
+          if (repeatMode === 'loop') {
+            buildShuffleOrder(null);
+            loadTrack(shuffleOrder[0], true);
+          }
+          return;
+        }
+        loadTrack(shuffleOrder[shufflePos], true);
+      } else {
+        const idx = musicCurrentIdx + 1;
+        if (idx >= PLAYLIST.length) {
+          if (repeatMode === 'loop') loadTrack(0, true);
+          return;
+        }
+        loadTrack(idx, true);
+      }
+    }
+
     audio.addEventListener('loadedmetadata', () => {
       durEl.textContent = fmtTime(audio.duration);
       seek.max = audio.duration || 100;
@@ -2082,6 +2212,7 @@
     });
     audio.addEventListener('play', () => setPlayingUI(true));
     audio.addEventListener('pause', () => setPlayingUI(false));
+    audio.addEventListener('ended', autoAdvance);
 
     toggleBtn.addEventListener('click', () => {
       if (audio.paused) audio.play().catch(() => {}); else audio.pause();
@@ -2091,6 +2222,30 @@
       audio.currentTime = Number(seek.value);
       curEl.textContent = fmtTime(audio.currentTime);
     });
+
+    if (prevBtn) prevBtn.addEventListener('click', () => manualStep(-1));
+    if (nextBtn) nextBtn.addEventListener('click', () => manualStep(1));
+
+    if (queueToggle && queuePanel) {
+      queueToggle.addEventListener('click', () => {
+        const isOpen = queuePanel.classList.toggle('open');
+        queueToggle.classList.toggle('open', isOpen);
+        queueToggle.setAttribute('aria-expanded', String(isOpen));
+      });
+    }
+
+    if (shuffleBtn) {
+      shuffleBtn.addEventListener('click', () => {
+        shuffleOn = !shuffleOn;
+        shuffleBtn.classList.toggle('active', shuffleOn);
+        shuffleBtn.setAttribute('aria-pressed', String(shuffleOn));
+        if (shuffleOn) buildShuffleOrder(musicCurrentIdx);
+      });
+    }
+    if (modeOnce) modeOnce.addEventListener('change', () => { if (modeOnce.checked) repeatMode = 'once'; });
+    if (modeLoop) modeLoop.addEventListener('change', () => { if (modeLoop.checked) repeatMode = 'loop'; });
+
+    renderPlaylistUI();
 
     // Attempt autoplay; browsers that block unmuted autoplay will reject the
     // promise, so fall back to starting on the very first user interaction.
@@ -2297,6 +2452,7 @@
     renderSouvenirs();
     renderPacking();
     renderAll();
+    renderMusicPlayerTexts();
   }
 
   document.addEventListener('DOMContentLoaded', () => {
