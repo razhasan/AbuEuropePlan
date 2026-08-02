@@ -23,6 +23,13 @@
   /* ===================== LANGUAGE ===================== */
   let LANG = 'en'; // always starts in English by default
 
+  /* ===================== DISPLAY UNIT (weeks/days) ===================== */
+  let displayUnit = 'weeks';
+  try {
+    const savedUnit = localStorage.getItem('europeTripDisplayUnit');
+    if (savedUnit === 'days' || savedUnit === 'weeks') displayUnit = savedUnit;
+  } catch (e) { /* ignore */ }
+
   const STRINGS = {
     en: {
       page_title: "Abu's Europe Trip · Aug – Oct 2026",
@@ -55,6 +62,9 @@
       planner_field_sisterFinal_label: 'Bonn — Final stay (Busrah)',
       planner_field_sisterFinal_hint: 'Until the Oct 19 flight home',
       week_singular: 'week', week_plural: 'weeks',
+      day_singular: 'day', day_plural: 'days',
+      unit_toggle_weeks: 'Weeks', unit_toggle_days: 'Days',
+      planner_sum_sister_days: 'Days w/ Busrah', planner_sum_you_days: 'Days w/ You',
       planner_status_ok: '✓ Lines up perfectly with the Oct 19 return flight ({weeks} weeks total).',
       planner_status_over: '⚠ This combination runs {days} day(s) past the Oct 19 return flight. Reduce one of the durations above.',
       planner_status_under: '⚠ This combination finishes {days} day(s) before the Oct 19 return flight. Add more days above.',
@@ -213,6 +223,9 @@
       planner_field_sisterFinal_label: 'بون — آخری قیام (بشریٰ)',
       planner_field_sisterFinal_hint: '19 اکتوبر کی واپسی پرواز تک',
       week_singular: 'ہفتہ', week_plural: 'ہفتے',
+      day_singular: 'دن', day_plural: 'دن',
+      unit_toggle_weeks: 'ہفتے', unit_toggle_days: 'دن',
+      planner_sum_sister_days: 'بشریٰ کے ساتھ دن', planner_sum_you_days: 'آپ کے ساتھ دن',
       planner_status_ok: '✓ یہ 19 اکتوبر کی واپسی پرواز سے بالکل درست میل کھاتا ہے (کل {weeks} ہفتے)۔',
       planner_status_over: '⚠ یہ ترتیب 19 اکتوبر کی واپسی پرواز سے {days} دن آگے نکل جاتی ہے۔ اوپر کسی دورانیے کو کم کریں۔',
       planner_status_under: '⚠ یہ ترتیب 19 اکتوبر کی واپسی پرواز سے {days} دن پہلے ختم ہو جاتی ہے۔ اوپر مزید دن شامل کریں۔',
@@ -371,6 +384,9 @@
       planner_field_sisterFinal_label: 'Bonn — Séjour final (Busrah)',
       planner_field_sisterFinal_hint: "Jusqu'au vol de retour du 19 octobre",
       week_singular: 'semaine', week_plural: 'semaines',
+      day_singular: 'jour', day_plural: 'jours',
+      unit_toggle_weeks: 'Semaines', unit_toggle_days: 'Jours',
+      planner_sum_sister_days: 'Jours avec Busrah', planner_sum_you_days: 'Jours avec vous',
       planner_status_ok: '✓ Correspond parfaitement au vol de retour du 19 octobre ({weeks} semaines au total).',
       planner_status_over: "⚠ Cette combinaison dépasse le vol de retour du 19 octobre de {days} jour(s). Réduisez l'une des durées ci-dessus.",
       planner_status_under: '⚠ Cette combinaison se termine {days} jour(s) avant le vol de retour du 19 octobre. Ajoutez plus de jours ci-dessus.',
@@ -836,6 +852,10 @@
 
   /* ===================== PLANNER ===================== */
   function weekLabel(n) {
+    if (displayUnit === 'days') {
+      const d = n * 7;
+      return d + ' ' + (d === 1 ? t('day_singular') : t('day_plural'));
+    }
     return n + ' ' + (n === 1 ? t('week_singular') : t('week_plural'));
   }
 
@@ -863,8 +883,13 @@
 
     animateNumberTo(document.getElementById('sum-total'), totalWeeks);
     animateNumberTo(document.getElementById('sum-days'), totalDays);
-    animateNumberTo(document.getElementById('sum-sister'), state.sisterFirst + state.sisterFinal);
-    animateNumberTo(document.getElementById('sum-you'), state.withYou);
+
+    const sisterWeeks = state.sisterFirst + state.sisterFinal;
+    document.getElementById('sum-sister-label').textContent = displayUnit === 'days' ? t('planner_sum_sister_days') : t('planner_sum_sister');
+    animateNumberTo(document.getElementById('sum-sister'), displayUnit === 'days' ? sisterWeeks * 7 : sisterWeeks);
+    document.getElementById('sum-you-label').textContent = displayUnit === 'days' ? t('planner_sum_you_days') : t('planner_sum_you');
+    animateNumberTo(document.getElementById('sum-you'), displayUnit === 'days' ? state.withYou * 7 : state.withYou);
+
     document.getElementById('sum-end').textContent = fmtShort(calculatedEnd);
 
     renderTripDonut(totalWeeks, totalDays);
@@ -956,6 +981,20 @@
       input.value = state[key];
       input.addEventListener('input', () => {
         state[key] = parseInt(input.value, 10);
+        renderAll();
+      });
+    });
+  }
+
+  function initUnitToggle() {
+    const radios = document.querySelectorAll('input[name="displayUnit"]');
+    if (!radios.length) return;
+    radios.forEach(radio => {
+      radio.checked = radio.value === displayUnit;
+      radio.addEventListener('change', () => {
+        if (!radio.checked) return;
+        displayUnit = radio.value;
+        try { localStorage.setItem('europeTripDisplayUnit', displayUnit); } catch (e) { /* ignore */ }
         renderAll();
       });
     });
@@ -2166,6 +2205,7 @@
     initCollapsibleSections();
     initThemeToggle();
     initPlanner();
+    initUnitToggle();
     initPlannerShare();
     renderFilterBar();
     renderPlaceGrid();

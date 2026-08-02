@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#123C82">
-<link rel="stylesheet" href="style.css?v=22">
+<link rel="stylesheet" href="style.css?v=23">
 <script>(function(){try{if(localStorage.getItem('europeTripTheme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
 </head>
 <body>
@@ -81,6 +81,17 @@
   10 weeks. One week with Abdullah in Stuttgart is fixed too. Drag the sliders below to divide the remaining
   9 weeks between Busrah's first stay, your stay in Paris, and Busrah's final stay — every date on this page updates instantly.</p>
 
+  <div class="unit-toggle" role="radiogroup" aria-label="Display unit">
+    <label class="unit-toggle-btn">
+      <input type="radio" name="displayUnit" value="weeks" id="unitWeeks" checked>
+      <span data-i18n="unit_toggle_weeks">Weeks</span>
+    </label>
+    <label class="unit-toggle-btn">
+      <input type="radio" name="displayUnit" value="days" id="unitDays">
+      <span data-i18n="unit_toggle_days">Days</span>
+    </label>
+  </div>
+
   <div class="trip-donut-card">
     <div class="trip-donut-visual">
       <svg class="trip-donut" id="tripDonutSvg" viewBox="0 0 140 140" role="img" aria-label="Trip breakdown by person"></svg>
@@ -122,8 +133,8 @@
     <div class="planner-summary">
       <div><div class="num" id="sum-total">--</div><div class="lbl" data-i18n="planner_sum_total">Total weeks</div></div>
       <div><div class="num" id="sum-days">--</div><div class="lbl" data-i18n="planner_sum_days">Total days</div></div>
-      <div><div class="num" id="sum-sister">--</div><div class="lbl" data-i18n="planner_sum_sister">Weeks w/ Busrah</div></div>
-      <div><div class="num" id="sum-you">--</div><div class="lbl" data-i18n="planner_sum_you">Weeks w/ You</div></div>
+      <div><div class="num" id="sum-sister">--</div><div class="lbl" id="sum-sister-label" data-i18n="planner_sum_sister">Weeks w/ Busrah</div></div>
+      <div><div class="num" id="sum-you">--</div><div class="lbl" id="sum-you-label" data-i18n="planner_sum_you">Weeks w/ You</div></div>
       <div><div class="num" id="sum-end">--</div><div class="lbl" data-i18n="planner_sum_end">Calculated return</div></div>
     </div>
 
@@ -378,6 +389,6 @@
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="script.js?v=22"></script>
+<script src="script.js?v=23"></script>
 </body>
 </html>
