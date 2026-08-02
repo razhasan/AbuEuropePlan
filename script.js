@@ -37,6 +37,11 @@
       nav_planner: 'Planner', nav_timeline: 'Timeline', nav_calendar: 'Calendar', nav_map: 'Map', nav_guide: 'Paris Guide',
       nav_dayplan: 'Day Plan', nav_packing: 'Packing', nav_gallery: 'Gallery', nav_souvenirs: 'Souvenirs', nav_approval: 'Approval',
 
+      music_song_name: "Nadiya Chale Ya Dhaara",
+      music_song_caption: "Abu's favourite song 💙",
+      music_play: 'Play', music_pause: 'Pause',
+      music_tap_hint: 'Tap play to start the music',
+
       hero_title: "Abu's Europe Visit",
       hero_subtitle_html: 'Cologne Bonn → Bonn (Busrah) → Verneuil-en-Halatte, Paris (us) → Stuttgart (Abdullah) → Bonn (Busrah) → home.<br>10 August – 19 October 2026',
       cd_days: 'Days', cd_hours: 'Hours', cd_mins: 'Minutes', cd_secs: 'Seconds',
@@ -197,6 +202,11 @@
       nav_planner: 'منصوبہ ساز', nav_timeline: 'ٹائم لائن', nav_calendar: 'کیلنڈر', nav_map: 'نقشہ', nav_guide: 'پیرس گائیڈ',
       nav_dayplan: 'روزانہ منصوبہ', nav_packing: 'سامان کی فہرست', nav_gallery: 'گیلری', nav_souvenirs: 'یادگاریں', nav_approval: 'منظوری',
 
+      music_song_name: 'ندیا چلے یا دھارا',
+      music_song_caption: 'ابو کا پسندیدہ گانا 💙',
+      music_play: 'چلائیں', music_pause: 'روکیں',
+      music_tap_hint: 'گانا شروع کرنے کے لیے پلے دبائیں',
+
       hero_title: 'ابو کا یورپ کا سفر',
       hero_subtitle_html: 'کولون بون → بون (بشریٰ) → ورنوے آں ہالات، پیرس (ہمارے ہاں) → سٹٹگارٹ (عبداللہ) → بون (بشریٰ) → گھر واپسی۔<br>10 اگست – 19 اکتوبر 2026',
       cd_days: 'دن', cd_hours: 'گھنٹے', cd_mins: 'منٹ', cd_secs: 'سیکنڈ',
@@ -356,6 +366,11 @@
       nav_brand: "🧳 Le Voyage d'Abu en Europe",
       nav_planner: 'Planificateur', nav_timeline: 'Chronologie', nav_calendar: 'Calendrier', nav_map: 'Carte', nav_guide: 'Guide de Paris',
       nav_dayplan: 'Programme du Jour', nav_packing: 'Bagages', nav_gallery: 'Galerie', nav_souvenirs: 'Souvenirs', nav_approval: 'Approbation',
+
+      music_song_name: "Nadiya Chale Ya Dhaara",
+      music_song_caption: "La chanson préférée d'Abu 💙",
+      music_play: 'Lecture', music_pause: 'Pause',
+      music_tap_hint: 'Appuyez sur lecture pour démarrer la musique',
 
       hero_title: "Voyage d'Abu en Europe",
       hero_subtitle_html: 'Cologne Bonn → Bonn (Busrah) → Verneuil-en-Halatte, Paris (chez nous) → Stuttgart (Abdullah) → Bonn (Busrah) → retour à la maison.<br>10 août – 19 octobre 2026',
@@ -2035,6 +2050,66 @@
     ].join('\n');
   }
 
+  function initMusicPlayer() {
+    const audio = document.getElementById('bgAudio');
+    const toggleBtn = document.getElementById('musicToggleBtn');
+    const toggleIcon = document.getElementById('musicToggleIcon');
+    const seek = document.getElementById('musicSeek');
+    const curEl = document.getElementById('musicCurrentTime');
+    const durEl = document.getElementById('musicDuration');
+    if (!audio || !toggleBtn) return;
+
+    function fmtTime(sec) {
+      if (!isFinite(sec) || sec < 0) sec = 0;
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return m + ':' + String(s).padStart(2, '0');
+    }
+
+    function setPlayingUI(isPlaying) {
+      toggleIcon.textContent = isPlaying ? '⏸️' : '▶️';
+      toggleBtn.classList.toggle('playing', isPlaying);
+      toggleBtn.setAttribute('aria-label', isPlaying ? t('music_pause') : t('music_play'));
+    }
+
+    audio.addEventListener('loadedmetadata', () => {
+      durEl.textContent = fmtTime(audio.duration);
+      seek.max = audio.duration || 100;
+    });
+    audio.addEventListener('timeupdate', () => {
+      if (!seek.matches(':active')) seek.value = audio.currentTime;
+      curEl.textContent = fmtTime(audio.currentTime);
+    });
+    audio.addEventListener('play', () => setPlayingUI(true));
+    audio.addEventListener('pause', () => setPlayingUI(false));
+
+    toggleBtn.addEventListener('click', () => {
+      if (audio.paused) audio.play().catch(() => {}); else audio.pause();
+    });
+
+    seek.addEventListener('input', () => {
+      audio.currentTime = Number(seek.value);
+      curEl.textContent = fmtTime(audio.currentTime);
+    });
+
+    // Attempt autoplay; browsers that block unmuted autoplay will reject the
+    // promise, so fall back to starting on the very first user interaction.
+    const playAttempt = audio.play();
+    if (playAttempt && typeof playAttempt.catch === 'function') {
+      playAttempt.catch(() => {
+        const resume = () => {
+          audio.play().catch(() => {});
+          document.removeEventListener('click', resume);
+          document.removeEventListener('keydown', resume);
+          document.removeEventListener('touchstart', resume);
+        };
+        document.addEventListener('click', resume, { once: true });
+        document.addEventListener('keydown', resume, { once: true });
+        document.addEventListener('touchstart', resume, { once: true });
+      });
+    }
+  }
+
   function initPlannerShare() {
     const btn = document.getElementById('plannerShareBtn');
     if (!btn) return;
@@ -2234,6 +2309,7 @@
     initPlanner();
     initUnitToggle();
     initPlannerShare();
+    initMusicPlayer();
     renderFilterBar();
     renderPlaceGrid();
     initGalleryTabs();

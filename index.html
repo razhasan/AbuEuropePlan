@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#123C82">
-<link rel="stylesheet" href="style.css?v=25">
+<link rel="stylesheet" href="style.css?v=26">
 <script>(function(){try{if(localStorage.getItem('europeTripTheme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
 </head>
 <body>
@@ -41,6 +41,24 @@
     </ul>
   </div>
 </nav>
+
+<div class="music-player" id="musicPlayer">
+  <audio id="bgAudio" src="NadiyaChale.mp3" loop preload="auto"></audio>
+  <button type="button" class="music-toggle-btn" id="musicToggleBtn" aria-label="Play or pause music">
+    <span id="musicToggleIcon">▶️</span>
+  </button>
+  <div class="music-info">
+    <div class="music-name-row">
+      <span class="music-name" id="musicSongName" data-i18n="music_song_name">Nadiya Chale Ya Dhaara</span>
+      <span class="music-caption" id="musicCaption" data-i18n="music_song_caption">Abu's favourite song 💙</span>
+    </div>
+    <div class="music-seek-row">
+      <span class="music-time" id="musicCurrentTime">0:00</span>
+      <input type="range" class="music-seek" id="musicSeek" min="0" max="100" step="0.1" value="0">
+      <span class="music-time" id="musicDuration">0:00</span>
+    </div>
+  </div>
+</div>
 
 <header class="hero">
   <div class="flag-stripe">
@@ -405,6 +423,6 @@
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="script.js?v=25"></script>
+<script src="script.js?v=26"></script>
 </body>
 </html>

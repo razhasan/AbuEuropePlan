@@ -176,6 +176,54 @@ a { color: var(--fr-blue); }
 }
 .theme-toggle:hover { transform: rotate(20deg); }
 
+/* ===== Music player ===== */
+.music-player {
+  position: sticky; top: 0; z-index: 99;
+  display: flex; align-items: center; gap: 14px;
+  background: linear-gradient(90deg, rgba(124,77,255,0.10), rgba(30,136,229,0.10));
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(8px);
+  padding: 8px 24px;
+}
+.music-toggle-btn {
+  flex: none; border: none; cursor: pointer;
+  width: 38px; height: 38px; border-radius: 50%;
+  background: var(--purple); color: #fff; font-size: 1rem;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 12px rgba(124,77,255,0.35);
+  transition: transform .15s;
+}
+.music-toggle-btn:hover { transform: scale(1.08); }
+.music-info { flex: 1; min-width: 0; }
+.music-name-row { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.music-name { font-weight: 700; color: var(--navy); font-size: 0.92rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.music-caption { font-size: 0.78rem; color: var(--muted); font-style: italic; }
+.music-seek-row { display: flex; align-items: center; gap: 8px; margin-top: 2px; }
+.music-time { font-size: 0.72rem; color: var(--muted); font-variant-numeric: tabular-nums; flex: none; }
+.music-seek {
+  flex: 1; -webkit-appearance: none; appearance: none;
+  height: 5px; border-radius: 3px; background: var(--pastel-blue); outline: none; cursor: pointer;
+}
+.music-seek::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 14px; height: 14px; border-radius: 50%;
+  background: var(--purple); cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+.music-seek::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; border: none;
+  background: var(--purple); cursor: pointer;
+}
+.music-toggle-btn.playing { animation: musicPulse 1.6s ease-in-out infinite; }
+@keyframes musicPulse {
+  0%, 100% { box-shadow: 0 4px 12px rgba(124,77,255,0.35); }
+  50% { box-shadow: 0 4px 20px rgba(124,77,255,0.65); }
+}
+@media (max-width: 640px) {
+  .music-player { padding: 8px 14px; gap: 10px; }
+  .music-caption { display: none; }
+}
+:root[dir="rtl"] .music-name-row { direction: rtl; }
+
 /* ===== Trip progress bar ===== */
 .trip-progress { position: absolute; left: 0; right: 0; bottom: -3px; height: 3px; background: rgba(120,120,120,0.15); }
 .trip-progress-fill {
