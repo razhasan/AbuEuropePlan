@@ -14,10 +14,10 @@
   };
 
   const state = {
-    sisterFirst: 7,
-    withYou: 28,
+    sisterFirst: 21,
+    withYou: 40,
     Abdullah: 7,
-    sisterFinal: 28
+    sisterFinal: 2
   };
 
   /* ===================== LANGUAGE ===================== */
