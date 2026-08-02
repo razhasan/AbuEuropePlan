@@ -69,6 +69,7 @@
 
       timeline_h2: 'Interactive Timeline',
       timeline_intro: 'Click any stop to expand the details. Dates recompute live from the planner above.',
+      timeline_now_label: '📍 Now',
       leg_sisterFirst_name: 'Bonn — Arrival stay with Busrah',
       leg_sisterFirst_detail: 'Landing at Cologne Bonn Airport at 18:10 on {date}, picked up by Busrah. Rest and settle in before the trip to Paris.',
       leg_withYou_name: 'Paris / Verneuil-en-Halatte — with you',
@@ -226,6 +227,7 @@
 
       timeline_h2: 'انٹرایکٹو ٹائم لائن',
       timeline_intro: 'تفصیلات دیکھنے کے لیے کسی بھی سٹاپ پر کلک کریں۔ تاریخیں اوپر دیے گئے منصوبہ ساز سے فوری اپ ڈیٹ ہوتی ہیں۔',
+      timeline_now_label: '📍 ابھی',
       leg_sisterFirst_name: 'بون — بشریٰ کے ہاں آمد پر قیام',
       leg_sisterFirst_detail: '{date} کو 18:10 بجے کولون بون ایئرپورٹ پر پہنچنا، بشریٰ کی جانب سے استقبال۔ پیرس جانے سے پہلے آرام اور سکون۔',
       leg_withYou_name: 'پیرس / ورنوے آں ہالات — آپ کے ساتھ',
@@ -383,6 +385,7 @@
 
       timeline_h2: 'Chronologie Interactive',
       timeline_intro: 'Cliquez sur une étape pour voir les détails. Les dates se recalculent en direct depuis le planificateur ci-dessus.',
+      timeline_now_label: '📍 Maintenant',
       leg_sisterFirst_name: "Bonn — Séjour à l'arrivée avec Busrah",
       leg_sisterFirst_detail: "Atterrissage à l'aéroport de Cologne-Bonn à 18h10 le {date}, accueil par Busrah. Repos avant le voyage vers Paris.",
       leg_withYou_name: 'Paris / Verneuil-en-Halatte — avec vous',
@@ -694,6 +697,28 @@
     return PLACES.concat(loadCustomPlaces());
   }
 
+  /* ===================== MOTION HELPERS ===================== */
+  function motionOk() {
+    return !window.matchMedia || !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  }
+
+  function animateNumberTo(el, newValue, duration) {
+    if (!el) return;
+    const startValue = parseFloat(el.textContent.replace(/[^\d.-]/g, '')) || 0;
+    if (startValue === newValue || !motionOk()) { el.textContent = newValue; return; }
+    duration = duration || 550;
+    const startTime = performance.now();
+    function tick(now) {
+      const progress = Math.min(1, (now - startTime) / duration);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.round(startValue + (newValue - startValue) * eased);
+      el.textContent = current;
+      if (progress < 1) requestAnimationFrame(tick);
+      else el.textContent = newValue;
+    }
+    requestAnimationFrame(tick);
+  }
+
   /* ===================== DATE HELPERS ===================== */
   function addDays(date, days) {
     const d = new Date(date);
@@ -771,6 +796,15 @@
   }
 
   /* ===================== COUNTDOWN ===================== */
+  function setFlipDigit(el, value) {
+    const str = String(value);
+    if (el.textContent === str) return;
+    if (!motionOk()) { el.textContent = str; return; }
+    el.classList.add('flip');
+    setTimeout(() => { el.textContent = str; }, 150);
+    setTimeout(() => { el.classList.remove('flip'); }, 300);
+  }
+
   function renderCountdown() {
     const now = new Date();
     const target = now < TRIP_START ? TRIP_START : TRIP_END;
@@ -782,14 +816,14 @@
       secs: document.getElementById('cd-secs')
     };
     if (diff <= 0) {
-      els.days.textContent = '0'; els.hours.textContent = '0'; els.mins.textContent = '0'; els.secs.textContent = '0';
+      setFlipDigit(els.days, 0); setFlipDigit(els.hours, 0); setFlipDigit(els.mins, 0); setFlipDigit(els.secs, 0);
       return;
     }
     const totalSecs = Math.floor(diff / 1000);
-    els.days.textContent = Math.floor(totalSecs / 86400);
-    els.hours.textContent = Math.floor((totalSecs % 86400) / 3600);
-    els.mins.textContent = Math.floor((totalSecs % 3600) / 60);
-    els.secs.textContent = totalSecs % 60;
+    setFlipDigit(els.days, Math.floor(totalSecs / 86400));
+    setFlipDigit(els.hours, Math.floor((totalSecs % 86400) / 3600));
+    setFlipDigit(els.mins, Math.floor((totalSecs % 3600) / 60));
+    setFlipDigit(els.secs, totalSecs % 60);
   }
 
   function renderRouteStrip() {
@@ -827,10 +861,10 @@
         : t('planner_status_under', { days: Math.abs(diffDays) });
     }
 
-    document.getElementById('sum-total').textContent = totalWeeks;
-    document.getElementById('sum-days').textContent = totalDays;
-    document.getElementById('sum-sister').textContent = state.sisterFirst + state.sisterFinal;
-    document.getElementById('sum-you').textContent = state.withYou;
+    animateNumberTo(document.getElementById('sum-total'), totalWeeks);
+    animateNumberTo(document.getElementById('sum-days'), totalDays);
+    animateNumberTo(document.getElementById('sum-sister'), state.sisterFirst + state.sisterFinal);
+    animateNumberTo(document.getElementById('sum-you'), state.withYou);
     document.getElementById('sum-end').textContent = fmtShort(calculatedEnd);
 
     renderTripDonut(totalWeeks, totalDays);
@@ -863,7 +897,7 @@
     }).join('');
 
     svg.innerHTML = '<circle class="donut-track" cx="' + CX + '" cy="' + CY + '" r="' + R + '"></circle>' + segMarkup;
-    centerNum.textContent = totalDays;
+    animateNumberTo(centerNum, totalDays);
 
     legend.innerHTML = legs.map(leg => (
       '<li data-key="' + leg.key + '">' +
@@ -945,6 +979,21 @@
 
     container.querySelectorAll('.tl-card').forEach(card => {
       card.addEventListener('click', () => card.classList.toggle('open'));
+    });
+
+    renderTimelineNowMarker(container);
+  }
+
+  function renderTimelineNowMarker(container) {
+    const now = new Date();
+    if (now < TRIP_START || now > TRIP_END) return;
+    const fraction = (now - TRIP_START) / (TRIP_END - TRIP_START);
+    const marker = document.createElement('div');
+    marker.className = 'timeline-now-marker';
+    marker.innerHTML = '<span class="pulse"></span><span class="now-label">' + t('timeline_now_label') + '</span>';
+    container.appendChild(marker);
+    requestAnimationFrame(() => {
+      marker.style.top = (fraction * container.scrollHeight) + 'px';
     });
   }
 
@@ -1159,7 +1208,7 @@
     }).join('');
 
     grid.querySelectorAll('.gallery-item').forEach(item => {
-      item.addEventListener('click', () => openLightbox(item.dataset.id));
+      item.addEventListener('click', () => openLightbox(item.dataset.id, item));
     });
     bindPlaceCardButtons(grid);
   }
@@ -1175,7 +1224,7 @@
     });
   }
 
-  function openLightbox(id) {
+  function openLightbox(id, sourceEl) {
     const place = getAllPlaces().find(p => p.id === id);
     if (!place) return;
     const tr = placeText(place);
@@ -1185,14 +1234,43 @@
     const custom = getCustomImageSrc(place.id);
     media.innerHTML = mediaHTML(custom || place.img, place.emoji);
     document.getElementById('lightbox').classList.add('open');
+    animateLightboxFrom(sourceEl);
+  }
+
+  function animateLightboxFrom(sourceEl) {
+    if (!sourceEl || !motionOk()) return;
+    const media = document.getElementById('lightboxMedia');
+    const startRect = sourceEl.getBoundingClientRect();
+    requestAnimationFrame(() => {
+      const endRect = media.getBoundingClientRect();
+      if (!endRect.width || !endRect.height) return;
+      const scaleX = startRect.width / endRect.width;
+      const scaleY = startRect.height / endRect.height;
+      const translateX = (startRect.left + startRect.width / 2) - (endRect.left + endRect.width / 2);
+      const translateY = (startRect.top + startRect.height / 2) - (endRect.top + endRect.height / 2);
+      media.style.transition = 'none';
+      media.style.transform = 'translate(' + translateX + 'px, ' + translateY + 'px) scale(' + scaleX + ', ' + scaleY + ')';
+      media.style.opacity = '0.4';
+      requestAnimationFrame(() => {
+        media.style.transition = 'transform .38s cubic-bezier(.2,.8,.2,1), opacity .28s ease';
+        media.style.transform = 'translate(0,0) scale(1,1)';
+        media.style.opacity = '1';
+      });
+    });
+  }
+
+  function closeLightbox() {
+    const media = document.getElementById('lightboxMedia');
+    media.style.transition = '';
+    media.style.transform = '';
+    media.style.opacity = '';
+    document.getElementById('lightbox').classList.remove('open');
   }
 
   function initLightbox() {
-    document.getElementById('lightboxClose').addEventListener('click', () => {
-      document.getElementById('lightbox').classList.remove('open');
-    });
+    document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
     document.getElementById('lightbox').addEventListener('click', (e) => {
-      if (e.target.id === 'lightbox') e.target.classList.remove('open');
+      if (e.target.id === 'lightbox') closeLightbox();
     });
   }
 
@@ -1493,7 +1571,7 @@
           item.classList.toggle('selected');
           updateStaticShareUI();
         } else {
-          openImageLightbox(item.dataset.src);
+          openImageLightbox(item.dataset.src, item);
         }
       });
     });
@@ -1541,11 +1619,12 @@
     cancelBtn.addEventListener('click', () => toggleStaticShareMode(true));
   }
 
-  function openImageLightbox(src) {
+  function openImageLightbox(src, sourceEl) {
     document.getElementById('lightboxTitle').textContent = '';
     document.getElementById('lightboxDesc').textContent = '';
     document.getElementById('lightboxMedia').innerHTML = `<img src="${src}" alt="">`;
     document.getElementById('lightbox').classList.add('open');
+    animateLightboxFrom(sourceEl);
   }
 
   /* ===================== SOUVENIRS (personal, this device only) ===================== */
@@ -1957,6 +2036,30 @@
         .bindPopup('<span class="map-popup-name">' + c.name + '</span>');
     });
 
+    const routeLatLngs = cityStops.map(c => [c.lat, c.lng]);
+    routeLatLngs.push(routeLatLngs[0]); // back to Bonn
+    const routeLine = L.polyline(routeLatLngs, { color: '#1E88E5', weight: 3, opacity: 0.8 }).addTo(map);
+    if (motionOk()) {
+      setTimeout(() => {
+        const path = routeLine.getElement && routeLine.getElement();
+        if (!path || typeof path.getTotalLength !== 'function') return;
+        const length = path.getTotalLength();
+        path.style.strokeDasharray = length + ' ' + length;
+        path.style.strokeDashoffset = length;
+        path.getBoundingClientRect();
+        path.style.transition = 'stroke-dashoffset 1.6s ease';
+        requestAnimationFrame(() => { path.style.strokeDashoffset = '0'; });
+        path.addEventListener('transitionend', function onEnd() {
+          path.style.transition = '';
+          path.style.strokeDasharray = '8 8';
+          path.style.strokeDashoffset = '0';
+          path.removeEventListener('transitionend', onEnd);
+        });
+      }, 300);
+    } else {
+      routeLine.setStyle({ dashArray: '8 8' });
+    }
+
     getAllPlaces().forEach(p => {
       if (typeof p.lat !== 'number' || typeof p.lng !== 'number') return;
       const tr = placeText(p);
@@ -2001,10 +2104,13 @@
       const id = row.dataset.id;
       row.querySelector('input[type="checkbox"]').addEventListener('change', (e) => {
         const data = loadPacking();
+        const wasAllChecked = data.length > 0 && data.every(i => i.checked);
         const item = data.find(i => i.id === id);
         if (item) item.checked = e.target.checked;
         savePacking(data);
         renderPacking();
+        const nowAllChecked = data.length > 0 && data.every(i => i.checked);
+        if (!wasAllChecked && nowAllChecked) triggerConfetti();
       });
       row.querySelector('.packing-delete').addEventListener('click', () => {
         savePacking(loadPacking().filter(i => i.id !== id));
