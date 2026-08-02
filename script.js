@@ -65,6 +65,7 @@
       planner_share_landing: '🛬 Landing in Cologne/Bonn: {date}',
       planner_share_return: '🛫 Return flight home: {date}',
       planner_share_cta: "💬 What do you think — does this plan work for you? Let us know if you'd like to suggest any changes!",
+      donut_center_label: 'days total',
 
       timeline_h2: 'Interactive Timeline',
       timeline_intro: 'Click any stop to expand the details. Dates recompute live from the planner above.',
@@ -221,6 +222,7 @@
       planner_share_landing: '🛬 کولون بون میں آمد: {date}',
       planner_share_return: '🛫 گھر واپسی پرواز: {date}',
       planner_share_cta: '💬 آپ کا کیا خیال ہے — کیا یہ منصوبہ آپ کے لیے مناسب ہے؟ اگر کوئی تبدیلی تجویز کرنی ہو تو بتائیں!',
+      donut_center_label: 'کل دن',
 
       timeline_h2: 'انٹرایکٹو ٹائم لائن',
       timeline_intro: 'تفصیلات دیکھنے کے لیے کسی بھی سٹاپ پر کلک کریں۔ تاریخیں اوپر دیے گئے منصوبہ ساز سے فوری اپ ڈیٹ ہوتی ہیں۔',
@@ -377,6 +379,7 @@
       planner_share_landing: '🛬 Atterrissage à Cologne/Bonn : {date}',
       planner_share_return: '🛫 Vol de retour : {date}',
       planner_share_cta: "💬 Qu'en pensez-vous — ce plan vous convient-il ? Dites-nous si vous souhaitez proposer des changements !",
+      donut_center_label: 'jours au total',
 
       timeline_h2: 'Chronologie Interactive',
       timeline_intro: 'Cliquez sur une étape pour voir les détails. Les dates se recalculent en direct depuis le planificateur ci-dessus.',
@@ -829,6 +832,88 @@
     document.getElementById('sum-sister').textContent = state.sisterFirst + state.sisterFinal;
     document.getElementById('sum-you').textContent = state.withYou;
     document.getElementById('sum-end').textContent = fmtShort(calculatedEnd);
+
+    renderTripDonut(totalWeeks, totalDays);
+  }
+
+  let donutTooltipHideTimer = null;
+
+  function renderTripDonut(totalWeeks, totalDays) {
+    const svg = document.getElementById('tripDonutSvg');
+    const legend = document.getElementById('tripDonutLegend');
+    const centerNum = document.getElementById('donutCenterNum');
+    const tooltip = document.getElementById('donutTooltip');
+    if (!svg || !legend || !centerNum) return;
+
+    const { legs } = computeSchedule();
+    const R = 58, CX = 70, CY = 70;
+    const circumference = 2 * Math.PI * R;
+
+    let cumulative = 0;
+    const segMarkup = legs.map(leg => {
+      const weeks = state[leg.key];
+      const fraction = totalWeeks > 0 ? weeks / totalWeeks : 0;
+      const len = fraction * circumference;
+      const dashoffset = -cumulative;
+      cumulative += len;
+      return '<circle class="donut-seg" data-key="' + leg.key + '" cx="' + CX + '" cy="' + CY + '" r="' + R + '" ' +
+        'stroke="' + leg.color + '" stroke-dasharray="' + len + ' ' + (circumference - len) + '" ' +
+        'stroke-dashoffset="' + dashoffset + '" transform="rotate(-90 ' + CX + ' ' + CY + ')" ' +
+        'tabindex="0" role="button" aria-label="' + leg.name + '"></circle>';
+    }).join('');
+
+    svg.innerHTML = '<circle class="donut-track" cx="' + CX + '" cy="' + CY + '" r="' + R + '"></circle>' + segMarkup;
+    centerNum.textContent = totalDays;
+
+    legend.innerHTML = legs.map(leg => (
+      '<li data-key="' + leg.key + '">' +
+        '<span class="dot" style="background:' + leg.color + '"></span>' +
+        '<span class="name">' + leg.name + '</span>' +
+        '<span class="weeks">' + weekLabel(state[leg.key]) + '</span>' +
+      '</li>'
+    )).join('');
+
+    function tooltipText(leg) {
+      return leg.name + ' — ' + weekLabel(state[leg.key]) + ' (' + fmtShort(leg.start) + ' → ' + fmtShort(leg.end) + ')';
+    }
+    function showTooltip(evt, leg) {
+      clearTimeout(donutTooltipHideTimer);
+      tooltip.textContent = tooltipText(leg);
+      tooltip.classList.add('visible');
+      moveTooltip(evt);
+    }
+    function moveTooltip(evt) {
+      const point = evt.touches ? evt.touches[0] : evt;
+      tooltip.style.left = (point.clientX + 14) + 'px';
+      tooltip.style.top = (point.clientY + 14) + 'px';
+    }
+    function hideTooltip() {
+      donutTooltipHideTimer = setTimeout(() => tooltip.classList.remove('visible'), 80);
+    }
+    function goToTimeline() {
+      hideTooltip();
+      openCollapsibleSection('timeline');
+      document.getElementById('timeline').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    svg.querySelectorAll('.donut-seg').forEach(seg => {
+      const leg = legs.find(l => l.key === seg.dataset.key);
+      seg.addEventListener('mouseenter', (e) => showTooltip(e, leg));
+      seg.addEventListener('mousemove', moveTooltip);
+      seg.addEventListener('mouseleave', hideTooltip);
+      seg.addEventListener('focus', (e) => showTooltip(e, leg));
+      seg.addEventListener('blur', hideTooltip);
+      seg.addEventListener('click', goToTimeline);
+      seg.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goToTimeline(); } });
+    });
+
+    legend.querySelectorAll('li').forEach(li => {
+      const leg = legs.find(l => l.key === li.dataset.key);
+      li.addEventListener('mouseenter', (e) => showTooltip(e, leg));
+      li.addEventListener('mousemove', moveTooltip);
+      li.addEventListener('mouseleave', hideTooltip);
+      li.addEventListener('click', goToTimeline);
+    });
   }
 
   function initPlanner() {

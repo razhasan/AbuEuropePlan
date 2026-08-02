@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#123C82">
-<link rel="stylesheet" href="style.css?v=20">
+<link rel="stylesheet" href="style.css?v=21">
 <script>(function(){try{if(localStorage.getItem('europeTripTheme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
 </head>
 <body>
@@ -80,6 +80,18 @@
   <p class="section-intro" data-i18n="planner_intro">Landing (Aug 10, 18:10) and the return flight (Oct 19, 19:00) are fixed — that's exactly
   10 weeks. One week with Abdullah in Stuttgart is fixed too. Drag the sliders below to divide the remaining
   9 weeks between Busrah's first stay, your stay in Paris, and Busrah's final stay — every date on this page updates instantly.</p>
+
+  <div class="trip-donut-card">
+    <div class="trip-donut-visual">
+      <svg class="trip-donut" id="tripDonutSvg" viewBox="0 0 140 140" role="img" aria-label="Trip breakdown by person"></svg>
+      <div class="donut-center">
+        <div class="donut-center-num" id="donutCenterNum">--</div>
+        <div class="donut-center-lbl" data-i18n="donut_center_label">days total</div>
+      </div>
+    </div>
+    <ul class="trip-donut-legend" id="tripDonutLegend"></ul>
+  </div>
+  <div class="donut-tooltip" id="donutTooltip"></div>
 
   <div class="planner-card">
     <div class="planner-grid">
@@ -366,6 +378,6 @@
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="script.js?v=20"></script>
+<script src="script.js?v=21"></script>
 </body>
 </html>
