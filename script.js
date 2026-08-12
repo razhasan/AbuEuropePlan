@@ -43,6 +43,7 @@
       music_tap_hint: 'Tap play to start the music',
       music_mode_once: 'Once', music_mode_loop: 'Loop', music_mode_shuffle: 'Shuffle',
       streetview_link_title: 'Open in Google Street View',
+      youtube_link_label: 'Watch on YouTube', youtube_link_title: 'Search short YouTube videos about this place',
 
       hero_title: "Abu's Europe Visit",
       hero_subtitle_html: 'Cologne Bonn → Bonn (Busrah) → Verneuil-en-Halatte, Paris (us) → Stuttgart (Abdullah) → Bonn (Busrah) → home.<br>10 August – 19 October 2026',
@@ -210,6 +211,7 @@
       music_tap_hint: 'گانا شروع کرنے کے لیے پلے دبائیں',
       music_mode_once: 'ایک بار', music_mode_loop: 'دہرائیں', music_mode_shuffle: 'اختلاط',
       streetview_link_title: 'گوگل اسٹریٹ ویو میں کھولیں',
+      youtube_link_label: 'یوٹیوب پر دیکھیں', youtube_link_title: 'اس جگہ کے بارے میں مختصر یوٹیوب ویڈیوز تلاش کریں',
 
       hero_title: 'ابو کا یورپ کا سفر',
       hero_subtitle_html: 'کولون بون → بون (بشریٰ) → ورنوے آں ہالات، پیرس (ہمارے ہاں) → سٹٹگارٹ (عبداللہ) → بون (بشریٰ) → گھر واپسی۔<br>10 اگست – 19 اکتوبر 2026',
@@ -377,6 +379,7 @@
       music_tap_hint: 'Appuyez sur lecture pour démarrer la musique',
       music_mode_once: 'Une fois', music_mode_loop: 'Boucle', music_mode_shuffle: 'Aléatoire',
       streetview_link_title: 'Ouvrir dans Google Street View',
+      youtube_link_label: 'Voir sur YouTube', youtube_link_title: 'Rechercher de courtes vidéos YouTube sur ce lieu',
 
       hero_title: "Voyage d'Abu en Europe",
       hero_subtitle_html: 'Cologne Bonn → Bonn (Busrah) → Verneuil-en-Halatte, Paris (chez nous) → Stuttgart (Abdullah) → Bonn (Busrah) → retour à la maison.<br>10 août – 19 octobre 2026',
@@ -717,7 +720,11 @@
 
   function streetViewUrl(place) {
     if (place.lat == null || place.lng == null) return '';
-    return 'https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=' + place.lat + ',' + place.lng;
+    // "layer=c" requests the classic Street View coverage layer (genuine
+    // car/trekker street-level imagery) rather than the newer pano API,
+    // which for famous landmarks can snap to an indoor/virtual-tour photo
+    // instead of the adjacent street.
+    return 'https://www.google.com/maps?layer=c&cbll=' + place.lat + ',' + place.lng;
   }
 
   function placeNameHTML(place, name) {
@@ -725,6 +732,17 @@
     if (!url) return name;
     return '<a class="place-streetview-link" href="' + url + '" target="_blank" rel="noopener" title="' +
       t('streetview_link_title') + '">' + name + ' <span class="sv-icon">🧭</span></a>';
+  }
+
+  function youtubeSearchUrl(place, tr) {
+    const name = (place.i18n.en ? place.i18n.en.name : tr.name);
+    return 'https://www.youtube.com/results?search_query=' + encodeURIComponent(name + ' France');
+  }
+
+  function youtubeLinkHTML(place, tr) {
+    const url = youtubeSearchUrl(place, tr);
+    return '<a class="place-youtube-link" href="' + url + '" target="_blank" rel="noopener" title="' +
+      t('youtube_link_title') + '">🎬 <span>' + t('youtube_link_label') + '</span></a>';
   }
 
   const CATEGORY_ORDER = ['all', 'culture', 'view', 'museum', 'walk', 'daytrip'];
@@ -1226,6 +1244,7 @@
           <h4>${placeNameHTML(p, tr.name)}</h4>
           <p>${tr.desc}</p>
           <div class="stats"><span>⏱ ${tr.duration}</span><span>☀ ${tr.best}</span></div>
+          <div class="place-quick-links">${youtubeLinkHTML(p, tr)}</div>
         </div>
       </div>
     `;

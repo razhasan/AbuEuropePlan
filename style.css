@@ -577,6 +577,13 @@ a { color: var(--fr-blue); }
 .place-streetview-link:hover, .place-streetview-link:focus-visible { color: var(--fr-blue); border-color: var(--purple); }
 .place-streetview-link .sv-icon { font-size: 0.75em; opacity: 0.75; margin-left: 3px; }
 :root[dir="rtl"] .place-streetview-link .sv-icon { margin-left: 0; margin-right: 3px; }
+.place-quick-links { margin-top: 10px; }
+.place-youtube-link {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: var(--pastel-blue); color: var(--navy); font-size: 0.78rem; font-weight: 700;
+  padding: 5px 12px; border-radius: 14px; text-decoration: none; transition: all .15s ease;
+}
+.place-youtube-link:hover, .place-youtube-link:focus-visible { background: linear-gradient(135deg, var(--fr-red), var(--de-gold)); color: #fff; }
 
 /* ===== Itinerary accordion ===== */
 .itin-day {
