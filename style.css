@@ -570,6 +570,13 @@ a { color: var(--fr-blue); }
 .place-body .meta { font-size: 0.75rem; color: var(--de-gold); font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 8px; }
 .place-body p { font-size: 0.87rem; color: var(--muted); margin: 0 0 10px; }
 .place-body .stats { display: flex; gap: 14px; font-size: 0.78rem; color: var(--navy); font-weight: 600; }
+.place-streetview-link {
+  color: inherit; text-decoration: none; border-bottom: 1px dashed var(--fr-blue);
+  transition: color .15s ease, border-color .15s ease;
+}
+.place-streetview-link:hover, .place-streetview-link:focus-visible { color: var(--fr-blue); border-color: var(--purple); }
+.place-streetview-link .sv-icon { font-size: 0.75em; opacity: 0.75; margin-left: 3px; }
+:root[dir="rtl"] .place-streetview-link .sv-icon { margin-left: 0; margin-right: 3px; }
 
 /* ===== Itinerary accordion ===== */
 .itin-day {
@@ -608,6 +615,10 @@ a { color: var(--fr-blue); }
 .gallery-item .cap {
   position: absolute; bottom: 0; left: 0; right: 0; background: rgba(27,58,92,0.75); color: #fff;
   font-size: 0.78rem; padding: 6px 10px; font-weight: 600;
+}
+.gallery-item .cap .place-streetview-link { color: #fff; border-bottom-color: rgba(255,255,255,0.55); }
+.gallery-item .cap .place-streetview-link:hover, .gallery-item .cap .place-streetview-link:focus-visible {
+  color: var(--de-gold); border-color: var(--de-gold);
 }
 .lightbox {
   position: fixed; inset: 0; background: rgba(20,20,25,0.9); display: none; align-items: center;
