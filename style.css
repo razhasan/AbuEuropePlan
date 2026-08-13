@@ -232,6 +232,12 @@ a { color: var(--fr-blue); }
 }
 .music-queue-toggle:hover { transform: scale(1.08); }
 .music-queue-toggle.open { background: linear-gradient(135deg, var(--fr-blue), var(--purple)); color: #fff; }
+.music-share-btn {
+  flex: none; border: none; background: var(--pastel-blue); color: var(--navy); font-size: 0.95rem;
+  width: 34px; height: 34px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: transform .15s, background .15s, color .15s;
+}
+.music-share-btn:hover { transform: scale(1.08); background: linear-gradient(135deg, #25D366, #128C7E); color: #fff; }
 
 .music-queue-panel {
   max-width: 1100px; margin: 0 auto; padding: 0 24px;
