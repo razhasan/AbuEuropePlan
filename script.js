@@ -2315,25 +2315,61 @@
   // click handler in initHeroShare() intercepts normal clicks first to try attaching
   // a real photo via the native share sheet, which shows up as an actual image in
   // the chat rather than just a link.
+  // Opening a wa.me link via window.open(url, '_blank') (a new tab/popup) can
+  // mangle emoji into "�" during the handoff to the WhatsApp app on iOS Safari —
+  // a well-documented quirk of that specific navigation path. Navigating the
+  // *same* tab instead (like a plain link click) avoids it, so every wa.me
+  // fallback in the app goes through this one helper.
+  function openWhatsAppShare(text) {
+    window.location.href = 'https://wa.me/?text=' + encodeURIComponent(text);
+  }
+
   function updateWhatsappShareLink() {
     const btn = document.getElementById('shareWhatsappBtn');
     if (!btn) return;
     btn.href = 'https://wa.me/?text=' + encodeURIComponent(buildHeroShareText());
   }
 
+  // Best-effort fetch of a URL as a File for native sharing; never throws — a
+  // failed fetch (offline, missing file) just means that file gets left out.
+  async function fetchAsFile(url, filename, fallbackType) {
+    try {
+      const resp = await fetch(url);
+      if (!resp.ok) return null;
+      const blob = await resp.blob();
+      return new File([blob], filename, { type: blob.type || fallbackType });
+    } catch (e) {
+      return null;
+    }
+  }
+
   async function shareHeroViaWhatsApp() {
     const text = buildHeroShareText();
     try {
-      const blob = await (await fetch('images/eiffel-tower.jpg')).blob();
-      const file = new File([blob], 'abu-europe-trip.jpg', { type: blob.type || 'image/jpeg' });
-      if (navigator.canShare && navigator.canShare({ files: [file] })) {
-        await navigator.share({ files: [file], title: t('hero_share_header'), text });
+      const track = PLAYLIST[musicCurrentIdx] || PLAYLIST[0];
+      const [imageFile, audioFile] = await Promise.all([
+        fetchAsFile('images/eiffel-tower.jpg', 'abu-europe-trip.jpg', 'image/jpeg'),
+        track ? fetchAsFile(track.src, track.src.split('/').pop(), 'audio/mpeg') : Promise.resolve(null)
+      ]);
+      // Try sharing the photo *and* the current song together, so the WhatsApp
+      // message actually carries playable music, not just a text mention of it.
+      const bothFiles = [imageFile, audioFile].filter(Boolean);
+      if (bothFiles.length === 2 && navigator.canShare && navigator.canShare({ files: bothFiles })) {
+        await navigator.share({ files: bothFiles, title: t('hero_share_header'), text });
         return;
+      }
+      // Some browsers reject the mixed image+audio set but accept a single file —
+      // fall back to whichever one file we managed to fetch and can actually share.
+      for (const file of [imageFile, audioFile]) {
+        if (file && navigator.canShare && navigator.canShare({ files: [file] })) {
+          await navigator.share({ files: [file], title: t('hero_share_header'), text });
+          return;
+        }
       }
     } catch (e) {
       if (e && e.name === 'AbortError') return; // user cancelled the native share sheet
     }
-    window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
+    openWhatsAppShare(text);
   }
 
   function initHeroShare() {
@@ -2367,7 +2403,7 @@
       if (e && e.name === 'AbortError') return;
     }
     const fallbackText = text + '\n\n' + t('music_share_cta') + '\n' + SITE_URL;
-    window.open('https://wa.me/?text=' + encodeURIComponent(fallbackText), '_blank');
+    openWhatsAppShare(fallbackText);
   }
 
   function initMusicShare() {
@@ -2668,7 +2704,7 @@
     const btn = document.getElementById('plannerShareBtn');
     if (!btn) return;
     btn.addEventListener('click', () => {
-      window.open('https://wa.me/?text=' + encodeURIComponent(buildPlannerShareText()), '_blank');
+      openWhatsAppShare(buildPlannerShareText());
     });
   }
 
@@ -2691,7 +2727,7 @@
       if (e && e.name === 'AbortError') return; // user cancelled the native share sheet
     }
     alert(t('share_fallback_alert'));
-    window.open('https://wa.me/?text=' + encodeURIComponent(titleText + ' — ' + SITE_URL), '_blank');
+    openWhatsAppShare(titleText + ' — ' + SITE_URL);
   }
 
   /* ===================== CONFETTI ===================== */
