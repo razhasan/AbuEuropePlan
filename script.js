@@ -5,6 +5,52 @@
   const TRIP_START = new Date(2026, 7, 10, 18, 10);  // Aug 10 2026, 18:10 — landing at CGN
   const TRIP_END   = new Date(2026, 9, 19, 19, 0);   // Oct 19 2026, 19:00 — return flight
   const SITE_URL = 'https://razhasan.github.io/AbuEuropePlan/';
+  const GITHUB_REPO = 'razhasan/AbuEuropePlan';
+
+  function fileExt(name) {
+    const m = name.match(/\.([a-zA-Z0-9]+)$/);
+    return m ? m[1].toLowerCase() : '';
+  }
+
+  // Live directory listing via GitHub's public Contents API — this is what lets
+  // Music/ and each souvenir folder accept any filename with zero code changes:
+  // the page just asks GitHub "what's in this folder right now?" instead of
+  // guessing filenames. Cached in sessionStorage so a browser tab only asks once
+  // per folder (GitHub's anonymous API allows 60 requests/hour per network,
+  // trivial for a family checking the site a few times a day, but no reason to
+  // spend more than one call per folder per visit). A folder with nothing in it
+  // yet (or that doesn't exist because git doesn't track empty directories)
+  // returns 404 from GitHub, which is treated the same as "empty" here — only a
+  // real failure (offline, rate-limited) throws, so callers can tell the two apart.
+  const folderListingCache = new Map();
+  async function fetchFolderListing(path) {
+    if (folderListingCache.has(path)) return folderListingCache.get(path);
+    const cacheKey = 'ghFolder:' + path;
+    try {
+      const cached = sessionStorage.getItem(cacheKey);
+      if (cached) {
+        const parsed = JSON.parse(cached);
+        folderListingCache.set(path, parsed);
+        return parsed;
+      }
+    } catch (e) { /* sessionStorage unavailable — just skip the persistent cache */ }
+
+    const resp = await fetch('https://api.github.com/repos/' + GITHUB_REPO + '/contents/' + path, {
+      headers: { Accept: 'application/vnd.github+json' }
+    });
+    let names;
+    if (resp.status === 404) {
+      names = [];
+    } else if (!resp.ok) {
+      throw new Error('GitHub API error ' + resp.status);
+    } else {
+      const data = await resp.json();
+      names = Array.isArray(data) ? data.filter(f => f.type === 'file').map(f => f.name) : [];
+    }
+    folderListingCache.set(path, names);
+    try { sessionStorage.setItem(cacheKey, JSON.stringify(names)); } catch (e) {}
+    return names;
+  }
 
   const COLORS = {
     sisterFirst: '#1E88E5',
@@ -166,8 +212,9 @@
       souvenirs_h2: 'Souvenirs',
       souvenirs_static_h3: 'Permanent Souvenir Photos',
       souvenirs_static_intro_html: 'Added directly to the <code>images/souvenirs</code> folder in the GitHub repo — visible to everyone who visits the site.',
-      souvenirs_static_empty: 'No permanent souvenir photos in this category yet — add files named e.g. bonn1.jpg, bonn2.jpg to images/souvenirs on GitHub to see them here.',
+      souvenirs_static_empty: 'No permanent souvenir photos in this category yet — add any photo or video to its folder in images/souvenirs on GitHub to see it here.',
       souvenirs_loading: 'Loading…',
+      souvenirs_load_error: "Couldn't load photos right now — check your connection and try refreshing.",
       souvenirs_static_share_btn: '📤 Share on WhatsApp',
       souvenir_cat_bonn: '🏠 Bonn (Busrah)', souvenir_cat_paris: '🗼 Paris (You)', souvenir_cat_stuttgart: '🏡 Stuttgart (Abdullah)',
       souvenirs_personal_h3: 'Your Own Additions (this device only)',
@@ -341,8 +388,9 @@
       souvenirs_h2: 'یادگاریں',
       souvenirs_static_h3: 'مستقل یادگار تصاویر',
       souvenirs_static_intro_html: '<code>images/souvenirs</code> فولڈر میں براہ راست شامل کی گئیں — سائٹ پر آنے والے ہر شخص کو نظر آتی ہیں۔',
-      souvenirs_static_empty: 'اس زمرے میں ابھی تک کوئی مستقل یادگار تصویر نہیں — گٹ ہب پر images/souvenirs میں مثلاً bonn1.jpg، bonn2.jpg ناموں سے فائلیں شامل کریں تاکہ یہ یہاں نظر آئیں۔',
+      souvenirs_static_empty: 'اس زمرے میں ابھی تک کوئی مستقل یادگار تصویر نہیں — گٹ ہب پر images/souvenirs میں اس کے فولڈر میں کوئی بھی تصویر یا ویڈیو شامل کریں تاکہ یہ یہاں نظر آئے۔',
       souvenirs_loading: 'لوڈ ہو رہا ہے…',
+      souvenirs_load_error: 'ابھی تصاویر لوڈ نہیں ہو سکیں — اپنا کنکشن چیک کریں اور دوبارہ ریفریش کریں۔',
       souvenirs_static_share_btn: '📤 واٹس ایپ پر شیئر کریں',
       souvenir_cat_bonn: '🏠 بون (بصرہ)', souvenir_cat_paris: '🗼 پیرس (آپ)', souvenir_cat_stuttgart: '🏡 اسٹٹگارٹ (عبداللہ)',
       souvenirs_personal_h3: 'آپ کی اپنی شامل کردہ تصاویر (صرف اس ڈیوائس پر)',
@@ -516,8 +564,9 @@
       souvenirs_h2: 'Souvenirs',
       souvenirs_static_h3: 'Photos de Souvenirs Permanentes',
       souvenirs_static_intro_html: 'Ajoutées directement dans le dossier <code>images/souvenirs</code> du dépôt GitHub — visibles pour tous les visiteurs du site.',
-      souvenirs_static_empty: "Aucune photo de souvenir permanente dans cette catégorie pour l'instant — ajoutez des fichiers nommés par ex. bonn1.jpg, bonn2.jpg dans images/souvenirs sur GitHub pour les voir ici.",
+      souvenirs_static_empty: "Aucune photo de souvenir permanente dans cette catégorie pour l'instant — ajoutez une photo ou vidéo à son dossier dans images/souvenirs sur GitHub pour la voir ici.",
       souvenirs_loading: 'Chargement…',
+      souvenirs_load_error: "Impossible de charger les photos pour l'instant — vérifiez votre connexion et actualisez la page.",
       souvenirs_static_share_btn: '📤 Partager sur WhatsApp',
       souvenir_cat_bonn: '🏠 Bonn (Busrah)', souvenir_cat_paris: '🗼 Paris (Vous)', souvenir_cat_stuttgart: '🏡 Stuttgart (Abdullah)',
       souvenirs_personal_h3: 'Vos Propres Ajouts (cet appareil uniquement)',
@@ -1681,20 +1730,17 @@
   }
 
   /* ===================== STATIC SOUVENIRS (from images/souvenirs, shared for everyone) ===================== */
-  // Each category checks for images/souvenirs/{prefix}1.jpg .. {prefix}{count}.jpg (or .jpeg/.png/.webp),
-  // and separately images/souvenirs/{prefix}vid1.mp4 .. {prefix}vid{videoCount}.mp4 (or .mov/.webm) for videos.
-  // Any slot with no matching uploaded file just stays invisible, so wiring up the full count costs nothing.
+  // Each category is a real folder in the repo — the page asks GitHub what's in it
+  // (fetchFolderListing, above) rather than guessing filenames, so any file with any
+  // name dropped in the right folder just shows up. Photos and videos are split by
+  // extension from whatever the folder listing returns.
   const STATIC_SOUVENIR_CATEGORIES = [
-    { id: 'bonn', prefix: 'bonn', count: 30, videoCount: 30, labelKey: 'souvenir_cat_bonn' },
-    {
-      id: 'paris', prefix: 'paris', count: 30, videoCount: 30, labelKey: 'souvenir_cat_paris',
-      // Pre-existing example photos already in the repo, shown first in this category.
-      extraPhotos: ['images/souvenirs/souvenir1.jpg', 'images/souvenirs/souvenir2.jpg', 'images/souvenirs/souvenir3.jpg']
-    },
-    { id: 'stuttgart', prefix: 'stuttgart', count: 30, videoCount: 30, labelKey: 'souvenir_cat_stuttgart' }
+    { id: 'bonn', folder: 'images/souvenirs/bonn', labelKey: 'souvenir_cat_bonn' },
+    { id: 'paris', folder: 'images/souvenirs/paris', labelKey: 'souvenir_cat_paris' },
+    { id: 'stuttgart', folder: 'images/souvenirs/stuttgart', labelKey: 'souvenir_cat_stuttgart' }
   ];
-  const STATIC_SOUVENIR_EXTS = ['jpg', 'jpeg', 'png', 'webp'];
-  const STATIC_SOUVENIR_VIDEO_EXTS = ['mp4', 'mov', 'webm'];
+  const SOUVENIR_PHOTO_EXTS = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
+  const SOUVENIR_VIDEO_EXTS = ['mp4', 'mov', 'webm'];
   let activeStaticSouvenirCat = 'bonn';
 
   // Per-device "hide from view" list for static souvenirs. This does NOT delete the
@@ -1710,53 +1756,14 @@
     localStorage.setItem(HIDDEN_STATIC_SOUVENIRS_KEY, JSON.stringify(hidden));
   }
 
-  function checkImageExists(src) {
-    return new Promise(resolve => {
-      const img = new Image();
-      img.onload = () => resolve(true);
-      img.onerror = () => resolve(false);
-      img.src = src;
-    });
-  }
-
-  function checkVideoExists(src) {
-    return new Promise(resolve => {
-      const vid = document.createElement('video');
-      vid.onloadedmetadata = () => resolve(true);
-      vid.onerror = () => resolve(false);
-      vid.src = src;
-    });
-  }
-
-  // Tries each extension in turn for a given base path and resolves to the first one that
-  // actually loads (or null if none of them exist), so uploads don't need an exact extension match.
-  async function resolveStaticSouvenirSrc(basePath) {
-    for (const ext of STATIC_SOUVENIR_EXTS) {
-      const src = `${basePath}.${ext}`;
-      if (await checkImageExists(src)) return src;
-    }
-    return null;
-  }
-
-  async function resolveStaticSouvenirVideoSrc(basePath) {
-    for (const ext of STATIC_SOUVENIR_VIDEO_EXTS) {
-      const src = `${basePath}.${ext}`;
-      if (await checkVideoExists(src)) return src;
-    }
-    return null;
-  }
-
   let staticSouvenirSrcs = [];
   let staticShareMode = false;
 
-  // Resolving a category's slots means up to ~200 existence-check requests (30 photo
-  // slots x 4 extensions + 30 video slots x 3 extensions). Two things made rapid tab
-  // switching feel broken: (1) nothing changed on screen for a while so a click looked
-  // like it did nothing, and (2) overlapping renders could resolve out of order, so a
-  // slow earlier click could silently clobber a faster later one. Fixed by caching each
-  // category's resolved (existing) files for the rest of the session — so switching back
-  // to an already-visited tab is instant — and by a generation token that discards a
-  // render's result if a newer one has started since.
+  // A folder's listing is fetched once (see fetchFolderListing) and cached here for
+  // the rest of the session, so switching back to an already-visited tab is instant.
+  // The generation token discards a render's result if a newer one (a later tab
+  // click) has started since — otherwise a slow-resolving earlier click could
+  // clobber a faster later one and leave the grid showing the wrong category.
   const staticSouvenirCache = new Map();
   let staticSouvenirRenderToken = 0;
 
@@ -1765,33 +1772,37 @@
     const grid = document.getElementById('staticSouvenirGrid');
     const cat = STATIC_SOUVENIR_CATEGORIES.find(c => c.id === activeStaticSouvenirCat) || STATIC_SOUVENIR_CATEGORIES[0];
 
-    let allPhotos, allVideos;
+    let files;
     if (staticSouvenirCache.has(cat.id)) {
-      ({ photos: allPhotos, videos: allVideos } = staticSouvenirCache.get(cat.id));
+      files = staticSouvenirCache.get(cat.id);
     } else {
       grid.innerHTML = `<p class="souvenir-empty">${t('souvenirs_loading')}</p>`;
       const shareBtn0 = document.getElementById('staticSouvenirShareBtn');
       if (shareBtn0) shareBtn0.style.display = 'none';
 
-      const photoSlots = Array.from({ length: cat.count }, (_, idx) => idx + 1);
-      const videoSlots = Array.from({ length: cat.videoCount || 0 }, (_, idx) => idx + 1);
-      const extraPhotos = cat.extraPhotos || [];
-      const [extraResults, photoResults, videoResults] = await Promise.all([
-        Promise.all(extraPhotos.map(src => checkImageExists(src).then(ok => ({ src: ok ? src : null, n: src })))),
-        Promise.all(photoSlots.map(n => resolveStaticSouvenirSrc(`images/souvenirs/${cat.prefix}${n}`).then(src => ({ src, n })))),
-        Promise.all(videoSlots.map(n => resolveStaticSouvenirVideoSrc(`images/souvenirs/${cat.prefix}vid${n}`).then(src => ({ src, n }))))
-      ]);
+      try {
+        files = await fetchFolderListing(cat.folder);
+      } catch (e) {
+        if (myToken !== staticSouvenirRenderToken) return;
+        grid.innerHTML = `<p class="souvenir-empty">${t('souvenirs_load_error')}</p>`;
+        updateStaticShareUI();
+        return;
+      }
       if (myToken !== staticSouvenirRenderToken) return; // a newer tab click superseded this one
-      allPhotos = extraResults.concat(photoResults).filter(r => r.src);
-      allVideos = videoResults.filter(r => r.src);
-      staticSouvenirCache.set(cat.id, { photos: allPhotos, videos: allVideos });
+      staticSouvenirCache.set(cat.id, files);
     }
 
     // Hidden state can change without a reload, so this filter always runs fresh
-    // even when the underlying existence-check results come from the cache.
+    // even when the underlying folder listing comes from the cache.
     const hidden = loadHiddenStaticSouvenirs();
-    const presentPhotos = allPhotos.filter(r => !hidden.includes(r.src));
-    const presentVideos = allVideos.filter(r => !hidden.includes(r.src));
+    const presentPhotos = files
+      .filter(n => SOUVENIR_PHOTO_EXTS.includes(fileExt(n)))
+      .map(n => ({ src: `${cat.folder}/${n}`, n }))
+      .filter(r => !hidden.includes(r.src));
+    const presentVideos = files
+      .filter(n => SOUVENIR_VIDEO_EXTS.includes(fileExt(n)))
+      .map(n => ({ src: `${cat.folder}/${n}`, n }))
+      .filter(r => !hidden.includes(r.src));
     // Both photos and videos are selectable for the WhatsApp share flow, so this
     // covers "is there anything at all to share" — .share-photo (see below) is the
     // shared "selectable media" class applied to both photo and video tiles.
@@ -2273,16 +2284,29 @@
     ].join('\n');
   }
 
-  // Track 0 is the original song — its autoplay-on-load behavior and i18n
-  // title key are unchanged from the single-song player, just the file path
-  // moved into the Music/ folder along with the rest.
-  const PLAYLIST = [
-    { src: 'Music/NadiyaChale.mp3', titleKey: 'music_song_name' },
-    { src: 'Music/LaDerniereDanse.mp3', title: 'La Dernière Danse' },
-    { src: 'Music/GutGenug.mp3', title: 'Gut Genug' },
-    { src: 'Music/HawaHawa.mp3', title: 'Hawa Hawa' }
-  ];
+  const MUSIC_FOLDER = 'Music';
+  const MUSIC_EXTS = ['mp3', 'm4a', 'wav', 'ogg'];
+  // Nice display titles for the songs we already know about — anything else found
+  // in the Music/ folder just gets its filename cleaned up into a title instead
+  // (see humanizeFilename), so a new upload never needs a code change either way.
+  const MUSIC_TITLE_OVERRIDES = {
+    'NadiyaChale.mp3': { titleKey: 'music_song_name' },
+    'LaDerniereDanse.mp3': { title: 'La Dernière Danse' },
+    'GutGenug.mp3': { title: 'Gut Genug' },
+    'HawaHawa.mp3': { title: 'Hawa Hawa' }
+  };
+  // Used instantly on load (so autoplay never waits on a network call), and kept
+  // as the playlist if the live Music/ folder listing fails or comes back empty.
+  const FALLBACK_PLAYLIST = Object.keys(MUSIC_TITLE_OVERRIDES).map(name => ({
+    src: `${MUSIC_FOLDER}/${name}`, ...MUSIC_TITLE_OVERRIDES[name]
+  }));
+  let PLAYLIST = FALLBACK_PLAYLIST.slice();
   let musicCurrentIdx = 0;
+
+  function humanizeFilename(name) {
+    const base = name.replace(/\.[^.]+$/, '');
+    return base.replace(/[_-]+/g, ' ').replace(/\s+/g, ' ').trim().replace(/\b\w/g, c => c.toUpperCase());
+  }
 
   function trackTitle(track) {
     return track.titleKey ? t(track.titleKey) : track.title;
@@ -2423,6 +2447,36 @@
       }
     }
 
+    // Fetches the live Music/ folder listing and, if it has anything in it,
+    // replaces PLAYLIST with the real contents (any filename, not just the
+    // known four) — without interrupting whatever's already playing. Called
+    // in the background after the initial fallback-based autoplay attempt, so
+    // a slow or failed network call never delays the music actually starting.
+    async function refreshDynamicPlaylist() {
+      let files;
+      try {
+        files = await fetchFolderListing(MUSIC_FOLDER);
+      } catch (e) {
+        return; // offline / rate-limited — keep the fallback playlist, fail silently
+      }
+      const musicFiles = files.filter(n => MUSIC_EXTS.includes(fileExt(n)));
+      if (!musicFiles.length) return; // empty folder — keep the fallback playlist
+
+      const dynamic = musicFiles.map(n => {
+        const src = `${MUSIC_FOLDER}/${n}`;
+        const override = MUSIC_TITLE_OVERRIDES[n];
+        return override ? { src, ...override } : { src, title: humanizeFilename(n) };
+      });
+
+      const currentSrc = PLAYLIST[musicCurrentIdx] ? PLAYLIST[musicCurrentIdx].src : null;
+      PLAYLIST = dynamic;
+      const matchIdx = currentSrc ? PLAYLIST.findIndex(track => track.src === currentSrc) : -1;
+      musicCurrentIdx = matchIdx >= 0 ? matchIdx : 0;
+      if (shuffleOn) buildShuffleOrder(musicCurrentIdx);
+      renderPlaylistUI();
+      renderMusicPlayerTexts();
+    }
+
     audio.addEventListener('loadedmetadata', () => {
       durEl.textContent = fmtTime(audio.duration);
       seek.max = audio.duration || 100;
@@ -2494,6 +2548,8 @@
         document.addEventListener('touchstart', resume, { once: true });
       });
     }
+
+    refreshDynamicPlaylist();
   }
 
   function initPlannerShare() {
