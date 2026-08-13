@@ -283,6 +283,15 @@ a { color: var(--fr-blue); }
   transition: width .6s ease;
 }
 
+@media (max-width: 480px) {
+  /* 4 language buttons no longer fit with their text labels on narrow phones —
+     show just the flag emoji here, same active/hover styling still applies. */
+  .nav-right { gap: 10px; }
+  .lang-switch { gap: 2px; padding: 3px; }
+  .lang-btn { padding: 6px 8px; gap: 0; }
+  .lang-btn span { display: none; }
+}
+
 @media (max-width: 760px) {
   .nav-links {
     position: absolute; top: 100%; left: 0; right: 0;
