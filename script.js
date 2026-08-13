@@ -110,8 +110,8 @@
       hero_share_route: '🗺️ Bonn (Busrah) → Paris (You) → Stuttgart (Abdullah) → Bonn (Busrah)',
       hero_share_dates: '📅 10 Aug – 19 Oct 2026',
       hero_share_photos_note: "📸 See photos & videos in the Souvenirs section —\nphotos you add yourself stay on your device only, so send them to me and I'll add them permanently for everyone to see! 💙",
-      hero_share_music_note: "🎵 There's music playing on the site too — some of Abu's favourite songs!",
-      hero_share_cta: '👇 Tap below to follow along:',
+      hero_share_music_note: "🎵 There's music playing on the site too!",
+      hero_share_cta: "👆 Tap the photo above to visit *Abu's Europe Journey*",
       music_share_text: "🎵 Listening to *{song}* — one of Abu's favourite songs from his Europe trip site! 💙",
       music_share_cta: 'More music & photos here:',
 
@@ -293,8 +293,8 @@
       hero_share_route: '🗺️ بون (بشریٰ) → پیرس (آپ) → سٹٹگارٹ (عبداللہ) → بون (بشریٰ)',
       hero_share_dates: '📅 10 اگست – 19 اکتوبر 2026',
       hero_share_photos_note: 'یادگاریں والے حصے میں تصاویر اور ویڈیوز دیکھیں —\nآپ خود جو تصاویر شامل کریں گے وہ صرف آپ کی ڈیوائس پر رہیں گی، اس لیے مجھے بھیج دیں تاکہ میں انہیں سب کے لیے مستقل طور پر شامل کر دوں! 💙',
-      hero_share_music_note: '🎵 سائٹ پر موسیقی بھی چل رہی ہے — ابو کے پسندیدہ گانوں میں سے کچھ!',
-      hero_share_cta: '👇 ساتھ چلنے کے لیے نیچے ٹیپ کریں:',
+      hero_share_music_note: '🎵 سائٹ پر موسیقی بھی چل رہی ہے!',
+      hero_share_cta: '👆 اوپر والی تصویر پر ٹیپ کر کے *ابو کا یورپ کا سفر* ملاحظہ کریں',
       music_share_text: '🎵 *{song}* سن رہا ہوں — ابو کی یورپ سفر سائٹ کے پسندیدہ گانوں میں سے ایک! 💙',
       music_share_cta: 'مزید موسیقی اور تصاویر یہاں ہیں:',
       current_location_after: '🎉 سفر مکمل ہو چکا ہے — ساتھ رہنے کا شکریہ!',
@@ -477,8 +477,8 @@
       hero_share_route: '🗺️ Bonn (Busrah) → Paris (Vous) → Stuttgart (Abdullah) → Bonn (Busrah)',
       hero_share_dates: '📅 10 août – 19 octobre 2026',
       hero_share_photos_note: "📸 Voyez les photos et vidéos dans la section Souvenirs —\nles photos que vous ajoutez vous-même restent sur votre appareil uniquement, alors envoyez-les moi et je les ajouterai définitivement pour que tout le monde les voie ! 💙",
-      hero_share_music_note: "🎵 Il y a aussi de la musique sur le site — quelques-unes des chansons préférées d'Abu !",
-      hero_share_cta: '👇 Appuyez ci-dessous pour suivre le voyage :',
+      hero_share_music_note: "🎵 Il y a aussi de la musique sur le site !",
+      hero_share_cta: "👆 Appuyez sur la photo ci-dessus pour visiter *Le Voyage d'Abu en Europe*",
       music_share_text: "🎵 J'écoute *{song}* — une des chansons préférées d'Abu sur son site de voyage en Europe ! 💙",
       music_share_cta: 'Plus de musique et de photos ici :',
       current_location_after: '🎉 Le voyage est terminé — merci de nous avoir suivis !',
@@ -2305,8 +2305,7 @@
       '',
       t('hero_share_music_note'),
       '',
-      t('hero_share_cta'),
-      SITE_URL
+      t('hero_share_cta') + ' ' + SITE_URL
     ].filter(Boolean).join('\n');
   }
 
