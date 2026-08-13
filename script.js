@@ -167,6 +167,7 @@
       souvenirs_static_h3: 'Permanent Souvenir Photos',
       souvenirs_static_intro_html: 'Added directly to the <code>images/souvenirs</code> folder in the GitHub repo — visible to everyone who visits the site.',
       souvenirs_static_empty: 'No permanent souvenir photos in this category yet — add files named e.g. bonn1.jpg, bonn2.jpg to images/souvenirs on GitHub to see them here.',
+      souvenirs_loading: 'Loading…',
       souvenirs_static_share_btn: '📤 Share on WhatsApp',
       souvenir_cat_bonn: '🏠 Bonn (Busrah)', souvenir_cat_paris: '🗼 Paris (You)', souvenir_cat_stuttgart: '🏡 Stuttgart (Abdullah)',
       souvenirs_personal_h3: 'Your Own Additions (this device only)',
@@ -341,6 +342,7 @@
       souvenirs_static_h3: 'مستقل یادگار تصاویر',
       souvenirs_static_intro_html: '<code>images/souvenirs</code> فولڈر میں براہ راست شامل کی گئیں — سائٹ پر آنے والے ہر شخص کو نظر آتی ہیں۔',
       souvenirs_static_empty: 'اس زمرے میں ابھی تک کوئی مستقل یادگار تصویر نہیں — گٹ ہب پر images/souvenirs میں مثلاً bonn1.jpg، bonn2.jpg ناموں سے فائلیں شامل کریں تاکہ یہ یہاں نظر آئیں۔',
+      souvenirs_loading: 'لوڈ ہو رہا ہے…',
       souvenirs_static_share_btn: '📤 واٹس ایپ پر شیئر کریں',
       souvenir_cat_bonn: '🏠 بون (بصرہ)', souvenir_cat_paris: '🗼 پیرس (آپ)', souvenir_cat_stuttgart: '🏡 اسٹٹگارٹ (عبداللہ)',
       souvenirs_personal_h3: 'آپ کی اپنی شامل کردہ تصاویر (صرف اس ڈیوائس پر)',
@@ -515,6 +517,7 @@
       souvenirs_static_h3: 'Photos de Souvenirs Permanentes',
       souvenirs_static_intro_html: 'Ajoutées directement dans le dossier <code>images/souvenirs</code> du dépôt GitHub — visibles pour tous les visiteurs du site.',
       souvenirs_static_empty: "Aucune photo de souvenir permanente dans cette catégorie pour l'instant — ajoutez des fichiers nommés par ex. bonn1.jpg, bonn2.jpg dans images/souvenirs sur GitHub pour les voir ici.",
+      souvenirs_loading: 'Chargement…',
       souvenirs_static_share_btn: '📤 Partager sur WhatsApp',
       souvenir_cat_bonn: '🏠 Bonn (Busrah)', souvenir_cat_paris: '🗼 Paris (Vous)', souvenir_cat_stuttgart: '🏡 Stuttgart (Abdullah)',
       souvenirs_personal_h3: 'Vos Propres Ajouts (cet appareil uniquement)',
@@ -1746,20 +1749,49 @@
   let staticSouvenirSrcs = [];
   let staticShareMode = false;
 
+  // Resolving a category's slots means up to ~200 existence-check requests (30 photo
+  // slots x 4 extensions + 30 video slots x 3 extensions). Two things made rapid tab
+  // switching feel broken: (1) nothing changed on screen for a while so a click looked
+  // like it did nothing, and (2) overlapping renders could resolve out of order, so a
+  // slow earlier click could silently clobber a faster later one. Fixed by caching each
+  // category's resolved (existing) files for the rest of the session — so switching back
+  // to an already-visited tab is instant — and by a generation token that discards a
+  // render's result if a newer one has started since.
+  const staticSouvenirCache = new Map();
+  let staticSouvenirRenderToken = 0;
+
   async function renderStaticSouvenirs() {
+    const myToken = ++staticSouvenirRenderToken;
     const grid = document.getElementById('staticSouvenirGrid');
     const cat = STATIC_SOUVENIR_CATEGORIES.find(c => c.id === activeStaticSouvenirCat) || STATIC_SOUVENIR_CATEGORIES[0];
-    const photoSlots = Array.from({ length: cat.count }, (_, idx) => idx + 1);
-    const videoSlots = Array.from({ length: cat.videoCount || 0 }, (_, idx) => idx + 1);
-    const extraPhotos = cat.extraPhotos || [];
-    const [extraResults, photoResults, videoResults] = await Promise.all([
-      Promise.all(extraPhotos.map(src => checkImageExists(src).then(ok => ({ src: ok ? src : null, n: src })))),
-      Promise.all(photoSlots.map(n => resolveStaticSouvenirSrc(`images/souvenirs/${cat.prefix}${n}`).then(src => ({ src, n })))),
-      Promise.all(videoSlots.map(n => resolveStaticSouvenirVideoSrc(`images/souvenirs/${cat.prefix}vid${n}`).then(src => ({ src, n }))))
-    ]);
+
+    let allPhotos, allVideos;
+    if (staticSouvenirCache.has(cat.id)) {
+      ({ photos: allPhotos, videos: allVideos } = staticSouvenirCache.get(cat.id));
+    } else {
+      grid.innerHTML = `<p class="souvenir-empty">${t('souvenirs_loading')}</p>`;
+      const shareBtn0 = document.getElementById('staticSouvenirShareBtn');
+      if (shareBtn0) shareBtn0.style.display = 'none';
+
+      const photoSlots = Array.from({ length: cat.count }, (_, idx) => idx + 1);
+      const videoSlots = Array.from({ length: cat.videoCount || 0 }, (_, idx) => idx + 1);
+      const extraPhotos = cat.extraPhotos || [];
+      const [extraResults, photoResults, videoResults] = await Promise.all([
+        Promise.all(extraPhotos.map(src => checkImageExists(src).then(ok => ({ src: ok ? src : null, n: src })))),
+        Promise.all(photoSlots.map(n => resolveStaticSouvenirSrc(`images/souvenirs/${cat.prefix}${n}`).then(src => ({ src, n })))),
+        Promise.all(videoSlots.map(n => resolveStaticSouvenirVideoSrc(`images/souvenirs/${cat.prefix}vid${n}`).then(src => ({ src, n }))))
+      ]);
+      if (myToken !== staticSouvenirRenderToken) return; // a newer tab click superseded this one
+      allPhotos = extraResults.concat(photoResults).filter(r => r.src);
+      allVideos = videoResults.filter(r => r.src);
+      staticSouvenirCache.set(cat.id, { photos: allPhotos, videos: allVideos });
+    }
+
+    // Hidden state can change without a reload, so this filter always runs fresh
+    // even when the underlying existence-check results come from the cache.
     const hidden = loadHiddenStaticSouvenirs();
-    const presentPhotos = extraResults.concat(photoResults).filter(r => r.src && !hidden.includes(r.src));
-    const presentVideos = videoResults.filter(r => r.src && !hidden.includes(r.src));
+    const presentPhotos = allPhotos.filter(r => !hidden.includes(r.src));
+    const presentVideos = allVideos.filter(r => !hidden.includes(r.src));
     // Both photos and videos are selectable for the WhatsApp share flow, so this
     // covers "is there anything at all to share" — .share-photo (see below) is the
     // shared "selectable media" class applied to both photo and video tiles.
@@ -2241,13 +2273,14 @@
     ].join('\n');
   }
 
-  // Track 0 is the original song — its file, autoplay-on-load behavior,
-  // and i18n title key are unchanged from the single-song player.
+  // Track 0 is the original song — its autoplay-on-load behavior and i18n
+  // title key are unchanged from the single-song player, just the file path
+  // moved into the Music/ folder along with the rest.
   const PLAYLIST = [
-    { src: 'NadiyaChale.mp3', titleKey: 'music_song_name' },
-    { src: 'LaDerniereDanse.mp3', title: 'La Dernière Danse' },
-    { src: 'GutGenug.mp3', title: 'Gut Genug' },
-    { src: 'HawaHawa.mp3', title: 'Hawa Hawa' }
+    { src: 'Music/NadiyaChale.mp3', titleKey: 'music_song_name' },
+    { src: 'Music/LaDerniereDanse.mp3', title: 'La Dernière Danse' },
+    { src: 'Music/GutGenug.mp3', title: 'Gut Genug' },
+    { src: 'Music/HawaHawa.mp3', title: 'Hawa Hawa' }
   ];
   let musicCurrentIdx = 0;
 
@@ -2433,7 +2466,17 @@
     if (modeOnce) modeOnce.addEventListener('change', () => { if (modeOnce.checked) repeatMode = 'once'; });
     if (modeLoop) modeLoop.addEventListener('change', () => { if (modeLoop.checked) repeatMode = 'loop'; });
 
-    renderPlaylistUI();
+    // Start each visit on a random song, drawn from a full shuffle of the
+    // playlist, so it's not always Nadiya Chale first — and since a shuffle
+    // order still contains every track exactly once, "Once" mode still plays
+    // through all four (just in a different order) instead of stopping early.
+    buildShuffleOrder(null);
+    shuffleOn = true;
+    if (shuffleBtn) {
+      shuffleBtn.classList.add('active');
+      shuffleBtn.setAttribute('aria-pressed', 'true');
+    }
+    loadTrack(shuffleOrder[0], false);
 
     // Attempt autoplay; browsers that block unmuted autoplay will reject the
     // promise, so fall back to starting on the very first user interaction.
