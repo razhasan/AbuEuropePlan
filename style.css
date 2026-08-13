@@ -617,9 +617,13 @@ a { color: var(--fr-blue); }
   transition: transform .25s ease, box-shadow .25s ease;
 }
 .gallery-item:hover { transform: translateY(-5px) scale(1.02); box-shadow: var(--shadow-lg); }
-.gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+/* object-fit:contain (not cover) so portrait-orientation photos show in full instead
+   of having their top/bottom sliced off to fill the tile; background-color on the img
+   itself fills the letterboxing gaps cleanly rather than showing the loading shimmer
+   gradient through them once the real photo has loaded. */
+.gallery-item img { width: 100%; height: 100%; object-fit: contain; background: var(--paper); }
 .gallery-item .emoji-fallback { font-size: 2.8rem; }
-.gallery-item.video-tile video { width: 100%; height: 100%; object-fit: cover; background: #000; pointer-events: none; }
+.gallery-item.video-tile video { width: 100%; height: 100%; object-fit: contain; background: #000; pointer-events: none; }
 .video-play-icon {
   position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
   width: 44px; height: 44px; border-radius: 50%; background: rgba(20,20,25,0.55); color: #fff;
@@ -649,9 +653,14 @@ a { color: var(--fr-blue); }
 }
 .lightbox.open { display: flex; }
 .lightbox-content { max-width: 700px; width: 100%; text-align: center; color: #fff; }
-.lightbox-media { height: 320px; border-radius: 12px; overflow: hidden; margin-bottom: 14px; background: linear-gradient(135deg, var(--fr-blue), var(--navy)); display: flex; align-items: center; justify-content: center; }
-.lightbox-media img { width: 100%; height: 100%; object-fit: cover; }
-.lightbox-media video { width: 100%; height: 100%; object-fit: contain; background: #000; }
+.lightbox-media {
+  min-height: 200px; max-height: 75vh; border-radius: 12px; overflow: hidden; margin-bottom: 14px;
+  background: linear-gradient(135deg, var(--fr-blue), var(--navy)); display: flex; align-items: center; justify-content: center;
+}
+/* object-fit:contain (not cover) so the full photo/video always shows — nothing gets
+   cropped off portrait-orientation shots, which "cover" was slicing the tops/bottoms off. */
+.lightbox-media img, .lightbox-media video { max-width: 100%; max-height: 75vh; width: auto; height: auto; object-fit: contain; display: block; }
+.lightbox-media video { background: #000; }
 .lightbox-media .emoji-fallback { font-size: 4rem; }
 .lightbox-close { position: absolute; top: 20px; right: 30px; background: none; border: none; color: #fff; font-size: 2rem; cursor: pointer; }
 .lightbox-download-btn {
@@ -759,7 +768,7 @@ a { color: var(--fr-blue); }
   position: relative; aspect-ratio: 1; border-radius: 8px; overflow: hidden; box-shadow: var(--shadow);
   background: linear-gradient(100deg, var(--purple) 20%, var(--fr-blue) 40%, rgba(255,255,255,0.35) 50%, var(--fr-blue) 60%, var(--purple) 80%);
 }
-.souvenir-photo img { width: 100%; height: 100%; object-fit: cover; }
+.souvenir-photo img { width: 100%; height: 100%; object-fit: contain; background: var(--paper); }
 .souvenir-photo .photo-delete {
   position: absolute; top: 3px; right: 3px; width: 20px; height: 20px; border-radius: 50%; border: none;
   background: rgba(20,20,30,0.6); color: #fff; font-size: 0.85rem; cursor: pointer; line-height: 1;
