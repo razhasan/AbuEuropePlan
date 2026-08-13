@@ -705,6 +705,19 @@ a { color: var(--fr-blue); }
 .souvenir-category.selecting .souvenir-photo { cursor: pointer; }
 .souvenir-category.selecting .photo-delete { opacity: 0.35; pointer-events: none; }
 .souvenir-category.selecting .souvenir-add-tile { opacity: 0.5; pointer-events: none; }
+
+/* ===== Static souvenir "hide from view" (X) — shares the top-right corner with
+   .share-check since the two are never visible at the same time (share-select
+   mode hides this, and shows the checkmark there instead). ===== */
+.souvenir-hide-btn {
+  position: absolute; top: 8px; right: 8px; width: 24px; height: 24px; border-radius: 50%; border: none;
+  background: rgba(20,20,30,0.55); color: #fff; font-size: 0.8rem; cursor: pointer; z-index: 3;
+  display: flex; align-items: center; justify-content: center; backdrop-filter: blur(2px);
+  transition: background .15s ease, transform .15s ease;
+}
+.souvenir-hide-btn:hover { background: var(--fr-red); transform: scale(1.08); }
+.selecting .souvenir-hide-btn { display: none; }
+:root[dir="rtl"] .souvenir-hide-btn { right: auto; left: 8px; }
 .souvenir-toolbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; margin-bottom: 26px; }
 .btn-primary {
   display: inline-block; background: linear-gradient(135deg, var(--fr-blue), var(--purple)); color: #fff; border: none; padding: 10px 20px;

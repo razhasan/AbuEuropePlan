@@ -47,6 +47,8 @@
       souvenir_download_title: 'Download', souvenir_download_btn: 'Download',
       souvenir_no_media_alert: 'No photos or videos in this category yet — add some first.',
       souvenir_select_media_alert: 'Tap the photos or videos you want to share first, then tap Send.',
+      souvenir_hide_title: 'Remove from view (this device only)',
+      confirm_hide_souvenir: "Remove this from view? It will disappear from this device, but the file stays in the GitHub repo — other visitors (and you, on another device) will still see it unless it's deleted from GitHub directly.",
 
       hero_title: "Abu's Europe Visit",
       hero_subtitle_html: 'Cologne Bonn → Bonn (Busrah) → Verneuil-en-Halatte, Paris (us) → Stuttgart (Abdullah) → Bonn (Busrah) → home.<br>10 August – 19 October 2026',
@@ -219,6 +221,8 @@
       souvenir_download_title: 'ڈاؤن لوڈ کریں', souvenir_download_btn: 'ڈاؤن لوڈ کریں',
       souvenir_no_media_alert: 'اس زمرے میں ابھی تک کوئی تصویر یا ویڈیو نہیں — پہلے کچھ شامل کریں۔',
       souvenir_select_media_alert: 'پہلے وہ تصاویر یا ویڈیوز منتخب کریں جو آپ شیئر کرنا چاہتے ہیں، پھر بھیجیں پر ٹیپ کریں۔',
+      souvenir_hide_title: 'منظر سے ہٹائیں (صرف اس ڈیوائس پر)',
+      confirm_hide_souvenir: 'اسے منظر سے ہٹا دیں؟ یہ اس ڈیوائس سے غائب ہو جائے گی، لیکن فائل گٹ ہب ریپو میں موجود رہے گی — دوسرے وزیٹرز (اور آپ کسی اور ڈیوائس پر) اسے پھر بھی دیکھ سکیں گے جب تک اسے براہ راست گٹ ہب سے حذف نہ کیا جائے۔',
 
       hero_title: 'ابو کا یورپ کا سفر',
       hero_subtitle_html: 'کولون بون → بون (بشریٰ) → ورنوے آں ہالات، پیرس (ہمارے ہاں) → سٹٹگارٹ (عبداللہ) → بون (بشریٰ) → گھر واپسی۔<br>10 اگست – 19 اکتوبر 2026',
@@ -391,6 +395,8 @@
       souvenir_download_title: 'Télécharger', souvenir_download_btn: 'Télécharger',
       souvenir_no_media_alert: "Aucune photo ou vidéo dans cette catégorie pour l'instant — ajoutez-en d'abord.",
       souvenir_select_media_alert: "Touchez d'abord les photos ou vidéos à partager, puis touchez Envoyer.",
+      souvenir_hide_title: 'Retirer de la vue (cet appareil uniquement)',
+      confirm_hide_souvenir: "Retirer ceci de la vue ? Cela disparaîtra de cet appareil, mais le fichier reste dans le dépôt GitHub — les autres visiteurs (et vous, sur un autre appareil) le verront toujours, sauf s'il est supprimé directement sur GitHub.",
 
       hero_title: "Voyage d'Abu en Europe",
       hero_subtitle_html: 'Cologne Bonn → Bonn (Busrah) → Verneuil-en-Halatte, Paris (chez nous) → Stuttgart (Abdullah) → Bonn (Busrah) → retour à la maison.<br>10 août – 19 octobre 2026',
@@ -1677,12 +1683,29 @@
   // Any slot with no matching uploaded file just stays invisible, so wiring up the full count costs nothing.
   const STATIC_SOUVENIR_CATEGORIES = [
     { id: 'bonn', prefix: 'bonn', count: 30, videoCount: 30, labelKey: 'souvenir_cat_bonn' },
-    { id: 'paris', prefix: 'paris', count: 30, videoCount: 30, labelKey: 'souvenir_cat_paris' },
+    {
+      id: 'paris', prefix: 'paris', count: 30, videoCount: 30, labelKey: 'souvenir_cat_paris',
+      // Pre-existing example photos already in the repo, shown first in this category.
+      extraPhotos: ['images/souvenirs/souvenir1.jpg', 'images/souvenirs/souvenir2.jpg', 'images/souvenirs/souvenir3.jpg']
+    },
     { id: 'stuttgart', prefix: 'stuttgart', count: 30, videoCount: 30, labelKey: 'souvenir_cat_stuttgart' }
   ];
   const STATIC_SOUVENIR_EXTS = ['jpg', 'jpeg', 'png', 'webp'];
   const STATIC_SOUVENIR_VIDEO_EXTS = ['mp4', 'mov', 'webm'];
   let activeStaticSouvenirCat = 'bonn';
+
+  // Per-device "hide from view" list for static souvenirs. This does NOT delete the
+  // actual file from the GitHub repo (a static site has no way to do that safely) —
+  // it just stops rendering that src on whichever device clicked hide.
+  const HIDDEN_STATIC_SOUVENIRS_KEY = 'europeTripHiddenStaticSouvenirs';
+  function loadHiddenStaticSouvenirs() {
+    try { return JSON.parse(localStorage.getItem(HIDDEN_STATIC_SOUVENIRS_KEY)) || []; } catch (e) { return []; }
+  }
+  function hideStaticSouvenir(src) {
+    const hidden = loadHiddenStaticSouvenirs();
+    if (!hidden.includes(src)) hidden.push(src);
+    localStorage.setItem(HIDDEN_STATIC_SOUVENIRS_KEY, JSON.stringify(hidden));
+  }
 
   function checkImageExists(src) {
     return new Promise(resolve => {
@@ -1728,12 +1751,15 @@
     const cat = STATIC_SOUVENIR_CATEGORIES.find(c => c.id === activeStaticSouvenirCat) || STATIC_SOUVENIR_CATEGORIES[0];
     const photoSlots = Array.from({ length: cat.count }, (_, idx) => idx + 1);
     const videoSlots = Array.from({ length: cat.videoCount || 0 }, (_, idx) => idx + 1);
-    const [photoResults, videoResults] = await Promise.all([
+    const extraPhotos = cat.extraPhotos || [];
+    const [extraResults, photoResults, videoResults] = await Promise.all([
+      Promise.all(extraPhotos.map(src => checkImageExists(src).then(ok => ({ src: ok ? src : null, n: src })))),
       Promise.all(photoSlots.map(n => resolveStaticSouvenirSrc(`images/souvenirs/${cat.prefix}${n}`).then(src => ({ src, n })))),
       Promise.all(videoSlots.map(n => resolveStaticSouvenirVideoSrc(`images/souvenirs/${cat.prefix}vid${n}`).then(src => ({ src, n }))))
     ]);
-    const presentPhotos = photoResults.filter(r => r.src);
-    const presentVideos = videoResults.filter(r => r.src);
+    const hidden = loadHiddenStaticSouvenirs();
+    const presentPhotos = extraResults.concat(photoResults).filter(r => r.src && !hidden.includes(r.src));
+    const presentVideos = videoResults.filter(r => r.src && !hidden.includes(r.src));
     // Both photos and videos are selectable for the WhatsApp share flow, so this
     // covers "is there anything at all to share" — .share-photo (see below) is the
     // shared "selectable media" class applied to both photo and video tiles.
@@ -1749,10 +1775,12 @@
     }
 
     const downloadTitle = t('souvenir_download_title');
+    const hideTitle = t('souvenir_hide_title');
     const photoTiles = presentPhotos.map(r => `
       <div class="gallery-item share-photo" data-src="${r.src}">
         <img src="${r.src}" alt="Souvenir ${r.n}">
         <a class="souvenir-download-btn" href="${r.src}" download title="${downloadTitle}" aria-label="${downloadTitle}">⬇</a>
+        <button type="button" class="souvenir-hide-btn" title="${hideTitle}" aria-label="${hideTitle}">✕</button>
         <span class="share-check">✓</span>
       </div>
     `).join('');
@@ -1760,6 +1788,7 @@
       <div class="gallery-item video-tile share-photo" data-src="${r.src}">
         <video src="${r.src}#t=0.1" muted preload="metadata" playsinline></video>
         <a class="souvenir-download-btn" href="${r.src}" download title="${downloadTitle}" aria-label="${downloadTitle}">⬇</a>
+        <button type="button" class="souvenir-hide-btn" title="${hideTitle}" aria-label="${hideTitle}">✕</button>
         <span class="video-play-icon">▶</span>
         <span class="share-check">✓</span>
       </div>
@@ -1783,6 +1812,14 @@
     });
     grid.querySelectorAll('.souvenir-download-btn').forEach(btn => {
       btn.addEventListener('click', e => e.stopPropagation());
+    });
+    grid.querySelectorAll('.souvenir-hide-btn').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        if (!confirm(t('confirm_hide_souvenir'))) return;
+        hideStaticSouvenir(btn.closest('.gallery-item').dataset.src);
+        renderStaticSouvenirs();
+      });
     });
   }
 
