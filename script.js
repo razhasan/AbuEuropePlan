@@ -44,6 +44,7 @@
       music_mode_once: 'Once', music_mode_loop: 'Loop', music_mode_shuffle: 'Shuffle',
       streetview_link_title: 'Open in Google Street View',
       youtube_link_label: 'Watch on YouTube', youtube_link_title: 'Search short YouTube videos about this place',
+      souvenir_download_title: 'Download', souvenir_download_btn: 'Download',
 
       hero_title: "Abu's Europe Visit",
       hero_subtitle_html: 'Cologne Bonn → Bonn (Busrah) → Verneuil-en-Halatte, Paris (us) → Stuttgart (Abdullah) → Bonn (Busrah) → home.<br>10 August – 19 October 2026',
@@ -213,6 +214,7 @@
       music_mode_once: 'ایک بار', music_mode_loop: 'دہرائیں', music_mode_shuffle: 'اختلاط',
       streetview_link_title: 'گوگل اسٹریٹ ویو میں کھولیں',
       youtube_link_label: 'یوٹیوب پر دیکھیں', youtube_link_title: 'اس جگہ کے بارے میں مختصر یوٹیوب ویڈیوز تلاش کریں',
+      souvenir_download_title: 'ڈاؤن لوڈ کریں', souvenir_download_btn: 'ڈاؤن لوڈ کریں',
 
       hero_title: 'ابو کا یورپ کا سفر',
       hero_subtitle_html: 'کولون بون → بون (بشریٰ) → ورنوے آں ہالات، پیرس (ہمارے ہاں) → سٹٹگارٹ (عبداللہ) → بون (بشریٰ) → گھر واپسی۔<br>10 اگست – 19 اکتوبر 2026',
@@ -382,6 +384,7 @@
       music_mode_once: 'Une fois', music_mode_loop: 'Boucle', music_mode_shuffle: 'Aléatoire',
       streetview_link_title: 'Ouvrir dans Google Street View',
       youtube_link_label: 'Voir sur YouTube', youtube_link_title: 'Rechercher de courtes vidéos YouTube sur ce lieu',
+      souvenir_download_title: 'Télécharger', souvenir_download_btn: 'Télécharger',
 
       hero_title: "Voyage d'Abu en Europe",
       hero_subtitle_html: 'Cologne Bonn → Bonn (Busrah) → Verneuil-en-Halatte, Paris (chez nous) → Stuttgart (Abdullah) → Bonn (Busrah) → retour à la maison.<br>10 août – 19 octobre 2026',
@@ -1348,6 +1351,18 @@
     });
   }
 
+  function setLightboxDownload(src) {
+    const btn = document.getElementById('lightboxDownload');
+    if (!btn) return;
+    if (src) {
+      btn.href = src;
+      btn.style.display = 'inline-flex';
+    } else {
+      btn.removeAttribute('href');
+      btn.style.display = 'none';
+    }
+  }
+
   function openLightbox(id, sourceEl) {
     const place = getAllPlaces().find(p => p.id === id);
     if (!place) return;
@@ -1357,6 +1372,7 @@
     const media = document.getElementById('lightboxMedia');
     const custom = getCustomImageSrc(place.id);
     media.innerHTML = mediaHTML(custom || place.img, place.emoji);
+    setLightboxDownload(null);
     document.getElementById('lightbox').classList.add('open');
     animateLightboxFrom(sourceEl);
   }
@@ -1723,15 +1739,18 @@
       return;
     }
 
+    const downloadTitle = t('souvenir_download_title');
     const photoTiles = presentPhotos.map(r => `
       <div class="gallery-item share-photo" data-src="${r.src}">
         <img src="${r.src}" alt="Souvenir ${r.n}">
+        <a class="souvenir-download-btn" href="${r.src}" download title="${downloadTitle}" aria-label="${downloadTitle}">⬇</a>
         <span class="share-check">✓</span>
       </div>
     `).join('');
     const videoTiles = presentVideos.map(r => `
       <div class="gallery-item video-tile" data-src="${r.src}">
         <video src="${r.src}#t=0.1" muted preload="metadata" playsinline></video>
+        <a class="souvenir-download-btn" href="${r.src}" download title="${downloadTitle}" aria-label="${downloadTitle}">⬇</a>
         <span class="video-play-icon">▶</span>
       </div>
     `).join('');
@@ -1751,6 +1770,9 @@
           openImageLightbox(item.dataset.src, item);
         }
       });
+    });
+    grid.querySelectorAll('.souvenir-download-btn').forEach(btn => {
+      btn.addEventListener('click', e => e.stopPropagation());
     });
   }
 
@@ -1816,6 +1838,7 @@
     document.getElementById('lightboxTitle').textContent = '';
     document.getElementById('lightboxDesc').textContent = '';
     document.getElementById('lightboxMedia').innerHTML = `<img src="${src}" alt="">`;
+    setLightboxDownload(src);
     document.getElementById('lightbox').classList.add('open');
     animateLightboxFrom(sourceEl);
   }
@@ -1824,6 +1847,7 @@
     document.getElementById('lightboxTitle').textContent = '';
     document.getElementById('lightboxDesc').textContent = '';
     document.getElementById('lightboxMedia').innerHTML = `<video src="${src}" controls autoplay playsinline></video>`;
+    setLightboxDownload(src);
     document.getElementById('lightbox').classList.add('open');
     animateLightboxFrom(sourceEl);
   }
