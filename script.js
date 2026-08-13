@@ -1385,6 +1385,8 @@
 
   function closeLightbox() {
     const media = document.getElementById('lightboxMedia');
+    const playingVideo = media.querySelector('video');
+    if (playingVideo) playingVideo.pause();
     media.style.transition = '';
     media.style.transform = '';
     media.style.opacity = '';
@@ -1648,14 +1650,16 @@
   }
 
   /* ===================== STATIC SOUVENIRS (from images/souvenirs, shared for everyone) ===================== */
-  // Each category checks for images/souvenirs/{prefix}1.jpg .. {prefix}{count}.jpg (or .jpeg/.png/.webp) —
-  // any slot with no matching uploaded file just stays invisible, so wiring up the full count costs nothing.
+  // Each category checks for images/souvenirs/{prefix}1.jpg .. {prefix}{count}.jpg (or .jpeg/.png/.webp),
+  // and separately images/souvenirs/{prefix}vid1.mp4 .. {prefix}vid{videoCount}.mp4 (or .mov/.webm) for videos.
+  // Any slot with no matching uploaded file just stays invisible, so wiring up the full count costs nothing.
   const STATIC_SOUVENIR_CATEGORIES = [
-    { id: 'bonn', prefix: 'bonn', count: 30, labelKey: 'souvenir_cat_bonn' },
-    { id: 'paris', prefix: 'paris', count: 30, labelKey: 'souvenir_cat_paris' },
-    { id: 'stuttgart', prefix: 'stuttgart', count: 30, labelKey: 'souvenir_cat_stuttgart' }
+    { id: 'bonn', prefix: 'bonn', count: 30, videoCount: 30, labelKey: 'souvenir_cat_bonn' },
+    { id: 'paris', prefix: 'paris', count: 30, videoCount: 30, labelKey: 'souvenir_cat_paris' },
+    { id: 'stuttgart', prefix: 'stuttgart', count: 30, videoCount: 30, labelKey: 'souvenir_cat_stuttgart' }
   ];
   const STATIC_SOUVENIR_EXTS = ['jpg', 'jpeg', 'png', 'webp'];
+  const STATIC_SOUVENIR_VIDEO_EXTS = ['mp4', 'mov', 'webm'];
   let activeStaticSouvenirCat = 'bonn';
 
   function checkImageExists(src) {
@@ -1664,6 +1668,15 @@
       img.onload = () => resolve(true);
       img.onerror = () => resolve(false);
       img.src = src;
+    });
+  }
+
+  function checkVideoExists(src) {
+    return new Promise(resolve => {
+      const vid = document.createElement('video');
+      vid.onloadedmetadata = () => resolve(true);
+      vid.onerror = () => resolve(false);
+      vid.src = src;
     });
   }
 
@@ -1677,38 +1690,60 @@
     return null;
   }
 
+  async function resolveStaticSouvenirVideoSrc(basePath) {
+    for (const ext of STATIC_SOUVENIR_VIDEO_EXTS) {
+      const src = `${basePath}.${ext}`;
+      if (await checkVideoExists(src)) return src;
+    }
+    return null;
+  }
+
   let staticSouvenirSrcs = [];
   let staticShareMode = false;
 
   async function renderStaticSouvenirs() {
     const grid = document.getElementById('staticSouvenirGrid');
     const cat = STATIC_SOUVENIR_CATEGORIES.find(c => c.id === activeStaticSouvenirCat) || STATIC_SOUVENIR_CATEGORIES[0];
-    const slots = Array.from({ length: cat.count }, (_, idx) => idx + 1);
-    const results = await Promise.all(slots.map(n =>
-      resolveStaticSouvenirSrc(`images/souvenirs/${cat.prefix}${n}`).then(src => ({ src, n }))
-    ));
-    const present = results.filter(r => r.src);
-    staticSouvenirSrcs = present.map(r => r.src);
+    const photoSlots = Array.from({ length: cat.count }, (_, idx) => idx + 1);
+    const videoSlots = Array.from({ length: cat.videoCount || 0 }, (_, idx) => idx + 1);
+    const [photoResults, videoResults] = await Promise.all([
+      Promise.all(photoSlots.map(n => resolveStaticSouvenirSrc(`images/souvenirs/${cat.prefix}${n}`).then(src => ({ src, n })))),
+      Promise.all(videoSlots.map(n => resolveStaticSouvenirVideoSrc(`images/souvenirs/${cat.prefix}vid${n}`).then(src => ({ src, n }))))
+    ]);
+    const presentPhotos = photoResults.filter(r => r.src);
+    const presentVideos = videoResults.filter(r => r.src);
+    staticSouvenirSrcs = presentPhotos.map(r => r.src);
 
     const shareBtn = document.getElementById('staticSouvenirShareBtn');
-    if (shareBtn) shareBtn.style.display = present.length ? 'inline-block' : 'none';
+    if (shareBtn) shareBtn.style.display = presentPhotos.length ? 'inline-block' : 'none';
 
-    if (!present.length) {
+    if (!presentPhotos.length && !presentVideos.length) {
       grid.innerHTML = `<p class="souvenir-empty">${t('souvenirs_static_empty')}</p>`;
       updateStaticShareUI();
       return;
     }
 
-    grid.innerHTML = present.map(r => `
+    const photoTiles = presentPhotos.map(r => `
       <div class="gallery-item share-photo" data-src="${r.src}">
         <img src="${r.src}" alt="Souvenir ${r.n}">
         <span class="share-check">✓</span>
       </div>
     `).join('');
+    const videoTiles = presentVideos.map(r => `
+      <div class="gallery-item video-tile" data-src="${r.src}">
+        <video src="${r.src}#t=0.1" muted preload="metadata" playsinline></video>
+        <span class="video-play-icon">▶</span>
+      </div>
+    `).join('');
+    grid.innerHTML = photoTiles + videoTiles;
     grid.classList.toggle('selecting', staticShareMode);
 
     grid.querySelectorAll('.gallery-item').forEach(item => {
       item.addEventListener('click', () => {
+        if (item.classList.contains('video-tile')) {
+          openVideoLightbox(item.dataset.src, item);
+          return;
+        }
         if (staticShareMode) {
           item.classList.toggle('selected');
           updateStaticShareUI();
@@ -1781,6 +1816,14 @@
     document.getElementById('lightboxTitle').textContent = '';
     document.getElementById('lightboxDesc').textContent = '';
     document.getElementById('lightboxMedia').innerHTML = `<img src="${src}" alt="">`;
+    document.getElementById('lightbox').classList.add('open');
+    animateLightboxFrom(sourceEl);
+  }
+
+  function openVideoLightbox(src, sourceEl) {
+    document.getElementById('lightboxTitle').textContent = '';
+    document.getElementById('lightboxDesc').textContent = '';
+    document.getElementById('lightboxMedia').innerHTML = `<video src="${src}" controls autoplay playsinline></video>`;
     document.getElementById('lightbox').classList.add('open');
     animateLightboxFrom(sourceEl);
   }
