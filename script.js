@@ -106,6 +106,14 @@
       current_location_now: '📍 Right now: {name}',
       current_location_before: '✈️ The trip starts in {days} day(s) — check back on {date}!',
       current_location_after: '🎉 The trip is complete — thanks for following along!',
+      hero_share_header: "🧳✨ *Abu's Europe Journey* ✨🧳",
+      hero_share_route: '🗺️ Bonn (Busrah) → Paris (You) → Stuttgart (Abdullah) → Bonn (Busrah)',
+      hero_share_dates: '📅 10 Aug – 19 Oct 2026',
+      hero_share_photos_note: "📸 See photos & videos in the Souvenirs section —\nphotos you add yourself stay on your device only, so send them to me and I'll add them permanently for everyone to see! 💙",
+      hero_share_music_note: "🎵 There's music playing on the site too — some of Abu's favourite songs!",
+      hero_share_cta: '👇 Tap below to follow along:',
+      music_share_text: "🎵 Listening to *{song}* — one of Abu's favourite songs from his Europe trip site! 💙",
+      music_share_cta: 'More music & photos here:',
 
       step1: 'Step 1', step2: 'Step 2', step3: 'Step 3', step4: 'Step 4', step5: 'Step 5', step6: 'Step 6', step7: 'Step 7', step8: 'Step 8',
       label_map: '🗺️ Map', label_packing: '🎒 Packing',
@@ -281,6 +289,14 @@
       share_whatsapp_text: 'ابو کے یورپ کے سفر کا منصوبہ — تاریخیں، پیرس گائیڈ، تصاویر اور مزید:',
       current_location_now: '📍 اس وقت: {name}',
       current_location_before: '✈️ سفر شروع ہونے میں {days} دن باقی ہیں — {date} کو دوبارہ چیک کریں!',
+      hero_share_header: '🧳✨ *ابو کا یورپ کا سفر* ✨🧳',
+      hero_share_route: '🗺️ بون (بشریٰ) → پیرس (آپ) → سٹٹگارٹ (عبداللہ) → بون (بشریٰ)',
+      hero_share_dates: '📅 10 اگست – 19 اکتوبر 2026',
+      hero_share_photos_note: 'یادگاریں والے حصے میں تصاویر اور ویڈیوز دیکھیں —\nآپ خود جو تصاویر شامل کریں گے وہ صرف آپ کی ڈیوائس پر رہیں گی، اس لیے مجھے بھیج دیں تاکہ میں انہیں سب کے لیے مستقل طور پر شامل کر دوں! 💙',
+      hero_share_music_note: '🎵 سائٹ پر موسیقی بھی چل رہی ہے — ابو کے پسندیدہ گانوں میں سے کچھ!',
+      hero_share_cta: '👇 ساتھ چلنے کے لیے نیچے ٹیپ کریں:',
+      music_share_text: '🎵 *{song}* سن رہا ہوں — ابو کی یورپ سفر سائٹ کے پسندیدہ گانوں میں سے ایک! 💙',
+      music_share_cta: 'مزید موسیقی اور تصاویر یہاں ہیں:',
       current_location_after: '🎉 سفر مکمل ہو چکا ہے — ساتھ رہنے کا شکریہ!',
 
       step1: 'قدم 1', step2: 'قدم 2', step3: 'قدم 3', step4: 'قدم 4', step5: 'قدم 5', step6: 'قدم 6', step7: 'قدم 7', step8: 'قدم 8',
@@ -457,6 +473,14 @@
       share_whatsapp_text: "Planificateur du voyage d'Abu en Europe — dates, guide de Paris, photos et plus :",
       current_location_now: '📍 En ce moment : {name}',
       current_location_before: '✈️ Le voyage commence dans {days} jour(s) — revenez le {date} !',
+      hero_share_header: "🧳✨ *Le Voyage d'Abu en Europe* ✨🧳",
+      hero_share_route: '🗺️ Bonn (Busrah) → Paris (Vous) → Stuttgart (Abdullah) → Bonn (Busrah)',
+      hero_share_dates: '📅 10 août – 19 octobre 2026',
+      hero_share_photos_note: "📸 Voyez les photos et vidéos dans la section Souvenirs —\nles photos que vous ajoutez vous-même restent sur votre appareil uniquement, alors envoyez-les moi et je les ajouterai définitivement pour que tout le monde les voie ! 💙",
+      hero_share_music_note: "🎵 Il y a aussi de la musique sur le site — quelques-unes des chansons préférées d'Abu !",
+      hero_share_cta: '👇 Appuyez ci-dessous pour suivre le voyage :',
+      music_share_text: "🎵 J'écoute *{song}* — une des chansons préférées d'Abu sur son site de voyage en Europe ! 💙",
+      music_share_cta: 'Plus de musique et de photos ici :',
       current_location_after: '🎉 Le voyage est terminé — merci de nous avoir suivis !',
 
       step1: 'Étape 1', step2: 'Étape 2', step3: 'Étape 3', step4: 'Étape 4', step5: 'Étape 5', step6: 'Étape 6', step7: 'Étape 7', step8: 'Étape 8',
@@ -2257,11 +2281,99 @@
   }
 
   /* ===================== WHATSAPP SHARE ===================== */
+  function buildHeroShareText() {
+    const now = new Date();
+    let status;
+    if (now < TRIP_START) {
+      const days = Math.ceil((TRIP_START - now) / 86400000);
+      status = t('current_location_before', { days, date: fmtShort(TRIP_START) });
+    } else if (now > TRIP_END) {
+      status = t('current_location_after');
+    } else {
+      const { legs } = computeSchedule();
+      const leg = legForDate(legs, now);
+      status = leg ? t('current_location_now', { name: leg.name }) : '';
+    }
+    return [
+      t('hero_share_header'),
+      '',
+      status,
+      t('hero_share_route'),
+      t('hero_share_dates'),
+      '',
+      t('hero_share_photos_note'),
+      '',
+      t('hero_share_music_note'),
+      '',
+      t('hero_share_cta'),
+      SITE_URL
+    ].filter(Boolean).join('\n');
+  }
+
+  // updateWhatsappShareLink keeps a plain wa.me fallback href on the button at all
+  // times (used if JS fails, or if the native-share attempt below can't run) — the
+  // click handler in initHeroShare() intercepts normal clicks first to try attaching
+  // a real photo via the native share sheet, which shows up as an actual image in
+  // the chat rather than just a link.
   function updateWhatsappShareLink() {
     const btn = document.getElementById('shareWhatsappBtn');
     if (!btn) return;
-    const text = t('share_whatsapp_text') + ' ' + SITE_URL;
-    btn.href = 'https://wa.me/?text=' + encodeURIComponent(text);
+    btn.href = 'https://wa.me/?text=' + encodeURIComponent(buildHeroShareText());
+  }
+
+  async function shareHeroViaWhatsApp() {
+    const text = buildHeroShareText();
+    try {
+      const blob = await (await fetch('images/eiffel-tower.jpg')).blob();
+      const file = new File([blob], 'abu-europe-trip.jpg', { type: blob.type || 'image/jpeg' });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: t('hero_share_header'), text });
+        return;
+      }
+    } catch (e) {
+      if (e && e.name === 'AbortError') return; // user cancelled the native share sheet
+    }
+    window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
+  }
+
+  function initHeroShare() {
+    const btn = document.getElementById('shareWhatsappBtn');
+    if (!btn) return;
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      shareHeroViaWhatsApp();
+    });
+  }
+
+  // Attaches the currently-playing song as a real audio file via the native share
+  // sheet, so it shows up in WhatsApp as an inline-playable audio message — the
+  // recipient can listen right there without visiting the site. Falls back to a
+  // plain text link (to the site + the song's direct URL) if native file-sharing
+  // isn't available.
+  async function shareSongViaWhatsApp() {
+    const track = PLAYLIST[musicCurrentIdx] || PLAYLIST[0];
+    if (!track) return;
+    const title = trackTitle(track);
+    const text = t('music_share_text', { song: title });
+    try {
+      const blob = await (await fetch(track.src)).blob();
+      const filename = track.src.split('/').pop();
+      const file = new File([blob], filename, { type: blob.type || 'audio/mpeg' });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title, text });
+        return;
+      }
+    } catch (e) {
+      if (e && e.name === 'AbortError') return;
+    }
+    const fallbackText = text + '\n\n' + t('music_share_cta') + '\n' + SITE_URL;
+    window.open('https://wa.me/?text=' + encodeURIComponent(fallbackText), '_blank');
+  }
+
+  function initMusicShare() {
+    const btn = document.getElementById('musicShareBtn');
+    if (!btn) return;
+    btn.addEventListener('click', () => shareSongViaWhatsApp());
   }
 
   const LEG_EMOJI = { sisterFirst: '🏠', withYou: '🗼', Abdullah: '🏡', sisterFinal: '🏠' };
@@ -2755,7 +2867,9 @@
     initPlanner();
     initUnitToggle();
     initPlannerShare();
+    initHeroShare();
     initMusicPlayer();
+    initMusicShare();
     renderFilterBar();
     renderPlaceGrid();
     initGalleryTabs();
