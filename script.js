@@ -2535,46 +2535,16 @@
     btn.href = 'https://wa.me/?text=' + encodeURIComponent(buildHeroShareText());
   }
 
-  // Best-effort fetch of a URL as a File for native sharing; never throws — a
-  // failed fetch (offline, missing file) just means that file gets left out.
-  async function fetchAsFile(url, filename, fallbackType) {
-    try {
-      const resp = await fetch(url);
-      if (!resp.ok) return null;
-      const blob = await resp.blob();
-      return new File([blob], filename, { type: blob.type || fallbackType });
-    } catch (e) {
-      return null;
-    }
-  }
-
-  async function shareHeroViaWhatsApp() {
-    const text = buildHeroShareText();
-    try {
-      const track = PLAYLIST[musicCurrentIdx] || PLAYLIST[0];
-      const [imageFile, audioFile] = await Promise.all([
-        fetchAsFile('images/eiffel-tower.jpg', 'abu-europe-trip.jpg', 'image/jpeg'),
-        track ? fetchAsFile(track.src, track.src.split('/').pop(), 'audio/mpeg') : Promise.resolve(null)
-      ]);
-      // Try sharing the photo *and* the current song together, so the WhatsApp
-      // message actually carries playable music, not just a text mention of it.
-      const bothFiles = [imageFile, audioFile].filter(Boolean);
-      if (bothFiles.length === 2 && navigator.canShare && navigator.canShare({ files: bothFiles })) {
-        await navigator.share({ files: bothFiles, title: t('hero_share_header'), text });
-        return;
-      }
-      // Some browsers reject the mixed image+audio set but accept a single file —
-      // fall back to whichever one file we managed to fetch and can actually share.
-      for (const file of [imageFile, audioFile]) {
-        if (file && navigator.canShare && navigator.canShare({ files: [file] })) {
-          await navigator.share({ files: [file], title: t('hero_share_header'), text });
-          return;
-        }
-      }
-    } catch (e) {
-      if (e && e.name === 'AbortError') return; // user cancelled the native share sheet
-    }
-    openWhatsAppShare(text);
+  // Deliberately text-only, no native file attachment: attaching the photo (or
+  // photo+audio) as a real file via navigator.share() looked appealing, but on
+  // several real devices WhatsApp receives multi-file / mixed-type shares as
+  // plain "document" attachments (an icon + filename, e.g. "abu-europe-trip.jpg")
+  // instead of an inline photo — not clickable, not a preview. Sending the plain
+  // link instead lets WhatsApp build its own OG-tag preview card (photo, title,
+  // description) from the site's meta tags, which is reliably clickable and
+  // renders identically on every device and language.
+  function shareHeroViaWhatsApp() {
+    openWhatsAppShare(buildHeroShareText());
   }
 
   function initHeroShare() {
