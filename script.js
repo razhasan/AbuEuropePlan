@@ -45,6 +45,8 @@
       streetview_link_title: 'Open in Google Street View',
       youtube_link_label: 'Watch on YouTube', youtube_link_title: 'Search short YouTube videos about this place',
       souvenir_download_title: 'Download', souvenir_download_btn: 'Download',
+      souvenir_no_media_alert: 'No photos or videos in this category yet — add some first.',
+      souvenir_select_media_alert: 'Tap the photos or videos you want to share first, then tap Send.',
 
       hero_title: "Abu's Europe Visit",
       hero_subtitle_html: 'Cologne Bonn → Bonn (Busrah) → Verneuil-en-Halatte, Paris (us) → Stuttgart (Abdullah) → Bonn (Busrah) → home.<br>10 August – 19 October 2026',
@@ -215,6 +217,8 @@
       streetview_link_title: 'گوگل اسٹریٹ ویو میں کھولیں',
       youtube_link_label: 'یوٹیوب پر دیکھیں', youtube_link_title: 'اس جگہ کے بارے میں مختصر یوٹیوب ویڈیوز تلاش کریں',
       souvenir_download_title: 'ڈاؤن لوڈ کریں', souvenir_download_btn: 'ڈاؤن لوڈ کریں',
+      souvenir_no_media_alert: 'اس زمرے میں ابھی تک کوئی تصویر یا ویڈیو نہیں — پہلے کچھ شامل کریں۔',
+      souvenir_select_media_alert: 'پہلے وہ تصاویر یا ویڈیوز منتخب کریں جو آپ شیئر کرنا چاہتے ہیں، پھر بھیجیں پر ٹیپ کریں۔',
 
       hero_title: 'ابو کا یورپ کا سفر',
       hero_subtitle_html: 'کولون بون → بون (بشریٰ) → ورنوے آں ہالات، پیرس (ہمارے ہاں) → سٹٹگارٹ (عبداللہ) → بون (بشریٰ) → گھر واپسی۔<br>10 اگست – 19 اکتوبر 2026',
@@ -385,6 +389,8 @@
       streetview_link_title: 'Ouvrir dans Google Street View',
       youtube_link_label: 'Voir sur YouTube', youtube_link_title: 'Rechercher de courtes vidéos YouTube sur ce lieu',
       souvenir_download_title: 'Télécharger', souvenir_download_btn: 'Télécharger',
+      souvenir_no_media_alert: "Aucune photo ou vidéo dans cette catégorie pour l'instant — ajoutez-en d'abord.",
+      souvenir_select_media_alert: "Touchez d'abord les photos ou vidéos à partager, puis touchez Envoyer.",
 
       hero_title: "Voyage d'Abu en Europe",
       hero_subtitle_html: 'Cologne Bonn → Bonn (Busrah) → Verneuil-en-Halatte, Paris (chez nous) → Stuttgart (Abdullah) → Bonn (Busrah) → retour à la maison.<br>10 août – 19 octobre 2026',
@@ -1728,10 +1734,13 @@
     ]);
     const presentPhotos = photoResults.filter(r => r.src);
     const presentVideos = videoResults.filter(r => r.src);
-    staticSouvenirSrcs = presentPhotos.map(r => r.src);
+    // Both photos and videos are selectable for the WhatsApp share flow, so this
+    // covers "is there anything at all to share" — .share-photo (see below) is the
+    // shared "selectable media" class applied to both photo and video tiles.
+    staticSouvenirSrcs = presentPhotos.map(r => r.src).concat(presentVideos.map(r => r.src));
 
     const shareBtn = document.getElementById('staticSouvenirShareBtn');
-    if (shareBtn) shareBtn.style.display = presentPhotos.length ? 'inline-block' : 'none';
+    if (shareBtn) shareBtn.style.display = staticSouvenirSrcs.length ? 'inline-block' : 'none';
 
     if (!presentPhotos.length && !presentVideos.length) {
       grid.innerHTML = `<p class="souvenir-empty">${t('souvenirs_static_empty')}</p>`;
@@ -1748,10 +1757,11 @@
       </div>
     `).join('');
     const videoTiles = presentVideos.map(r => `
-      <div class="gallery-item video-tile" data-src="${r.src}">
+      <div class="gallery-item video-tile share-photo" data-src="${r.src}">
         <video src="${r.src}#t=0.1" muted preload="metadata" playsinline></video>
         <a class="souvenir-download-btn" href="${r.src}" download title="${downloadTitle}" aria-label="${downloadTitle}">⬇</a>
         <span class="video-play-icon">▶</span>
+        <span class="share-check">✓</span>
       </div>
     `).join('');
     grid.innerHTML = photoTiles + videoTiles;
@@ -1759,13 +1769,13 @@
 
     grid.querySelectorAll('.gallery-item').forEach(item => {
       item.addEventListener('click', () => {
-        if (item.classList.contains('video-tile')) {
-          openVideoLightbox(item.dataset.src, item);
-          return;
-        }
         if (staticShareMode) {
           item.classList.toggle('selected');
           updateStaticShareUI();
+          return;
+        }
+        if (item.classList.contains('video-tile')) {
+          openVideoLightbox(item.dataset.src, item);
         } else {
           openImageLightbox(item.dataset.src, item);
         }
@@ -1821,12 +1831,12 @@
     if (!btn || !cancelBtn) return;
     btn.addEventListener('click', () => {
       if (!staticShareMode) {
-        if (!staticSouvenirSrcs.length) { alert(t('share_no_photos_alert')); return; }
+        if (!staticSouvenirSrcs.length) { alert(t('souvenir_no_media_alert')); return; }
         toggleStaticShareMode();
         return;
       }
       const selected = Array.from(document.querySelectorAll('#staticSouvenirGrid .share-photo.selected')).map(el => el.dataset.src);
-      if (!selected.length) { alert(t('share_select_photos_alert')); return; }
+      if (!selected.length) { alert(t('souvenir_select_media_alert')); return; }
       const cat = STATIC_SOUVENIR_CATEGORIES.find(c => c.id === activeStaticSouvenirCat) || STATIC_SOUVENIR_CATEGORIES[0];
       sharePhotosViaWhatsApp(selected, t(cat.labelKey));
       toggleStaticShareMode(true);
@@ -2419,7 +2429,10 @@
     try {
       const files = await Promise.all(photoSrcs.map(async (src, i) => {
         const blob = await (await fetch(src)).blob();
-        const ext = blob.type.includes('png') ? 'png' : 'jpg';
+        // Prefer the real file extension (works for photos and videos alike) —
+        // only fall back to guessing from the MIME type if the src has none.
+        const extMatch = src.match(/\.([a-zA-Z0-9]+)(?:[?#]|$)/);
+        const ext = extMatch ? extMatch[1].toLowerCase() : (blob.type.includes('png') ? 'png' : 'jpg');
         return new File([blob], `souvenir-${i + 1}.${ext}`, { type: blob.type });
       }));
       if (navigator.canShare && navigator.canShare({ files })) {
