@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#123C82">
-<link rel="stylesheet" href="style.css?v=29">
+<link rel="stylesheet" href="style.css?v=30">
 <script>(function(){try{if(localStorage.getItem('europeTripTheme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
 </head>
 <body>
@@ -311,6 +311,11 @@
   <div class="section-body">
   <h3 class="subheading" data-i18n="souvenirs_static_h3">Permanent Souvenir Photos</h3>
   <p class="section-intro" id="souvenirsStaticIntro">Added directly to the <code>images/souvenirs</code> folder in the GitHub repo — visible to everyone who visits the site.</p>
+  <div class="gallery-tabs static-souvenir-tabs" id="staticSouvenirTabs">
+    <button type="button" class="active" data-cat="bonn" data-i18n="souvenir_cat_bonn">🏠 Bonn (Busrah)</button>
+    <button type="button" data-cat="paris" data-i18n="souvenir_cat_paris">🗼 Paris (You)</button>
+    <button type="button" data-cat="stuttgart" data-i18n="souvenir_cat_stuttgart">🏡 Stuttgart (Abdullah)</button>
+  </div>
   <div class="share-toolbar">
     <button type="button" class="btn-primary whatsapp-share-btn souvenir-static-share-btn" id="staticSouvenirShareBtn" data-i18n="souvenirs_static_share_btn">📤 Share on WhatsApp</button>
     <button type="button" class="btn-ghost" id="staticShareCancelBtn" data-i18n="share_cancel_btn" style="display:none;">✕ Cancel</button>
@@ -449,6 +454,6 @@
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="script.js?v=29"></script>
+<script src="script.js?v=30"></script>
 </body>
 </html>

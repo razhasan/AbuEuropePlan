@@ -161,8 +161,9 @@
       souvenirs_h2: 'Souvenirs',
       souvenirs_static_h3: 'Permanent Souvenir Photos',
       souvenirs_static_intro_html: 'Added directly to the <code>images/souvenirs</code> folder in the GitHub repo — visible to everyone who visits the site.',
-      souvenirs_static_empty: 'No permanent souvenir photos yet — add files named souvenir1.jpg, souvenir2.jpg, etc. to images/souvenirs on GitHub to see them here.',
+      souvenirs_static_empty: 'No permanent souvenir photos in this category yet — add files named e.g. bonn1.jpg, bonn2.jpg to images/souvenirs on GitHub to see them here.',
       souvenirs_static_share_btn: '📤 Share on WhatsApp',
+      souvenir_cat_bonn: '🏠 Bonn (Busrah)', souvenir_cat_paris: '🗼 Paris (You)', souvenir_cat_stuttgart: '🏡 Stuttgart (Abdullah)',
       souvenirs_personal_h3: 'Your Own Additions (this device only)',
       souvenirs_intro: 'A place to keep a photo record of souvenirs picked up along the way — one category per place or theme (e.g. "Eiffel Tower", "Garden"), with as many photos as you like inside each. Saved right on this device, like a WhatsApp media folder.',
       add_category_btn: '+ Add Category', export_backup_btn: '⬇ Export Backup', import_backup_btn: '⬆ Import Backup',
@@ -329,8 +330,9 @@
       souvenirs_h2: 'یادگاریں',
       souvenirs_static_h3: 'مستقل یادگار تصاویر',
       souvenirs_static_intro_html: '<code>images/souvenirs</code> فولڈر میں براہ راست شامل کی گئیں — سائٹ پر آنے والے ہر شخص کو نظر آتی ہیں۔',
-      souvenirs_static_empty: 'ابھی تک کوئی مستقل یادگار تصویر نہیں — گٹ ہب پر images/souvenirs میں souvenir1.jpg، souvenir2.jpg وغیرہ ناموں سے فائلیں شامل کریں تاکہ یہ یہاں نظر آئیں۔',
+      souvenirs_static_empty: 'اس زمرے میں ابھی تک کوئی مستقل یادگار تصویر نہیں — گٹ ہب پر images/souvenirs میں مثلاً bonn1.jpg، bonn2.jpg ناموں سے فائلیں شامل کریں تاکہ یہ یہاں نظر آئیں۔',
       souvenirs_static_share_btn: '📤 واٹس ایپ پر شیئر کریں',
+      souvenir_cat_bonn: '🏠 بون (بصرہ)', souvenir_cat_paris: '🗼 پیرس (آپ)', souvenir_cat_stuttgart: '🏡 اسٹٹگارٹ (عبداللہ)',
       souvenirs_personal_h3: 'آپ کی اپنی شامل کردہ تصاویر (صرف اس ڈیوائس پر)',
       souvenirs_intro: 'راستے میں لی گئی یادگاروں کی تصویری ریکارڈ رکھنے کی جگہ — ہر جگہ یا موضوع کے لیے ایک زمرہ (مثلاً "ایفل ٹاور"، "باغ")، جس میں آپ جتنی چاہیں تصاویر رکھ سکتے ہیں۔ بالکل اسی ڈیوائس پر محفوظ، واٹس ایپ میڈیا فولڈر کی طرح۔',
       add_category_btn: '+ زمرہ شامل کریں', export_backup_btn: '⬇ بیک اپ ایکسپورٹ کریں', import_backup_btn: '⬆ بیک اپ درآمد کریں',
@@ -497,8 +499,9 @@
       souvenirs_h2: 'Souvenirs',
       souvenirs_static_h3: 'Photos de Souvenirs Permanentes',
       souvenirs_static_intro_html: 'Ajoutées directement dans le dossier <code>images/souvenirs</code> du dépôt GitHub — visibles pour tous les visiteurs du site.',
-      souvenirs_static_empty: "Aucune photo de souvenir permanente pour l'instant — ajoutez des fichiers nommés souvenir1.jpg, souvenir2.jpg, etc. dans images/souvenirs sur GitHub pour les voir ici.",
+      souvenirs_static_empty: "Aucune photo de souvenir permanente dans cette catégorie pour l'instant — ajoutez des fichiers nommés par ex. bonn1.jpg, bonn2.jpg dans images/souvenirs sur GitHub pour les voir ici.",
       souvenirs_static_share_btn: '📤 Partager sur WhatsApp',
+      souvenir_cat_bonn: '🏠 Bonn (Busrah)', souvenir_cat_paris: '🗼 Paris (Vous)', souvenir_cat_stuttgart: '🏡 Stuttgart (Abdullah)',
       souvenirs_personal_h3: 'Vos Propres Ajouts (cet appareil uniquement)',
       souvenirs_intro: 'Un endroit pour garder une trace photo des souvenirs récupérés en chemin — une catégorie par lieu ou thème (ex. "Tour Eiffel", "Jardin"), avec autant de photos que vous le souhaitez dans chacune. Enregistré directement sur cet appareil, comme un dossier média WhatsApp.',
       add_category_btn: '+ Ajouter une Catégorie', export_backup_btn: '⬇ Exporter la Sauvegarde', import_backup_btn: '⬆ Importer une Sauvegarde',
@@ -1645,7 +1648,15 @@
   }
 
   /* ===================== STATIC SOUVENIRS (from images/souvenirs, shared for everyone) ===================== */
-  const STATIC_SOUVENIR_COUNT = 12;
+  // Each category checks for images/souvenirs/{prefix}1.jpg .. {prefix}{count}.jpg (or .jpeg/.png/.webp) —
+  // any slot with no matching uploaded file just stays invisible, so wiring up the full count costs nothing.
+  const STATIC_SOUVENIR_CATEGORIES = [
+    { id: 'bonn', prefix: 'bonn', count: 30, labelKey: 'souvenir_cat_bonn' },
+    { id: 'paris', prefix: 'paris', count: 30, labelKey: 'souvenir_cat_paris' },
+    { id: 'stuttgart', prefix: 'stuttgart', count: 30, labelKey: 'souvenir_cat_stuttgart' }
+  ];
+  const STATIC_SOUVENIR_EXTS = ['jpg', 'jpeg', 'png', 'webp'];
+  let activeStaticSouvenirCat = 'bonn';
 
   function checkImageExists(src) {
     return new Promise(resolve => {
@@ -1656,17 +1667,27 @@
     });
   }
 
+  // Tries each extension in turn for a given base path and resolves to the first one that
+  // actually loads (or null if none of them exist), so uploads don't need an exact extension match.
+  async function resolveStaticSouvenirSrc(basePath) {
+    for (const ext of STATIC_SOUVENIR_EXTS) {
+      const src = `${basePath}.${ext}`;
+      if (await checkImageExists(src)) return src;
+    }
+    return null;
+  }
+
   let staticSouvenirSrcs = [];
   let staticShareMode = false;
 
   async function renderStaticSouvenirs() {
     const grid = document.getElementById('staticSouvenirGrid');
-    const slots = Array.from({ length: STATIC_SOUVENIR_COUNT }, (_, idx) => idx + 1);
-    const results = await Promise.all(slots.map(n => {
-      const src = `images/souvenirs/souvenir${n}.jpg`;
-      return checkImageExists(src).then(ok => ({ ok, src, n }));
-    }));
-    const present = results.filter(r => r.ok);
+    const cat = STATIC_SOUVENIR_CATEGORIES.find(c => c.id === activeStaticSouvenirCat) || STATIC_SOUVENIR_CATEGORIES[0];
+    const slots = Array.from({ length: cat.count }, (_, idx) => idx + 1);
+    const results = await Promise.all(slots.map(n =>
+      resolveStaticSouvenirSrc(`images/souvenirs/${cat.prefix}${n}`).then(src => ({ src, n }))
+    ));
+    const present = results.filter(r => r.src);
     staticSouvenirSrcs = present.map(r => r.src);
 
     const shareBtn = document.getElementById('staticSouvenirShareBtn');
@@ -1694,6 +1715,21 @@
         } else {
           openImageLightbox(item.dataset.src, item);
         }
+      });
+    });
+  }
+
+  function initStaticSouvenirTabs() {
+    const tabs = document.getElementById('staticSouvenirTabs');
+    if (!tabs) return;
+    tabs.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (btn.dataset.cat === activeStaticSouvenirCat) return;
+        tabs.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeStaticSouvenirCat = btn.dataset.cat;
+        toggleStaticShareMode(true);
+        renderStaticSouvenirs();
       });
     });
   }
@@ -1734,7 +1770,8 @@
       }
       const selected = Array.from(document.querySelectorAll('#staticSouvenirGrid .share-photo.selected')).map(el => el.dataset.src);
       if (!selected.length) { alert(t('share_select_photos_alert')); return; }
-      sharePhotosViaWhatsApp(selected, t('souvenirs_static_h3'));
+      const cat = STATIC_SOUVENIR_CATEGORIES.find(c => c.id === activeStaticSouvenirCat) || STATIC_SOUVENIR_CATEGORIES[0];
+      sharePhotosViaWhatsApp(selected, t(cat.labelKey));
       toggleStaticShareMode(true);
     });
     cancelBtn.addEventListener('click', () => toggleStaticShareMode(true));
@@ -2511,6 +2548,7 @@
     initImageEditModal();
     initAddPlaceModal();
     renderApproval();
+    initStaticSouvenirTabs();
     initStaticSouvenirShare();
     renderStaticSouvenirs();
     initSouvenirs();
