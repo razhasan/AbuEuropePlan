@@ -17,7 +17,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#123C82">
-<link rel="stylesheet" href="style.css?v=43">
+<link rel="stylesheet" href="style.css?v=44">
 <script>(function(){try{if(localStorage.getItem('europeTripTheme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
 </head>
 <body>
@@ -375,6 +375,9 @@
 
 <div class="lightbox" id="lightbox">
   <button class="lightbox-close" id="lightboxClose">&times;</button>
+  <button type="button" class="lightbox-slideshow-btn" id="lightboxSlideshowBtn" aria-label="Play slideshow" title="Play slideshow" style="display:none;">▶️</button>
+  <button type="button" class="lightbox-nav-btn lightbox-prev" id="lightboxPrevBtn" aria-label="Previous" style="display:none;">‹</button>
+  <button type="button" class="lightbox-nav-btn lightbox-next" id="lightboxNextBtn" aria-label="Next" style="display:none;">›</button>
   <div class="lightbox-content">
     <div class="lightbox-media" id="lightboxMedia"></div>
     <h3 id="lightboxTitle"></h3>
@@ -464,6 +467,6 @@
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="script.js?v=43"></script>
+<script src="script.js?v=44"></script>
 </body>
 </html>

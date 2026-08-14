@@ -91,10 +91,12 @@
       streetview_link_title: 'Open in Google Street View',
       youtube_link_label: 'Watch on YouTube', youtube_link_title: 'Search short YouTube videos about this place',
       souvenir_download_title: 'Download', souvenir_download_btn: 'Download',
+      lightbox_prev: 'Previous', lightbox_next: 'Next',
+      lightbox_slideshow_play: 'Play slideshow', lightbox_slideshow_pause: 'Pause slideshow',
       souvenir_no_media_alert: 'No photos or videos in this category yet — add some first.',
       souvenir_select_media_alert: 'Tap the photos or videos you want to share first, then tap Send.',
       souvenir_hide_title: 'Remove from view (this device only)',
-      confirm_hide_souvenir: "Remove this from view? It will disappear from this device, but the file stays in the GitHub repo — other visitors (and you, on another device) will still see it unless it's deleted from GitHub directly.",
+      confirm_hide_souvenir: "Remove this from view? It will disappear from this device, but the photo stays in the shared album — other visitors (and you, on another device) will still see it unless it's removed from there directly.",
 
       hero_title: "Abu's Europe Visit",
       hero_subtitle_html: 'Cologne Bonn → Bonn (Busrah) → Verneuil-en-Halatte, Paris (us) → Stuttgart (Abdullah) → Bonn (Busrah) → home.<br>10 August – 19 October 2026',
@@ -275,10 +277,12 @@
       streetview_link_title: 'گوگل اسٹریٹ ویو میں کھولیں',
       youtube_link_label: 'یوٹیوب پر دیکھیں', youtube_link_title: 'اس جگہ کے بارے میں مختصر یوٹیوب ویڈیوز تلاش کریں',
       souvenir_download_title: 'ڈاؤن لوڈ کریں', souvenir_download_btn: 'ڈاؤن لوڈ کریں',
+      lightbox_prev: 'پچھلی', lightbox_next: 'اگلی',
+      lightbox_slideshow_play: 'سلائیڈ شو چلائیں', lightbox_slideshow_pause: 'سلائیڈ شو روکیں',
       souvenir_no_media_alert: 'اس زمرے میں ابھی تک کوئی تصویر یا ویڈیو نہیں — پہلے کچھ شامل کریں۔',
       souvenir_select_media_alert: 'پہلے وہ تصاویر یا ویڈیوز منتخب کریں جو آپ شیئر کرنا چاہتے ہیں، پھر بھیجیں پر ٹیپ کریں۔',
       souvenir_hide_title: 'منظر سے ہٹائیں (صرف اس ڈیوائس پر)',
-      confirm_hide_souvenir: 'اسے منظر سے ہٹا دیں؟ یہ اس ڈیوائس سے غائب ہو جائے گی، لیکن فائل گٹ ہب ریپو میں موجود رہے گی — دوسرے وزیٹرز (اور آپ کسی اور ڈیوائس پر) اسے پھر بھی دیکھ سکیں گے جب تک اسے براہ راست گٹ ہب سے حذف نہ کیا جائے۔',
+      confirm_hide_souvenir: 'اسے منظر سے ہٹا دیں؟ یہ اس ڈیوائس سے غائب ہو جائے گی، لیکن تصویر مشترکہ البم میں موجود رہے گی — دوسرے وزیٹرز (اور آپ کسی اور ڈیوائس پر) اسے پھر بھی دیکھ سکیں گے جب تک اسے وہاں سے براہ راست نہ ہٹایا جائے۔',
 
       hero_title: 'ابو کا یورپ کا سفر',
       hero_subtitle_html: 'کولون بون → بون (بشریٰ) → ورنوے آں ہالات، پیرس (ہمارے ہاں) → سٹٹگارٹ (عبداللہ) → بون (بشریٰ) → گھر واپسی۔<br>10 اگست – 19 اکتوبر 2026',
@@ -459,10 +463,12 @@
       streetview_link_title: 'Ouvrir dans Google Street View',
       youtube_link_label: 'Voir sur YouTube', youtube_link_title: 'Rechercher de courtes vidéos YouTube sur ce lieu',
       souvenir_download_title: 'Télécharger', souvenir_download_btn: 'Télécharger',
+      lightbox_prev: 'Précédent', lightbox_next: 'Suivant',
+      lightbox_slideshow_play: 'Démarrer le diaporama', lightbox_slideshow_pause: 'Mettre le diaporama en pause',
       souvenir_no_media_alert: "Aucune photo ou vidéo dans cette catégorie pour l'instant — ajoutez-en d'abord.",
       souvenir_select_media_alert: "Touchez d'abord les photos ou vidéos à partager, puis touchez Envoyer.",
       souvenir_hide_title: 'Retirer de la vue (cet appareil uniquement)',
-      confirm_hide_souvenir: "Retirer ceci de la vue ? Cela disparaîtra de cet appareil, mais le fichier reste dans le dépôt GitHub — les autres visiteurs (et vous, sur un autre appareil) le verront toujours, sauf s'il est supprimé directement sur GitHub.",
+      confirm_hide_souvenir: "Retirer ceci de la vue ? Cela disparaîtra de cet appareil, mais la photo reste dans l'album partagé — les autres visiteurs (et vous, sur un autre appareil) la verront toujours, sauf si elle est supprimée directement de là-bas.",
 
       hero_title: "Voyage d'Abu en Europe",
       hero_subtitle_html: 'Cologne Bonn → Bonn (Busrah) → Verneuil-en-Halatte, Paris (chez nous) → Stuttgart (Abdullah) → Bonn (Busrah) → retour à la maison.<br>10 août – 19 octobre 2026',
@@ -644,10 +650,12 @@
       streetview_link_title: 'In Google Street View öffnen',
       youtube_link_label: 'Auf YouTube ansehen', youtube_link_title: 'Kurze YouTube-Videos zu diesem Ort suchen',
       souvenir_download_title: 'Herunterladen', souvenir_download_btn: 'Herunterladen',
+      lightbox_prev: 'Zurück', lightbox_next: 'Weiter',
+      lightbox_slideshow_play: 'Diashow starten', lightbox_slideshow_pause: 'Diashow pausieren',
       souvenir_no_media_alert: 'Noch keine Fotos oder Videos in dieser Kategorie — fügen Sie zuerst welche hinzu.',
       souvenir_select_media_alert: 'Tippen Sie zuerst auf die Fotos oder Videos, die Sie teilen möchten, und dann auf Senden.',
       souvenir_hide_title: 'Aus der Ansicht entfernen (nur dieses Gerät)',
-      confirm_hide_souvenir: "Dies aus der Ansicht entfernen? Es verschwindet von diesem Gerät, aber die Datei bleibt im GitHub-Repository — andere Besucher (und Sie selbst auf einem anderen Gerät) sehen es weiterhin, sofern es nicht direkt auf GitHub gelöscht wird.",
+      confirm_hide_souvenir: "Dies aus der Ansicht entfernen? Es verschwindet von diesem Gerät, aber das Foto bleibt im gemeinsamen Album — andere Besucher (und Sie selbst auf einem anderen Gerät) sehen es weiterhin, sofern es nicht direkt dort entfernt wird.",
 
       hero_title: "Abus großer Europabesuch",
       hero_subtitle_html: 'Köln Bonn → Bonn (Busrah) → Verneuil-en-Halatte, Paris (bei uns) → Stuttgart (Abdullah) → Bonn (Busrah) → nach Hause.<br>10. August – 19. Oktober 2026',
@@ -849,6 +857,20 @@
     if (souvenirsStaticIntro) souvenirsStaticIntro.innerHTML = t('souvenirs_static_intro_html');
     document.title = t('page_title');
     updateWhatsappShareLink();
+    applyLightboxNavLabels();
+  }
+
+  function applyLightboxNavLabels() {
+    const prevBtn = document.getElementById('lightboxPrevBtn');
+    const nextBtn = document.getElementById('lightboxNextBtn');
+    const slideBtn = document.getElementById('lightboxSlideshowBtn');
+    if (prevBtn) { prevBtn.setAttribute('aria-label', t('lightbox_prev')); prevBtn.title = t('lightbox_prev'); }
+    if (nextBtn) { nextBtn.setAttribute('aria-label', t('lightbox_next')); nextBtn.title = t('lightbox_next'); }
+    if (slideBtn) {
+      const label = t(slideBtn.classList.contains('active') ? 'lightbox_slideshow_pause' : 'lightbox_slideshow_play');
+      slideBtn.setAttribute('aria-label', label);
+      slideBtn.title = label;
+    }
   }
 
   function setLang(lang) {
@@ -1657,6 +1679,104 @@
     }
   }
 
+  // ===== Lightbox multi-item navigation (prev/next arrows, keyboard, slideshow) =====
+  // Whichever grid a photo/video/place-card was opened from, we walk its siblings in
+  // DOM order so arrows and the slideshow step through exactly what's on screen.
+  let lightboxNav = [];       // ordered list of { type: 'place'|'image'|'video', id? , src? }
+  let lightboxNavIndex = -1;
+  let lightboxSlideshowTimer = null;
+  const LIGHTBOX_SLIDESHOW_MS = 4000;
+
+  function buildLightboxNavFrom(sourceEl) {
+    if (!sourceEl) return { items: [], index: -1 };
+    const container = sourceEl.parentElement;
+    if (!container) return { items: [], index: -1 };
+    const tiles = Array.from(container.children).filter(el => el.classList && el.classList.contains('gallery-item'));
+    const items = tiles.map(el => {
+      if (el.dataset.id) return { type: 'place', id: el.dataset.id };
+      return { type: el.classList.contains('video-tile') ? 'video' : 'image', src: el.dataset.src };
+    });
+    return { items, index: tiles.indexOf(sourceEl) };
+  }
+
+  // Sets (or clears) the blurred backdrop behind the sharp photo — a soft, photo-matched
+  // glow instead of a flat color bar wherever object-fit:contain leaves empty space.
+  function setLightboxBackdrop(src) {
+    const media = document.getElementById('lightboxMedia');
+    if (src) media.style.setProperty('--lb-backdrop', `url("${src}")`);
+    else media.style.removeProperty('--lb-backdrop');
+  }
+
+  function updateLightboxNavUI() {
+    const has = lightboxNav.length > 1;
+    document.getElementById('lightboxPrevBtn').style.display = has ? 'flex' : 'none';
+    document.getElementById('lightboxNextBtn').style.display = has ? 'flex' : 'none';
+    document.getElementById('lightboxSlideshowBtn').style.display = has ? 'flex' : 'none';
+  }
+
+  function renderLightboxNavItem(index) {
+    const item = lightboxNav[index];
+    if (!item) return;
+    lightboxNavIndex = index;
+    const mediaEl = document.getElementById('lightboxMedia');
+    // A quick fade rather than a hard cut between photos/videos when stepping via
+    // arrows or the slideshow — respects reduced-motion since it's just opacity.
+    if (motionOk()) {
+      mediaEl.style.transition = 'opacity .18s ease';
+      mediaEl.style.opacity = '0';
+      setTimeout(() => { renderLightboxNavItemContent(item); mediaEl.style.opacity = '1'; }, 160);
+      return;
+    }
+    renderLightboxNavItemContent(item);
+  }
+
+  function renderLightboxNavItemContent(item) {
+    if (item.type === 'place') {
+      const place = getAllPlaces().find(p => p.id === item.id);
+      if (!place) return;
+      const tr = placeText(place);
+      document.getElementById('lightboxTitle').textContent = tr.name;
+      document.getElementById('lightboxDesc').textContent = tr.desc;
+      const custom = getCustomImageSrc(place.id);
+      const src = custom || place.img;
+      document.getElementById('lightboxMedia').innerHTML = mediaHTML(src, place.emoji);
+      setLightboxBackdrop(src || null);
+      setLightboxDownload(null);
+    } else {
+      document.getElementById('lightboxTitle').textContent = '';
+      document.getElementById('lightboxDesc').textContent = '';
+      const media = document.getElementById('lightboxMedia');
+      media.innerHTML = item.type === 'video'
+        ? `<video src="${item.src}" controls autoplay playsinline></video>`
+        : `<img src="${item.src}" alt="">`;
+      setLightboxBackdrop(item.type === 'image' ? item.src : null);
+      setLightboxDownload(item.src);
+    }
+  }
+
+  function showLightboxNeighbor(direction) {
+    if (lightboxNav.length < 2) return;
+    const next = (lightboxNavIndex + direction + lightboxNav.length) % lightboxNav.length;
+    renderLightboxNavItem(next);
+  }
+
+  function stopLightboxSlideshow() {
+    if (lightboxSlideshowTimer) { clearInterval(lightboxSlideshowTimer); lightboxSlideshowTimer = null; }
+    const btn = document.getElementById('lightboxSlideshowBtn');
+    if (btn) { btn.textContent = '▶️'; btn.classList.remove('active'); }
+    applyLightboxNavLabels();
+  }
+
+  function toggleLightboxSlideshow() {
+    if (lightboxSlideshowTimer) { stopLightboxSlideshow(); return; }
+    if (lightboxNav.length < 2) return;
+    lightboxSlideshowTimer = setInterval(() => showLightboxNeighbor(1), LIGHTBOX_SLIDESHOW_MS);
+    const btn = document.getElementById('lightboxSlideshowBtn');
+    btn.textContent = '⏸';
+    btn.classList.add('active');
+    applyLightboxNavLabels();
+  }
+
   function openLightbox(id, sourceEl) {
     const place = getAllPlaces().find(p => p.id === id);
     if (!place) return;
@@ -1665,8 +1785,13 @@
     document.getElementById('lightboxDesc').textContent = tr.desc;
     const media = document.getElementById('lightboxMedia');
     const custom = getCustomImageSrc(place.id);
-    media.innerHTML = mediaHTML(custom || place.img, place.emoji);
+    const src = custom || place.img;
+    media.innerHTML = mediaHTML(src, place.emoji);
+    setLightboxBackdrop(src || null);
     setLightboxDownload(null);
+    const nav = buildLightboxNavFrom(sourceEl);
+    lightboxNav = nav.items; lightboxNavIndex = nav.index;
+    updateLightboxNavUI();
     document.getElementById('lightbox').classList.add('open');
     animateLightboxFrom(sourceEl);
   }
@@ -1701,12 +1826,26 @@
     media.style.transform = '';
     media.style.opacity = '';
     document.getElementById('lightbox').classList.remove('open');
+    stopLightboxSlideshow();
+    lightboxNav = []; lightboxNavIndex = -1;
   }
 
   function initLightbox() {
     document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
     document.getElementById('lightbox').addEventListener('click', (e) => {
       if (e.target.id === 'lightbox') closeLightbox();
+    });
+    document.getElementById('lightboxPrevBtn').addEventListener('click', () => { stopLightboxSlideshow(); showLightboxNeighbor(-1); });
+    document.getElementById('lightboxNextBtn').addEventListener('click', () => { stopLightboxSlideshow(); showLightboxNeighbor(1); });
+    document.getElementById('lightboxSlideshowBtn').addEventListener('click', toggleLightboxSlideshow);
+    document.addEventListener('keydown', (e) => {
+      if (!document.getElementById('lightbox').classList.contains('open')) return;
+      if (e.key === 'Escape') { closeLightbox(); return; }
+      // In RTL (Urdu) the prev/next buttons are mirrored to match reading direction,
+      // so the physical arrow keys are swapped to match what's visually on each side.
+      const isRTL = document.documentElement.getAttribute('dir') === 'rtl';
+      if (e.key === 'ArrowLeft') { stopLightboxSlideshow(); showLightboxNeighbor(isRTL ? 1 : -1); }
+      else if (e.key === 'ArrowRight') { stopLightboxSlideshow(); showLightboxNeighbor(isRTL ? -1 : 1); }
     });
   }
 
@@ -2158,7 +2297,11 @@
     document.getElementById('lightboxTitle').textContent = '';
     document.getElementById('lightboxDesc').textContent = '';
     document.getElementById('lightboxMedia').innerHTML = `<img src="${src}" alt="">`;
+    setLightboxBackdrop(src);
     setLightboxDownload(src);
+    const nav = buildLightboxNavFrom(sourceEl);
+    lightboxNav = nav.items; lightboxNavIndex = nav.index;
+    updateLightboxNavUI();
     document.getElementById('lightbox').classList.add('open');
     animateLightboxFrom(sourceEl);
   }
@@ -2167,7 +2310,11 @@
     document.getElementById('lightboxTitle').textContent = '';
     document.getElementById('lightboxDesc').textContent = '';
     document.getElementById('lightboxMedia').innerHTML = `<video src="${src}" controls autoplay playsinline></video>`;
+    setLightboxBackdrop(null);
     setLightboxDownload(src);
+    const nav = buildLightboxNavFrom(sourceEl);
+    lightboxNav = nav.items; lightboxNavIndex = nav.index;
+    updateLightboxNavUI();
     document.getElementById('lightbox').classList.add('open');
     animateLightboxFrom(sourceEl);
   }
