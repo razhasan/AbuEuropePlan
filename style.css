@@ -258,6 +258,28 @@ a { color: var(--fr-blue); }
 }
 .music-speed-btn:hover { background: rgba(30,136,229,0.15); }
 .music-speed-btn.boosted { background: linear-gradient(135deg, var(--fr-blue), var(--purple)); color: #fff; box-shadow: var(--shadow); }
+.music-volume-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.music-volume-btn {
+  flex: none; border: none; background: var(--pastel-blue); color: var(--navy); font-size: 1rem;
+  width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: transform .15s, background .15s;
+}
+.music-volume-btn:hover { transform: scale(1.08); background: rgba(30,136,229,0.15); }
+.music-volume-slider {
+  flex: 1; -webkit-appearance: none; appearance: none;
+  height: 6px; border-radius: 3px; outline: none; cursor: pointer;
+  background: linear-gradient(to right, var(--fr-blue) 100%, var(--pastel-blue) 100%);
+}
+.music-volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 16px; height: 16px; border-radius: 50%; border: 2px solid #fff;
+  background: linear-gradient(135deg, var(--fr-blue), var(--purple)); cursor: pointer; box-shadow: 0 1px 5px rgba(0,0,0,0.35);
+}
+.music-volume-slider::-moz-range-thumb {
+  width: 16px; height: 16px; border-radius: 50%; border: 2px solid #fff;
+  background: linear-gradient(135deg, var(--fr-blue), var(--purple)); cursor: pointer; box-shadow: 0 1px 5px rgba(0,0,0,0.35);
+}
+.music-volume-value { flex: none; font-size: 0.75rem; color: var(--muted); font-variant-numeric: tabular-nums; width: 36px; text-align: right; }
 .music-playlist-select-row { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
 .music-playlist-select {
   flex: 1; min-width: 0; padding: 7px 10px; border-radius: 10px; border: 1px solid var(--line);
@@ -292,6 +314,7 @@ a { color: var(--fr-blue); }
 :root[dir="rtl"] .music-transport { flex-direction: row-reverse; }
 :root[dir="rtl"] .music-mode-row { direction: rtl; }
 :root[dir="rtl"] .music-playlist-select-row { direction: rtl; }
+:root[dir="rtl"] .music-volume-row { direction: rtl; }
 :root[dir="rtl"] .playlist-picker-item { direction: rtl; }
 :root[dir="rtl"] .playlist-track { direction: rtl; }
 

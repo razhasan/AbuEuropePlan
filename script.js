@@ -89,6 +89,7 @@
       music_tap_hint: 'Tap play to start the music',
       music_mode_once: 'Once', music_mode_loop: 'Loop', music_mode_shuffle: 'Shuffle',
       music_speed_label: 'Playback speed',
+      music_volume_label: 'Volume', music_mute_btn: 'Mute', music_unmute_btn: 'Unmute',
       music_playlist_all_songs: 'All Songs',
       music_create_playlist_btn: '+ New Playlist',
       music_delete_playlist_title: 'Delete this playlist',
@@ -288,6 +289,7 @@
       music_tap_hint: 'گانا شروع کرنے کے لیے پلے دبائیں',
       music_mode_once: 'ایک بار', music_mode_loop: 'دہرائیں', music_mode_shuffle: 'اختلاط',
       music_speed_label: 'چلانے کی رفتار',
+      music_volume_label: 'آواز', music_mute_btn: 'خاموش کریں', music_unmute_btn: 'آواز بحال کریں',
       music_playlist_all_songs: 'تمام گانے',
       music_create_playlist_btn: '+ نئی پلے لسٹ',
       music_delete_playlist_title: 'یہ پلے لسٹ حذف کریں',
@@ -487,6 +489,7 @@
       music_tap_hint: 'Appuyez sur lecture pour démarrer la musique',
       music_mode_once: 'Une fois', music_mode_loop: 'Boucle', music_mode_shuffle: 'Aléatoire',
       music_speed_label: 'Vitesse de lecture',
+      music_volume_label: 'Volume', music_mute_btn: 'Muet', music_unmute_btn: 'Réactiver le son',
       music_playlist_all_songs: 'Toutes les chansons',
       music_create_playlist_btn: '+ Nouvelle Playlist',
       music_delete_playlist_title: 'Supprimer cette playlist',
@@ -687,6 +690,7 @@
       music_tap_hint: 'Zum Starten der Musik auf Abspielen tippen',
       music_mode_once: 'Einmal', music_mode_loop: 'Wiederholen', music_mode_shuffle: 'Zufällig',
       music_speed_label: 'Wiedergabegeschwindigkeit',
+      music_volume_label: 'Lautstärke', music_mute_btn: 'Stummschalten', music_unmute_btn: 'Stummschaltung aufheben',
       music_playlist_all_songs: 'Alle Songs',
       music_create_playlist_btn: '+ Neue Playlist',
       music_delete_playlist_title: 'Diese Playlist löschen',
@@ -917,9 +921,18 @@
     const speedBtn = document.getElementById('musicSpeedBtn');
     const deleteBtn = document.getElementById('musicDeletePlaylistBtn');
     const select = document.getElementById('musicPlaylistSelect');
+    const volumeSlider = document.getElementById('musicVolumeSlider');
+    const volumeBtn = document.getElementById('musicVolumeBtn');
     if (speedBtn) { speedBtn.setAttribute('aria-label', t('music_speed_label')); speedBtn.title = t('music_speed_label'); }
     if (deleteBtn) { deleteBtn.setAttribute('aria-label', t('music_delete_playlist_title')); deleteBtn.title = t('music_delete_playlist_title'); }
     if (select) select.setAttribute('aria-label', t('music_playlist_select_label'));
+    if (volumeSlider) volumeSlider.setAttribute('aria-label', t('music_volume_label'));
+    if (volumeBtn) {
+      const muted = Number(volumeSlider && volumeSlider.value) === 0;
+      const label = t(muted ? 'music_unmute_btn' : 'music_mute_btn');
+      volumeBtn.setAttribute('aria-label', label);
+      volumeBtn.title = label;
+    }
   }
 
   function applyLightboxNavLabels() {
@@ -2881,6 +2894,19 @@
     try { localStorage.setItem(MUSIC_SPEED_KEY, String(v)); } catch (e) {}
   }
 
+  // Volume — 0 to 100, saved per-device like speed, so it carries over between
+  // songs and visits instead of always starting back at full blast.
+  const MUSIC_VOLUME_KEY = 'europeTripMusicVolume';
+  function loadMusicVolume() {
+    try {
+      const v = parseInt(localStorage.getItem(MUSIC_VOLUME_KEY), 10);
+      return (Number.isFinite(v) && v >= 0 && v <= 100) ? v : 100;
+    } catch (e) { return 100; }
+  }
+  function saveMusicVolume(v) {
+    try { localStorage.setItem(MUSIC_VOLUME_KEY, String(v)); } catch (e) {}
+  }
+
   // Custom named playlists — "only these songs" queues the user builds
   // themselves. Saved per-device only, like the packing list and personal
   // souvenir photos: {id, name, songs: [filename, ...]}.
@@ -2950,6 +2976,9 @@
     const playlistSelect = document.getElementById('musicPlaylistSelect');
     const createPlaylistBtn = document.getElementById('musicCreatePlaylistBtn');
     const deletePlaylistBtn = document.getElementById('musicDeletePlaylistBtn');
+    const volumeBtn = document.getElementById('musicVolumeBtn');
+    const volumeSlider = document.getElementById('musicVolumeSlider');
+    const volumeValueEl = document.getElementById('musicVolumeValue');
     if (!audio || !toggleBtn) return;
 
     let repeatMode = 'once';
@@ -2957,6 +2986,8 @@
     let shuffleOrder = [];
     let shufflePos = 0;
     let musicSpeed = loadMusicSpeed();
+    let musicVolume = loadMusicVolume();
+    let mutedPreviousVolume = musicVolume || 100;
 
     function fmtTime(sec) {
       if (!isFinite(sec) || sec < 0) sec = 0;
@@ -2979,6 +3010,25 @@
         speedBtn.textContent = musicSpeed + '×';
         speedBtn.classList.toggle('boosted', musicSpeed !== 1);
       }
+    }
+
+    function volumeIcon(v) {
+      if (v === 0) return '🔇';
+      if (v < 34) return '🔈';
+      if (v < 67) return '🔉';
+      return '🔊';
+    }
+
+    function applyMusicVolume() {
+      audio.volume = musicVolume / 100;
+      if (volumeSlider) {
+        volumeSlider.value = musicVolume;
+        volumeSlider.style.background =
+          `linear-gradient(to right, var(--fr-blue) ${musicVolume}%, var(--pastel-blue) ${musicVolume}%)`;
+      }
+      if (volumeValueEl) volumeValueEl.textContent = musicVolume + '%';
+      if (volumeBtn) volumeBtn.textContent = volumeIcon(musicVolume);
+      applyMusicPlayerLabels();
     }
 
     function shuffleArray(arr) {
@@ -3027,6 +3077,7 @@
       musicCurrentIdx = idx;
       audio.src = PLAYLIST[idx].src;
       applyMusicSpeed();
+      applyMusicVolume();
       seek.value = 0;
       curEl.textContent = '0:00';
       durEl.textContent = '0:00';
@@ -3199,6 +3250,22 @@
         musicSpeed = MUSIC_SPEEDS[(idx + 1) % MUSIC_SPEEDS.length];
         saveMusicSpeed(musicSpeed);
         applyMusicSpeed();
+      });
+    }
+
+    if (volumeSlider) {
+      volumeSlider.addEventListener('input', () => {
+        musicVolume = Number(volumeSlider.value);
+        if (musicVolume > 0) mutedPreviousVolume = musicVolume;
+        saveMusicVolume(musicVolume);
+        applyMusicVolume();
+      });
+    }
+    if (volumeBtn) {
+      volumeBtn.addEventListener('click', () => {
+        musicVolume = musicVolume > 0 ? 0 : (mutedPreviousVolume || 100);
+        saveMusicVolume(musicVolume);
+        applyMusicVolume();
       });
     }
 
