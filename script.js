@@ -88,6 +88,19 @@
       music_play: 'Play', music_pause: 'Pause',
       music_tap_hint: 'Tap play to start the music',
       music_mode_once: 'Once', music_mode_loop: 'Loop', music_mode_shuffle: 'Shuffle',
+      music_speed_label: 'Playback speed',
+      music_playlist_all_songs: 'All Songs',
+      music_create_playlist_btn: '+ New Playlist',
+      music_delete_playlist_title: 'Delete this playlist',
+      confirm_delete_playlist: 'Delete this playlist? This only affects this device — the songs themselves are not removed.',
+      music_playlist_empty_alert: "This playlist's songs aren't available right now — showing All Songs instead.",
+      music_playlist_select_label: 'Choose playlist',
+      create_playlist_title: 'Create Playlist',
+      create_playlist_name_label: 'Playlist name (e.g. "Road Trip", "Abu\'s Picks")',
+      create_playlist_songs_label: 'Choose songs',
+      create_playlist_save_btn: 'Save Playlist',
+      create_playlist_name_required_alert: 'Please enter a name for the playlist.',
+      create_playlist_songs_required_alert: 'Please select at least one song.',
       streetview_link_title: 'Open in Google Street View',
       youtube_link_label: 'Watch on YouTube', youtube_link_title: 'Search short YouTube videos about this place',
       souvenir_download_title: 'Download', souvenir_download_btn: 'Download',
@@ -274,6 +287,19 @@
       music_play: 'چلائیں', music_pause: 'روکیں',
       music_tap_hint: 'گانا شروع کرنے کے لیے پلے دبائیں',
       music_mode_once: 'ایک بار', music_mode_loop: 'دہرائیں', music_mode_shuffle: 'اختلاط',
+      music_speed_label: 'چلانے کی رفتار',
+      music_playlist_all_songs: 'تمام گانے',
+      music_create_playlist_btn: '+ نئی پلے لسٹ',
+      music_delete_playlist_title: 'یہ پلے لسٹ حذف کریں',
+      confirm_delete_playlist: 'یہ پلے لسٹ حذف کریں؟ اس کا اثر صرف اس ڈیوائس پر ہوگا — گانے خود حذف نہیں ہوں گے۔',
+      music_playlist_empty_alert: 'اس پلے لسٹ کے گانے فی الحال دستیاب نہیں ہیں — اس کے بجائے تمام گانے دکھائے جا رہے ہیں۔',
+      music_playlist_select_label: 'پلے لسٹ منتخب کریں',
+      create_playlist_title: 'پلے لسٹ بنائیں',
+      create_playlist_name_label: 'پلے لسٹ کا نام (مثلاً "روڈ ٹرپ"، "ابو کی پسند")',
+      create_playlist_songs_label: 'گانے منتخب کریں',
+      create_playlist_save_btn: 'پلے لسٹ محفوظ کریں',
+      create_playlist_name_required_alert: 'براہ کرم پلے لسٹ کے لیے ایک نام درج کریں۔',
+      create_playlist_songs_required_alert: 'براہ کرم کم از کم ایک گانا منتخب کریں۔',
       streetview_link_title: 'گوگل اسٹریٹ ویو میں کھولیں',
       youtube_link_label: 'یوٹیوب پر دیکھیں', youtube_link_title: 'اس جگہ کے بارے میں مختصر یوٹیوب ویڈیوز تلاش کریں',
       souvenir_download_title: 'ڈاؤن لوڈ کریں', souvenir_download_btn: 'ڈاؤن لوڈ کریں',
@@ -460,6 +486,19 @@
       music_play: 'Lecture', music_pause: 'Pause',
       music_tap_hint: 'Appuyez sur lecture pour démarrer la musique',
       music_mode_once: 'Une fois', music_mode_loop: 'Boucle', music_mode_shuffle: 'Aléatoire',
+      music_speed_label: 'Vitesse de lecture',
+      music_playlist_all_songs: 'Toutes les chansons',
+      music_create_playlist_btn: '+ Nouvelle Playlist',
+      music_delete_playlist_title: 'Supprimer cette playlist',
+      confirm_delete_playlist: "Supprimer cette playlist ? Cela n'affecte que cet appareil — les chansons elles-mêmes ne sont pas supprimées.",
+      music_playlist_empty_alert: "Les chansons de cette playlist ne sont pas disponibles pour l'instant — affichage de Toutes les chansons à la place.",
+      music_playlist_select_label: 'Choisir une playlist',
+      create_playlist_title: 'Créer une Playlist',
+      create_playlist_name_label: "Nom de la playlist (ex. « Road Trip », « Sélection d'Abu »)",
+      create_playlist_songs_label: 'Choisir les chansons',
+      create_playlist_save_btn: 'Enregistrer la Playlist',
+      create_playlist_name_required_alert: 'Veuillez entrer un nom pour la playlist.',
+      create_playlist_songs_required_alert: 'Veuillez sélectionner au moins une chanson.',
       streetview_link_title: 'Ouvrir dans Google Street View',
       youtube_link_label: 'Voir sur YouTube', youtube_link_title: 'Rechercher de courtes vidéos YouTube sur ce lieu',
       souvenir_download_title: 'Télécharger', souvenir_download_btn: 'Télécharger',
@@ -647,6 +686,19 @@
       music_play: 'Abspielen', music_pause: 'Pause',
       music_tap_hint: 'Zum Starten der Musik auf Abspielen tippen',
       music_mode_once: 'Einmal', music_mode_loop: 'Wiederholen', music_mode_shuffle: 'Zufällig',
+      music_speed_label: 'Wiedergabegeschwindigkeit',
+      music_playlist_all_songs: 'Alle Songs',
+      music_create_playlist_btn: '+ Neue Playlist',
+      music_delete_playlist_title: 'Diese Playlist löschen',
+      confirm_delete_playlist: 'Diese Playlist löschen? Dies betrifft nur dieses Gerät — die Songs selbst werden nicht gelöscht.',
+      music_playlist_empty_alert: 'Die Songs dieser Playlist sind gerade nicht verfügbar — stattdessen werden alle Songs angezeigt.',
+      music_playlist_select_label: 'Playlist auswählen',
+      create_playlist_title: 'Playlist erstellen',
+      create_playlist_name_label: 'Playlist-Name (z. B. „Roadtrip“, „Abus Auswahl“)',
+      create_playlist_songs_label: 'Songs auswählen',
+      create_playlist_save_btn: 'Playlist speichern',
+      create_playlist_name_required_alert: 'Bitte geben Sie einen Namen für die Playlist ein.',
+      create_playlist_songs_required_alert: 'Bitte wählen Sie mindestens einen Song aus.',
       streetview_link_title: 'In Google Street View öffnen',
       youtube_link_label: 'Auf YouTube ansehen', youtube_link_title: 'Kurze YouTube-Videos zu diesem Ort suchen',
       souvenir_download_title: 'Herunterladen', souvenir_download_btn: 'Herunterladen',
@@ -858,6 +910,16 @@
     document.title = t('page_title');
     updateWhatsappShareLink();
     applyLightboxNavLabels();
+    applyMusicPlayerLabels();
+  }
+
+  function applyMusicPlayerLabels() {
+    const speedBtn = document.getElementById('musicSpeedBtn');
+    const deleteBtn = document.getElementById('musicDeletePlaylistBtn');
+    const select = document.getElementById('musicPlaylistSelect');
+    if (speedBtn) { speedBtn.setAttribute('aria-label', t('music_speed_label')); speedBtn.title = t('music_speed_label'); }
+    if (deleteBtn) { deleteBtn.setAttribute('aria-label', t('music_delete_playlist_title')); deleteBtn.title = t('music_delete_playlist_title'); }
+    if (select) select.setAttribute('aria-label', t('music_playlist_select_label'));
   }
 
   function applyLightboxNavLabels() {
@@ -2798,6 +2860,37 @@
   const FALLBACK_PLAYLIST = FALLBACK_SONGS.map(name => ({ src: `${MUSIC_FOLDER}/${name}` }));
   let PLAYLIST = FALLBACK_PLAYLIST.slice();
   let musicCurrentIdx = 0;
+  // The full song pool (everything in Music/), kept separate from PLAYLIST —
+  // which is whatever's actually queued up right now: either the full library
+  // or a custom playlist's subset of it.
+  let musicLibrary = PLAYLIST.slice();
+  let activeCustomPlaylistId = null;
+
+  // Playback speed — capped at 1.5x on purpose (not 2x like YouTube): the songs
+  // start sounding distorted past that. Saved per-device so it carries over
+  // between songs and visits.
+  const MUSIC_SPEED_KEY = 'europeTripMusicSpeed';
+  const MUSIC_SPEEDS = [1, 1.25, 1.5];
+  function loadMusicSpeed() {
+    try {
+      const v = parseFloat(localStorage.getItem(MUSIC_SPEED_KEY));
+      return MUSIC_SPEEDS.includes(v) ? v : 1;
+    } catch (e) { return 1; }
+  }
+  function saveMusicSpeed(v) {
+    try { localStorage.setItem(MUSIC_SPEED_KEY, String(v)); } catch (e) {}
+  }
+
+  // Custom named playlists — "only these songs" queues the user builds
+  // themselves. Saved per-device only, like the packing list and personal
+  // souvenir photos: {id, name, songs: [filename, ...]}.
+  const CUSTOM_PLAYLISTS_KEY = 'europeTripCustomPlaylists';
+  function loadCustomPlaylists() {
+    try { return JSON.parse(localStorage.getItem(CUSTOM_PLAYLISTS_KEY)) || []; } catch (e) { return []; }
+  }
+  function saveCustomPlaylists(list) {
+    try { localStorage.setItem(CUSTOM_PLAYLISTS_KEY, JSON.stringify(list)); } catch (e) {}
+  }
 
   function humanizeFilename(name) {
     const base = name.replace(/\.[^.]+$/, '');
@@ -2821,6 +2914,21 @@
     document.querySelectorAll('#musicPlaylistList .playlist-track-title').forEach((el, i) => {
       if (PLAYLIST[i]) el.textContent = trackTitle(PLAYLIST[i]);
     });
+    renderPlaylistSelect();
+  }
+
+  // Populates the "All Songs" / saved-playlist dropdown — module-level (not
+  // inside initMusicPlayer) so it can also be refreshed from a language switch,
+  // which re-translates the "All Songs" option and re-renders playlist names.
+  function renderPlaylistSelect() {
+    const select = document.getElementById('musicPlaylistSelect');
+    if (!select) return;
+    const saved = loadCustomPlaylists();
+    select.innerHTML = `<option value="">${t('music_playlist_all_songs')}</option>` +
+      saved.map(p => `<option value="${p.id}">${p.name}</option>`).join('');
+    select.value = activeCustomPlaylistId || '';
+    const deleteBtn = document.getElementById('musicDeletePlaylistBtn');
+    if (deleteBtn) deleteBtn.style.display = activeCustomPlaylistId ? 'inline-flex' : 'none';
   }
 
   function initMusicPlayer() {
@@ -2838,12 +2946,17 @@
     const modeOnce = document.getElementById('modeOnce');
     const modeLoop = document.getElementById('modeLoop');
     const listEl = document.getElementById('musicPlaylistList');
+    const speedBtn = document.getElementById('musicSpeedBtn');
+    const playlistSelect = document.getElementById('musicPlaylistSelect');
+    const createPlaylistBtn = document.getElementById('musicCreatePlaylistBtn');
+    const deletePlaylistBtn = document.getElementById('musicDeletePlaylistBtn');
     if (!audio || !toggleBtn) return;
 
     let repeatMode = 'once';
     let shuffleOn = false;
     let shuffleOrder = [];
     let shufflePos = 0;
+    let musicSpeed = loadMusicSpeed();
 
     function fmtTime(sec) {
       if (!isFinite(sec) || sec < 0) sec = 0;
@@ -2856,6 +2969,16 @@
       toggleIcon.textContent = isPlaying ? '⏸️' : '▶️';
       toggleBtn.classList.toggle('playing', isPlaying);
       toggleBtn.setAttribute('aria-label', isPlaying ? t('music_pause') : t('music_play'));
+    }
+
+    // Re-applied on every track load — playbackRate can reset when a browser
+    // loads a fresh src, so this keeps the chosen speed consistent song to song.
+    function applyMusicSpeed() {
+      audio.playbackRate = musicSpeed;
+      if (speedBtn) {
+        speedBtn.textContent = musicSpeed + '×';
+        speedBtn.classList.toggle('boosted', musicSpeed !== 1);
+      }
     }
 
     function shuffleArray(arr) {
@@ -2903,6 +3026,7 @@
     function loadTrack(idx, autoplay) {
       musicCurrentIdx = idx;
       audio.src = PLAYLIST[idx].src;
+      applyMusicSpeed();
       seek.value = 0;
       curEl.textContent = '0:00';
       durEl.textContent = '0:00';
@@ -2966,14 +3090,64 @@
       if (!musicFiles.length) return; // empty folder — keep the fallback playlist
 
       const dynamic = musicFiles.map(n => ({ src: `${MUSIC_FOLDER}/${n}` }));
+      musicLibrary = dynamic;
 
-      const currentSrc = PLAYLIST[musicCurrentIdx] ? PLAYLIST[musicCurrentIdx].src : null;
-      PLAYLIST = dynamic;
-      const matchIdx = currentSrc ? PLAYLIST.findIndex(track => track.src === currentSrc) : -1;
-      musicCurrentIdx = matchIdx >= 0 ? matchIdx : 0;
-      if (shuffleOn) buildShuffleOrder(musicCurrentIdx);
-      renderPlaylistUI();
-      renderMusicPlayerTexts();
+      // Only swap the active queue itself if no custom playlist is selected —
+      // this only ever runs once, right after load, before there's been any
+      // chance to pick one, but stay defensive about it either way.
+      if (!activeCustomPlaylistId) {
+        const currentSrc = PLAYLIST[musicCurrentIdx] ? PLAYLIST[musicCurrentIdx].src : null;
+        PLAYLIST = dynamic;
+        const matchIdx = currentSrc ? PLAYLIST.findIndex(track => track.src === currentSrc) : -1;
+        musicCurrentIdx = matchIdx >= 0 ? matchIdx : 0;
+        if (shuffleOn) buildShuffleOrder(musicCurrentIdx);
+        renderPlaylistUI();
+        renderMusicPlayerTexts();
+      }
+    }
+
+    // Switches the active queue to a saved custom playlist's songs (by id), or
+    // back to the full library when id is falsy. Keeps playing (if it already
+    // was) so picking a playlist mid-song doesn't abruptly go silent.
+    function activatePlaylist(id) {
+      const wasPlaying = !audio.paused;
+      if (id) {
+        const found = loadCustomPlaylists().find(p => p.id === id);
+        const subset = found ? musicLibrary.filter(track => found.songs.includes(track.src.split('/').pop())) : [];
+        if (!subset.length) {
+          alert(t('music_playlist_empty_alert'));
+          activeCustomPlaylistId = null;
+          PLAYLIST = musicLibrary.slice();
+        } else {
+          activeCustomPlaylistId = id;
+          PLAYLIST = subset;
+        }
+      } else {
+        activeCustomPlaylistId = null;
+        PLAYLIST = musicLibrary.slice();
+      }
+      if (shuffleOn) buildShuffleOrder(null);
+      loadTrack(shuffleOn ? shuffleOrder[0] : 0, wasPlaying);
+      renderPlaylistSelect();
+    }
+
+    function openCreatePlaylistModal() {
+      const container = document.getElementById('createPlaylistSongs');
+      const nameInput = document.getElementById('createPlaylistName');
+      if (!container || !nameInput) return;
+      container.innerHTML = musicLibrary.map(track => {
+        const filename = track.src.split('/').pop();
+        return `<label class="playlist-picker-item">
+          <input type="checkbox" value="${filename.replace(/"/g, '&quot;')}">
+          <span>${trackTitle(track)}</span>
+        </label>`;
+      }).join('');
+      nameInput.value = '';
+      document.getElementById('createPlaylistModal').classList.add('open');
+    }
+
+    function closeCreatePlaylistModal() {
+      document.getElementById('createPlaylistModal').classList.remove('open');
     }
 
     audio.addEventListener('loadedmetadata', () => {
@@ -3018,6 +3192,55 @@
     }
     if (modeOnce) modeOnce.addEventListener('change', () => { if (modeOnce.checked) repeatMode = 'once'; });
     if (modeLoop) modeLoop.addEventListener('change', () => { if (modeLoop.checked) repeatMode = 'loop'; });
+
+    if (speedBtn) {
+      speedBtn.addEventListener('click', () => {
+        const idx = MUSIC_SPEEDS.indexOf(musicSpeed);
+        musicSpeed = MUSIC_SPEEDS[(idx + 1) % MUSIC_SPEEDS.length];
+        saveMusicSpeed(musicSpeed);
+        applyMusicSpeed();
+      });
+    }
+
+    if (playlistSelect) {
+      playlistSelect.addEventListener('change', () => activatePlaylist(playlistSelect.value || null));
+    }
+    if (createPlaylistBtn) {
+      createPlaylistBtn.addEventListener('click', openCreatePlaylistModal);
+    }
+    if (deletePlaylistBtn) {
+      deletePlaylistBtn.addEventListener('click', () => {
+        if (!activeCustomPlaylistId) return;
+        if (!confirm(t('confirm_delete_playlist'))) return;
+        saveCustomPlaylists(loadCustomPlaylists().filter(p => p.id !== activeCustomPlaylistId));
+        activatePlaylist(null);
+      });
+    }
+    const createPlaylistModalEl = document.getElementById('createPlaylistModal');
+    const createPlaylistCloseBtn = document.getElementById('createPlaylistClose');
+    const createPlaylistCancelBtn = document.getElementById('createPlaylistCancelBtn');
+    const createPlaylistSaveBtn = document.getElementById('createPlaylistSaveBtn');
+    if (createPlaylistCloseBtn) createPlaylistCloseBtn.addEventListener('click', closeCreatePlaylistModal);
+    if (createPlaylistCancelBtn) createPlaylistCancelBtn.addEventListener('click', closeCreatePlaylistModal);
+    if (createPlaylistModalEl) {
+      createPlaylistModalEl.addEventListener('click', (e) => {
+        if (e.target === createPlaylistModalEl) closeCreatePlaylistModal();
+      });
+    }
+    if (createPlaylistSaveBtn) {
+      createPlaylistSaveBtn.addEventListener('click', () => {
+        const name = document.getElementById('createPlaylistName').value.trim();
+        if (!name) { alert(t('create_playlist_name_required_alert')); return; }
+        const checked = Array.from(document.querySelectorAll('#createPlaylistSongs input:checked')).map(cb => cb.value);
+        if (!checked.length) { alert(t('create_playlist_songs_required_alert')); return; }
+        const list = loadCustomPlaylists();
+        const id = uid('pl');
+        list.push({ id, name, songs: checked });
+        saveCustomPlaylists(list);
+        closeCreatePlaylistModal();
+        activatePlaylist(id);
+      });
+    }
 
     // Start each visit on a random song, drawn from a full shuffle of the
     // playlist, so it's not always Nadiya Chale first — and since a shuffle

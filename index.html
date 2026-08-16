@@ -17,7 +17,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#123C82">
-<link rel="stylesheet" href="style.css?v=45">
+<link rel="stylesheet" href="style.css?v=46">
 <script>(function(){try{if(localStorage.getItem('europeTripTheme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
 </head>
 <body>
@@ -90,6 +90,12 @@
     <button type="button" class="music-shuffle-btn" id="musicShuffleBtn" aria-pressed="false">
       <span>🔀</span> <span data-i18n="music_mode_shuffle">Shuffle</span>
     </button>
+    <button type="button" class="music-speed-btn" id="musicSpeedBtn" aria-label="Playback speed" title="Playback speed">1×</button>
+  </div>
+  <div class="music-playlist-select-row">
+    <select class="music-playlist-select" id="musicPlaylistSelect" aria-label="Choose playlist"></select>
+    <button type="button" class="music-create-playlist-btn" id="musicCreatePlaylistBtn" data-i18n="music_create_playlist_btn">+ New Playlist</button>
+    <button type="button" class="music-delete-playlist-btn" id="musicDeletePlaylistBtn" title="Delete this playlist" aria-label="Delete this playlist" style="display:none;">🗑</button>
   </div>
   <ol class="music-playlist-list" id="musicPlaylistList"></ol>
 </div>
@@ -463,10 +469,31 @@
   </div>
 </div>
 
+<div class="modal" id="createPlaylistModal">
+  <div class="modal-box">
+    <button class="modal-close" id="createPlaylistClose">&times;</button>
+    <h3 data-i18n="create_playlist_title">Create Playlist</h3>
+    <div class="modal-body">
+      <label class="form-field">
+        <span data-i18n="create_playlist_name_label">Playlist name</span>
+        <input type="text" id="createPlaylistName">
+      </label>
+      <label class="form-field">
+        <span data-i18n="create_playlist_songs_label">Choose songs</span>
+      </label>
+      <div class="playlist-picker-list" id="createPlaylistSongs"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="danger" id="createPlaylistCancelBtn" data-i18n="add_place_cancel_btn">Cancel</button>
+      <button class="primary" id="createPlaylistSaveBtn" data-i18n="create_playlist_save_btn">Save Playlist</button>
+    </div>
+  </div>
+</div>
+
 <div class="confetti-container" id="confettiContainer"></div>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="script.js?v=45"></script>
+<script src="script.js?v=46"></script>
 </body>
 </html>
