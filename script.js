@@ -2988,6 +2988,42 @@
     let musicSpeed = loadMusicSpeed();
     let musicVolume = loadMusicVolume();
     let mutedPreviousVolume = musicVolume || 100;
+    let audioCtx = null;
+    let gainNode = null;
+
+    // iOS Safari silently ignores <audio>.volume — Apple deliberately disables
+    // JS-driven volume control there so only the hardware buttons work (the
+    // property can be set without error, it just has no audible effect and the
+    // element quietly reports 1 again). Routing playback through the Web Audio
+    // API and adjusting a GainNode instead sidesteps that restriction and
+    // actually changes the audible level on every platform, iOS included.
+    // Falls back to plain audio.volume if Web Audio API isn't available at all.
+    function ensureAudioGraph() {
+      if (gainNode) return true;
+      try {
+        const Ctx = window.AudioContext || window.webkitAudioContext;
+        if (!Ctx) return false;
+        audioCtx = new Ctx();
+        const source = audioCtx.createMediaElementSource(audio);
+        gainNode = audioCtx.createGain();
+        source.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        return true;
+      } catch (e) {
+        audioCtx = null;
+        gainNode = null;
+        return false;
+      }
+    }
+
+    // AudioContexts start (or get put back into) a "suspended" state until a
+    // user gesture unlocks audio — call this from every user-initiated play
+    // action so the gain node actually produces sound.
+    function resumeAudioGraph() {
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume().catch(() => {});
+      }
+    }
 
     function fmtTime(sec) {
       if (!isFinite(sec) || sec < 0) sec = 0;
@@ -3020,7 +3056,12 @@
     }
 
     function applyMusicVolume() {
-      audio.volume = musicVolume / 100;
+      const level = musicVolume / 100;
+      if (gainNode) {
+        gainNode.gain.value = level;
+      } else {
+        audio.volume = level;
+      }
       if (volumeSlider) {
         volumeSlider.value = musicVolume;
         volumeSlider.style.background =
@@ -3087,7 +3128,7 @@
         const pos = shuffleOrder.indexOf(idx);
         if (pos >= 0) shufflePos = pos;
       }
-      if (autoplay) audio.play().catch(() => {});
+      if (autoplay) { resumeAudioGraph(); audio.play().catch(() => {}); }
     }
 
     // Manual prev/next: always cycles through the list, independent of
@@ -3214,7 +3255,7 @@
     audio.addEventListener('ended', autoAdvance);
 
     toggleBtn.addEventListener('click', () => {
-      if (audio.paused) audio.play().catch(() => {}); else audio.pause();
+      if (audio.paused) { resumeAudioGraph(); audio.play().catch(() => {}); } else audio.pause();
     });
 
     seek.addEventListener('input', () => {
@@ -3319,14 +3360,19 @@
       shuffleBtn.classList.add('active');
       shuffleBtn.setAttribute('aria-pressed', 'true');
     }
+    // Set up the Web Audio graph before the first play attempt so the volume
+    // slider is backed by the gain node from note one, on every platform.
+    ensureAudioGraph();
     loadTrack(shuffleOrder[0], false);
 
     // Attempt autoplay; browsers that block unmuted autoplay will reject the
     // promise, so fall back to starting on the very first user interaction.
     const playAttempt = audio.play();
+    resumeAudioGraph();
     if (playAttempt && typeof playAttempt.catch === 'function') {
       playAttempt.catch(() => {
         const resume = () => {
+          resumeAudioGraph();
           audio.play().catch(() => {});
           document.removeEventListener('click', resume);
           document.removeEventListener('keydown', resume);
