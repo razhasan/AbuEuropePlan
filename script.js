@@ -2756,20 +2756,46 @@
 
   const MUSIC_FOLDER = 'Music';
   const MUSIC_EXTS = ['mp3', 'm4a', 'wav', 'ogg'];
-  // Nice display titles for the songs we already know about — anything else found
-  // in the Music/ folder just gets its filename cleaned up into a title instead
+  // Per-song display titles, keyed by exact filename, across all 4 site languages.
+  // Song titles are proper nouns — we don't translate their *meaning*, we render
+  // each one in the script natural for that language: an Urdu/Hindi song's real
+  // title in Urdu (Nastaliq) script when Urdu is selected, kept in its Romanized
+  // spelling for en/fr/de (same idea already used for the site's original song,
+  // Nadiya Chale Ya Dhaara). French/German/English titles are already in Latin
+  // script, so they stay identical everywhere — that's how song titles normally
+  // read in any language's music apps. Anything not listed here — including any
+  // new song someone uploads — falls back to a cleaned-up version of its filename
   // (see humanizeFilename), so a new upload never needs a code change either way.
-  const MUSIC_TITLE_OVERRIDES = {
-    'NadiyaChale.mp3': { titleKey: 'music_song_name' },
-    'LaDerniereDanse.mp3': { title: 'La Dernière Danse' },
-    'GutGenug.mp3': { title: 'Gut Genug' },
-    'HawaHawa.mp3': { title: 'Hawa Hawa' }
+  const SONG_TITLES = {
+    'NadiyaChale.mp3': { en: 'Nadiya Chale Ya Dhaara', ur: 'ندیا چلے یا دھارا', fr: 'Nadiya Chale Ya Dhaara', de: 'Nadiya Chale Ya Dhaara' },
+    'LaDerniereDanse.mp3': { en: 'La Dernière Danse', ur: 'La Dernière Danse', fr: 'La Dernière Danse', de: 'La Dernière Danse' },
+    'GutGenug.mp3': { en: 'Gut Genug', ur: 'Gut Genug', fr: 'Gut Genug', de: 'Gut Genug' },
+    'HawaHawa.mp3': { en: 'Hawa Hawa', ur: 'ہوا ہوا', fr: 'Hawa Hawa', de: 'Hawa Hawa' },
+    '2AM  Coke Studio Pakistan  Season 15  Star Shah x Zeeshan Ali.mp3': { en: '2AM', ur: '2AM', fr: '2AM', de: '2AM' },
+    'Aap Kitnay Haseen  Sahir Ali Bagga  Full OST  Jeevan Nagar  Green TV Entertainment.mp3': { en: 'Aap Kitnay Haseen', ur: 'آپ کتنے حسین', fr: 'Aap Kitnay Haseen', de: 'Aap Kitnay Haseen' },
+    'Afusic - Pal Pal (Official Music Video) Prod. @AliSoomroMusic - (64 Kbps).mp3': { en: 'Pal Pal', ur: 'پل پل', fr: 'Pal Pal', de: 'Pal Pal' },
+    'Beqarar Yeh Dil - Meem Se Mohabbat OST  Singers_ Asim Azhar & Qirat Haider - HUM TV.mp3': { en: 'Beqarar Yeh Dil', ur: 'بیقرار یہ دل', fr: 'Beqarar Yeh Dil', de: 'Beqarar Yeh Dil' },
+    'Blockbuster  Coke Studio Pakistan  Season 15  Faris Shafi x Umair Butt x Gharwi Group.mp3': { en: 'Blockbuster', ur: 'Blockbuster', fr: 'Blockbuster', de: 'Blockbuster' },
+    "Céline Dion - I'm Alive (Official HD Video) - (64 Kbps).mp3": { en: "I'm Alive", ur: "I'm Alive", fr: "I'm Alive", de: "I'm Alive" },
+    'Coke Studio _ Season 14 _ Pasoori _ Ali Sethi x Shae Gill - (64 Kbps).mp3': { en: 'Pasoori', ur: 'پسوری', fr: 'Pasoori', de: 'Pasoori' },
+    'DJ Snake, Lil Jon - Turn Down for What.mp3': { en: 'Turn Down for What', ur: 'Turn Down for What', fr: 'Turn Down for What', de: 'Turn Down for What' },
+    "Heuss L'enfoiré - Moulaga (Lyrics) ft. JuL - (64 Kbps).mp3": { en: 'Moulaga', ur: 'Moulaga', fr: 'Moulaga', de: 'Moulaga' },
+    'Hum Tum - [Lyrical OST] - Singers_ Ali Zafar & Damiya Farooq - HUM TV.mp3': { en: 'Hum Tum', ur: 'ہم تم', fr: 'Hum Tum', de: 'Hum Tum' },
+    'MERI ZINDAGI HAI TU  OST  ASIM AZHAR  SABRI SISTERS  ARY DIGITAL.mp3': { en: 'Meri Zindagi Hai Tu', ur: 'میری زندگی ہے تو', fr: 'Meri Zindagi Hai Tu', de: 'Meri Zindagi Hai Tu' },
+    'Nelly Furtado - Promiscuous (Lyrics) ft. Timbaland - (64 Kbps).mp3': { en: 'Promiscuous', ur: 'Promiscuous', fr: 'Promiscuous', de: 'Promiscuous' },
+    'Reinhard Mey - Über den Wolken - (64 Kbps).mp3': { en: 'Über den Wolken', ur: 'Über den Wolken', fr: 'Über den Wolken', de: 'Über den Wolken' },
+    'Soso Maness - Petrouchka (Clip officiel) ft. PLK - (64 Kbps).mp3': { en: 'Petrouchka', ur: 'Petrouchka', fr: 'Petrouchka', de: 'Petrouchka' },
+    'Tera Hone Laga Hoon Lyrics - Ajab Prem Ki Gazab Kahaani  Pritam, Atif Aslam, Alisha Chinai.mp3': { en: 'Tera Hone Laga Hoon', ur: 'تیرا ہونے لگا ہوں', fr: 'Tera Hone Laga Hoon', de: 'Tera Hone Laga Hoon' },
+    'Tere Bin Kaise Jiya (Lyrics) - Atif Aslam, Mithoon _ Bas Ek Pal - (64 Kbps).mp3': { en: 'Tere Bin Kaise Jiya', ur: 'تیرے بن کیسے جیا', fr: 'Tere Bin Kaise Jiya', de: 'Tere Bin Kaise Jiya' },
+    'Teri Meri - Lyrics Rahat Fateh Ali Khan, Shreya Ghoshal.mp3': { en: 'Teri Meri', ur: 'تیری میری', fr: 'Teri Meri', de: 'Teri Meri' },
+    'Toh Phir Aao Video Song (4K) _ Awarapan Movie Song _ Emraan Hashmi _ Shriya Saran _ Vishesh Films - (64 Kbps).mp3': { en: 'Toh Phir Aao', ur: 'تو پھر آؤ', fr: 'Toh Phir Aao', de: 'Toh Phir Aao' },
+    'Tum Hi Ho (Lyrics)Arijit SinghAashiqui 2@tseries.mp3': { en: 'Tum Hi Ho', ur: 'تم ہی ہو', fr: 'Tum Hi Ho', de: 'Tum Hi Ho' },
+    'Y2K, bbno$ - Lalala (Official Video).mp3': { en: 'Lalala', ur: 'Lalala', fr: 'Lalala', de: 'Lalala' }
   };
   // Used instantly on load (so autoplay never waits on a network call), and kept
   // as the playlist if the live Music/ folder listing fails or comes back empty.
-  const FALLBACK_PLAYLIST = Object.keys(MUSIC_TITLE_OVERRIDES).map(name => ({
-    src: `${MUSIC_FOLDER}/${name}`, ...MUSIC_TITLE_OVERRIDES[name]
-  }));
+  const FALLBACK_SONGS = ['NadiyaChale.mp3', 'LaDerniereDanse.mp3', 'GutGenug.mp3', 'HawaHawa.mp3'];
+  const FALLBACK_PLAYLIST = FALLBACK_SONGS.map(name => ({ src: `${MUSIC_FOLDER}/${name}` }));
   let PLAYLIST = FALLBACK_PLAYLIST.slice();
   let musicCurrentIdx = 0;
 
@@ -2778,8 +2804,15 @@
     return base.replace(/[_-]+/g, ' ').replace(/\s+/g, ' ').trim().replace(/\b\w/g, c => c.toUpperCase());
   }
 
+  // Looks up the current language's title from the table above by filename, so
+  // switching languages instantly relabels every song already in the playlist —
+  // no re-fetch needed. Falls back to a cleaned-up filename for anything not in
+  // the table yet (e.g. a brand new upload).
   function trackTitle(track) {
-    return track.titleKey ? t(track.titleKey) : track.title;
+    const filename = track.src.split('/').pop();
+    const entry = SONG_TITLES[filename];
+    if (entry) return entry[LANG] || entry.en;
+    return humanizeFilename(filename);
   }
 
   function renderMusicPlayerTexts() {
@@ -2932,11 +2965,7 @@
       const musicFiles = files.filter(n => MUSIC_EXTS.includes(fileExt(n)));
       if (!musicFiles.length) return; // empty folder — keep the fallback playlist
 
-      const dynamic = musicFiles.map(n => {
-        const src = `${MUSIC_FOLDER}/${n}`;
-        const override = MUSIC_TITLE_OVERRIDES[n];
-        return override ? { src, ...override } : { src, title: humanizeFilename(n) };
-      });
+      const dynamic = musicFiles.map(n => ({ src: `${MUSIC_FOLDER}/${n}` }));
 
       const currentSrc = PLAYLIST[musicCurrentIdx] ? PLAYLIST[musicCurrentIdx].src : null;
       PLAYLIST = dynamic;
