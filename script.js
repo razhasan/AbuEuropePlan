@@ -2895,13 +2895,16 @@
   }
 
   // Volume — 0 to 100, saved per-device like speed, so it carries over between
-  // songs and visits instead of always starting back at full blast.
+  // songs and visits instead of always starting back at full blast. Starts at
+  // 50% by default rather than 100%, so first-time visitors aren't hit with
+  // full volume immediately.
   const MUSIC_VOLUME_KEY = 'europeTripMusicVolume';
+  const DEFAULT_MUSIC_VOLUME = 50;
   function loadMusicVolume() {
     try {
       const v = parseInt(localStorage.getItem(MUSIC_VOLUME_KEY), 10);
-      return (Number.isFinite(v) && v >= 0 && v <= 100) ? v : 100;
-    } catch (e) { return 100; }
+      return (Number.isFinite(v) && v >= 0 && v <= 100) ? v : DEFAULT_MUSIC_VOLUME;
+    } catch (e) { return DEFAULT_MUSIC_VOLUME; }
   }
   function saveMusicVolume(v) {
     try { localStorage.setItem(MUSIC_VOLUME_KEY, String(v)); } catch (e) {}
@@ -2987,7 +2990,7 @@
     let shufflePos = 0;
     let musicSpeed = loadMusicSpeed();
     let musicVolume = loadMusicVolume();
-    let mutedPreviousVolume = musicVolume || 100;
+    let mutedPreviousVolume = musicVolume || DEFAULT_MUSIC_VOLUME;
     let audioCtx = null;
     let gainNode = null;
 
@@ -2998,31 +3001,39 @@
     // API and adjusting a GainNode instead sidesteps that restriction and
     // actually changes the audible level on every platform, iOS included.
     // Falls back to plain audio.volume if Web Audio API isn't available at all.
-    function ensureAudioGraph() {
-      if (gainNode) return true;
-      try {
-        const Ctx = window.AudioContext || window.webkitAudioContext;
-        if (!Ctx) return false;
-        audioCtx = new Ctx();
-        const source = audioCtx.createMediaElementSource(audio);
-        gainNode = audioCtx.createGain();
-        source.connect(gainNode);
-        gainNode.connect(audioCtx.destination);
-        return true;
-      } catch (e) {
-        audioCtx = null;
-        gainNode = null;
-        return false;
+    //
+    // IMPORTANT: this must only ever be set up from inside a real user gesture
+    // (a click/tap), never from the automatic page-load autoplay attempt.
+    // A freshly created AudioContext starts "suspended" until a genuine user
+    // gesture unlocks it — resume() called outside one is a no-op in most
+    // browsers. Routing the <audio> element into a still-suspended graph
+    // silences it completely (the element keeps advancing — the seek bar
+    // moves — but the graph drops all its audio on the floor), which is
+    // exactly the "progress bar moves, no sound until I click next" bug this
+    // caused the first time around. Letting the very first automatic play
+    // attempt use plain audio.volume (untouched by this graph at all) avoids
+    // that trap; the graph gets created the moment the user actually
+    // interacts (tapping play, next/prev, or the volume controls themselves).
+    function unlockAudioGraph() {
+      if (!gainNode) {
+        try {
+          const Ctx = window.AudioContext || window.webkitAudioContext;
+          if (Ctx) {
+            audioCtx = new Ctx();
+            const source = audioCtx.createMediaElementSource(audio);
+            gainNode = audioCtx.createGain();
+            source.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+          }
+        } catch (e) {
+          audioCtx = null;
+          gainNode = null;
+        }
       }
-    }
-
-    // AudioContexts start (or get put back into) a "suspended" state until a
-    // user gesture unlocks audio — call this from every user-initiated play
-    // action so the gain node actually produces sound.
-    function resumeAudioGraph() {
       if (audioCtx && audioCtx.state === 'suspended') {
         audioCtx.resume().catch(() => {});
       }
+      applyMusicVolume(); // re-apply so the gain node picks up the current level immediately
     }
 
     function fmtTime(sec) {
@@ -3109,7 +3120,7 @@
         icon.className = 'playlist-track-playing-icon';
         icon.textContent = '🔊';
         li.append(num, title, icon);
-        li.addEventListener('click', () => loadTrack(i, true));
+        li.addEventListener('click', () => { unlockAudioGraph(); loadTrack(i, true); });
         listEl.appendChild(li);
       });
     }
@@ -3128,12 +3139,13 @@
         const pos = shuffleOrder.indexOf(idx);
         if (pos >= 0) shufflePos = pos;
       }
-      if (autoplay) { resumeAudioGraph(); audio.play().catch(() => {}); }
+      if (autoplay) audio.play().catch(() => {});
     }
 
     // Manual prev/next: always cycles through the list, independent of
     // the once/loop setting (that setting only governs auto-advance).
     function manualStep(direction) {
+      unlockAudioGraph();
       if (shuffleOn) {
         shufflePos = (shufflePos + direction + shuffleOrder.length) % shuffleOrder.length;
         loadTrack(shuffleOrder[shufflePos], true);
@@ -3202,6 +3214,7 @@
     // back to the full library when id is falsy. Keeps playing (if it already
     // was) so picking a playlist mid-song doesn't abruptly go silent.
     function activatePlaylist(id) {
+      unlockAudioGraph();
       const wasPlaying = !audio.paused;
       if (id) {
         const found = loadCustomPlaylists().find(p => p.id === id);
@@ -3255,7 +3268,7 @@
     audio.addEventListener('ended', autoAdvance);
 
     toggleBtn.addEventListener('click', () => {
-      if (audio.paused) { resumeAudioGraph(); audio.play().catch(() => {}); } else audio.pause();
+      if (audio.paused) { unlockAudioGraph(); audio.play().catch(() => {}); } else audio.pause();
     });
 
     seek.addEventListener('input', () => {
@@ -3299,14 +3312,14 @@
         musicVolume = Number(volumeSlider.value);
         if (musicVolume > 0) mutedPreviousVolume = musicVolume;
         saveMusicVolume(musicVolume);
-        applyMusicVolume();
+        unlockAudioGraph(); // dragging the slider is itself a real gesture — good moment to unlock too
       });
     }
     if (volumeBtn) {
       volumeBtn.addEventListener('click', () => {
-        musicVolume = musicVolume > 0 ? 0 : (mutedPreviousVolume || 100);
+        musicVolume = musicVolume > 0 ? 0 : (mutedPreviousVolume || DEFAULT_MUSIC_VOLUME);
         saveMusicVolume(musicVolume);
-        applyMusicVolume();
+        unlockAudioGraph();
       });
     }
 
@@ -3360,19 +3373,22 @@
       shuffleBtn.classList.add('active');
       shuffleBtn.setAttribute('aria-pressed', 'true');
     }
-    // Set up the Web Audio graph before the first play attempt so the volume
-    // slider is backed by the gain node from note one, on every platform.
-    ensureAudioGraph();
     loadTrack(shuffleOrder[0], false);
 
     // Attempt autoplay; browsers that block unmuted autoplay will reject the
     // promise, so fall back to starting on the very first user interaction.
+    // Deliberately NOT setting up the Web Audio graph here — this runs before
+    // any user gesture, and a freshly created AudioContext stays silently
+    // suspended until one happens, which would mute this very attempt even
+    // when the browser does allow it to autoplay. Plain audio.volume (already
+    // applied via loadTrack -> applyMusicVolume) covers this first attempt;
+    // the graph is created the moment the user actually interacts with any
+    // playback or volume control, see unlockAudioGraph().
     const playAttempt = audio.play();
-    resumeAudioGraph();
     if (playAttempt && typeof playAttempt.catch === 'function') {
       playAttempt.catch(() => {
         const resume = () => {
-          resumeAudioGraph();
+          unlockAudioGraph();
           audio.play().catch(() => {});
           document.removeEventListener('click', resume);
           document.removeEventListener('keydown', resume);
