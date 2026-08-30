@@ -1534,15 +1534,43 @@
   }
 
   function renderTimelineNowMarker(container) {
+    // Idempotent: this can be called again later (see handleSectionOpened)
+    // to fix up a position that was measured while the section was hidden —
+    // always start from a clean slate rather than stacking duplicates.
+    const existing = container.querySelector('.timeline-now-marker');
+    if (existing) existing.remove();
+
     const now = new Date();
     if (now < TRIP_START || now > TRIP_END) return;
-    const fraction = (now - TRIP_START) / (TRIP_END - TRIP_START);
+
+    const { legs } = computeSchedule();
+    const legIdx = legs.findIndex(leg => now >= leg.start && now < leg.end);
+    if (legIdx === -1) return;
+    const leg = legs[legIdx];
+    const item = container.querySelectorAll('.tl-item')[legIdx];
+    if (!item) return;
+
     const marker = document.createElement('div');
     marker.className = 'timeline-now-marker';
     marker.innerHTML = '<span class="pulse"></span><span class="now-label">' + t('timeline_now_label') + '</span>';
     container.appendChild(marker);
     requestAnimationFrame(() => {
-      marker.style.top = (fraction * container.scrollHeight) + 'px';
+      // item.offsetTop/offsetHeight read as 0 while the Timeline section is
+      // still collapsed (display:none) — which is exactly the state it's in
+      // the first time this runs, at page load. That silently pinned the
+      // marker at the very top, overlapping whichever leg card happens to be
+      // first, no matter what today's actual date is. This recomputes
+      // correctly once the section is actually visible, see
+      // handleSectionOpened().
+      //
+      // The marker is positioned within THIS leg's own card rather than by
+      // a single (now - TRIP_START) / (TRIP_END - TRIP_START) fraction of
+      // the whole container: every leg's card renders at the same height
+      // regardless of how many days that leg actually spans (e.g. 47 days
+      // in Paris vs 7 in Stuttgart), so a global fraction would drift onto
+      // the wrong card whenever the legs aren't evenly sized.
+      const withinLegFraction = (now - leg.start) / (leg.end - leg.start);
+      marker.style.top = (item.offsetTop + withinLegFraction * item.offsetHeight) + 'px';
     });
   }
 
@@ -2665,6 +2693,14 @@
     if (sec.id === 'tripmap') {
       if (!tripMapInstance) initTripMapIfNeeded();
       else setTimeout(() => tripMapInstance.invalidateSize(), 200);
+    }
+    if (sec.id === 'timeline') {
+      // The section was just made visible (display:block), so scrollHeight
+      // now reads its real value — recompute the NOW marker's position.
+      const container = document.getElementById('timelineContainer');
+      if (container) {
+        requestAnimationFrame(() => renderTimelineNowMarker(container));
+      }
     }
   }
 
