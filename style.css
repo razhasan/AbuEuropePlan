@@ -482,6 +482,12 @@ a { color: var(--fr-blue); }
 .planner-field label { font-weight: 700; font-size: 0.85rem; color: var(--navy); }
 .planner-field .hint { font-size: 0.75rem; color: var(--muted); }
 .planner-field input[type="range"] { width: 100%; accent-color: var(--fr-blue); }
+/* Already-happened leg (e.g. a stay that's now historical fact) — visually
+   dimmed and non-interactive rather than just disabled with no explanation. */
+.planner-field.locked { background: var(--pastel-blue); padding: 10px 12px; opacity: 0.8; }
+.planner-field.locked .planner-value { color: var(--muted); }
+.planner-field.locked input[type="range"] { cursor: not-allowed; accent-color: var(--muted); }
+.planner-field.locked .hint { color: var(--fr-blue); font-weight: 600; }
 .planner-value { font-weight: 700; color: var(--fr-blue); font-family: Georgia, serif; font-size: 1.15rem; }
 
 .slider-row { display: flex; align-items: center; gap: 10px; }
