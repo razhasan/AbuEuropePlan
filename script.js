@@ -266,6 +266,8 @@
       slideshow_photos_h3: '1. Choose photos',
       slideshow_select_all_btn: 'Select All',
       slideshow_clear_btn: 'Clear',
+      slideshow_deselect_all_btn: '🗑 Deselect All',
+      slideshow_close_video_title: 'Close',
       slideshow_selected_count: '{count} selected',
       slideshow_photos_loading: 'Loading photos…',
       slideshow_photos_empty: 'No souvenir photos yet — add some in the Souvenirs section above first.',
@@ -491,6 +493,8 @@
       slideshow_photos_h3: '1۔ تصاویر منتخب کریں',
       slideshow_select_all_btn: 'سب منتخب کریں',
       slideshow_clear_btn: 'صاف کریں',
+      slideshow_deselect_all_btn: '🗑 سب غیر منتخب کریں',
+      slideshow_close_video_title: 'بند کریں',
       slideshow_selected_count: '{count} منتخب',
       slideshow_photos_loading: 'تصاویر لوڈ ہو رہی ہیں…',
       slideshow_photos_empty: 'ابھی تک کوئی یادگار تصویر نہیں — پہلے اوپر یادگاریں کے سیکشن میں کچھ شامل کریں۔',
@@ -716,6 +720,8 @@
       slideshow_photos_h3: '1. Choisir des photos',
       slideshow_select_all_btn: 'Tout sélectionner',
       slideshow_clear_btn: 'Effacer',
+      slideshow_deselect_all_btn: '🗑 Tout désélectionner',
+      slideshow_close_video_title: 'Fermer',
       slideshow_selected_count: '{count} sélectionnée(s)',
       slideshow_photos_loading: 'Chargement des photos…',
       slideshow_photos_empty: "Aucune photo souvenir pour l'instant — ajoutez-en d'abord dans la section Souvenirs ci-dessus.",
@@ -942,6 +948,8 @@
       slideshow_photos_h3: '1. Fotos auswählen',
       slideshow_select_all_btn: 'Alle auswählen',
       slideshow_clear_btn: 'Leeren',
+      slideshow_deselect_all_btn: '🗑 Alle abwählen',
+      slideshow_close_video_title: 'Schließen',
       slideshow_selected_count: '{count} ausgewählt',
       slideshow_photos_loading: 'Fotos werden geladen…',
       slideshow_photos_empty: 'Noch keine Andenkenfotos — fügen Sie zuerst welche im Abschnitt Andenken oben hinzu.',
@@ -1015,6 +1023,16 @@
     updateWhatsappShareLink();
     applyLightboxNavLabels();
     applyMusicPlayerLabels();
+    applySlideshowLabels();
+  }
+
+  function applySlideshowLabels() {
+    const closeBtn = document.getElementById('slideshowResultCloseBtn');
+    if (closeBtn) {
+      const label = t('slideshow_close_video_title');
+      closeBtn.title = label;
+      closeBtn.setAttribute('aria-label', label);
+    }
   }
 
   function applyMusicPlayerLabels() {
@@ -3954,12 +3972,35 @@
     alert(t('share_fallback_alert'));
   }
 
+  // Shared by both the top "Clear" button and the "Deselect All" button next
+  // to Generate — the latter exists so it's still one tap away right where
+  // you're about to generate, without scrolling back up past a big grid to
+  // reconsider your picks.
+  function deselectAllSlideshowPhotos() {
+    slideshowSelected.clear();
+    renderSlideshowPhotoGrid();
+  }
+
+  // Dismisses a generated video you don't want to keep — hides the preview
+  // and frees its blob URL, but leaves your photo/song/duration choices
+  // alone so adjusting one and hitting Generate again is a single tap.
+  function closeSlideshowResult() {
+    const resultSection = document.getElementById('slideshowResult');
+    const video = document.getElementById('slideshowPreviewVideo');
+    if (video) { video.pause(); video.removeAttribute('src'); video.load(); }
+    if (slideshowResultUrl) { URL.revokeObjectURL(slideshowResultUrl); slideshowResultUrl = null; }
+    slideshowResultBlob = null;
+    if (resultSection) resultSection.style.display = 'none';
+  }
+
   function initSlideshow() {
     const selectAllBtn = document.getElementById('slideshowSelectAllBtn');
     const clearBtn = document.getElementById('slideshowClearBtn');
+    const deselectAllBtn = document.getElementById('slideshowDeselectAllBtn');
     const durationInput = document.getElementById('slideshowDuration');
     const generateBtn = document.getElementById('slideshowGenerateBtn');
     const shareBtn = document.getElementById('slideshowShareBtn');
+    const resultCloseBtn = document.getElementById('slideshowResultCloseBtn');
     if (!generateBtn) return;
 
     if (!slideshowSupported()) {
@@ -3971,16 +4012,15 @@
       slideshowAllPhotos.forEach(p => slideshowSelected.add(p.src));
       renderSlideshowPhotoGrid();
     });
-    if (clearBtn) clearBtn.addEventListener('click', () => {
-      slideshowSelected.clear();
-      renderSlideshowPhotoGrid();
-    });
+    if (clearBtn) clearBtn.addEventListener('click', deselectAllSlideshowPhotos);
+    if (deselectAllBtn) deselectAllBtn.addEventListener('click', deselectAllSlideshowPhotos);
     if (durationInput) durationInput.addEventListener('input', () => {
       slideshowDurationPerPhoto = parseInt(durationInput.value, 10);
       updateSlideshowDurationLabel();
     });
     generateBtn.addEventListener('click', generateSlideshow);
     if (shareBtn) shareBtn.addEventListener('click', shareSlideshowViaWhatsApp);
+    if (resultCloseBtn) resultCloseBtn.addEventListener('click', closeSlideshowResult);
 
     updateSlideshowDurationLabel();
     updateSlideshowSelectedCount();

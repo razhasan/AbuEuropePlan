@@ -17,7 +17,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#123C82">
-<link rel="stylesheet" href="style.css?v=54">
+<link rel="stylesheet" href="style.css?v=55">
 <script>(function(){try{if(localStorage.getItem('europeTripTheme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
 </head>
 <body>
@@ -389,6 +389,7 @@
 
   <div class="share-toolbar">
     <button type="button" class="btn-primary" id="slideshowGenerateBtn" data-i18n="slideshow_generate_btn">🎬 Generate Slideshow</button>
+    <button type="button" class="btn-ghost" id="slideshowDeselectAllBtn" data-i18n="slideshow_deselect_all_btn">🗑 Deselect All</button>
   </div>
 
   <div id="slideshowProgress" class="slideshow-progress" style="display:none;">
@@ -397,7 +398,10 @@
   </div>
 
   <div id="slideshowResult" class="slideshow-result" style="display:none;">
-    <h3 class="subheading" data-i18n="slideshow_preview_h3">Your Slideshow</h3>
+    <div class="slideshow-result-header">
+      <h3 class="subheading" data-i18n="slideshow_preview_h3">Your Slideshow</h3>
+      <button type="button" class="slideshow-result-close" id="slideshowResultCloseBtn" title="Close" aria-label="Close">✕</button>
+    </div>
     <video id="slideshowPreviewVideo" controls playsinline></video>
     <div class="share-toolbar">
       <button type="button" class="btn-primary whatsapp-share-btn" id="slideshowShareBtn" data-i18n="slideshow_share_btn">📤 Share on WhatsApp</button>
@@ -548,6 +552,6 @@
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="script.js?v=54"></script>
+<script src="script.js?v=55"></script>
 </body>
 </html>
