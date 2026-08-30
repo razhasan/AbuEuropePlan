@@ -274,6 +274,8 @@
       slideshow_duration_h3: '3. Seconds per photo',
       slideshow_duration_value: '{s}s per photo',
       slideshow_generate_btn: '🎬 Generate Slideshow',
+      slideshow_preparing_label: 'Preparing photos… {n}/{total}',
+      slideshow_long_warning: 'This slideshow will run about {total} seconds — that can be slow or unreliable on some phones. Continue anyway?',
       slideshow_generating_label: 'Recording… {sec}s / {total}s',
       slideshow_preview_h3: 'Your Slideshow',
       slideshow_share_btn: '📤 Share on WhatsApp',
@@ -497,6 +499,8 @@
       slideshow_duration_h3: '3۔ فی تصویر سیکنڈ',
       slideshow_duration_value: '{s} سیکنڈ فی تصویر',
       slideshow_generate_btn: '🎬 سلائیڈ شو بنائیں',
+      slideshow_preparing_label: 'تصاویر تیار ہو رہی ہیں… {n}/{total}',
+      slideshow_long_warning: 'یہ سلائیڈ شو تقریباً {total} سیکنڈ کا ہوگا — یہ کچھ فونز پر سست یا ناقابل اعتماد ہو سکتا ہے۔ پھر بھی جاری رکھیں؟',
       slideshow_generating_label: 'ریکارڈ ہو رہا ہے… {sec} از {total} سیکنڈ',
       slideshow_preview_h3: 'آپ کا سلائیڈ شو',
       slideshow_share_btn: '📤 واٹس ایپ پر شیئر کریں',
@@ -720,6 +724,8 @@
       slideshow_duration_h3: '3. Secondes par photo',
       slideshow_duration_value: '{s}s par photo',
       slideshow_generate_btn: '🎬 Générer le Diaporama',
+      slideshow_preparing_label: 'Préparation des photos… {n}/{total}',
+      slideshow_long_warning: 'Ce diaporama durera environ {total} secondes — cela peut être lent ou peu fiable sur certains téléphones. Continuer quand même ?',
       slideshow_generating_label: 'Enregistrement… {sec}s / {total}s',
       slideshow_preview_h3: 'Votre Diaporama',
       slideshow_share_btn: '📤 Partager sur WhatsApp',
@@ -944,6 +950,8 @@
       slideshow_duration_h3: '3. Sekunden pro Foto',
       slideshow_duration_value: '{s}s pro Foto',
       slideshow_generate_btn: '🎬 Diashow erstellen',
+      slideshow_preparing_label: 'Fotos werden vorbereitet… {n}/{total}',
+      slideshow_long_warning: 'Diese Diashow dauert etwa {total} Sekunden — das kann auf manchen Handys langsam oder unzuverlässig sein. Trotzdem fortfahren?',
       slideshow_generating_label: 'Aufnahme läuft… {sec}s / {total}s',
       slideshow_preview_h3: 'Ihre Diashow',
       slideshow_share_btn: '📤 Auf WhatsApp teilen',
@@ -3605,7 +3613,13 @@
      — no server, no app, no ffmpeg — which is why this is worth doing on an
      iPhone specifically; other browsers fall back to .webm, which still shares
      fine but may land in WhatsApp as a document rather than an inline video. */
-  const SLIDESHOW_SIZE = 1080; // square canvas — crops every photo to fill it, whatever its own orientation
+  const SLIDESHOW_SIZE = 720; // square canvas — crops every photo to fill it, whatever its own orientation.
+  // Kept modest on purpose: every selected photo gets decoded and redrawn onto
+  // a canvas this size (see preloadAndDownscale) rather than kept at its full
+  // camera resolution, which is what made large selections (20+ real iPhone
+  // photos) unreliable — decoding that many multi-megapixel originals at once
+  // could exceed a phone browser's memory budget and produce a corrupt or
+  // unplayable recording. 720px is still sharp enough for a WhatsApp video.
   let slideshowAllPhotos = [];      // [{ src, catId }] across every static souvenir category
   let slideshowPhotosLoaded = false;
   const slideshowSelected = new Set();
@@ -3716,6 +3730,21 @@
     });
   }
 
+  // Decodes one photo, immediately redraws it onto a small SLIDESHOW_SIZE
+  // canvas, and lets the full-resolution original be garbage-collected —
+  // called one photo at a time (not Promise.all'd) so at most one
+  // full-resolution decode is ever in memory simultaneously, however many
+  // photos are selected. The returned canvas is what generateSlideshow
+  // actually keeps around and draws from for the rest of the recording.
+  async function preloadAndDownscale(src) {
+    const img = await preloadImage(src);
+    const off = document.createElement('canvas');
+    off.width = SLIDESHOW_SIZE;
+    off.height = SLIDESHOW_SIZE;
+    drawImageCover(off.getContext('2d'), img, SLIDESHOW_SIZE, 1);
+    return off;
+  }
+
   function pickSlideshowMimeType() {
     const candidates = [
       'video/mp4;codecs=avc1.42E01E,mp4a.40.2', // Safari/iOS — real mp4, straight out of MediaRecorder
@@ -3740,6 +3769,12 @@
     const songSrc = songSelect ? songSelect.value : '';
     if (!songSrc) { alert(t('slideshow_no_song_alert')); return; }
     if (!slideshowSupported()) { showSlideshowUnsupported(); return; }
+
+    // A long recording (many photos and/or a long duration each) is more
+    // likely to be slow or unreliable on some phones — this is a heads-up,
+    // not a hard cap, since there's no fixed limit on photo count.
+    const estimatedSeconds = selectedSrcs.length * slideshowDurationPerPhoto;
+    if (estimatedSeconds > 90 && !confirm(t('slideshow_long_warning', { total: estimatedSeconds }))) return;
 
     slideshowBusy = true;
     const generateBtn = document.getElementById('slideshowGenerateBtn');
@@ -3783,9 +3818,17 @@
       return;
     }
 
-    let images;
+    // Decode + downscale one photo at a time (not Promise.all'd) so memory
+    // stays bounded regardless of how many photos are selected — see
+    // preloadAndDownscale. Shown as its own progress phase since this can
+    // take a few seconds for a large selection.
+    let images = [];
     try {
-      images = await Promise.all(selectedSrcs.map(preloadImage));
+      for (let i = 0; i < selectedSrcs.length; i++) {
+        if (progressText) progressText.textContent = t('slideshow_preparing_label', { n: i + 1, total: selectedSrcs.length });
+        if (progressFill) progressFill.style.width = Math.round((i / selectedSrcs.length) * 100) + '%';
+        images.push(await preloadAndDownscale(selectedSrcs[i]));
+      }
     } catch (e) {
       bail();
       alert(t('souvenirs_load_error'));
@@ -3793,6 +3836,7 @@
       if (bgAudioEl && bgWasPlaying) bgAudioEl.play().catch(() => {});
       return;
     }
+    if (progressFill) progressFill.style.width = '0%';
 
     const canvas = document.createElement('canvas');
     canvas.width = SLIDESHOW_SIZE;
@@ -3805,9 +3849,16 @@
     ]);
     const mimeType = pickSlideshowMimeType();
 
+    // Capping the bitrate keeps the file a reasonable size for a long
+    // slideshow (a totally unconstrained bitrate on a 60+ second recording
+    // can balloon to a file too large for WhatsApp, or too large for a phone
+    // to smoothly play back straight after generating it) without visibly
+    // hurting quality for a video shared over WhatsApp.
+    const recorderOpts = { videoBitsPerSecond: 2_500_000 };
+    if (mimeType) recorderOpts.mimeType = mimeType;
     let recorder;
     try {
-      recorder = mimeType ? new MediaRecorder(combinedStream, { mimeType }) : new MediaRecorder(combinedStream);
+      recorder = new MediaRecorder(combinedStream, recorderOpts);
     } catch (e) {
       bail();
       showSlideshowUnsupported();
@@ -3824,7 +3875,11 @@
     const totalSeconds = images.length * slideshowDurationPerPhoto;
     const transitionSeconds = Math.min(0.6, slideshowDurationPerPhoto / 2);
 
-    recorder.start();
+    // A 1-second timeslice flushes encoded data periodically instead of
+    // buffering the entire recording in memory until stop() — important for
+    // longer slideshows, and this is also what makes Safari's fragmented-mp4
+    // output valid to play back afterward.
+    recorder.start(1000);
     audioEl.currentTime = 0;
     try { await audioEl.play(); } catch (e) { /* recording continues silently if this is blocked */ }
 
