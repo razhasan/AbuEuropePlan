@@ -17,7 +17,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#123C82">
-<link rel="stylesheet" href="style.css?v=50">
+<link rel="stylesheet" href="style.css?v=51">
 <script>(function(){try{if(localStorage.getItem('europeTripTheme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
 </head>
 <body>
@@ -170,14 +170,14 @@
 
   <div class="planner-card">
     <div class="planner-grid">
-      <div class="planner-field locked">
+      <div class="planner-field">
         <label><span data-i18n="planner_field_sisterFirst_label">Bonn — Arrival stay (Busrah)</span> <span class="planner-value" id="val-sisterFirst"></span></label>
         <div class="slider-row">
-          <button type="button" class="stepper-btn" data-key="sisterFirst" data-dir="-1" aria-label="Decrease" disabled>−</button>
-          <input type="range" id="sisterFirst" min="14" max="14" step="1" value="14" disabled>
-          <button type="button" class="stepper-btn" data-key="sisterFirst" data-dir="1" aria-label="Increase" disabled>+</button>
+          <button type="button" class="stepper-btn" data-key="sisterFirst" data-dir="-1" aria-label="Decrease">−</button>
+          <input type="range" id="sisterFirst" min="1" max="42" step="1" value="14">
+          <button type="button" class="stepper-btn" data-key="sisterFirst" data-dir="1" aria-label="Increase">+</button>
         </div>
-        <span class="hint" data-i18n="planner_field_sisterFirst_hint">🔒 Fixed — this already happened (10–24 Aug)</span>
+        <span class="hint" data-i18n="planner_field_sisterFirst_hint">Right after landing, before heading to Paris</span>
       </div>
       <div class="planner-field">
         <label><span data-i18n="planner_field_withYou_label">Paris / Verneuil-en-Halatte (You)</span> <span class="planner-value" id="val-withYou"></span></label>
@@ -499,6 +499,6 @@
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="script.js?v=50"></script>
+<script src="script.js?v=51"></script>
 </body>
 </html>

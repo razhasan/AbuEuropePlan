@@ -137,13 +137,14 @@
       planner_h2: 'Trip Duration Planner',
       planner_intro: "Landing (Aug 10, 18:10) and the return flight (Oct 19, 19:00) are fixed — that's exactly 10 weeks. Busrah's first stay (10–24 Aug) is now fixed too, since it's already happened. Drag the remaining sliders to divide the rest of those 10 weeks between your stay in Paris, Abdullah's stay in Stuttgart, and Busrah's final stay, in that order — every date on this page updates instantly.",
       planner_field_sisterFirst_label: 'Bonn — Arrival stay (Busrah)',
-      planner_field_sisterFirst_hint: '🔒 Fixed — this already happened (10–24 Aug)',
+      planner_field_sisterFirst_hint: 'Right after landing, before heading to Paris',
       planner_field_withYou_label: 'Paris / Verneuil-en-Halatte (You)',
       planner_field_withYou_hint: 'Starts 24 Aug (right after Bonn) — rest week + sightseeing',
       planner_field_Abdullah_label: 'Stuttgart — Abdullah',
       planner_field_Abdullah_hint: 'Flexible — adjust to fit the total',
       planner_field_sisterFinal_label: 'Bonn — Final stay (Busrah)',
       planner_field_sisterFinal_hint: 'Until the Oct 19 flight home',
+      planner_field_locked_hint: '🔒 Fixed — this already happened ({start} – {end})',
       week_singular: 'week', week_plural: 'weeks',
       day_singular: 'day', day_plural: 'days',
       unit_toggle_weeks: 'Weeks', unit_toggle_days: 'Days',
@@ -337,13 +338,14 @@
       planner_h2: 'سفر کے دورانیے کا منصوبہ',
       planner_intro: 'پہنچنے کا وقت (10 اگست، 18:10) اور واپسی کی پرواز (19 اکتوبر، 19:00) طے شدہ ہیں — یعنی مکمل 10 ہفتے۔ بشریٰ کا پہلا قیام (10–24 اگست) بھی اب طے شدہ ہے، کیونکہ یہ پہلے ہی ہو چکا ہے۔ باقی سلائیڈرز کو حرکت دے کر باقی 10 ہفتے اسی ترتیب میں تقسیم کریں: پیرس میں آپ کے پاس قیام، سٹٹگارٹ میں عبداللہ کے پاس قیام، اور بشریٰ کے پاس آخری قیام — اس صفحے کی ہر تاریخ فوراً اپ ڈیٹ ہو جائے گی۔',
       planner_field_sisterFirst_label: 'بون — آمد پر قیام (بشریٰ)',
-      planner_field_sisterFirst_hint: '🔒 طے شدہ — یہ پہلے ہی ہو چکا ہے (10–24 اگست)',
+      planner_field_sisterFirst_hint: 'پہنچنے کے فوراً بعد، پیرس جانے سے پہلے',
       planner_field_withYou_label: 'پیرس / ورنوے آں ہالات (آپ)',
       planner_field_withYou_hint: '24 اگست سے شروع (بون کے فوراً بعد) — آرام کا ہفتہ + سیر و تفریح',
       planner_field_Abdullah_label: 'سٹٹگارٹ — عبداللہ',
       planner_field_Abdullah_hint: 'لچکدار — کل میزان کے مطابق ایڈجسٹ کریں',
       planner_field_sisterFinal_label: 'بون — آخری قیام (بشریٰ)',
       planner_field_sisterFinal_hint: '19 اکتوبر کی واپسی پرواز تک',
+      planner_field_locked_hint: '🔒 طے شدہ — یہ پہلے ہی ہو چکا ہے ({start} – {end})',
       week_singular: 'ہفتہ', week_plural: 'ہفتے',
       day_singular: 'دن', day_plural: 'دن',
       unit_toggle_weeks: 'ہفتے', unit_toggle_days: 'دن',
@@ -537,13 +539,14 @@
       planner_h2: 'Planificateur de Durée du Voyage',
       planner_intro: "L'atterrissage (10 août, 18h10) et le vol de retour (19 octobre, 19h00) sont fixes — soit exactement 10 semaines. Le premier séjour de Busrah (10–24 août) est désormais fixe aussi, puisqu'il a déjà eu lieu. Faites glisser les curseurs restants pour répartir le reste de ces 10 semaines, dans cet ordre : votre séjour à Paris, le séjour d'Abdullah à Stuttgart, puis le séjour final de Busrah — chaque date sur cette page se met à jour instantanément.",
       planner_field_sisterFirst_label: "Bonn — Séjour à l'arrivée (Busrah)",
-      planner_field_sisterFirst_hint: "🔒 Fixé — c'est déjà arrivé (10–24 août)",
+      planner_field_sisterFirst_hint: "Juste après l'atterrissage, avant de partir pour Paris",
       planner_field_withYou_label: 'Paris / Verneuil-en-Halatte (Vous)',
       planner_field_withYou_hint: 'Commence le 24 août (juste après Bonn) — semaine de repos + visites',
       planner_field_Abdullah_label: 'Stuttgart — Abdullah',
       planner_field_Abdullah_hint: 'Flexible — ajustez selon le total',
       planner_field_sisterFinal_label: 'Bonn — Séjour final (Busrah)',
       planner_field_sisterFinal_hint: "Jusqu'au vol de retour du 19 octobre",
+      planner_field_locked_hint: "🔒 Fixé — c'est déjà arrivé ({start} – {end})",
       week_singular: 'semaine', week_plural: 'semaines',
       day_singular: 'jour', day_plural: 'jours',
       unit_toggle_weeks: 'Semaines', unit_toggle_days: 'Jours',
@@ -738,13 +741,14 @@
       planner_h2: 'Reisedauer-Planer',
       planner_intro: "Die Landung (10. Aug., 18:10 Uhr) und der Rückflug (19. Okt., 19:00 Uhr) stehen fest — das sind genau 10 Wochen. Busrahs erster Aufenthalt (10.–24. Aug.) steht jetzt ebenfalls fest, da er bereits stattgefunden hat. Verschieben Sie die restlichen Regler, um den Rest dieser 10 Wochen in dieser Reihenfolge aufzuteilen: Ihr Aufenthalt in Paris, Abdullahs Aufenthalt in Stuttgart und Busrahs letzter Aufenthalt — jedes Datum auf dieser Seite wird sofort aktualisiert.",
       planner_field_sisterFirst_label: 'Bonn — Ankunftsaufenthalt (Busrah)',
-      planner_field_sisterFirst_hint: '🔒 Fest — das ist bereits passiert (10.–24. Aug.)',
+      planner_field_sisterFirst_hint: 'Gleich nach der Landung, vor der Weiterfahrt nach Paris',
       planner_field_withYou_label: 'Paris / Verneuil-en-Halatte (Sie)',
       planner_field_withYou_hint: 'Beginnt am 24. Aug. (direkt nach Bonn) — Ruhewoche + Besichtigungen',
       planner_field_Abdullah_label: 'Stuttgart — Abdullah',
       planner_field_Abdullah_hint: 'Flexibel — an die Gesamtdauer anpassen',
       planner_field_sisterFinal_label: 'Bonn — Letzter Aufenthalt (Busrah)',
       planner_field_sisterFinal_hint: 'Bis zum Rückflug am 19. Oktober',
+      planner_field_locked_hint: '🔒 Fest — das ist bereits passiert ({start} – {end})',
       week_singular: 'Woche', week_plural: 'Wochen',
       day_singular: 'Tag', day_plural: 'Tage',
       unit_toggle_weeks: 'Wochen', unit_toggle_days: 'Tage',
@@ -1308,23 +1312,52 @@
     return weeks === 0 ? daysPart : weeksPart + ' ' + daysPart;
   }
 
+  const PLANNER_HINT_KEYS = {
+    sisterFirst: 'planner_field_sisterFirst_hint',
+    withYou: 'planner_field_withYou_hint',
+    Abdullah: 'planner_field_Abdullah_hint',
+    sisterFinal: 'planner_field_sisterFinal_hint'
+  };
+
   function renderPlanner() {
     document.getElementById('val-sisterFirst').textContent = formatDuration(state.sisterFirst);
     document.getElementById('val-withYou').textContent = formatDuration(state.withYou);
     document.getElementById('val-Abdullah').textContent = formatDuration(state.Abdullah);
     document.getElementById('val-sisterFinal').textContent = formatDuration(state.sisterFinal);
 
+    // A leg's slider locks itself the moment its own end date has passed —
+    // it's now a historical fact, not a plan. Recomputed fresh every render
+    // (page load, language switch, any slider change), so it naturally keeps
+    // up as real time moves forward: no manual "mark this as done" step.
+    // A leg that's still upcoming or currently in progress stays adjustable
+    // right up until its (possibly since-adjusted) end date is reached.
+    const { legs } = computeSchedule();
+    const now = new Date();
+
     ['sisterFirst', 'withYou', 'Abdullah', 'sisterFinal'].forEach(key => {
       const input = document.getElementById(key);
+      const field = input.closest('.planner-field');
+      const hintEl = field ? field.querySelector('.hint') : null;
+      const leg = legs.find(l => l.key === key);
+      const locked = !!leg && now >= leg.end;
+
+      input.disabled = locked;
+      if (field) field.classList.toggle('locked', locked);
+      if (hintEl) {
+        hintEl.textContent = locked
+          ? t('planner_field_locked_hint', { start: fmtShort(leg.start), end: fmtShort(leg.end) })
+          : t(PLANNER_HINT_KEYS[key]);
+      }
+
       const min = parseInt(input.min, 10);
       const max = parseInt(input.max, 10);
       const minusBtn = document.querySelector('.stepper-btn[data-key="' + key + '"][data-dir="-1"]');
       const plusBtn = document.querySelector('.stepper-btn[data-key="' + key + '"][data-dir="1"]');
-      if (minusBtn) minusBtn.disabled = state[key] <= min;
-      if (plusBtn) plusBtn.disabled = state[key] >= max;
+      if (minusBtn) minusBtn.disabled = locked || state[key] <= min;
+      if (plusBtn) plusBtn.disabled = locked || state[key] >= max;
     });
 
-    const { calculatedEnd } = computeSchedule();
+    const calculatedEnd = legs[legs.length - 1].end;
     const totalDays = state.sisterFirst + state.withYou + state.Abdullah + state.sisterFinal;
     const statusEl = document.getElementById('plannerStatus');
 
@@ -1440,6 +1473,7 @@
       const input = document.getElementById(key);
       input.value = state[key];
       input.addEventListener('input', () => {
+        if (input.disabled) return; // leg already happened — locked, see renderPlanner
         state[key] = parseInt(input.value, 10);
         renderAll();
       });
@@ -1450,6 +1484,7 @@
         const key = btn.dataset.key;
         const dir = parseInt(btn.dataset.dir, 10);
         const input = document.getElementById(key);
+        if (input.disabled) return; // leg already happened — locked, see renderPlanner
         const min = parseInt(input.min, 10);
         const max = parseInt(input.max, 10);
         const newVal = Math.max(min, Math.min(max, state[key] + dir));
