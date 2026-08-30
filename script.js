@@ -81,7 +81,7 @@
       page_title: "Abu's Europe Trip · Aug – Oct 2026",
       nav_brand: "🧳 Abu's Europe Journey",
       nav_planner: 'Planner', nav_timeline: 'Timeline', nav_calendar: 'Calendar', nav_map: 'Map', nav_guide: 'Paris Guide',
-      nav_dayplan: 'Day Plan', nav_packing: 'Packing', nav_gallery: 'Gallery', nav_souvenirs: 'Souvenirs', nav_approval: 'Approval',
+      nav_dayplan: 'Day Plan', nav_packing: 'Packing', nav_gallery: 'Gallery', nav_souvenirs: 'Souvenirs', nav_slideshow: 'Slideshow', nav_approval: 'Approval',
 
       music_song_name: "Nadiya Chale Ya Dhaara",
       music_song_caption: "Abu's favourite song 💙",
@@ -132,7 +132,7 @@
       music_share_cta: 'More music & photos here:',
 
       step1: 'Step 1', step2: 'Step 2', step3: 'Step 3', step4: 'Step 4', step5: 'Step 5', step6: 'Step 6', step7: 'Step 7', step8: 'Step 8',
-      label_map: '🗺️ Map', label_packing: '🎒 Packing',
+      label_map: '🗺️ Map', label_packing: '🎒 Packing', label_slideshow: '🎬 Slideshow',
 
       planner_h2: 'Trip Duration Planner',
       planner_intro: "Landing (Aug 10, 18:10) and the return flight (Oct 19, 19:00) are fixed — that's exactly 10 weeks. Busrah's first stay (10–24 Aug) is now fixed too, since it's already happened. Drag the remaining sliders to divide the rest of those 10 weeks between your stay in Paris, Abdullah's stay in Stuttgart, and Busrah's final stay, in that order — every date on this page updates instantly.",
@@ -261,6 +261,28 @@
       backup_restored_alert: 'Backup restored successfully.',
       backup_invalid_alert: "Could not read that backup file — make sure it's an export from this page.",
 
+      slideshow_h2: 'Make a Slideshow',
+      slideshow_intro: 'Pick photos from the Souvenirs above and a song from the Music player, and this builds a short video slideshow — with the music playing behind it — that you can send straight to WhatsApp.',
+      slideshow_photos_h3: '1. Choose photos',
+      slideshow_select_all_btn: 'Select All',
+      slideshow_clear_btn: 'Clear',
+      slideshow_selected_count: '{count} selected',
+      slideshow_photos_loading: 'Loading photos…',
+      slideshow_photos_empty: 'No souvenir photos yet — add some in the Souvenirs section above first.',
+      slideshow_song_h3: '2. Choose a song',
+      slideshow_song_placeholder: 'Choose a song…',
+      slideshow_duration_h3: '3. Seconds per photo',
+      slideshow_duration_value: '{s}s per photo',
+      slideshow_generate_btn: '🎬 Generate Slideshow',
+      slideshow_generating_label: 'Recording… {sec}s / {total}s',
+      slideshow_preview_h3: 'Your Slideshow',
+      slideshow_share_btn: '📤 Share on WhatsApp',
+      slideshow_download_btn: '⬇ Download',
+      slideshow_unsupported: "Your browser can't record video here — try this again on an iPhone (Safari) or a recent Android phone (Chrome).",
+      slideshow_no_photos_alert: 'Please select at least one photo first.',
+      slideshow_no_song_alert: 'Please choose a song first.',
+      slideshow_share_text: "🎬 A slideshow from Abu's Europe trip! 💙",
+
       approval_h2: 'Family Approval',
       approval_intro_html: "Rate the plan and mark your approval. Saved on this device/browser. <em>Note: since this is a simple offline page, approvals don't sync automatically between different phones — each person approves on the device they're viewing from, or you can share a screenshot.</em>",
       person_you: 'You', person_busrah: 'Busrah', person_Abdullah: 'Abdullah',
@@ -282,7 +304,7 @@
       page_title: 'ابو کا یورپ سفر · اگست – اکتوبر 2026',
       nav_brand: '🧳 ابو کا یورپ سفر',
       nav_planner: 'منصوبہ ساز', nav_timeline: 'ٹائم لائن', nav_calendar: 'کیلنڈر', nav_map: 'نقشہ', nav_guide: 'پیرس گائیڈ',
-      nav_dayplan: 'روزانہ منصوبہ', nav_packing: 'سامان کی فہرست', nav_gallery: 'گیلری', nav_souvenirs: 'یادگاریں', nav_approval: 'منظوری',
+      nav_dayplan: 'روزانہ منصوبہ', nav_packing: 'سامان کی فہرست', nav_gallery: 'گیلری', nav_souvenirs: 'یادگاریں', nav_slideshow: 'سلائیڈ شو', nav_approval: 'منظوری',
 
       music_song_name: 'ندیا چلے یا دھارا',
       music_song_caption: 'ابو کا پسندیدہ گانا 💙',
@@ -333,7 +355,7 @@
       current_location_after: '🎉 سفر مکمل ہو چکا ہے — ساتھ رہنے کا شکریہ!',
 
       step1: 'قدم 1', step2: 'قدم 2', step3: 'قدم 3', step4: 'قدم 4', step5: 'قدم 5', step6: 'قدم 6', step7: 'قدم 7', step8: 'قدم 8',
-      label_map: '🗺️ نقشہ', label_packing: '🎒 سامان کی فہرست',
+      label_map: '🗺️ نقشہ', label_packing: '🎒 سامان کی فہرست', label_slideshow: '🎬 سلائیڈ شو',
 
       planner_h2: 'سفر کے دورانیے کا منصوبہ',
       planner_intro: 'پہنچنے کا وقت (10 اگست، 18:10) اور واپسی کی پرواز (19 اکتوبر، 19:00) طے شدہ ہیں — یعنی مکمل 10 ہفتے۔ بشریٰ کا پہلا قیام (10–24 اگست) بھی اب طے شدہ ہے، کیونکہ یہ پہلے ہی ہو چکا ہے۔ باقی سلائیڈرز کو حرکت دے کر باقی 10 ہفتے اسی ترتیب میں تقسیم کریں: پیرس میں آپ کے پاس قیام، سٹٹگارٹ میں عبداللہ کے پاس قیام، اور بشریٰ کے پاس آخری قیام — اس صفحے کی ہر تاریخ فوراً اپ ڈیٹ ہو جائے گی۔',
@@ -462,6 +484,28 @@
       backup_restored_alert: 'بیک اپ کامیابی سے بحال ہو گیا۔',
       backup_invalid_alert: 'یہ بیک اپ فائل پڑھی نہیں جا سکی — یقینی بنائیں کہ یہ اسی صفحے سے ایکسپورٹ کی گئی ہے۔',
 
+      slideshow_h2: 'سلائیڈ شو بنائیں',
+      slideshow_intro: 'اوپر یادگاریں سے تصاویر اور میوزک پلیئر سے کوئی گانا منتخب کریں — یہ ایک مختصر ویڈیو سلائیڈ شو بنائے گا، جس کے پیچھے گانا بج رہا ہوگا، جسے آپ براہ راست واٹس ایپ پر بھیج سکتے ہیں۔',
+      slideshow_photos_h3: '1۔ تصاویر منتخب کریں',
+      slideshow_select_all_btn: 'سب منتخب کریں',
+      slideshow_clear_btn: 'صاف کریں',
+      slideshow_selected_count: '{count} منتخب',
+      slideshow_photos_loading: 'تصاویر لوڈ ہو رہی ہیں…',
+      slideshow_photos_empty: 'ابھی تک کوئی یادگار تصویر نہیں — پہلے اوپر یادگاریں کے سیکشن میں کچھ شامل کریں۔',
+      slideshow_song_h3: '2۔ ایک گانا منتخب کریں',
+      slideshow_song_placeholder: 'ایک گانا منتخب کریں…',
+      slideshow_duration_h3: '3۔ فی تصویر سیکنڈ',
+      slideshow_duration_value: '{s} سیکنڈ فی تصویر',
+      slideshow_generate_btn: '🎬 سلائیڈ شو بنائیں',
+      slideshow_generating_label: 'ریکارڈ ہو رہا ہے… {sec} از {total} سیکنڈ',
+      slideshow_preview_h3: 'آپ کا سلائیڈ شو',
+      slideshow_share_btn: '📤 واٹس ایپ پر شیئر کریں',
+      slideshow_download_btn: '⬇ ڈاؤن لوڈ کریں',
+      slideshow_unsupported: 'آپ کا براؤزر یہاں ویڈیو ریکارڈ نہیں کر سکتا — آئی فون (Safari) یا کسی جدید اینڈرائیڈ فون (Chrome) پر دوبارہ کوشش کریں۔',
+      slideshow_no_photos_alert: 'براہ کرم پہلے کم از کم ایک تصویر منتخب کریں۔',
+      slideshow_no_song_alert: 'براہ کرم پہلے ایک گانا منتخب کریں۔',
+      slideshow_share_text: '🎬 ابو کے یورپ کے سفر کا ایک سلائیڈ شو! 💙',
+
       approval_h2: 'خاندانی منظوری',
       approval_intro_html: 'منصوبے کو ریٹ کریں اور اپنی منظوری درج کریں۔ اس ڈیوائس/براؤزر پر محفوظ ہوتا ہے۔ <em>نوٹ: چونکہ یہ ایک سادہ آف لائن صفحہ ہے، منظوریاں مختلف فونز کے درمیان خودکار مطابقت پذیر نہیں ہوتیں — ہر فرد اپنے دیکھنے والے ڈیوائس پر منظوری دے، یا اسکرین شاٹ شیئر کریں۔</em>',
       person_you: 'آپ', person_busrah: 'بشریٰ', person_Abdullah: 'عبداللہ',
@@ -483,7 +527,7 @@
       page_title: "Voyage d'Abu en Europe · Août – Oct 2026",
       nav_brand: "🧳 Le Voyage d'Abu en Europe",
       nav_planner: 'Planificateur', nav_timeline: 'Chronologie', nav_calendar: 'Calendrier', nav_map: 'Carte', nav_guide: 'Guide de Paris',
-      nav_dayplan: 'Programme du Jour', nav_packing: 'Bagages', nav_gallery: 'Galerie', nav_souvenirs: 'Souvenirs', nav_approval: 'Approbation',
+      nav_dayplan: 'Programme du Jour', nav_packing: 'Bagages', nav_gallery: 'Galerie', nav_souvenirs: 'Souvenirs', nav_slideshow: 'Diaporama', nav_approval: 'Approbation',
 
       music_song_name: "Nadiya Chale Ya Dhaara",
       music_song_caption: "La chanson préférée d'Abu 💙",
@@ -534,7 +578,7 @@
       current_location_after: '🎉 Le voyage est terminé — merci de nous avoir suivis !',
 
       step1: 'Étape 1', step2: 'Étape 2', step3: 'Étape 3', step4: 'Étape 4', step5: 'Étape 5', step6: 'Étape 6', step7: 'Étape 7', step8: 'Étape 8',
-      label_map: '🗺️ Carte', label_packing: '🎒 Bagages',
+      label_map: '🗺️ Carte', label_packing: '🎒 Bagages', label_slideshow: '🎬 Diaporama',
 
       planner_h2: 'Planificateur de Durée du Voyage',
       planner_intro: "L'atterrissage (10 août, 18h10) et le vol de retour (19 octobre, 19h00) sont fixes — soit exactement 10 semaines. Le premier séjour de Busrah (10–24 août) est désormais fixe aussi, puisqu'il a déjà eu lieu. Faites glisser les curseurs restants pour répartir le reste de ces 10 semaines, dans cet ordre : votre séjour à Paris, le séjour d'Abdullah à Stuttgart, puis le séjour final de Busrah — chaque date sur cette page se met à jour instantanément.",
@@ -663,6 +707,28 @@
       backup_restored_alert: 'Sauvegarde restaurée avec succès.',
       backup_invalid_alert: "Impossible de lire ce fichier de sauvegarde — assurez-vous qu'il s'agit d'un export de cette page.",
 
+      slideshow_h2: 'Créer un Diaporama',
+      slideshow_intro: 'Choisissez des photos parmi les Souvenirs ci-dessus et une chanson dans le lecteur de musique — cela crée un court diaporama vidéo, musique en fond, que vous pouvez envoyer directement sur WhatsApp.',
+      slideshow_photos_h3: '1. Choisir des photos',
+      slideshow_select_all_btn: 'Tout sélectionner',
+      slideshow_clear_btn: 'Effacer',
+      slideshow_selected_count: '{count} sélectionnée(s)',
+      slideshow_photos_loading: 'Chargement des photos…',
+      slideshow_photos_empty: "Aucune photo souvenir pour l'instant — ajoutez-en d'abord dans la section Souvenirs ci-dessus.",
+      slideshow_song_h3: '2. Choisir une chanson',
+      slideshow_song_placeholder: 'Choisir une chanson…',
+      slideshow_duration_h3: '3. Secondes par photo',
+      slideshow_duration_value: '{s}s par photo',
+      slideshow_generate_btn: '🎬 Générer le Diaporama',
+      slideshow_generating_label: 'Enregistrement… {sec}s / {total}s',
+      slideshow_preview_h3: 'Votre Diaporama',
+      slideshow_share_btn: '📤 Partager sur WhatsApp',
+      slideshow_download_btn: '⬇ Télécharger',
+      slideshow_unsupported: "Votre navigateur ne peut pas enregistrer de vidéo ici — réessayez sur un iPhone (Safari) ou un téléphone Android récent (Chrome).",
+      slideshow_no_photos_alert: 'Veuillez sélectionner au moins une photo.',
+      slideshow_no_song_alert: "Veuillez d'abord choisir une chanson.",
+      slideshow_share_text: "🎬 Un diaporama du voyage d'Abu en Europe ! 💙",
+
       approval_h2: 'Approbation Familiale',
       approval_intro_html: "Notez le plan et donnez votre approbation. Enregistré sur cet appareil/navigateur. <em>Remarque : comme il s'agit d'une simple page hors ligne, les approbations ne se synchronisent pas automatiquement entre les téléphones — chaque personne approuve depuis l'appareil qu'elle utilise, ou vous pouvez partager une capture d'écran.</em>",
       person_you: 'Vous', person_busrah: 'Busrah', person_Abdullah: 'Abdullah',
@@ -685,7 +751,7 @@
       page_title: "Abus Europareise · Aug. – Okt. 2026",
       nav_brand: "🧳 Abus Europareise",
       nav_planner: 'Planer', nav_timeline: 'Zeitachse', nav_calendar: 'Kalender', nav_map: 'Karte', nav_guide: 'Paris-Führer',
-      nav_dayplan: 'Tagesplan', nav_packing: 'Packliste', nav_gallery: 'Galerie', nav_souvenirs: 'Andenken', nav_approval: 'Zustimmung',
+      nav_dayplan: 'Tagesplan', nav_packing: 'Packliste', nav_gallery: 'Galerie', nav_souvenirs: 'Andenken', nav_slideshow: 'Diashow', nav_approval: 'Zustimmung',
 
       music_song_name: "Nadiya Chale Ya Dhaara",
       music_song_caption: "Abus Lieblingslied 💙",
@@ -736,7 +802,7 @@
       music_share_cta: 'Mehr Musik & Fotos hier:',
 
       step1: 'Schritt 1', step2: 'Schritt 2', step3: 'Schritt 3', step4: 'Schritt 4', step5: 'Schritt 5', step6: 'Schritt 6', step7: 'Schritt 7', step8: 'Schritt 8',
-      label_map: '🗺️ Karte', label_packing: '🎒 Packliste',
+      label_map: '🗺️ Karte', label_packing: '🎒 Packliste', label_slideshow: '🎬 Diashow',
 
       planner_h2: 'Reisedauer-Planer',
       planner_intro: "Die Landung (10. Aug., 18:10 Uhr) und der Rückflug (19. Okt., 19:00 Uhr) stehen fest — das sind genau 10 Wochen. Busrahs erster Aufenthalt (10.–24. Aug.) steht jetzt ebenfalls fest, da er bereits stattgefunden hat. Verschieben Sie die restlichen Regler, um den Rest dieser 10 Wochen in dieser Reihenfolge aufzuteilen: Ihr Aufenthalt in Paris, Abdullahs Aufenthalt in Stuttgart und Busrahs letzter Aufenthalt — jedes Datum auf dieser Seite wird sofort aktualisiert.",
@@ -864,6 +930,28 @@
       delete_category_title: 'Kategorie löschen', delete_photo_title: 'Foto löschen',
       backup_restored_alert: 'Sicherung erfolgreich wiederhergestellt.',
       backup_invalid_alert: "Diese Sicherungsdatei konnte nicht gelesen werden — stellen Sie sicher, dass es sich um einen Export dieser Seite handelt.",
+
+      slideshow_h2: 'Diashow erstellen',
+      slideshow_intro: 'Wählen Sie Fotos aus den Andenken oben und ein Lied aus dem Musikplayer — daraus wird eine kurze Video-Diashow mit Musik im Hintergrund erstellt, die Sie direkt per WhatsApp senden können.',
+      slideshow_photos_h3: '1. Fotos auswählen',
+      slideshow_select_all_btn: 'Alle auswählen',
+      slideshow_clear_btn: 'Leeren',
+      slideshow_selected_count: '{count} ausgewählt',
+      slideshow_photos_loading: 'Fotos werden geladen…',
+      slideshow_photos_empty: 'Noch keine Andenkenfotos — fügen Sie zuerst welche im Abschnitt Andenken oben hinzu.',
+      slideshow_song_h3: '2. Ein Lied auswählen',
+      slideshow_song_placeholder: 'Ein Lied auswählen…',
+      slideshow_duration_h3: '3. Sekunden pro Foto',
+      slideshow_duration_value: '{s}s pro Foto',
+      slideshow_generate_btn: '🎬 Diashow erstellen',
+      slideshow_generating_label: 'Aufnahme läuft… {sec}s / {total}s',
+      slideshow_preview_h3: 'Ihre Diashow',
+      slideshow_share_btn: '📤 Auf WhatsApp teilen',
+      slideshow_download_btn: '⬇ Herunterladen',
+      slideshow_unsupported: 'Ihr Browser kann hier kein Video aufnehmen — versuchen Sie es erneut auf einem iPhone (Safari) oder einem aktuellen Android-Telefon (Chrome).',
+      slideshow_no_photos_alert: 'Bitte wählen Sie zuerst mindestens ein Foto aus.',
+      slideshow_no_song_alert: 'Bitte wählen Sie zuerst ein Lied aus.',
+      slideshow_share_text: '🎬 Diashow von Abus Europareise! 💙',
 
       approval_h2: 'Familienzustimmung',
       approval_intro_html: "Bewerten Sie den Plan und markieren Sie Ihre Zustimmung. Auf diesem Gerät/Browser gespeichert. <em>Hinweis: Da dies eine einfache Offline-Seite ist, werden Zustimmungen nicht automatisch zwischen verschiedenen Telefonen synchronisiert — jede Person stimmt auf dem Gerät zu, von dem aus sie zugreift, oder Sie können einen Screenshot teilen.</em>",
@@ -2702,6 +2790,10 @@
         requestAnimationFrame(() => renderTimelineNowMarker(container));
       }
     }
+    if (sec.id === 'slideshow') {
+      if (!slideshowPhotosLoaded) loadSlideshowPhotos();
+      renderSlideshowSongOptions();
+    }
   }
 
   function openCollapsibleSection(id) {
@@ -3504,6 +3596,341 @@
     openWhatsAppShare(titleText + ' — ' + SITE_URL);
   }
 
+  /* ===================== SLIDESHOW MAKER =====================
+     Builds a real video file entirely client-side: draws the selected photos
+     onto a hidden canvas (cover-fit crop + a slow Ken Burns zoom + a crossfade
+     between consecutive photos) while simultaneously recording that canvas's
+     video track combined with the chosen song's audio track via MediaRecorder.
+     iOS Safari (14.3+) can record straight to a real .mp4 (H.264+AAC) this way
+     — no server, no app, no ffmpeg — which is why this is worth doing on an
+     iPhone specifically; other browsers fall back to .webm, which still shares
+     fine but may land in WhatsApp as a document rather than an inline video. */
+  const SLIDESHOW_SIZE = 1080; // square canvas — crops every photo to fill it, whatever its own orientation
+  let slideshowAllPhotos = [];      // [{ src, catId }] across every static souvenir category
+  let slideshowPhotosLoaded = false;
+  const slideshowSelected = new Set();
+  let slideshowDurationPerPhoto = 3;
+  let slideshowBusy = false;
+  let slideshowResultBlob = null;
+  let slideshowResultUrl = null;
+  let slideshowResultExt = 'webm';
+
+  function slideshowSupported() {
+    return typeof MediaRecorder !== 'undefined'
+      && typeof HTMLCanvasElement !== 'undefined'
+      && !!HTMLCanvasElement.prototype.captureStream;
+  }
+
+  // Pulls every photo out of all three static souvenir folders (same source
+  // as the Souvenirs section above) in one combined list — fetched once per
+  // session via the same fetchFolderListing cache those tabs already use.
+  async function loadSlideshowPhotos() {
+    if (slideshowPhotosLoaded) return;
+    const grid = document.getElementById('slideshowPhotoGrid');
+    if (grid) grid.innerHTML = `<p class="slideshow-photo-grid-empty">${t('slideshow_photos_loading')}</p>`;
+
+    const hidden = loadHiddenStaticSouvenirs();
+    const results = await Promise.all(STATIC_SOUVENIR_CATEGORIES.map(async cat => {
+      let files;
+      try { files = await fetchFolderListing(cat.folder); } catch (e) { files = []; }
+      return files
+        .filter(n => SOUVENIR_PHOTO_EXTS.includes(fileExt(n)))
+        .map(n => `${cat.folder}/${n}`)
+        .filter(src => !hidden.includes(src))
+        .map(src => ({ src, catId: cat.id }));
+    }));
+    slideshowAllPhotos = results.flat();
+    slideshowPhotosLoaded = true;
+    renderSlideshowPhotoGrid();
+  }
+
+  function renderSlideshowPhotoGrid() {
+    const grid = document.getElementById('slideshowPhotoGrid');
+    if (!grid) return;
+    if (!slideshowAllPhotos.length) {
+      grid.innerHTML = `<p class="slideshow-photo-grid-empty">${t('slideshow_photos_empty')}</p>`;
+      updateSlideshowSelectedCount();
+      return;
+    }
+    grid.innerHTML = slideshowAllPhotos.map(p => {
+      const cat = STATIC_SOUVENIR_CATEGORIES.find(c => c.id === p.catId);
+      const label = cat ? t(cat.labelKey) : '';
+      return `
+        <div class="gallery-item share-photo${slideshowSelected.has(p.src) ? ' selected' : ''}" data-src="${p.src}">
+          <img src="${p.src}" alt="${label}" loading="lazy">
+          <span class="share-check">✓</span>
+        </div>
+      `;
+    }).join('');
+    grid.querySelectorAll('.gallery-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const src = item.dataset.src;
+        if (slideshowSelected.has(src)) slideshowSelected.delete(src);
+        else slideshowSelected.add(src);
+        item.classList.toggle('selected');
+        updateSlideshowSelectedCount();
+      });
+    });
+    updateSlideshowSelectedCount();
+  }
+
+  function updateSlideshowSelectedCount() {
+    const el = document.getElementById('slideshowSelectedCount');
+    if (el) el.textContent = t('slideshow_selected_count', { count: slideshowSelected.size });
+  }
+
+  // Populated from musicLibrary (the full Music/ folder pool, not just the
+  // currently-queued PLAYLIST) so every uploaded song is pickable here too.
+  function renderSlideshowSongOptions() {
+    const select = document.getElementById('slideshowSongSelect');
+    if (!select) return;
+    const prevValue = select.value;
+    const options = [`<option value="" disabled${prevValue ? '' : ' selected'}>${t('slideshow_song_placeholder')}</option>`]
+      .concat(musicLibrary.map(track => `<option value="${track.src}">${trackTitle(track)}</option>`));
+    select.innerHTML = options.join('');
+    if (prevValue && musicLibrary.some(track => track.src === prevValue)) select.value = prevValue;
+  }
+
+  function updateSlideshowDurationLabel() {
+    const el = document.getElementById('slideshowDurationValue');
+    if (el) el.textContent = t('slideshow_duration_value', { s: slideshowDurationPerPhoto });
+  }
+
+  // Draws img cropped-to-fill a size x size square, centered — an optional
+  // zoom > 1 crops in further around that same center (the Ken Burns effect).
+  function drawImageCover(ctx, img, size, zoom) {
+    const iw = img.naturalWidth || img.width;
+    const ih = img.naturalHeight || img.height;
+    const scale = Math.max(size / iw, size / ih) * zoom;
+    const dw = iw * scale;
+    const dh = ih * scale;
+    ctx.drawImage(img, (size - dw) / 2, (size - dh) / 2, dw, dh);
+  }
+
+  function preloadImage(src) {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve(img);
+      img.onerror = () => reject(new Error('image failed to load: ' + src));
+      img.src = src;
+    });
+  }
+
+  function pickSlideshowMimeType() {
+    const candidates = [
+      'video/mp4;codecs=avc1.42E01E,mp4a.40.2', // Safari/iOS — real mp4, straight out of MediaRecorder
+      'video/mp4',
+      'video/webm;codecs=vp9,opus',
+      'video/webm;codecs=vp8,opus',
+      'video/webm'
+    ];
+    return candidates.find(c => typeof MediaRecorder.isTypeSupported === 'function' && MediaRecorder.isTypeSupported(c)) || '';
+  }
+
+  function showSlideshowUnsupported() {
+    const el = document.getElementById('slideshowUnsupported');
+    if (el) el.style.display = 'block';
+  }
+
+  async function generateSlideshow() {
+    if (slideshowBusy) return;
+    const selectedSrcs = slideshowAllPhotos.map(p => p.src).filter(src => slideshowSelected.has(src));
+    if (!selectedSrcs.length) { alert(t('slideshow_no_photos_alert')); return; }
+    const songSelect = document.getElementById('slideshowSongSelect');
+    const songSrc = songSelect ? songSelect.value : '';
+    if (!songSrc) { alert(t('slideshow_no_song_alert')); return; }
+    if (!slideshowSupported()) { showSlideshowUnsupported(); return; }
+
+    slideshowBusy = true;
+    const generateBtn = document.getElementById('slideshowGenerateBtn');
+    const resultSection = document.getElementById('slideshowResult');
+    const progressSection = document.getElementById('slideshowProgress');
+    const progressFill = document.getElementById('slideshowProgressFill');
+    const progressText = document.getElementById('slideshowProgressText');
+    if (generateBtn) generateBtn.disabled = true;
+    if (resultSection) resultSection.style.display = 'none';
+    if (progressSection) progressSection.style.display = 'block';
+    if (progressFill) progressFill.style.width = '0%';
+
+    function bail() {
+      slideshowBusy = false;
+      if (generateBtn) generateBtn.disabled = false;
+      if (progressSection) progressSection.style.display = 'none';
+    }
+
+    // Pause the persistent background player first — otherwise its audio and
+    // the slideshow's own copy of the (maybe same) song would overlap.
+    const bgAudioEl = document.getElementById('bgAudio');
+    const bgWasPlaying = !!(bgAudioEl && !bgAudioEl.paused);
+    if (bgAudioEl && bgWasPlaying) bgAudioEl.pause();
+
+    // Set up the Web Audio graph synchronously-ish, right off this click, so
+    // AudioContext creation stays tied to the user gesture — iOS Safari keeps
+    // a context created (or resumed) outside of one permanently suspended.
+    let audioCtx, audioEl, audioDest;
+    try {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      audioEl = new Audio(songSrc);
+      const sourceNode = audioCtx.createMediaElementSource(audioEl);
+      audioDest = audioCtx.createMediaStreamDestination();
+      sourceNode.connect(audioDest);
+      sourceNode.connect(audioCtx.destination); // also audible while it generates
+      if (audioCtx.state === 'suspended') await audioCtx.resume();
+    } catch (e) {
+      bail();
+      showSlideshowUnsupported();
+      if (bgAudioEl && bgWasPlaying) bgAudioEl.play().catch(() => {});
+      return;
+    }
+
+    let images;
+    try {
+      images = await Promise.all(selectedSrcs.map(preloadImage));
+    } catch (e) {
+      bail();
+      alert(t('souvenirs_load_error'));
+      try { await audioCtx.close(); } catch (e2) {}
+      if (bgAudioEl && bgWasPlaying) bgAudioEl.play().catch(() => {});
+      return;
+    }
+
+    const canvas = document.createElement('canvas');
+    canvas.width = SLIDESHOW_SIZE;
+    canvas.height = SLIDESHOW_SIZE;
+    const ctx = canvas.getContext('2d');
+    const canvasStream = canvas.captureStream(30);
+    const combinedStream = new MediaStream([
+      ...canvasStream.getVideoTracks(),
+      ...audioDest.stream.getAudioTracks()
+    ]);
+    const mimeType = pickSlideshowMimeType();
+
+    let recorder;
+    try {
+      recorder = mimeType ? new MediaRecorder(combinedStream, { mimeType }) : new MediaRecorder(combinedStream);
+    } catch (e) {
+      bail();
+      showSlideshowUnsupported();
+      try { await audioCtx.close(); } catch (e2) {}
+      if (bgAudioEl && bgWasPlaying) bgAudioEl.play().catch(() => {});
+      return;
+    }
+    slideshowResultExt = (recorder.mimeType || mimeType).includes('mp4') ? 'mp4' : 'webm';
+
+    const chunks = [];
+    recorder.ondataavailable = (e) => { if (e.data && e.data.size) chunks.push(e.data); };
+    const donePromise = new Promise(resolve => { recorder.onstop = resolve; });
+
+    const totalSeconds = images.length * slideshowDurationPerPhoto;
+    const transitionSeconds = Math.min(0.6, slideshowDurationPerPhoto / 2);
+
+    recorder.start();
+    audioEl.currentTime = 0;
+    try { await audioEl.play(); } catch (e) { /* recording continues silently if this is blocked */ }
+
+    const startTime = performance.now();
+    await new Promise(resolve => {
+      function frame() {
+        const elapsed = (performance.now() - startTime) / 1000;
+        if (elapsed >= totalSeconds) { resolve(); return; }
+        const idx = Math.min(images.length - 1, Math.floor(elapsed / slideshowDurationPerPhoto));
+        const withinPhoto = elapsed - idx * slideshowDurationPerPhoto;
+        const zoom = 1 + 0.06 * (withinPhoto / slideshowDurationPerPhoto); // slow Ken Burns zoom-in
+
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, SLIDESHOW_SIZE, SLIDESHOW_SIZE);
+        drawImageCover(ctx, images[idx], SLIDESHOW_SIZE, zoom);
+
+        // Crossfade the next photo in during this photo's final stretch
+        if (idx < images.length - 1 && withinPhoto > slideshowDurationPerPhoto - transitionSeconds) {
+          const fadeProgress = (withinPhoto - (slideshowDurationPerPhoto - transitionSeconds)) / transitionSeconds;
+          ctx.globalAlpha = Math.max(0, Math.min(1, fadeProgress));
+          drawImageCover(ctx, images[idx + 1], SLIDESHOW_SIZE, 1);
+          ctx.globalAlpha = 1;
+        }
+
+        if (progressFill) progressFill.style.width = Math.min(100, (elapsed / totalSeconds) * 100) + '%';
+        if (progressText) progressText.textContent = t('slideshow_generating_label', { sec: Math.floor(elapsed), total: totalSeconds });
+
+        requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    });
+
+    recorder.stop();
+    audioEl.pause();
+    await donePromise;
+    try { await audioCtx.close(); } catch (e) {}
+    if (bgAudioEl && bgWasPlaying) bgAudioEl.play().catch(() => {});
+
+    const blob = new Blob(chunks, { type: recorder.mimeType || mimeType || 'video/webm' });
+    if (slideshowResultUrl) URL.revokeObjectURL(slideshowResultUrl);
+    slideshowResultUrl = URL.createObjectURL(blob);
+    slideshowResultBlob = blob;
+
+    const video = document.getElementById('slideshowPreviewVideo');
+    if (video) video.src = slideshowResultUrl;
+    const downloadBtn = document.getElementById('slideshowDownloadBtn');
+    if (downloadBtn) {
+      downloadBtn.href = slideshowResultUrl;
+      downloadBtn.download = `abu-europe-slideshow.${slideshowResultExt}`;
+    }
+
+    if (progressSection) progressSection.style.display = 'none';
+    if (resultSection) resultSection.style.display = 'block';
+    bail();
+  }
+
+  // Same native-share-with-fallback pattern as shareSongViaWhatsApp /
+  // sharePhotosViaWhatsApp: a single video file shared this way lands in
+  // WhatsApp as a real, inline-playable video attachment.
+  async function shareSlideshowViaWhatsApp() {
+    if (!slideshowResultBlob) return;
+    const filename = `abu-europe-slideshow.${slideshowResultExt}`;
+    const file = new File([slideshowResultBlob], filename, { type: slideshowResultBlob.type });
+    try {
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: t('slideshow_share_text'), text: t('slideshow_share_text') });
+        return;
+      }
+    } catch (e) {
+      if (e && e.name === 'AbortError') return;
+    }
+    alert(t('share_fallback_alert'));
+  }
+
+  function initSlideshow() {
+    const selectAllBtn = document.getElementById('slideshowSelectAllBtn');
+    const clearBtn = document.getElementById('slideshowClearBtn');
+    const durationInput = document.getElementById('slideshowDuration');
+    const generateBtn = document.getElementById('slideshowGenerateBtn');
+    const shareBtn = document.getElementById('slideshowShareBtn');
+    if (!generateBtn) return;
+
+    if (!slideshowSupported()) {
+      showSlideshowUnsupported();
+      generateBtn.disabled = true;
+    }
+
+    if (selectAllBtn) selectAllBtn.addEventListener('click', () => {
+      slideshowAllPhotos.forEach(p => slideshowSelected.add(p.src));
+      renderSlideshowPhotoGrid();
+    });
+    if (clearBtn) clearBtn.addEventListener('click', () => {
+      slideshowSelected.clear();
+      renderSlideshowPhotoGrid();
+    });
+    if (durationInput) durationInput.addEventListener('input', () => {
+      slideshowDurationPerPhoto = parseInt(durationInput.value, 10);
+      updateSlideshowDurationLabel();
+    });
+    generateBtn.addEventListener('click', generateSlideshow);
+    if (shareBtn) shareBtn.addEventListener('click', shareSlideshowViaWhatsApp);
+
+    updateSlideshowDurationLabel();
+    updateSlideshowSelectedCount();
+  }
+
   /* ===================== CONFETTI ===================== */
   function triggerConfetti() {
     const container = document.getElementById('confettiContainer');
@@ -3665,6 +4092,9 @@
     renderPacking();
     renderAll();
     renderMusicPlayerTexts();
+    renderSlideshowSongOptions();
+    updateSlideshowSelectedCount();
+    updateSlideshowDurationLabel();
   }
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -3696,6 +4126,7 @@
     initBackup();
     initPackingChecklist();
     renderPacking();
+    initSlideshow();
     renderAll();
 
     renderCountdown();

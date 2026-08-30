@@ -17,7 +17,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#123C82">
-<link rel="stylesheet" href="style.css?v=52">
+<link rel="stylesheet" href="style.css?v=53">
 <script>(function(){try{if(localStorage.getItem('europeTripTheme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
 </head>
 <body>
@@ -44,6 +44,7 @@
       <li><a href="#packing" data-i18n="nav_packing">Packing</a></li>
       <li><a href="#gallery" data-i18n="nav_gallery">Gallery</a></li>
       <li><a href="#souvenirs" data-i18n="nav_souvenirs">Souvenirs</a></li>
+      <li><a href="#slideshow" data-i18n="nav_slideshow">Slideshow</a></li>
       <li><a href="#approval" data-i18n="nav_approval">Approval</a></li>
     </ul>
   </div>
@@ -360,6 +361,54 @@
   </div>
 </section>
 
+<section id="slideshow" class="collapsible-section">
+  <button type="button" class="section-header">
+    <span class="section-label" data-i18n="label_slideshow">🎬 Slideshow</span>
+    <h2 data-i18n="slideshow_h2">Make a Slideshow</h2>
+    <span class="section-chevron">▾</span>
+  </button>
+  <div class="section-body">
+  <p class="section-intro" data-i18n="slideshow_intro">Pick photos from the Souvenirs above and a song from the Music player, and this builds a short video slideshow — with the music playing behind it — that you can send straight to WhatsApp.</p>
+
+  <h3 class="subheading" data-i18n="slideshow_photos_h3">1. Choose photos</h3>
+  <div class="share-toolbar">
+    <button type="button" class="btn-ghost" id="slideshowSelectAllBtn" data-i18n="slideshow_select_all_btn">Select All</button>
+    <button type="button" class="btn-ghost" id="slideshowClearBtn" data-i18n="slideshow_clear_btn">Clear</button>
+    <span class="slideshow-selected-count" id="slideshowSelectedCount"></span>
+  </div>
+  <div id="slideshowPhotoGrid" class="gallery-grid stagger selecting"></div>
+
+  <h3 class="subheading" data-i18n="slideshow_song_h3">2. Choose a song</h3>
+  <select id="slideshowSongSelect" class="slideshow-song-select"></select>
+
+  <h3 class="subheading" data-i18n="slideshow_duration_h3">3. Seconds per photo</h3>
+  <div class="planner-field">
+    <input type="range" id="slideshowDuration" min="2" max="6" step="1" value="3">
+    <div class="planner-value" id="slideshowDurationValue">3s per photo</div>
+  </div>
+
+  <div class="share-toolbar">
+    <button type="button" class="btn-primary" id="slideshowGenerateBtn" data-i18n="slideshow_generate_btn">🎬 Generate Slideshow</button>
+  </div>
+
+  <div id="slideshowProgress" class="slideshow-progress" style="display:none;">
+    <div class="slideshow-progress-bar"><div class="slideshow-progress-fill" id="slideshowProgressFill"></div></div>
+    <p id="slideshowProgressText"></p>
+  </div>
+
+  <div id="slideshowResult" class="slideshow-result" style="display:none;">
+    <h3 class="subheading" data-i18n="slideshow_preview_h3">Your Slideshow</h3>
+    <video id="slideshowPreviewVideo" controls playsinline></video>
+    <div class="share-toolbar">
+      <button type="button" class="btn-primary whatsapp-share-btn" id="slideshowShareBtn" data-i18n="slideshow_share_btn">📤 Share on WhatsApp</button>
+      <a class="btn-ghost" id="slideshowDownloadBtn" download data-i18n="slideshow_download_btn">⬇ Download</a>
+    </div>
+  </div>
+
+  <p class="slideshow-unsupported" id="slideshowUnsupported" style="display:none;" data-i18n="slideshow_unsupported"></p>
+  </div>
+</section>
+
 <section id="approval" class="collapsible-section">
   <button type="button" class="section-header">
     <span class="section-label" data-i18n="step7">Step 7</span>
@@ -499,6 +548,6 @@
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="script.js?v=52"></script>
+<script src="script.js?v=53"></script>
 </body>
 </html>
