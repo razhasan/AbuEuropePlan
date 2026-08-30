@@ -884,6 +884,26 @@ a { color: var(--fr-blue); }
 .souvenir-add-tile:hover { border-color: var(--fr-blue); background: var(--pastel-blue); }
 .souvenir-empty { color: var(--muted); font-size: 0.9rem; grid-column: 1 / -1; }
 
+/* ===== Slideshow maker ===== */
+.slideshow-selected-count { color: var(--muted); font-size: 0.85rem; font-weight: 600; }
+.slideshow-song-select {
+  display: block; width: 100%; max-width: 420px; padding: 10px 14px; border-radius: 12px; border: 1px solid var(--line);
+  background: var(--paper); color: var(--ink); font-size: 0.9rem; font-weight: 600; font-family: inherit; margin-bottom: 22px;
+}
+.slideshow-progress { margin: 18px 0; }
+.slideshow-progress-bar { height: 8px; border-radius: 6px; background: rgba(120,120,120,0.15); overflow: hidden; }
+.slideshow-progress-fill {
+  height: 100%; width: 0%; background: linear-gradient(90deg, var(--fr-blue), var(--purple));
+  transition: width .2s linear;
+}
+#slideshowProgressText { color: var(--muted); font-size: 0.85rem; margin-top: 8px; }
+.slideshow-result video {
+  display: block; width: 100%; max-width: 420px; max-height: 70vh; border-radius: var(--radius); box-shadow: var(--shadow);
+  background: #000; margin-bottom: 16px;
+}
+.slideshow-unsupported { color: var(--fr-red); font-size: 0.85rem; margin-top: 14px; }
+.slideshow-photo-grid-empty { color: var(--muted); font-size: 0.9rem; grid-column: 1 / -1; }
+
 /* ===== Modal (image add/remove) ===== */
 .modal {
   position: fixed; inset: 0; background: rgba(20,20,30,0.55); display: none; align-items: center;
