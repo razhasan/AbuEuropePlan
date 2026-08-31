@@ -17,7 +17,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#123C82">
-<link rel="stylesheet" href="style.css?v=56">
+<link rel="stylesheet" href="style.css?v=57">
 <script>(function(){try{if(localStorage.getItem('europeTripTheme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
 </head>
 <body>
@@ -371,6 +371,12 @@
   <p class="section-intro" data-i18n="slideshow_intro">Pick photos from the Souvenirs above and a song from the Music player, and this builds a short video slideshow — with the music playing behind it — that you can send straight to WhatsApp.</p>
 
   <h3 class="subheading" data-i18n="slideshow_photos_h3">1. Choose photos</h3>
+  <div class="gallery-tabs" id="slideshowCityTabs">
+    <button type="button" class="active" data-cat="all" data-i18n="slideshow_filter_all">All Cities</button>
+    <button type="button" data-cat="bonn" data-i18n="souvenir_cat_bonn">🏠 Bonn (Busrah)</button>
+    <button type="button" data-cat="paris" data-i18n="souvenir_cat_paris">🗼 Paris (You)</button>
+    <button type="button" data-cat="stuttgart" data-i18n="souvenir_cat_stuttgart">🏡 Stuttgart (Abdullah)</button>
+  </div>
   <div class="share-toolbar">
     <button type="button" class="btn-ghost" id="slideshowSelectAllBtn" data-i18n="slideshow_select_all_btn">Select All</button>
     <button type="button" class="btn-ghost" id="slideshowClearBtn" data-i18n="slideshow_clear_btn">Clear</button>
@@ -552,6 +558,6 @@
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="script.js?v=56"></script>
+<script src="script.js?v=57"></script>
 </body>
 </html>
