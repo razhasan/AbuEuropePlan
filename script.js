@@ -3848,8 +3848,22 @@
   // client-side before it's offered for sharing. ffmpeg.wasm's core is a
   // ~25MB download, so it's only fetched the first time a slideshow actually
   // needs converting (never on page load, and never on Safari).
-  const FFMPEG_JS_URL = 'https://unpkg.com/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js';
-  const FFMPEG_CORE_URL = 'https://unpkg.com/@ffmpeg/core@0.11.0/dist/ffmpeg-core.js';
+  // Two mirrors of the same files — if one CDN is unreachable (blocked,
+  // rate-limited, a flaky edge node) the other is tried before giving up.
+  // jsDelivr first: it serves .wasm with the correct application/wasm
+  // content-type, which some browsers require for fast/streaming
+  // instantiation — unpkg has occasionally been observed serving it
+  // generically, which can make loading fail or fall back to a slower path.
+  const FFMPEG_SOURCES = [
+    {
+      js: 'https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js',
+      core: 'https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.11.0/dist/ffmpeg-core.js'
+    },
+    {
+      js: 'https://unpkg.com/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js',
+      core: 'https://unpkg.com/@ffmpeg/core@0.11.0/dist/ffmpeg-core.js'
+    }
+  ];
   let ffmpegLoadPromise = null;
 
   function loadScriptOnce(src) {
@@ -3858,23 +3872,44 @@
       const s = document.createElement('script');
       s.src = src;
       s.onload = () => resolve();
-      s.onerror = () => reject(new Error('Failed to load script: ' + src));
+      s.onerror = () => { s.remove(); reject(new Error('Failed to load script: ' + src)); };
       document.head.appendChild(s);
     });
   }
 
+  async function loadFFmpegFrom(source) {
+    await loadScriptOnce(source.js);
+    if (!window.FFmpeg || typeof window.FFmpeg.createFFmpeg !== 'function') {
+      throw new Error('FFmpeg global missing after loading ' + source.js);
+    }
+    const instance = window.FFmpeg.createFFmpeg({ corePath: source.core, log: false });
+    await instance.load();
+    return instance;
+  }
+
   // Loads and boots ffmpeg.wasm exactly once per page visit — cached in
   // ffmpegLoadPromise so a second slideshow in the same session reuses the
-  // already-loaded instance instead of re-downloading the core.
+  // already-loaded instance instead of re-downloading the core. If every
+  // source fails, the cache is cleared (not left permanently rejected) so a
+  // later attempt — after a flaky connection recovers, say — gets a fresh
+  // try instead of being stuck failing for the rest of the session.
   function getFFmpeg() {
     if (!ffmpegLoadPromise) {
       ffmpegLoadPromise = (async () => {
-        await loadScriptOnce(FFMPEG_JS_URL);
-        const { createFFmpeg } = window.FFmpeg;
-        const instance = createFFmpeg({ corePath: FFMPEG_CORE_URL, log: false });
-        await instance.load();
-        return instance;
-      })();
+        let lastError;
+        for (const source of FFMPEG_SOURCES) {
+          try {
+            return await loadFFmpegFrom(source);
+          } catch (e) {
+            lastError = e;
+            console.error('[slideshow] ffmpeg.wasm failed to load from', source.js, e);
+          }
+        }
+        throw lastError;
+      })().catch(e => {
+        ffmpegLoadPromise = null;
+        throw e;
+      });
     }
     return ffmpegLoadPromise;
   }
@@ -4088,9 +4123,11 @@
         blob = mp4Blob;
         slideshowResultExt = 'mp4';
       } catch (e) {
-        // Conversion failed (e.g. the ffmpeg.wasm download was blocked) —
-        // fall back to sharing the original webm rather than losing the
-        // slideshow entirely.
+        // Conversion failed (e.g. every ffmpeg.wasm CDN mirror was
+        // unreachable) — fall back to sharing the original webm rather than
+        // losing the slideshow entirely. Logged (not just alerted) so the
+        // actual cause is inspectable in the browser console if it recurs.
+        console.error('[slideshow] MP4 conversion failed, falling back to WEBM:', e);
         alert(t('slideshow_convert_failed_alert'));
       }
     }
