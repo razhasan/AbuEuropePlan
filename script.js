@@ -264,6 +264,7 @@
       slideshow_h2: 'Make a Slideshow',
       slideshow_intro: 'Pick photos from the Souvenirs above and a song from the Music player, and this builds a short video slideshow — with the music playing behind it — that you can send straight to WhatsApp.',
       slideshow_photos_h3: '1. Choose photos',
+      slideshow_filter_all: '📍 All Cities',
       slideshow_select_all_btn: 'Select All',
       slideshow_clear_btn: 'Clear',
       slideshow_deselect_all_btn: '🗑 Deselect All',
@@ -491,6 +492,7 @@
       slideshow_h2: 'سلائیڈ شو بنائیں',
       slideshow_intro: 'اوپر یادگاریں سے تصاویر اور میوزک پلیئر سے کوئی گانا منتخب کریں — یہ ایک مختصر ویڈیو سلائیڈ شو بنائے گا، جس کے پیچھے گانا بج رہا ہوگا، جسے آپ براہ راست واٹس ایپ پر بھیج سکتے ہیں۔',
       slideshow_photos_h3: '1۔ تصاویر منتخب کریں',
+      slideshow_filter_all: '📍 تمام شہر',
       slideshow_select_all_btn: 'سب منتخب کریں',
       slideshow_clear_btn: 'صاف کریں',
       slideshow_deselect_all_btn: '🗑 سب غیر منتخب کریں',
@@ -718,6 +720,7 @@
       slideshow_h2: 'Créer un Diaporama',
       slideshow_intro: 'Choisissez des photos parmi les Souvenirs ci-dessus et une chanson dans le lecteur de musique — cela crée un court diaporama vidéo, musique en fond, que vous pouvez envoyer directement sur WhatsApp.',
       slideshow_photos_h3: '1. Choisir des photos',
+      slideshow_filter_all: '📍 Toutes les Villes',
       slideshow_select_all_btn: 'Tout sélectionner',
       slideshow_clear_btn: 'Effacer',
       slideshow_deselect_all_btn: '🗑 Tout désélectionner',
@@ -946,6 +949,7 @@
       slideshow_h2: 'Diashow erstellen',
       slideshow_intro: 'Wählen Sie Fotos aus den Andenken oben und ein Lied aus dem Musikplayer — daraus wird eine kurze Video-Diashow mit Musik im Hintergrund erstellt, die Sie direkt per WhatsApp senden können.',
       slideshow_photos_h3: '1. Fotos auswählen',
+      slideshow_filter_all: '📍 Alle Städte',
       slideshow_select_all_btn: 'Alle auswählen',
       slideshow_clear_btn: 'Leeren',
       slideshow_deselect_all_btn: '🗑 Alle abwählen',
@@ -3660,6 +3664,7 @@
   ];
   let slideshowAllPhotos = [];      // [{ src, catId }] across every static souvenir category
   let slideshowPhotosLoaded = false;
+  let slideshowActiveFilter = 'all'; // 'all' | a STATIC_SOUVENIR_CATEGORIES id — which city's photos the grid shows
   const slideshowSelected = new Set();
   let slideshowDurationPerPhoto = 3;
   let slideshowBusy = false;
@@ -3696,6 +3701,15 @@
     renderSlideshowPhotoGrid();
   }
 
+  // The photos currently shown in the grid — everything, or just one city's,
+  // depending on the #slideshowCityTabs selection. Selections made while a
+  // filter is active persist even for photos scrolled out of view (they're
+  // still in slideshowSelected, just not in this list right now).
+  function slideshowVisiblePhotos() {
+    if (slideshowActiveFilter === 'all') return slideshowAllPhotos;
+    return slideshowAllPhotos.filter(p => p.catId === slideshowActiveFilter);
+  }
+
   function renderSlideshowPhotoGrid() {
     const grid = document.getElementById('slideshowPhotoGrid');
     if (!grid) return;
@@ -3704,7 +3718,13 @@
       updateSlideshowSelectedCount();
       return;
     }
-    grid.innerHTML = slideshowAllPhotos.map(p => {
+    const visible = slideshowVisiblePhotos();
+    if (!visible.length) {
+      grid.innerHTML = `<p class="slideshow-photo-grid-empty">${t('slideshow_photos_empty')}</p>`;
+      updateSlideshowSelectedCount();
+      return;
+    }
+    grid.innerHTML = visible.map(p => {
       const cat = STATIC_SOUVENIR_CATEGORIES.find(c => c.id === p.catId);
       const label = cat ? t(cat.labelKey) : '';
       return `
@@ -4036,6 +4056,20 @@
     if (resultSection) resultSection.style.display = 'none';
   }
 
+  function initSlideshowCityTabs() {
+    const tabs = document.getElementById('slideshowCityTabs');
+    if (!tabs) return;
+    tabs.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (btn.dataset.cat === slideshowActiveFilter) return;
+        tabs.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        slideshowActiveFilter = btn.dataset.cat;
+        renderSlideshowPhotoGrid();
+      });
+    });
+  }
+
   function initSlideshow() {
     const selectAllBtn = document.getElementById('slideshowSelectAllBtn');
     const clearBtn = document.getElementById('slideshowClearBtn');
@@ -4052,7 +4086,10 @@
     }
 
     if (selectAllBtn) selectAllBtn.addEventListener('click', () => {
-      slideshowAllPhotos.forEach(p => slideshowSelected.add(p.src));
+      // Only the currently-filtered view (e.g. just Paris, if that tab is
+      // active) — selecting "all" while looking at one city shouldn't
+      // silently pull in the other two.
+      slideshowVisiblePhotos().forEach(p => slideshowSelected.add(p.src));
       renderSlideshowPhotoGrid();
     });
     if (clearBtn) clearBtn.addEventListener('click', deselectAllSlideshowPhotos);
@@ -4264,6 +4301,7 @@
     initBackup();
     initPackingChecklist();
     renderPacking();
+    initSlideshowCityTabs();
     initSlideshow();
     renderAll();
 
