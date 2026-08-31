@@ -280,6 +280,8 @@
       slideshow_preparing_label: 'Preparing photos… {n}/{total}',
       slideshow_long_warning: 'This slideshow will run about {total} seconds — that can be slow or unreliable on some phones. Continue anyway?',
       slideshow_generating_label: 'Recording… {sec}s / {total}s',
+      slideshow_converting_label: 'Converting to MP4 for WhatsApp… {pct}%',
+      slideshow_convert_failed_alert: "Couldn't convert to MP4 — sharing as WEBM instead. It may not preview inline in WhatsApp, but you can still send it as a file.",
       slideshow_preview_h3: 'Your Slideshow',
       slideshow_share_btn: '📤 Share on WhatsApp',
       slideshow_download_btn: '⬇ Download',
@@ -508,6 +510,8 @@
       slideshow_preparing_label: 'تصاویر تیار ہو رہی ہیں… {n}/{total}',
       slideshow_long_warning: 'یہ سلائیڈ شو تقریباً {total} سیکنڈ کا ہوگا — یہ کچھ فونز پر سست یا ناقابل اعتماد ہو سکتا ہے۔ پھر بھی جاری رکھیں؟',
       slideshow_generating_label: 'ریکارڈ ہو رہا ہے… {sec} از {total} سیکنڈ',
+      slideshow_converting_label: 'واٹس ایپ کے لیے MP4 میں تبدیل ہو رہا ہے… {pct}%',
+      slideshow_convert_failed_alert: 'MP4 میں تبدیل نہیں ہو سکا — اس کے بجائے WEBM شیئر کیا جا رہا ہے۔ ہو سکتا ہے یہ واٹس ایپ میں براہ راست نظر نہ آئے، لیکن آپ اسے بطور فائل بھیج سکتے ہیں۔',
       slideshow_preview_h3: 'آپ کا سلائیڈ شو',
       slideshow_share_btn: '📤 واٹس ایپ پر شیئر کریں',
       slideshow_download_btn: '⬇ ڈاؤن لوڈ کریں',
@@ -736,6 +740,8 @@
       slideshow_preparing_label: 'Préparation des photos… {n}/{total}',
       slideshow_long_warning: 'Ce diaporama durera environ {total} secondes — cela peut être lent ou peu fiable sur certains téléphones. Continuer quand même ?',
       slideshow_generating_label: 'Enregistrement… {sec}s / {total}s',
+      slideshow_converting_label: 'Conversion en MP4 pour WhatsApp… {pct}%',
+      slideshow_convert_failed_alert: "Impossible de convertir en MP4 — partage en WEBM à la place. Il se peut qu'il ne s'affiche pas directement dans WhatsApp, mais vous pouvez toujours l'envoyer comme fichier.",
       slideshow_preview_h3: 'Votre Diaporama',
       slideshow_share_btn: '📤 Partager sur WhatsApp',
       slideshow_download_btn: '⬇ Télécharger',
@@ -965,6 +971,8 @@
       slideshow_preparing_label: 'Fotos werden vorbereitet… {n}/{total}',
       slideshow_long_warning: 'Diese Diashow dauert etwa {total} Sekunden — das kann auf manchen Handys langsam oder unzuverlässig sein. Trotzdem fortfahren?',
       slideshow_generating_label: 'Aufnahme läuft… {sec}s / {total}s',
+      slideshow_converting_label: 'Wird für WhatsApp in MP4 umgewandelt… {pct}%',
+      slideshow_convert_failed_alert: 'Umwandlung in MP4 fehlgeschlagen — stattdessen wird WEBM geteilt. Es wird in WhatsApp möglicherweise nicht direkt angezeigt, kann aber trotzdem als Datei gesendet werden.',
       slideshow_preview_h3: 'Ihre Diashow',
       slideshow_share_btn: '📤 Auf WhatsApp teilen',
       slideshow_download_btn: '⬇ Herunterladen',
@@ -3831,6 +3839,70 @@
     if (el) el.style.display = 'block';
   }
 
+  // ===== WEBM -> MP4 conversion (ffmpeg.wasm, lazy-loaded) =====
+  // Only Safari/iOS can record straight to mp4 (see pickSlideshowMimeType
+  // above); every other browser's MediaRecorder can only produce webm.
+  // WhatsApp (mobile and Web) only renders an inline video preview for mp4 —
+  // a webm attachment shows up as an unpreviewable generic file instead — so
+  // on those browsers the recorded webm is transcoded to a real H.264/AAC mp4
+  // client-side before it's offered for sharing. ffmpeg.wasm's core is a
+  // ~25MB download, so it's only fetched the first time a slideshow actually
+  // needs converting (never on page load, and never on Safari).
+  const FFMPEG_JS_URL = 'https://unpkg.com/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js';
+  const FFMPEG_CORE_URL = 'https://unpkg.com/@ffmpeg/core@0.11.0/dist/ffmpeg-core.js';
+  let ffmpegLoadPromise = null;
+
+  function loadScriptOnce(src) {
+    return new Promise((resolve, reject) => {
+      if (document.querySelector(`script[src="${src}"]`)) { resolve(); return; }
+      const s = document.createElement('script');
+      s.src = src;
+      s.onload = () => resolve();
+      s.onerror = () => reject(new Error('Failed to load script: ' + src));
+      document.head.appendChild(s);
+    });
+  }
+
+  // Loads and boots ffmpeg.wasm exactly once per page visit — cached in
+  // ffmpegLoadPromise so a second slideshow in the same session reuses the
+  // already-loaded instance instead of re-downloading the core.
+  function getFFmpeg() {
+    if (!ffmpegLoadPromise) {
+      ffmpegLoadPromise = (async () => {
+        await loadScriptOnce(FFMPEG_JS_URL);
+        const { createFFmpeg } = window.FFmpeg;
+        const instance = createFFmpeg({ corePath: FFMPEG_CORE_URL, log: false });
+        await instance.load();
+        return instance;
+      })();
+    }
+    return ffmpegLoadPromise;
+  }
+
+  // Transcodes a recorded webm Blob into a real mp4 Blob. onProgress(fraction)
+  // is called as the encode advances, so the caller can update a progress bar.
+  async function transcodeWebmToMp4(webmBlob, onProgress) {
+    const ffmpeg = await getFFmpeg();
+    if (onProgress) ffmpeg.setProgress(({ ratio }) => onProgress(Math.max(0, Math.min(1, ratio || 0))));
+    const inputName = 'slideshow-in.webm';
+    const outputName = 'slideshow-out.mp4';
+    ffmpeg.FS('writeFile', inputName, new Uint8Array(await webmBlob.arrayBuffer()));
+    try {
+      await ffmpeg.run(
+        '-i', inputName,
+        '-c:v', 'libx264', '-preset', 'ultrafast', '-crf', '27', '-pix_fmt', 'yuv420p',
+        '-c:a', 'aac', '-b:a', '128k',
+        '-movflags', '+faststart',
+        outputName
+      );
+      const data = ffmpeg.FS('readFile', outputName);
+      return new Blob([data.buffer], { type: 'video/mp4' });
+    } finally {
+      try { ffmpeg.FS('unlink', inputName); } catch (e) {}
+      try { ffmpeg.FS('unlink', outputName); } catch (e) {}
+    }
+  }
+
   async function generateSlideshow() {
     if (slideshowBusy) return;
     const selectedSrcs = slideshowAllPhotos.map(p => p.src).filter(src => slideshowSelected.has(src));
@@ -3999,7 +4071,30 @@
     try { await audioCtx.close(); } catch (e) {}
     if (bgAudioEl && bgWasPlaying) bgAudioEl.play().catch(() => {});
 
-    const blob = new Blob(chunks, { type: recorder.mimeType || mimeType || 'video/webm' });
+    let blob = new Blob(chunks, { type: recorder.mimeType || mimeType || 'video/webm' });
+
+    // WhatsApp won't show an inline preview for a webm — convert to mp4
+    // before handing it off, on whichever browser recorded webm in the first
+    // place (Safari already produced real mp4 above, nothing to do here).
+    if (slideshowResultExt !== 'mp4') {
+      if (progressText) progressText.textContent = t('slideshow_converting_label', { pct: 0 });
+      if (progressFill) progressFill.style.width = '0%';
+      try {
+        const mp4Blob = await transcodeWebmToMp4(blob, (fraction) => {
+          const pct = Math.round(fraction * 100);
+          if (progressFill) progressFill.style.width = pct + '%';
+          if (progressText) progressText.textContent = t('slideshow_converting_label', { pct });
+        });
+        blob = mp4Blob;
+        slideshowResultExt = 'mp4';
+      } catch (e) {
+        // Conversion failed (e.g. the ffmpeg.wasm download was blocked) —
+        // fall back to sharing the original webm rather than losing the
+        // slideshow entirely.
+        alert(t('slideshow_convert_failed_alert'));
+      }
+    }
+
     if (slideshowResultUrl) URL.revokeObjectURL(slideshowResultUrl);
     slideshowResultUrl = URL.createObjectURL(blob);
     slideshowResultBlob = blob;
