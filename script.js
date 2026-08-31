@@ -3624,20 +3624,40 @@
 
   /* ===================== SLIDESHOW MAKER =====================
      Builds a real video file entirely client-side: draws the selected photos
-     onto a hidden canvas (cover-fit crop + a slow Ken Burns zoom + a crossfade
-     between consecutive photos) while simultaneously recording that canvas's
+     onto a hidden canvas — each one cover-fit cropped and animated with one
+     of several Ken Burns-style motions (zoom in, zoom out, pan left/right/
+     top-to-bottom, or zoom+pan combined — see SLIDESHOW_ANIMATIONS), cycling
+     so consecutive photos never repeat the same motion — with a crossfade
+     between consecutive photos, while simultaneously recording that canvas's
      video track combined with the chosen song's audio track via MediaRecorder.
      iOS Safari (14.3+) can record straight to a real .mp4 (H.264+AAC) this way
      — no server, no app, no ffmpeg — which is why this is worth doing on an
      iPhone specifically; other browsers fall back to .webm, which still shares
      fine but may land in WhatsApp as a document rather than an inline video. */
-  const SLIDESHOW_SIZE = 720; // square canvas — crops every photo to fill it, whatever its own orientation.
-  // Kept modest on purpose: every selected photo gets decoded and redrawn onto
-  // a canvas this size (see preloadAndDownscale) rather than kept at its full
-  // camera resolution, which is what made large selections (20+ real iPhone
-  // photos) unreliable — decoding that many multi-megapixel originals at once
-  // could exceed a phone browser's memory budget and produce a corrupt or
-  // unplayable recording. 720px is still sharp enough for a WhatsApp video.
+  const SLIDESHOW_SIZE = 1080; // square canvas — crops every photo to fill it, whatever its own orientation.
+  // Every selected photo gets decoded and redrawn onto a canvas this size (see
+  // preloadAndDownscale) rather than kept at its full camera resolution — a
+  // 1080x1080 canvas is only ~4.7MB of raw pixels, versus 30-50MB+ for a real
+  // multi-megapixel phone photo decoded in full, so this is still a huge
+  // reduction regardless of the target size. What actually made large
+  // selections (20+ photos) unreliable was decoding every photo's full-res
+  // original *simultaneously* (Promise.all) — preloadAndDownscale processes
+  // one at a time instead and discards each original right after, which is
+  // the fix that made room to raise this back up for sharper video.
+  const SLIDESHOW_ANIMATIONS = [
+    // Each takes the photo's progress (0..1 across its own hold time) and
+    // returns { zoom, panX, panY } — zoom is always >= 1 (crops in, never
+    // reveals space beyond the photo's edges) and panX/panY in [-1, 1] slide
+    // the crop window across the extra room that zoom > 1 creates. Cycled by
+    // photo index (see generateSlideshow) so consecutive photos never repeat
+    // the same motion.
+    { name: 'zoom-in', fn: t => ({ zoom: 1 + 0.16 * t, panX: 0, panY: 0 }) },
+    { name: 'zoom-out', fn: t => ({ zoom: 1.16 - 0.16 * t, panX: 0, panY: 0 }) },
+    { name: 'pan-left-to-right', fn: t => ({ zoom: 1.18, panX: -0.85 + 1.7 * t, panY: 0 }) },
+    { name: 'pan-right-to-left', fn: t => ({ zoom: 1.18, panX: 0.85 - 1.7 * t, panY: 0 }) },
+    { name: 'zoom-in-pan-left', fn: t => ({ zoom: 1 + 0.16 * t, panX: -0.55 * t, panY: 0 }) },
+    { name: 'pan-top-to-bottom', fn: t => ({ zoom: 1.18, panX: 0, panY: -0.85 + 1.7 * t }) }
+  ];
   let slideshowAllPhotos = [];      // [{ src, catId }] across every static souvenir category
   let slideshowPhotosLoaded = false;
   const slideshowSelected = new Set();
@@ -3728,15 +3748,24 @@
     if (el) el.textContent = t('slideshow_duration_value', { s: slideshowDurationPerPhoto });
   }
 
-  // Draws img cropped-to-fill a size x size square, centered — an optional
-  // zoom > 1 crops in further around that same center (the Ken Burns effect).
-  function drawImageCover(ctx, img, size, zoom) {
+  // Draws img cropped-to-fill a size x size square — zoom > 1 crops in
+  // further around the center, and panX/panY (each -1..1) slide that crop
+  // window within the extra room the zoom creates, without ever exposing
+  // space beyond the photo's own edges (at panX/panY = ±1 the crop window
+  // just touches that edge). This is the shared primitive behind every
+  // SLIDESHOW_ANIMATIONS entry — a plain zoom (panX=panY=0) is just the
+  // special case of this with no panning.
+  function drawImageCoverPanZoom(ctx, img, size, zoom, panX, panY) {
     const iw = img.naturalWidth || img.width;
     const ih = img.naturalHeight || img.height;
     const scale = Math.max(size / iw, size / ih) * zoom;
     const dw = iw * scale;
     const dh = ih * scale;
-    ctx.drawImage(img, (size - dw) / 2, (size - dh) / 2, dw, dh);
+    const maxOffsetX = (dw - size) / 2;
+    const maxOffsetY = (dh - size) / 2;
+    const dx = (size - dw) / 2 + (panX || 0) * maxOffsetX;
+    const dy = (size - dh) / 2 + (panY || 0) * maxOffsetY;
+    ctx.drawImage(img, dx, dy, dw, dh);
   }
 
   function preloadImage(src) {
@@ -3759,7 +3788,10 @@
     const off = document.createElement('canvas');
     off.width = SLIDESHOW_SIZE;
     off.height = SLIDESHOW_SIZE;
-    drawImageCover(off.getContext('2d'), img, SLIDESHOW_SIZE, 1);
+    const octx = off.getContext('2d');
+    octx.imageSmoothingEnabled = true;
+    octx.imageSmoothingQuality = 'high'; // best resampling when shrinking a big camera photo down to this canvas
+    drawImageCoverPanZoom(octx, img, SLIDESHOW_SIZE, 1, 0, 0);
     return off;
   }
 
@@ -3860,6 +3892,8 @@
     canvas.width = SLIDESHOW_SIZE;
     canvas.height = SLIDESHOW_SIZE;
     const ctx = canvas.getContext('2d');
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
     const canvasStream = canvas.captureStream(30);
     const combinedStream = new MediaStream([
       ...canvasStream.getVideoTracks(),
@@ -3870,9 +3904,10 @@
     // Capping the bitrate keeps the file a reasonable size for a long
     // slideshow (a totally unconstrained bitrate on a 60+ second recording
     // can balloon to a file too large for WhatsApp, or too large for a phone
-    // to smoothly play back straight after generating it) without visibly
-    // hurting quality for a video shared over WhatsApp.
-    const recorderOpts = { videoBitsPerSecond: 2_500_000 };
+    // to smoothly play back straight after generating it). 4 Mbps at
+    // 1080x1080 keeps noticeably crisper detail than a lower rate while still
+    // landing at a very shareable file size.
+    const recorderOpts = { videoBitsPerSecond: 4_000_000 };
     if (mimeType) recorderOpts.mimeType = mimeType;
     let recorder;
     try {
@@ -3908,17 +3943,25 @@
         if (elapsed >= totalSeconds) { resolve(); return; }
         const idx = Math.min(images.length - 1, Math.floor(elapsed / slideshowDurationPerPhoto));
         const withinPhoto = elapsed - idx * slideshowDurationPerPhoto;
-        const zoom = 1 + 0.06 * (withinPhoto / slideshowDurationPerPhoto); // slow Ken Burns zoom-in
+        const animT = withinPhoto / slideshowDurationPerPhoto; // NOT named `t` — that shadows the global t() translate() used below
+        // Cycling by index (not random) guarantees no two photos in a row
+        // ever get the same zoom/pan motion.
+        const anim = SLIDESHOW_ANIMATIONS[idx % SLIDESHOW_ANIMATIONS.length];
+        const { zoom, panX, panY } = anim.fn(animT);
 
         ctx.fillStyle = '#000';
         ctx.fillRect(0, 0, SLIDESHOW_SIZE, SLIDESHOW_SIZE);
-        drawImageCover(ctx, images[idx], SLIDESHOW_SIZE, zoom);
+        drawImageCoverPanZoom(ctx, images[idx], SLIDESHOW_SIZE, zoom, panX, panY);
 
-        // Crossfade the next photo in during this photo's final stretch
+        // Crossfade the next photo in during this photo's final stretch —
+        // its own animation is already running (from t=0) as it fades in,
+        // rather than popping in static, so the cut feels continuous.
         if (idx < images.length - 1 && withinPhoto > slideshowDurationPerPhoto - transitionSeconds) {
           const fadeProgress = (withinPhoto - (slideshowDurationPerPhoto - transitionSeconds)) / transitionSeconds;
+          const nextAnim = SLIDESHOW_ANIMATIONS[(idx + 1) % SLIDESHOW_ANIMATIONS.length];
+          const next = nextAnim.fn(0);
           ctx.globalAlpha = Math.max(0, Math.min(1, fadeProgress));
-          drawImageCover(ctx, images[idx + 1], SLIDESHOW_SIZE, 1);
+          drawImageCoverPanZoom(ctx, images[idx + 1], SLIDESHOW_SIZE, next.zoom, next.panX, next.panY);
           ctx.globalAlpha = 1;
         }
 
