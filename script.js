@@ -281,7 +281,9 @@
       slideshow_long_warning: 'This slideshow will run about {total} seconds — that can be slow or unreliable on some phones. Continue anyway?',
       slideshow_generating_label: 'Recording… {sec}s / {total}s',
       slideshow_converting_label: 'Converting to MP4 for WhatsApp… {pct}%',
-      slideshow_convert_failed_alert: "Couldn't convert to MP4 — sharing as WEBM instead. It may not preview inline in WhatsApp, but you can still send it as a file.",
+      slideshow_convert_btn: '🎬 Convert to MP4',
+      slideshow_share_hint_mp4_needed: 'Convert to MP4 first — WhatsApp needs it to show an inline video preview.',
+      slideshow_convert_failed_inline: '⚠ Conversion failed — tap Convert to MP4 to try again.',
       slideshow_preview_h3: 'Your Slideshow',
       slideshow_share_btn: '📤 Share on WhatsApp',
       slideshow_download_btn: '⬇ Download',
@@ -511,7 +513,9 @@
       slideshow_long_warning: 'یہ سلائیڈ شو تقریباً {total} سیکنڈ کا ہوگا — یہ کچھ فونز پر سست یا ناقابل اعتماد ہو سکتا ہے۔ پھر بھی جاری رکھیں؟',
       slideshow_generating_label: 'ریکارڈ ہو رہا ہے… {sec} از {total} سیکنڈ',
       slideshow_converting_label: 'واٹس ایپ کے لیے MP4 میں تبدیل ہو رہا ہے… {pct}%',
-      slideshow_convert_failed_alert: 'MP4 میں تبدیل نہیں ہو سکا — اس کے بجائے WEBM شیئر کیا جا رہا ہے۔ ہو سکتا ہے یہ واٹس ایپ میں براہ راست نظر نہ آئے، لیکن آپ اسے بطور فائل بھیج سکتے ہیں۔',
+      slideshow_convert_btn: '🎬 MP4 میں تبدیل کریں',
+      slideshow_share_hint_mp4_needed: 'پہلے MP4 میں تبدیل کریں — واٹس ایپ کو ویڈیو کا اندرونی پیش منظر دکھانے کے لیے اس کی ضرورت ہے۔',
+      slideshow_convert_failed_inline: '⚠ تبدیلی ناکام ہو گئی — دوبارہ کوشش کرنے کے لیے "MP4 میں تبدیل کریں" پر تھپتھپائیں۔',
       slideshow_preview_h3: 'آپ کا سلائیڈ شو',
       slideshow_share_btn: '📤 واٹس ایپ پر شیئر کریں',
       slideshow_download_btn: '⬇ ڈاؤن لوڈ کریں',
@@ -741,7 +745,9 @@
       slideshow_long_warning: 'Ce diaporama durera environ {total} secondes — cela peut être lent ou peu fiable sur certains téléphones. Continuer quand même ?',
       slideshow_generating_label: 'Enregistrement… {sec}s / {total}s',
       slideshow_converting_label: 'Conversion en MP4 pour WhatsApp… {pct}%',
-      slideshow_convert_failed_alert: "Impossible de convertir en MP4 — partage en WEBM à la place. Il se peut qu'il ne s'affiche pas directement dans WhatsApp, mais vous pouvez toujours l'envoyer comme fichier.",
+      slideshow_convert_btn: '🎬 Convertir en MP4',
+      slideshow_share_hint_mp4_needed: "Convertissez d'abord en MP4 — WhatsApp en a besoin pour afficher un aperçu vidéo intégré.",
+      slideshow_convert_failed_inline: '⚠ Échec de la conversion — appuyez sur « Convertir en MP4 » pour réessayer.',
       slideshow_preview_h3: 'Votre Diaporama',
       slideshow_share_btn: '📤 Partager sur WhatsApp',
       slideshow_download_btn: '⬇ Télécharger',
@@ -972,7 +978,9 @@
       slideshow_long_warning: 'Diese Diashow dauert etwa {total} Sekunden — das kann auf manchen Handys langsam oder unzuverlässig sein. Trotzdem fortfahren?',
       slideshow_generating_label: 'Aufnahme läuft… {sec}s / {total}s',
       slideshow_converting_label: 'Wird für WhatsApp in MP4 umgewandelt… {pct}%',
-      slideshow_convert_failed_alert: 'Umwandlung in MP4 fehlgeschlagen — stattdessen wird WEBM geteilt. Es wird in WhatsApp möglicherweise nicht direkt angezeigt, kann aber trotzdem als Datei gesendet werden.',
+      slideshow_convert_btn: '🎬 In MP4 umwandeln',
+      slideshow_share_hint_mp4_needed: 'Zuerst in MP4 umwandeln — WhatsApp benötigt das für eine eingebettete Videovorschau.',
+      slideshow_convert_failed_inline: '⚠ Umwandlung fehlgeschlagen — tippen Sie auf „In MP4 umwandeln“, um es erneut zu versuchen.',
       slideshow_preview_h3: 'Ihre Diashow',
       slideshow_share_btn: '📤 Auf WhatsApp teilen',
       slideshow_download_btn: '⬇ Herunterladen',
@@ -4106,36 +4114,28 @@
     try { await audioCtx.close(); } catch (e) {}
     if (bgAudioEl && bgWasPlaying) bgAudioEl.play().catch(() => {});
 
-    let blob = new Blob(chunks, { type: recorder.mimeType || mimeType || 'video/webm' });
-
-    // WhatsApp won't show an inline preview for a webm — convert to mp4
-    // before handing it off, on whichever browser recorded webm in the first
-    // place (Safari already produced real mp4 above, nothing to do here).
-    if (slideshowResultExt !== 'mp4') {
-      if (progressText) progressText.textContent = t('slideshow_converting_label', { pct: 0 });
-      if (progressFill) progressFill.style.width = '0%';
-      try {
-        const mp4Blob = await transcodeWebmToMp4(blob, (fraction) => {
-          const pct = Math.round(fraction * 100);
-          if (progressFill) progressFill.style.width = pct + '%';
-          if (progressText) progressText.textContent = t('slideshow_converting_label', { pct });
-        });
-        blob = mp4Blob;
-        slideshowResultExt = 'mp4';
-      } catch (e) {
-        // Conversion failed (e.g. every ffmpeg.wasm CDN mirror was
-        // unreachable) — fall back to sharing the original webm rather than
-        // losing the slideshow entirely. Logged (not just alerted) so the
-        // actual cause is inspectable in the browser console if it recurs.
-        console.error('[slideshow] MP4 conversion failed, falling back to WEBM:', e);
-        alert(t('slideshow_convert_failed_alert'));
-      }
-    }
-
+    const blob = new Blob(chunks, { type: recorder.mimeType || mimeType || 'video/webm' });
     if (slideshowResultUrl) URL.revokeObjectURL(slideshowResultUrl);
     slideshowResultUrl = URL.createObjectURL(blob);
     slideshowResultBlob = blob;
 
+    // Conversion (if needed) is now a separate, explicit step — see
+    // updateSlideshowResultUI() and convertSlideshowToMp4() — rather than
+    // happening automatically here. That way a failed conversion doesn't
+    // force regenerating the whole slideshow to try again: the recording
+    // itself (the slow part) is already done and kept regardless.
+    updateSlideshowResultUI();
+
+    if (progressSection) progressSection.style.display = 'none';
+    if (resultSection) resultSection.style.display = 'block';
+    bail();
+  }
+
+  // Reflects the current slideshowResultBlob/Ext in the result panel: the
+  // preview video, the Download link, and — since WhatsApp only shows an
+  // inline video preview for mp4 — whether the "Convert to MP4" step is
+  // still needed, in which case Share stays disabled until it's done.
+  function updateSlideshowResultUI() {
     const video = document.getElementById('slideshowPreviewVideo');
     if (video) video.src = slideshowResultUrl;
     const downloadBtn = document.getElementById('slideshowDownloadBtn');
@@ -4143,17 +4143,52 @@
       downloadBtn.href = slideshowResultUrl;
       downloadBtn.download = `abu-europe-slideshow.${slideshowResultExt}`;
     }
+    const isMp4 = slideshowResultExt === 'mp4';
+    const convertRow = document.getElementById('slideshowConvertRow');
+    if (convertRow) convertRow.style.display = isMp4 ? 'none' : 'flex';
+    const convertBtn = document.getElementById('slideshowConvertBtn');
+    if (convertBtn) convertBtn.disabled = false;
+    const convertStatus = document.getElementById('slideshowConvertStatus');
+    if (convertStatus) convertStatus.textContent = '';
+    const shareHint = document.getElementById('slideshowShareHint');
+    if (shareHint) shareHint.style.display = isMp4 ? 'none' : 'block';
+    const shareBtn = document.getElementById('slideshowShareBtn');
+    if (shareBtn) shareBtn.disabled = !isMp4;
+  }
 
-    if (progressSection) progressSection.style.display = 'none';
-    if (resultSection) resultSection.style.display = 'block';
-    bail();
+  // Triggered by the explicit "Convert to MP4" button — separate from
+  // generateSlideshow so a failed attempt (e.g. a CDN hiccup) can be retried
+  // with one tap, without re-recording the whole slideshow.
+  async function convertSlideshowToMp4() {
+    if (!slideshowResultBlob || slideshowResultExt === 'mp4') return;
+    const convertBtn = document.getElementById('slideshowConvertBtn');
+    const statusEl = document.getElementById('slideshowConvertStatus');
+    if (convertBtn) convertBtn.disabled = true;
+    if (statusEl) statusEl.textContent = t('slideshow_converting_label', { pct: 0 });
+    try {
+      const mp4Blob = await transcodeWebmToMp4(slideshowResultBlob, (fraction) => {
+        const pct = Math.round(fraction * 100);
+        if (statusEl) statusEl.textContent = t('slideshow_converting_label', { pct });
+      });
+      if (slideshowResultUrl) URL.revokeObjectURL(slideshowResultUrl);
+      slideshowResultUrl = URL.createObjectURL(mp4Blob);
+      slideshowResultBlob = mp4Blob;
+      slideshowResultExt = 'mp4';
+      updateSlideshowResultUI();
+    } catch (e) {
+      console.error('[slideshow] MP4 conversion failed:', e);
+      if (statusEl) statusEl.textContent = t('slideshow_convert_failed_inline');
+      if (convertBtn) convertBtn.disabled = false; // let them retry without regenerating
+    }
   }
 
   // Same native-share-with-fallback pattern as shareSongViaWhatsApp /
   // sharePhotosViaWhatsApp: a single video file shared this way lands in
   // WhatsApp as a real, inline-playable video attachment.
   async function shareSlideshowViaWhatsApp() {
-    if (!slideshowResultBlob) return;
+    // Defensive — the button is disabled until this is true, but this also
+    // protects a stray call (e.g. keyboard activation edge cases).
+    if (!slideshowResultBlob || slideshowResultExt !== 'mp4') return;
     const filename = `abu-europe-slideshow.${slideshowResultExt}`;
     const file = new File([slideshowResultBlob], filename, { type: slideshowResultBlob.type });
     try {
@@ -4185,6 +4220,8 @@
     if (video) { video.pause(); video.removeAttribute('src'); video.load(); }
     if (slideshowResultUrl) { URL.revokeObjectURL(slideshowResultUrl); slideshowResultUrl = null; }
     slideshowResultBlob = null;
+    const convertStatus = document.getElementById('slideshowConvertStatus');
+    if (convertStatus) convertStatus.textContent = '';
     if (resultSection) resultSection.style.display = 'none';
   }
 
@@ -4210,6 +4247,7 @@
     const generateBtn = document.getElementById('slideshowGenerateBtn');
     const shareBtn = document.getElementById('slideshowShareBtn');
     const resultCloseBtn = document.getElementById('slideshowResultCloseBtn');
+    const convertBtn = document.getElementById('slideshowConvertBtn');
     if (!generateBtn) return;
 
     if (!slideshowSupported()) {
@@ -4233,6 +4271,7 @@
     generateBtn.addEventListener('click', generateSlideshow);
     if (shareBtn) shareBtn.addEventListener('click', shareSlideshowViaWhatsApp);
     if (resultCloseBtn) resultCloseBtn.addEventListener('click', closeSlideshowResult);
+    if (convertBtn) convertBtn.addEventListener('click', convertSlideshowToMp4);
 
     updateSlideshowDurationLabel();
     updateSlideshowSelectedCount();
