@@ -17,7 +17,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#123C82">
-<link rel="stylesheet" href="style.css?v=59">
+<link rel="stylesheet" href="style.css?v=60">
 <script>(function(){try{if(localStorage.getItem('europeTripTheme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
 </head>
 <body>
@@ -409,6 +409,13 @@
       <button type="button" class="slideshow-result-close" id="slideshowResultCloseBtn" title="Close" aria-label="Close">✕</button>
     </div>
     <video id="slideshowPreviewVideo" controls playsinline></video>
+
+    <div id="slideshowConvertRow" class="slideshow-convert-row" style="display:none;">
+      <button type="button" class="btn-primary" id="slideshowConvertBtn" data-i18n="slideshow_convert_btn">🎬 Convert to MP4</button>
+      <span class="slideshow-convert-status" id="slideshowConvertStatus"></span>
+    </div>
+    <p class="slideshow-share-hint" id="slideshowShareHint" data-i18n="slideshow_share_hint_mp4_needed" style="display:none;"></p>
+
     <div class="share-toolbar">
       <button type="button" class="btn-primary whatsapp-share-btn" id="slideshowShareBtn" data-i18n="slideshow_share_btn">📤 Share on WhatsApp</button>
       <a class="btn-ghost" id="slideshowDownloadBtn" download data-i18n="slideshow_download_btn">⬇ Download</a>
@@ -558,6 +565,6 @@
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="script.js?v=59"></script>
+<script src="script.js?v=60"></script>
 </body>
 </html>
