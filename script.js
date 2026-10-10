@@ -3,7 +3,7 @@
 
   /* ===================== CONFIG ===================== */
   const TRIP_START = new Date(2026, 7, 10, 18, 10);  // Aug 10 2026, 18:10 — landing at CGN
-  const TRIP_END   = new Date(2026, 9, 19, 19, 0);   // Oct 19 2026, 19:00 — return flight
+  const TRIP_END   = new Date(2026, 9, 19, 10, 43);  // Oct 19 2026, 10:43 — Munich → Istanbul (arrives Lahore Oct 20)
   const SITE_URL = 'https://razhasan.github.io/AbuEuropePlan/';
   const GITHUB_REPO = 'razhasan/AbuEuropePlan';
 
@@ -55,15 +55,13 @@
   const COLORS = {
     sisterFirst: '#1E88E5',
     withYou: '#FF5A5F',
-    Abdullah: '#7C4DFF',
-    sisterFinal: '#FFC93C'
+    Abdullah: '#7C4DFF'
   };
 
   const state = {
     sisterFirst: 14,
     withYou: 47,
-    Abdullah: 7,
-    sisterFinal: 2
+    Abdullah: 9
   };
 
   /* ===================== LANGUAGE ===================== */
@@ -113,9 +111,9 @@
       confirm_hide_souvenir: "Remove this from view? It will disappear from this device, but the photo stays in the shared album — other visitors (and you, on another device) will still see it unless it's removed from there directly.",
 
       hero_title: "Abu's Europe Visit",
-      hero_subtitle_html: 'Cologne Bonn → Bonn (Busrah) → Verneuil-en-Halatte, Paris (us) → Stuttgart (Abdullah) → Bonn (Busrah) → home.<br>10 August – 19 October 2026',
+      hero_subtitle_html: 'Cologne Bonn → Bonn (Busrah) → Verneuil-en-Halatte, Paris (us) → Stuttgart (Abdullah) → Munich → home.<br>10 August – 19 October 2026 · Munich → Istanbul 10:43, Lahore 20 October',
       cd_days: 'Days', cd_hours: 'Hours', cd_mins: 'Minutes', cd_secs: 'Seconds',
-      route_stops: ['CGN Airport', 'Bonn (Busrah)', 'Paris (You)', 'Stuttgart (Abdullah)', 'Bonn (Busrah)', 'Flight Home'],
+      route_stops: ['CGN Airport', 'Bonn (Busrah)', 'Paris (You)', 'Stuttgart (Abdullah)', 'Munich Airport', 'Flight Home'],
       user_guide_btn: '📄 User Guide (PDF)',
       share_whatsapp_btn: '💬 Share on WhatsApp',
       share_whatsapp_text: "Abu's Europe Trip planner — dates, Paris guide, photos and more:",
@@ -123,7 +121,7 @@
       current_location_before: '✈️ The trip starts in {days} day(s) — check back on {date}!',
       current_location_after: '🎉 The trip is complete — thanks for following along!',
       hero_share_header: "🧳✨ *Abu's Europe Journey* ✨🧳",
-      hero_share_route: '🗺️ Bonn (Busrah) → Paris (You) → Stuttgart (Abdullah) → Bonn (Busrah)',
+      hero_share_route: '🗺️ Bonn (Busrah) → Paris (You) → Stuttgart (Abdullah) → Munich ✈️',
       hero_share_dates: '📅 10 Aug – 19 Oct 2026',
       hero_share_photos_note: "📸 See photos & videos in the Souvenirs section —\nphotos you add yourself stay on your device only, so send them to me and I'll add them permanently for everyone to see! 💙",
       hero_share_music_note: "🎵 There's music playing on the site too!",
@@ -135,15 +133,13 @@
       label_map: '🗺️ Map', label_packing: '🎒 Packing', label_slideshow: '🎬 Slideshow',
 
       planner_h2: 'Trip Duration Planner',
-      planner_intro: "Landing (Aug 10, 18:10) and the return flight (Oct 19, 19:00) are fixed — that's exactly 10 weeks. Busrah's first stay (10–24 Aug) is now fixed too, since it's already happened. Drag the remaining sliders to divide the rest of those 10 weeks between your stay in Paris, Abdullah's stay in Stuttgart, and Busrah's final stay, in that order — every date on this page updates instantly.",
+      planner_intro: "Landing (Aug 10, 18:10) and the return flight (Oct 19, 10:43, Munich → Istanbul, arriving Lahore Oct 20) are fixed. Busrah's first stay (10–24 Aug) is fixed too, since it has already happened. The final stay with Busrah is cancelled — the last days are now with Abdullah. Drag the remaining sliders to divide the time between your stay in Paris and Abdullah's stay in Stuttgart — every date on this page updates instantly.",
       planner_field_sisterFirst_label: 'Bonn — Arrival stay (Busrah)',
       planner_field_sisterFirst_hint: 'Right after landing, before heading to Paris',
       planner_field_withYou_label: 'Paris / Verneuil-en-Halatte (You)',
       planner_field_withYou_hint: 'Starts 24 Aug (right after Bonn) — rest week + sightseeing',
       planner_field_Abdullah_label: 'Stuttgart — Abdullah',
       planner_field_Abdullah_hint: 'Flexible — adjust to fit the total',
-      planner_field_sisterFinal_label: 'Bonn — Final stay (Busrah)',
-      planner_field_sisterFinal_hint: 'Until the Oct 19 flight home',
       planner_field_locked_hint: '🔒 Fixed — this already happened ({start} – {end})',
       week_singular: 'week', week_plural: 'weeks',
       day_singular: 'day', day_plural: 'days',
@@ -168,9 +164,8 @@
       leg_withYou_name: 'Paris / Verneuil-en-Halatte — with you',
       leg_withYou_detail: 'Travel by train from Bonn to Paris (car as backup option), picked up by you. First week is rest, then Paris sightseeing — see the Day-by-Day Plan section below.',
       leg_Abdullah_name: 'Stuttgart — with Abdullah',
-      leg_Abdullah_detail: 'Travel by train from Paris to Stuttgart. One week staying with Abdullah.',
-      leg_sisterFinal_name: 'Bonn — Final stay with Busrah',
-      leg_sisterFinal_detail: 'Back to Bonn by train from Stuttgart. Final stretch before the return flight home on {date} at 19:00.',
+      leg_Abdullah_detail: 'Travel by train from Paris to Stuttgart and stay with Abdullah until the end of the trip. Then on to Munich for the flight home on {date} at 10:43 (Munich → Istanbul, arriving in Lahore on 20 October).',
+      map_munich_name: 'Munich — flight home',
 
       calendar_h2: 'Full Calendar View',
       calendar_intro: "August, September and October 2026 at a glance, color-coded by who he's staying with.",
@@ -345,16 +340,16 @@
       confirm_hide_souvenir: 'اسے منظر سے ہٹا دیں؟ یہ اس ڈیوائس سے غائب ہو جائے گی، لیکن تصویر مشترکہ البم میں موجود رہے گی — دوسرے وزیٹرز (اور آپ کسی اور ڈیوائس پر) اسے پھر بھی دیکھ سکیں گے جب تک اسے وہاں سے براہ راست نہ ہٹایا جائے۔',
 
       hero_title: 'ابو کا یورپ کا سفر',
-      hero_subtitle_html: 'کولون بون → بون (بشریٰ) → ورنوے آں ہالات، پیرس (ہمارے ہاں) → سٹٹگارٹ (عبداللہ) → بون (بشریٰ) → گھر واپسی۔<br>10 اگست – 19 اکتوبر 2026',
+      hero_subtitle_html: 'کولون بون → بون (بشریٰ) → ورنوے آں ہالات، پیرس (ہمارے ہاں) → سٹٹگارٹ (عبداللہ) → میونخ → گھر واپسی۔<br>10 اگست – 19 اکتوبر 2026 · میونخ → استنبول 10:43، لاہور 20 اکتوبر',
       cd_days: 'دن', cd_hours: 'گھنٹے', cd_mins: 'منٹ', cd_secs: 'سیکنڈ',
-      route_stops: ['کولون بون ایئرپورٹ', 'بون (بشریٰ)', 'پیرس (آپ)', 'سٹٹگارٹ (عبداللہ)', 'بون (بشریٰ)', 'واپسی پرواز'],
+      route_stops: ['کولون بون ایئرپورٹ', 'بون (بشریٰ)', 'پیرس (آپ)', 'سٹٹگارٹ (عبداللہ)', 'میونخ ایئرپورٹ', 'واپسی پرواز'],
       user_guide_btn: '📄 صارف رہنما (PDF)',
       share_whatsapp_btn: '💬 واٹس ایپ پر شیئر کریں',
       share_whatsapp_text: 'ابو کے یورپ کے سفر کا منصوبہ — تاریخیں، پیرس گائیڈ، تصاویر اور مزید:',
       current_location_now: '📍 اس وقت: {name}',
       current_location_before: '✈️ سفر شروع ہونے میں {days} دن باقی ہیں — {date} کو دوبارہ چیک کریں!',
       hero_share_header: '🧳✨ *ابو کا یورپ کا سفر* ✨🧳',
-      hero_share_route: '🗺️ بون (بشریٰ) → پیرس (آپ) → سٹٹگارٹ (عبداللہ) → بون (بشریٰ)',
+      hero_share_route: '🗺️ بون (بشریٰ) → پیرس (آپ) → سٹٹگارٹ (عبداللہ) → میونخ ✈️',
       hero_share_dates: '📅 10 اگست – 19 اکتوبر 2026',
       hero_share_photos_note: 'یادگاریں والے حصے میں تصاویر اور ویڈیوز دیکھیں —\nآپ خود جو تصاویر شامل کریں گے وہ صرف آپ کی ڈیوائس پر رہیں گی، اس لیے مجھے بھیج دیں تاکہ میں انہیں سب کے لیے مستقل طور پر شامل کر دوں! 💙',
       hero_share_music_note: '🎵 سائٹ پر موسیقی بھی چل رہی ہے!',
@@ -367,15 +362,13 @@
       label_map: '🗺️ نقشہ', label_packing: '🎒 سامان کی فہرست', label_slideshow: '🎬 سلائیڈ شو',
 
       planner_h2: 'سفر کے دورانیے کا منصوبہ',
-      planner_intro: 'پہنچنے کا وقت (10 اگست، 18:10) اور واپسی کی پرواز (19 اکتوبر، 19:00) طے شدہ ہیں — یعنی مکمل 10 ہفتے۔ بشریٰ کا پہلا قیام (10–24 اگست) بھی اب طے شدہ ہے، کیونکہ یہ پہلے ہی ہو چکا ہے۔ باقی سلائیڈرز کو حرکت دے کر باقی 10 ہفتے اسی ترتیب میں تقسیم کریں: پیرس میں آپ کے پاس قیام، سٹٹگارٹ میں عبداللہ کے پاس قیام، اور بشریٰ کے پاس آخری قیام — اس صفحے کی ہر تاریخ فوراً اپ ڈیٹ ہو جائے گی۔',
+      planner_intro: 'پہنچنے کا وقت (10 اگست، 18:10) اور واپسی کی پرواز (19 اکتوبر، 10:43، میونخ سے استنبول، 20 اکتوبر کو لاہور آمد) طے شدہ ہیں۔ بشریٰ کا پہلا قیام (10–24 اگست) بھی طے شدہ ہے، کیونکہ یہ ہو چکا ہے۔ بشریٰ کے ہاں آخری قیام منسوخ ہے — آخری دن اب عبداللہ کے ساتھ ہوں گے۔ سلائیڈرز کو حرکت دے کر پیرس میں آپ کے قیام اور سٹٹگارٹ میں عبداللہ کے قیام کے درمیان وقت تقسیم کریں — اس صفحے کی ہر تاریخ فوراً اپ ڈیٹ ہو جائے گی۔',
       planner_field_sisterFirst_label: 'بون — آمد پر قیام (بشریٰ)',
       planner_field_sisterFirst_hint: 'پہنچنے کے فوراً بعد، پیرس جانے سے پہلے',
       planner_field_withYou_label: 'پیرس / ورنوے آں ہالات (آپ)',
       planner_field_withYou_hint: '24 اگست سے شروع (بون کے فوراً بعد) — آرام کا ہفتہ + سیر و تفریح',
       planner_field_Abdullah_label: 'سٹٹگارٹ — عبداللہ',
       planner_field_Abdullah_hint: 'لچکدار — کل میزان کے مطابق ایڈجسٹ کریں',
-      planner_field_sisterFinal_label: 'بون — آخری قیام (بشریٰ)',
-      planner_field_sisterFinal_hint: '19 اکتوبر کی واپسی پرواز تک',
       planner_field_locked_hint: '🔒 طے شدہ — یہ پہلے ہی ہو چکا ہے ({start} – {end})',
       week_singular: 'ہفتہ', week_plural: 'ہفتے',
       day_singular: 'دن', day_plural: 'دن',
@@ -400,9 +393,8 @@
       leg_withYou_name: 'پیرس / ورنوے آں ہالات — آپ کے ساتھ',
       leg_withYou_detail: 'بون سے پیرس تک ٹرین کا سفر (متبادل کے طور پر گاڑی)، آپ کی جانب سے استقبال۔ پہلا ہفتہ آرام کا، پھر پیرس کی سیر — نیچے روزانہ منصوبہ دیکھیں۔',
       leg_Abdullah_name: 'سٹٹگارٹ — عبداللہ کے ساتھ',
-      leg_Abdullah_detail: 'پیرس سے سٹٹگارٹ تک ٹرین کا سفر۔ عبداللہ کے ساتھ ایک ہفتہ قیام۔',
-      leg_sisterFinal_name: 'بون — بشریٰ کے ہاں آخری قیام',
-      leg_sisterFinal_detail: 'سٹٹگارٹ سے ٹرین کے ذریعے واپس بون۔ {date} کو 19:00 بجے واپسی پرواز سے پہلے آخری مرحلہ۔',
+      leg_Abdullah_detail: 'پیرس سے سٹٹگارٹ تک ٹرین کا سفر اور سفر کے اختتام تک عبداللہ کے ساتھ قیام۔ پھر میونخ سے {date} کو 10:43 بجے واپسی پرواز (میونخ → استنبول، 20 اکتوبر کو لاہور آمد)۔',
+      map_munich_name: 'میونخ — واپسی پرواز',
 
       calendar_h2: 'مکمل کیلنڈر منظر',
       calendar_intro: 'اگست، ستمبر اور اکتوبر 2026 ایک نظر میں، قیام کی جگہ کے حساب سے رنگوں میں۔',
@@ -577,16 +569,16 @@
       confirm_hide_souvenir: "Retirer ceci de la vue ? Cela disparaîtra de cet appareil, mais la photo reste dans l'album partagé — les autres visiteurs (et vous, sur un autre appareil) la verront toujours, sauf si elle est supprimée directement de là-bas.",
 
       hero_title: "Voyage d'Abu en Europe",
-      hero_subtitle_html: 'Cologne Bonn → Bonn (Busrah) → Verneuil-en-Halatte, Paris (chez nous) → Stuttgart (Abdullah) → Bonn (Busrah) → retour à la maison.<br>10 août – 19 octobre 2026',
+      hero_subtitle_html: 'Cologne Bonn → Bonn (Busrah) → Verneuil-en-Halatte, Paris (chez nous) → Stuttgart (Abdullah) → Munich → retour à la maison.<br>10 août – 19 octobre 2026 · Munich → Istanbul 10h43, Lahore le 20 octobre',
       cd_days: 'Jours', cd_hours: 'Heures', cd_mins: 'Minutes', cd_secs: 'Secondes',
-      route_stops: ['Aéroport de Cologne', 'Bonn (Busrah)', 'Paris (Vous)', 'Stuttgart (Abdullah)', 'Bonn (Busrah)', 'Vol de retour'],
+      route_stops: ['Aéroport de Cologne', 'Bonn (Busrah)', 'Paris (Vous)', 'Stuttgart (Abdullah)', 'Aéroport de Munich', 'Vol de retour'],
       user_guide_btn: "📄 Guide d'utilisation (PDF)",
       share_whatsapp_btn: '💬 Partager sur WhatsApp',
       share_whatsapp_text: "Planificateur du voyage d'Abu en Europe — dates, guide de Paris, photos et plus :",
       current_location_now: '📍 En ce moment : {name}',
       current_location_before: '✈️ Le voyage commence dans {days} jour(s) — revenez le {date} !',
       hero_share_header: "🧳✨ *Le Voyage d'Abu en Europe* ✨🧳",
-      hero_share_route: '🗺️ Bonn (Busrah) → Paris (Vous) → Stuttgart (Abdullah) → Bonn (Busrah)',
+      hero_share_route: '🗺️ Bonn (Busrah) → Paris (Vous) → Stuttgart (Abdullah) → Munich ✈️',
       hero_share_dates: '📅 10 août – 19 octobre 2026',
       hero_share_photos_note: "📸 Voyez les photos et vidéos dans la section Souvenirs —\nles photos que vous ajoutez vous-même restent sur votre appareil uniquement, alors envoyez-les moi et je les ajouterai définitivement pour que tout le monde les voie ! 💙",
       hero_share_music_note: "🎵 Il y a aussi de la musique sur le site !",
@@ -599,15 +591,13 @@
       label_map: '🗺️ Carte', label_packing: '🎒 Bagages', label_slideshow: '🎬 Diaporama',
 
       planner_h2: 'Planificateur de Durée du Voyage',
-      planner_intro: "L'atterrissage (10 août, 18h10) et le vol de retour (19 octobre, 19h00) sont fixes — soit exactement 10 semaines. Le premier séjour de Busrah (10–24 août) est désormais fixe aussi, puisqu'il a déjà eu lieu. Faites glisser les curseurs restants pour répartir le reste de ces 10 semaines, dans cet ordre : votre séjour à Paris, le séjour d'Abdullah à Stuttgart, puis le séjour final de Busrah — chaque date sur cette page se met à jour instantanément.",
+      planner_intro: "L'atterrissage (10 août, 18h10) et le vol de retour (19 octobre, 10h43, Munich → Istanbul, arrivée à Lahore le 20 octobre) sont fixes. Le premier séjour de Busrah (10–24 août) est aussi fixe, puisqu'il a déjà eu lieu. Le séjour final chez Busrah est annulé — les derniers jours se passent désormais chez Abdullah. Faites glisser les curseurs restants pour répartir le temps entre votre séjour à Paris et celui d'Abdullah à Stuttgart — chaque date sur cette page se met à jour instantanément.",
       planner_field_sisterFirst_label: "Bonn — Séjour à l'arrivée (Busrah)",
       planner_field_sisterFirst_hint: "Juste après l'atterrissage, avant de partir pour Paris",
       planner_field_withYou_label: 'Paris / Verneuil-en-Halatte (Vous)',
       planner_field_withYou_hint: 'Commence le 24 août (juste après Bonn) — semaine de repos + visites',
       planner_field_Abdullah_label: 'Stuttgart — Abdullah',
       planner_field_Abdullah_hint: 'Flexible — ajustez selon le total',
-      planner_field_sisterFinal_label: 'Bonn — Séjour final (Busrah)',
-      planner_field_sisterFinal_hint: "Jusqu'au vol de retour du 19 octobre",
       planner_field_locked_hint: "🔒 Fixé — c'est déjà arrivé ({start} – {end})",
       week_singular: 'semaine', week_plural: 'semaines',
       day_singular: 'jour', day_plural: 'jours',
@@ -632,9 +622,8 @@
       leg_withYou_name: 'Paris / Verneuil-en-Halatte — avec vous',
       leg_withYou_detail: "Voyage en train de Bonn à Paris (voiture en option), accueil par vous. Première semaine de repos, puis visites de Paris — voir la section Programme du Jour ci-dessous.",
       leg_Abdullah_name: 'Stuttgart — avec Abdullah',
-      leg_Abdullah_detail: 'Voyage en train de Paris à Stuttgart. Une semaine de séjour avec Abdullah.',
-      leg_sisterFinal_name: 'Bonn — Séjour final avec Busrah',
-      leg_sisterFinal_detail: 'Retour à Bonn en train depuis Stuttgart. Dernière étape avant le vol de retour le {date} à 19h00.',
+      leg_Abdullah_detail: 'Voyage en train de Paris à Stuttgart et séjour chez Abdullah jusqu\'à la fin du voyage. Puis départ de Munich le {date} à 10h43 (Munich → Istanbul, arrivée à Lahore le 20 octobre).',
+      map_munich_name: 'Munich — vol de retour',
 
       calendar_h2: 'Vue du Calendrier Complet',
       calendar_intro: "Août, septembre et octobre 2026 en un coup d'œil, avec des couleurs selon la personne chez qui il séjourne.",
@@ -810,9 +799,9 @@
       confirm_hide_souvenir: "Dies aus der Ansicht entfernen? Es verschwindet von diesem Gerät, aber das Foto bleibt im gemeinsamen Album — andere Besucher (und Sie selbst auf einem anderen Gerät) sehen es weiterhin, sofern es nicht direkt dort entfernt wird.",
 
       hero_title: "Abus großer Europabesuch",
-      hero_subtitle_html: 'Köln Bonn → Bonn (Busrah) → Verneuil-en-Halatte, Paris (bei uns) → Stuttgart (Abdullah) → Bonn (Busrah) → nach Hause.<br>10. August – 19. Oktober 2026',
+      hero_subtitle_html: 'Köln Bonn → Bonn (Busrah) → Verneuil-en-Halatte, Paris (bei uns) → Stuttgart (Abdullah) → München → nach Hause.<br>10. August – 19. Oktober 2026 · München → Istanbul 10:43 Uhr, Lahore am 20. Oktober',
       cd_days: 'Tage', cd_hours: 'Stunden', cd_mins: 'Minuten', cd_secs: 'Sekunden',
-      route_stops: ['Flughafen Köln/Bonn', 'Bonn (Busrah)', 'Paris (Sie)', 'Stuttgart (Abdullah)', 'Bonn (Busrah)', 'Rückflug'],
+      route_stops: ['Flughafen Köln/Bonn', 'Bonn (Busrah)', 'Paris (Sie)', 'Stuttgart (Abdullah)', 'Flughafen München', 'Rückflug'],
       user_guide_btn: '📄 Bedienungsanleitung (PDF)',
       share_whatsapp_btn: '💬 Auf WhatsApp teilen',
       share_whatsapp_text: "Abus Europareise-Planer — Termine, Paris-Führer, Fotos und mehr:",
@@ -820,7 +809,7 @@
       current_location_before: '✈️ Die Reise beginnt in {days} Tag(en) — schauen Sie am {date} wieder vorbei!',
       current_location_after: '🎉 Die Reise ist beendet — danke fürs Mitverfolgen!',
       hero_share_header: "🧳✨ *Abus Europareise* ✨🧳",
-      hero_share_route: '🗺️ Bonn (Busrah) → Paris (Sie) → Stuttgart (Abdullah) → Bonn (Busrah)',
+      hero_share_route: '🗺️ Bonn (Busrah) → Paris (Sie) → Stuttgart (Abdullah) → Munich ✈️',
       hero_share_dates: '📅 10. Aug. – 19. Okt. 2026',
       hero_share_photos_note: "📸 Fotos & Videos gibt es im Bereich Andenken —\nFotos, die Sie selbst hinzufügen, bleiben nur auf Ihrem Gerät, also schicken Sie sie mir und ich füge sie dauerhaft für alle hinzu! 💙",
       hero_share_music_note: "🎵 Auf der Seite läuft auch Musik!",
@@ -832,15 +821,13 @@
       label_map: '🗺️ Karte', label_packing: '🎒 Packliste', label_slideshow: '🎬 Diashow',
 
       planner_h2: 'Reisedauer-Planer',
-      planner_intro: "Die Landung (10. Aug., 18:10 Uhr) und der Rückflug (19. Okt., 19:00 Uhr) stehen fest — das sind genau 10 Wochen. Busrahs erster Aufenthalt (10.–24. Aug.) steht jetzt ebenfalls fest, da er bereits stattgefunden hat. Verschieben Sie die restlichen Regler, um den Rest dieser 10 Wochen in dieser Reihenfolge aufzuteilen: Ihr Aufenthalt in Paris, Abdullahs Aufenthalt in Stuttgart und Busrahs letzter Aufenthalt — jedes Datum auf dieser Seite wird sofort aktualisiert.",
+      planner_intro: "Die Landung (10. Aug., 18:10 Uhr) und der Rückflug (19. Okt., 10:43 Uhr, München → Istanbul, Ankunft in Lahore am 20. Okt.) stehen fest. Busrahs erster Aufenthalt (10.–24. Aug.) steht ebenfalls fest, da er bereits stattgefunden hat. Der letzte Aufenthalt bei Busrah entfällt — die letzten Tage verbringt Abu jetzt bei Abdullah. Verschieben Sie die restlichen Regler, um die Zeit zwischen Ihrem Aufenthalt in Paris und Abdullahs Aufenthalt in Stuttgart aufzuteilen — jedes Datum auf dieser Seite wird sofort aktualisiert.",
       planner_field_sisterFirst_label: 'Bonn — Ankunftsaufenthalt (Busrah)',
       planner_field_sisterFirst_hint: 'Gleich nach der Landung, vor der Weiterfahrt nach Paris',
       planner_field_withYou_label: 'Paris / Verneuil-en-Halatte (Sie)',
       planner_field_withYou_hint: 'Beginnt am 24. Aug. (direkt nach Bonn) — Ruhewoche + Besichtigungen',
       planner_field_Abdullah_label: 'Stuttgart — Abdullah',
       planner_field_Abdullah_hint: 'Flexibel — an die Gesamtdauer anpassen',
-      planner_field_sisterFinal_label: 'Bonn — Letzter Aufenthalt (Busrah)',
-      planner_field_sisterFinal_hint: 'Bis zum Rückflug am 19. Oktober',
       planner_field_locked_hint: '🔒 Fest — das ist bereits passiert ({start} – {end})',
       week_singular: 'Woche', week_plural: 'Wochen',
       day_singular: 'Tag', day_plural: 'Tage',
@@ -865,9 +852,8 @@
       leg_withYou_name: 'Paris / Verneuil-en-Halatte — bei Ihnen',
       leg_withYou_detail: 'Zugfahrt von Bonn nach Paris (Auto als Rückfalloption), Abholung durch Sie. Erste Woche Ruhe, dann Besichtigungen in Paris — siehe den Tagesplan-Bereich unten.',
       leg_Abdullah_name: 'Stuttgart — bei Abdullah',
-      leg_Abdullah_detail: 'Zugfahrt von Paris nach Stuttgart. Eine Woche Aufenthalt bei Abdullah.',
-      leg_sisterFinal_name: 'Bonn — Letzter Aufenthalt bei Busrah',
-      leg_sisterFinal_detail: 'Rückfahrt nach Bonn per Zug aus Stuttgart. Letzte Etappe vor dem Rückflug am {date} um 19:00 Uhr.',
+      leg_Abdullah_detail: 'Zugfahrt von Paris nach Stuttgart und Aufenthalt bei Abdullah bis zum Ende der Reise. Dann Rückflug ab München am {date} um 10:43 Uhr (München → Istanbul, Ankunft in Lahore am 20. Oktober).',
+      map_munich_name: 'München — Rückflug',
 
       calendar_h2: 'Vollständige Kalenderansicht',
       calendar_intro: "August, September und Oktober 2026 auf einen Blick, farblich markiert nach der Person, bei der er zu Gast ist.",
@@ -1380,18 +1366,10 @@
     legs.push({
       key: 'Abdullah', name: t('leg_Abdullah_name'), color: COLORS.Abdullah,
       start: cursor, end: AbdullahEnd,
-      detail: t('leg_Abdullah_detail')
-    });
-    cursor = AbdullahEnd;
-
-    const sisterFinalEnd = addDays(cursor, state.sisterFinal);
-    legs.push({
-      key: 'sisterFinal', name: t('leg_sisterFinal_name'), color: COLORS.sisterFinal,
-      start: cursor, end: sisterFinalEnd,
-      detail: t('leg_sisterFinal_detail', { date: fmt(TRIP_END) })
+      detail: t('leg_Abdullah_detail', { date: fmt(TRIP_END) })
     });
 
-    return { legs, calculatedEnd: sisterFinalEnd };
+    return { legs, calculatedEnd: AbdullahEnd };
   }
 
   /* ===================== COUNTDOWN ===================== */
@@ -1449,15 +1427,13 @@
   const PLANNER_HINT_KEYS = {
     sisterFirst: 'planner_field_sisterFirst_hint',
     withYou: 'planner_field_withYou_hint',
-    Abdullah: 'planner_field_Abdullah_hint',
-    sisterFinal: 'planner_field_sisterFinal_hint'
+    Abdullah: 'planner_field_Abdullah_hint'
   };
 
   function renderPlanner() {
     document.getElementById('val-sisterFirst').textContent = formatDuration(state.sisterFirst);
     document.getElementById('val-withYou').textContent = formatDuration(state.withYou);
     document.getElementById('val-Abdullah').textContent = formatDuration(state.Abdullah);
-    document.getElementById('val-sisterFinal').textContent = formatDuration(state.sisterFinal);
 
     // A leg's slider locks itself the moment its own end date has passed —
     // it's now a historical fact, not a plan. Recomputed fresh every render
@@ -1468,7 +1444,7 @@
     const { legs } = computeSchedule();
     const now = new Date();
 
-    ['sisterFirst', 'withYou', 'Abdullah', 'sisterFinal'].forEach(key => {
+    ['sisterFirst', 'withYou', 'Abdullah'].forEach(key => {
       const input = document.getElementById(key);
       const field = input.closest('.planner-field');
       const hintEl = field ? field.querySelector('.hint') : null;
@@ -1492,7 +1468,7 @@
     });
 
     const calculatedEnd = legs[legs.length - 1].end;
-    const totalDays = state.sisterFirst + state.withYou + state.Abdullah + state.sisterFinal;
+    const totalDays = state.sisterFirst + state.withYou + state.Abdullah;
     const statusEl = document.getElementById('plannerStatus');
 
     if (sameDay(calculatedEnd, TRIP_END)) {
@@ -1514,7 +1490,7 @@
       sumTotalEl.textContent = totalWeeksVal.toFixed(1);
     }
     animateNumberTo(document.getElementById('sum-days'), totalDays);
-    animateNumberTo(document.getElementById('sum-sister'), state.sisterFirst + state.sisterFinal);
+    animateNumberTo(document.getElementById('sum-sister'), state.sisterFirst);
     animateNumberTo(document.getElementById('sum-you'), state.withYou);
 
     document.getElementById('sum-end').textContent = fmtShort(calculatedEnd);
@@ -1603,7 +1579,7 @@
   }
 
   function initPlanner() {
-    ['sisterFirst', 'withYou', 'Abdullah', 'sisterFinal'].forEach(key => {
+    ['sisterFirst', 'withYou', 'Abdullah'].forEach(key => {
       const input = document.getElementById(key);
       input.value = state[key];
       input.addEventListener('input', () => {
@@ -2797,7 +2773,7 @@
     const totalDays = Math.round((calculatedEnd - TRIP_START) / 86400000);
     document.getElementById('footerStats').textContent = t('footer_stats', {
       days: totalDays,
-      sisterWeeks: formatDuration(state.sisterFirst + state.sisterFinal),
+      sisterWeeks: formatDuration(state.sisterFirst),
       youWeeks: formatDuration(state.withYou),
       AbdullahWeeks: formatDuration(state.Abdullah)
     });
@@ -3018,7 +2994,7 @@
     btn.addEventListener('click', () => shareSongViaWhatsApp());
   }
 
-  const LEG_EMOJI = { sisterFirst: '🏠', withYou: '🗼', Abdullah: '🏡', sisterFinal: '🏠' };
+  const LEG_EMOJI = { sisterFirst: '🏠', withYou: '🗼', Abdullah: '🏡' };
 
   function buildPlannerShareText() {
     const { legs } = computeSchedule();
@@ -4309,7 +4285,8 @@
     const cityStops = [
       { lat: 50.7374, lng: 7.0982, color: COLORS.sisterFirst, get name() { return t('leg_sisterFirst_name'); } },
       { lat: 49.2686, lng: 2.5495, color: COLORS.withYou, get name() { return t('leg_withYou_name'); } },
-      { lat: 48.7758, lng: 9.1829, color: COLORS.Abdullah, get name() { return t('leg_Abdullah_name'); } }
+      { lat: 48.7758, lng: 9.1829, color: COLORS.Abdullah, get name() { return t('leg_Abdullah_name'); } },
+      { lat: 48.3538, lng: 11.7861, color: '#FFC93C', get name() { return t('map_munich_name'); } }
     ];
     cityStops.forEach(c => {
       L.circleMarker([c.lat, c.lng], { radius: 11, color: c.color, fillColor: c.color, fillOpacity: 0.85, weight: 2 })
@@ -4318,7 +4295,7 @@
     });
 
     const routeLatLngs = cityStops.map(c => [c.lat, c.lng]);
-    routeLatLngs.push(routeLatLngs[0]); // back to Bonn
+    // route ends at Munich (flight home) — no return to Bonn
     const routeLine = L.polyline(routeLatLngs, { color: '#1E88E5', weight: 3, opacity: 0.8 }).addTo(map);
     if (motionOk()) {
       setTimeout(() => {
