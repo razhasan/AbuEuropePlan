@@ -116,6 +116,60 @@
     document.head.appendChild(st);
   })();
 
+  /* ===================== HISTORY STYLES (injected so style.css stays unchanged) ===================== */
+  (function injectHistoryStyles() {
+    const st = document.createElement('style');
+    st.id = 'historyStyles';
+    st.textContent = `
+.hist-tabs{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 10px;margin:6px 0 4px;-webkit-overflow-scrolling:touch}
+.hist-tab{flex:0 0 auto;border:2px solid var(--line);background:var(--paper);color:var(--ink);border-radius:999px;padding:9px 16px;font:inherit;font-weight:700;cursor:pointer;transition:transform .2s,background .2s,border-color .2s,color .2s}
+.hist-tab:hover{transform:translateY(-2px)}
+.hist-tab.active{background:linear-gradient(135deg,var(--fr-blue),var(--purple));border-color:transparent;color:#fff;box-shadow:var(--shadow)}
+.hist-slider-box{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px 12px;margin:8px 0 16px;box-shadow:var(--shadow)}
+.hist-slider-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.hist-slider-title{font-weight:800;color:var(--navy);font-size:.95rem}
+.hist-slider-readout{font-weight:700;color:var(--purple);font-size:.95rem}
+.hist-range{width:100%;margin:12px 0 4px;-webkit-appearance:none;appearance:none;height:8px;border-radius:99px;background:linear-gradient(90deg,var(--fr-blue),var(--purple),var(--fr-red));outline:none;direction:ltr}
+.hist-range::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:26px;height:26px;border-radius:50%;background:#fff;border:4px solid var(--purple);box-shadow:0 3px 10px rgba(0,0,0,.25);cursor:grab}
+.hist-range::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:#fff;border:4px solid var(--purple);box-shadow:0 3px 10px rgba(0,0,0,.25);cursor:grab}
+.hist-range-ends{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);direction:ltr}
+.hist-note{background:var(--status-warn-bg);color:var(--status-warn-fg);border-radius:12px;padding:10px 14px;font-size:.88rem;margin:0 0 14px}
+.hist-grid{display:grid;grid-template-columns:1fr;gap:20px}
+@media(min-width:760px){.hist-grid{grid-template-columns:repeat(2,1fr)}}
+.hist-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}
+.hist-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.hist-card.focus{animation:histPulse 1.4s ease 1}
+@keyframes histPulse{0%{box-shadow:0 0 0 0 rgba(124,77,255,.55)}70%{box-shadow:0 0 0 16px rgba(124,77,255,0)}100%{box-shadow:var(--shadow)}}
+.hist-img{position:relative;aspect-ratio:16/10;background:var(--pastel-blue);cursor:zoom-in;overflow:hidden}
+.hist-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
+.hist-card:hover .hist-img img{transform:scale(1.05)}
+.hist-date{position:absolute;inset-inline-start:10px;bottom:10px;background:rgba(18,60,130,.88);color:#fff;border-radius:999px;padding:5px 12px;font-size:.82rem;font-weight:700;backdrop-filter:blur(4px)}
+.hist-num{position:absolute;inset-inline-end:10px;top:10px;background:rgba(0,0,0,.55);color:#fff;border-radius:999px;padding:3px 10px;font-size:.75rem;font-weight:700}
+.hist-body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
+.hist-visited{align-self:flex-start;background:var(--status-ok-bg);color:var(--status-ok-fg);border-radius:999px;padding:3px 11px;font-size:.78rem;font-weight:800}
+.hist-body h3{margin:2px 0 0;font-size:1.12rem;color:var(--navy);line-height:1.3}
+.hist-place{color:var(--muted);font-size:.88rem}
+.hist-body p{margin:0;line-height:1.6}
+.hist-more{display:none;border-top:1px dashed var(--line);padding-top:10px;margin-top:2px}
+.hist-card.open .hist-more{display:block;animation:fadeInUp .35s ease both}
+.hist-more h4{margin:0 0 6px;color:var(--purple);font-size:.9rem}
+.hist-more ul{margin:0 0 10px;padding-inline-start:20px;line-height:1.55}
+.hist-fact{background:var(--pastel-blue);border-inline-start:4px solid var(--fr-blue);border-radius:10px;padding:9px 12px;font-size:.9rem;line-height:1.5}
+.hist-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:6px}
+.hist-actions button,.hist-full-btn{border:none;border-radius:999px;padding:9px 15px;font:inherit;font-weight:700;font-size:.88rem;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.hist-actions button:hover,.hist-full-btn:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.hist-toggle{background:linear-gradient(135deg,var(--fr-blue),var(--purple));color:#fff}
+.hist-photos{background:var(--status-ok-bg);color:var(--status-ok-fg)}
+.hist-next{background:var(--tag-rest-bg);color:var(--tag-rest-fg)}
+.hist-footer{text-align:center;margin:22px 0 4px}
+.hist-footer p{color:var(--muted);font-size:.88rem;margin:0 0 10px}
+.hist-full-btn{display:inline-block;background:linear-gradient(135deg,var(--fr-red),var(--de-gold));color:#fff;text-decoration:none;padding:12px 22px;font-size:.95rem}
+.map-hist-btn{margin-top:8px;border:none;border-radius:999px;padding:6px 12px;background:linear-gradient(135deg,var(--fr-blue),var(--purple));color:#fff;font-weight:700;cursor:pointer}
+@media(prefers-reduced-motion:reduce){.hist-card.focus{animation:none}.hist-card:hover{transform:none}}
+`;
+    document.head.appendChild(st);
+  })();
+
   /* ===================== LANGUAGE ===================== */
   let LANG = 'en'; // always starts in English by default
 
@@ -4416,11 +4470,158 @@
       if (!p.visited) return;
       const pin = L.divIcon({ className: 'visited-pin', html: '<span>✓</span>', iconSize: [28, 28], iconAnchor: [14, 14], popupAnchor: [0, -14] });
       L.marker([p.lat, p.lng], { icon: pin }).addTo(map)
-        .bindPopup('<span class="map-popup-name">' + p.emoji + ' ' + tr.name + '</span><br><span class="map-popup-desc">✓ ' + t('badge_visited') + '</span>');
+        .bindPopup('<span class="map-popup-name">' + p.emoji + ' ' + tr.name + '</span><br><span class="map-popup-desc">✓ ' + t('badge_visited') + '</span>' +
+          ((window.HISTORY_DATA && window.HISTORY_DATA.mapLink[p.id])
+            ? '<br><button type="button" class="map-hist-btn" onclick="openHistoryFor(\'' + window.HISTORY_DATA.mapLink[p.id] + '\')">' + histUi().mapbtn + '</button>' : ''));
     });
 
     tripMapInstance = map;
     setTimeout(() => map.invalidateSize(), 250);
+  }
+
+
+  /* ===================== HISTORY OF THE PLACES VISITED ===================== */
+  let histTab = 0;
+  const histOpen = {};
+  let histFocusKey = null;
+  let histSliderIdx = 0;
+
+  function histData() { return window.HISTORY_DATA || null; }
+  function histUi() { const H = histData(); return H ? (H.ui[LANG] || H.ui.en) : {}; }
+  function histTr(p) { return p.tr[LANG] || p.tr.en; }
+  function histGlobal() { const H = histData(); return H ? (H.g[LANG] || H.g.en) : {}; }
+  function histTimed() { return histData().places.filter(p => p.y != null).sort((a, b) => a.y - b.y); }
+
+  function histFocus(k, scroll) {
+    const H = histData(); if (!H) return;
+    const p = H.places.find(x => x.k === k); if (!p) return;
+    histTab = p.tab;
+    histFocusKey = k;
+    renderHistoryCards();
+    const idx = histTimed().findIndex(x => x.k === k);
+    const slider = document.getElementById('histRange');
+    if (slider && idx >= 0) { slider.value = idx; histSliderIdx = idx; updateHistReadout(); }
+    if (scroll) {
+      const el = document.getElementById('hist-' + k);
+      if (el) setTimeout(() => el.scrollIntoView({ behavior: motionOk() ? 'smooth' : 'auto', block: 'start' }), 60);
+    }
+  }
+
+  // Called from the map pins: open the History section on that place.
+  window.openHistoryFor = function (k) {
+    openCollapsibleSection('history');
+    histOpen[k] = true;
+    histFocus(k, true);
+  };
+
+  function updateHistReadout() {
+    const out = document.getElementById('histReadout');
+    if (!out) return;
+    const p = histTimed()[histSliderIdx];
+    if (!p) return;
+    out.textContent = (p.y === 1300 ? histTr(p).d : p.y) + ' · ' + histTr(p).ti;
+  }
+
+  function renderHistoryCards() {
+    const H = histData();
+    const box = document.getElementById('histCards');
+    if (!H || !box) return;
+    const ui = histUi();
+    const list = H.places.filter(p => p.tab === histTab);
+    document.querySelectorAll('#histTabs .hist-tab').forEach((b, i) => b.classList.toggle('active', i === histTab));
+    const note = document.getElementById('histNote');
+    if (note) { note.textContent = histTab === 0 ? '⚠️ ' + histGlobal().f : ''; note.hidden = histTab !== 0; }
+    box.innerHTML = list.map((p, i) => {
+      const tr = histTr(p);
+      const open = !!histOpen[p.k];
+      const hasNext = i < list.length - 1 || histTab < 2;
+      return `
+      <article class="hist-card${open ? ' open' : ''}${histFocusKey === p.k ? ' focus' : ''}" id="hist-${p.k}" data-k="${p.k}">
+        <div class="hist-img" data-act="zoom">
+          <img src="${p.img}" alt="${tr.ti}" loading="lazy">
+          <span class="hist-date">${tr.d}</span>
+          <span class="hist-num">${ui.stop.replace('{i}', i + 1).replace('{n}', list.length)}</span>
+        </div>
+        <div class="hist-body">
+          <span class="hist-visited">${ui.visited}</span>
+          <h3>${tr.ti}</h3>
+          <div class="hist-place">📍 ${tr.pl}</div>
+          <p>${tr.x}</p>
+          <div class="hist-more">
+            <h4>${ui.key}</h4>
+            <ul>${tr.li.map(x => `<li>${x}</li>`).join('')}</ul>
+            <div class="hist-fact"><strong>💡 ${ui.know}:</strong> ${tr.fa}</div>
+          </div>
+          <div class="hist-actions">
+            <button type="button" class="hist-toggle" data-act="toggle">${open ? ui.less : ui.more}</button>
+            ${p.paris ? `<button type="button" class="hist-photos" data-act="photos">${ui.photos}</button>` : ''}
+            ${hasNext ? `<button type="button" class="hist-next" data-act="next">${ui.next}</button>` : ''}
+          </div>
+        </div>
+      </article>`;
+    }).join('');
+    histFocusKey = null;
+  }
+
+  function renderHistory() {
+    const H = histData();
+    const root = document.getElementById('historyRoot');
+    if (!H || !root) return;
+    const ui = histUi();
+    const g = histGlobal();
+    const setText = (id, txt) => { const el = document.getElementById(id); if (el) el.textContent = txt; };
+    setText('historyH2', ui.h2); setText('historyLabel', ui.label); setText('navHistory', ui.nav); setText('historyIntro', ui.intro);
+    const timed = histTimed();
+    root.innerHTML = `
+      <div class="hist-tabs" id="histTabs">${g.tabs.map((x, i) => `<button type="button" class="hist-tab" data-tab="${i}">${x}</button>`).join('')}</div>
+      <div class="hist-slider-box">
+        <div class="hist-slider-top"><span class="hist-slider-title">⏳ ${ui.slider}</span><span class="hist-slider-readout" id="histReadout"></span></div>
+        <input type="range" class="hist-range" id="histRange" min="0" max="${timed.length - 1}" step="1" value="${histSliderIdx}" aria-label="${ui.slider}">
+        <div class="hist-range-ends"><span>${timed[0].y}</span><span>${timed[timed.length - 1].y}</span></div>
+      </div>
+      <div class="hist-note" id="histNote" hidden></div>
+      <div class="hist-grid" id="histCards"></div>
+      <div class="hist-footer"><p>${ui.fullnote}</p><a class="hist-full-btn" href="${H.url}" target="_blank" rel="noopener">${ui.full} ↗</a></div>`;
+    root.querySelectorAll('#histTabs .hist-tab').forEach(b => b.addEventListener('click', () => {
+      histTab = parseInt(b.dataset.tab, 10);
+      renderHistoryCards();
+    }));
+    const slider = document.getElementById('histRange');
+    slider.addEventListener('input', () => {
+      histSliderIdx = parseInt(slider.value, 10);
+      updateHistReadout();
+      const p = timed[histSliderIdx];
+      if (p && (p.tab !== histTab)) { histTab = p.tab; renderHistoryCards(); }
+    });
+    slider.addEventListener('change', () => {
+      const p = timed[parseInt(slider.value, 10)];
+      if (p) histFocus(p.k, true);
+    });
+    const cards = document.getElementById('histCards');
+    cards.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-act]');
+      const card = e.target.closest('.hist-card');
+      if (!btn || !card) return;
+      const k = card.dataset.k;
+      const act = btn.dataset.act;
+      if (act === 'toggle') {
+        histOpen[k] = !histOpen[k];
+        card.classList.toggle('open', histOpen[k]);
+        const tg = card.querySelector('.hist-toggle');
+        if (tg) tg.textContent = histOpen[k] ? histUi().less : histUi().more;
+      } else if (act === 'photos') {
+        goToParisPhotos();
+      } else if (act === 'zoom') {
+        const img = card.querySelector('.hist-img img');
+        if (img) openImageLightbox(img.getAttribute('src'), img);
+      } else if (act === 'next') {
+        const all = histData().places;
+        const i = all.findIndex(x => x.k === k);
+        if (all[i + 1]) histFocus(all[i + 1].k, true);
+      }
+    });
+    renderHistoryCards();
+    updateHistReadout();
   }
 
   /* ===================== PACKING CHECKLIST (this device only) ===================== */
@@ -4507,6 +4708,7 @@
     renderStaticSouvenirs();
     renderSouvenirs();
     renderPacking();
+    renderHistory();
     renderAll();
     renderMusicPlayerTexts();
     renderSlideshowSongOptions();
@@ -4543,6 +4745,7 @@
     initBackup();
     initPackingChecklist();
     renderPacking();
+    renderHistory();
     initSlideshowCityTabs();
     initSlideshow();
     renderAll();

@@ -40,6 +40,7 @@
       <li><a href="#calendar" data-i18n="nav_calendar">Calendar</a></li>
       <li><a href="#tripmap" data-i18n="nav_map">Map</a></li>
       <li><a href="#guide" data-i18n="nav_guide">Paris — Visited</a></li>
+      <li><a href="#history" id="navHistory">History</a></li>
       <li><a href="#packing" data-i18n="nav_packing">Packing</a></li>
       <li><a href="#gallery" data-i18n="nav_gallery">Gallery</a></li>
       <li><a href="#souvenirs" data-i18n="nav_souvenirs">Souvenirs</a></li>
@@ -260,6 +261,18 @@
   <div class="filter-bar" id="filterBar"></div>
   <button class="btn-primary add-place-btn" id="addPlaceBtnGuide" data-i18n="add_place_btn" hidden style="display:none;">+ Add Place</button>
   <div class="card-grid stagger" id="placeGrid"></div>
+  </div>
+</section>
+
+<section id="history" class="collapsible-section">
+  <button type="button" class="section-header">
+    <span class="section-label" id="historyLabel">History</span>
+    <h2 id="historyH2">History of the Places Visited</h2>
+    <span class="section-chevron">▾</span>
+  </button>
+  <div class="section-body">
+  <p class="section-intro" id="historyIntro"></p>
+  <div id="historyRoot"></div>
   </div>
 </section>
 
@@ -554,6 +567,7 @@
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="script.js?v=60"></script>
+<script src="history.js?v=1"></script>
+<script src="script.js?v=61"></script>
 </body>
 </html>
