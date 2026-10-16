@@ -569,5 +569,37 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="history.js?v=1"></script>
 <script src="script.js?v=61"></script>
+<script>
+/* Open the section named in the URL hash (e.g. #souvenirs) when the page loads or the hash changes */
+(function(){
+  function isClosed(sec){
+    var b = sec.querySelector('.section-body');
+    if(!b) return false;
+    var cs = getComputedStyle(b);
+    return cs.display === 'none' || cs.visibility === 'hidden' || b.getBoundingClientRect().height < 5;
+  }
+  function openFromHash(){
+    var id = decodeURIComponent((location.hash || '').slice(1));
+    if(!id) return;
+    var sec = document.getElementById(id);
+    if(!sec || !sec.classList.contains('collapsible-section')) return;
+    var tries = 0;
+    (function attempt(){
+      tries++;
+      if(isClosed(sec)){
+        var h = sec.querySelector('.section-header');
+        if(h) h.click();
+      }
+      setTimeout(function(){
+        if(!isClosed(sec)){ sec.scrollIntoView({behavior:'smooth', block:'start'}); }
+        else if(tries < 3){ attempt(); }
+      }, 500);
+    })();
+  }
+  window.addEventListener('load', function(){ setTimeout(openFromHash, 600); });
+  window.addEventListener('hashchange', function(){ setTimeout(openFromHash, 400); });
+})();
+</script>
+
 </body>
 </html>
