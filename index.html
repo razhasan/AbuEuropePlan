@@ -570,34 +570,37 @@
 <script src="history.js?v=1"></script>
 <script src="script.js?v=61"></script>
 <script>
-/* Open the section named in the URL hash (e.g. #souvenirs) when the page loads or the hash changes */
+/* Open the section named in the URL hash (e.g. #souvenirs), for ANY collapsible section */
 (function(){
-  function isClosed(sec){
-    var b = sec.querySelector('.section-body');
-    if(!b) return false;
-    var cs = getComputedStyle(b);
-    return cs.display === 'none' || cs.visibility === 'hidden' || b.getBoundingClientRect().height < 5;
-  }
+  function h(el){ var b=el.querySelector('.section-body'); return b ? b.getBoundingClientRect().height : 999; }
   function openFromHash(){
     var id = decodeURIComponent((location.hash || '').slice(1));
     if(!id) return;
     var sec = document.getElementById(id);
     if(!sec || !sec.classList.contains('collapsible-section')) return;
-    var tries = 0;
-    (function attempt(){
-      tries++;
-      if(isClosed(sec)){
-        var h = sec.querySelector('.section-header');
-        if(h) h.click();
+    var header = sec.querySelector('.section-header');
+    var clicks = 0, polls = 0, last = -1;
+    (function poll(){
+      polls++;
+      var now = h(sec);
+      var stable = Math.abs(now - last) < 1;   /* not mid-animation */
+      last = now;
+      if(stable && now >= 5){                  /* open and settled: scroll to it and stop */
+        sec.scrollIntoView({behavior:'smooth', block:'start'});
+        return;
       }
-      setTimeout(function(){
-        if(!isClosed(sec)){ sec.scrollIntoView({behavior:'smooth', block:'start'}); }
-        else if(tries < 3){ attempt(); }
-      }, 500);
+      if(stable && now < 5 && clicks < 2 && header){  /* closed and settled: open it */
+        clicks++;
+        header.click();
+        last = -1;
+        setTimeout(poll, 700);
+        return;
+      }
+      if(polls < 40) setTimeout(poll, 250);
     })();
   }
-  window.addEventListener('load', function(){ setTimeout(openFromHash, 600); });
-  window.addEventListener('hashchange', function(){ setTimeout(openFromHash, 400); });
+  window.addEventListener('load', function(){ setTimeout(openFromHash, 500); });
+  window.addEventListener('hashchange', function(){ setTimeout(openFromHash, 100); });
 })();
 </script>
 
