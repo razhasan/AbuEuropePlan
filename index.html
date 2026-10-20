@@ -6,10 +6,10 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<title>Abu's Europe Trip · Aug – Oct 2026</title>
+<title>Abu's Europe Trip · Completed ✅ · Aug – Oct 2026</title>
 <meta property="og:type" content="website">
-<meta property="og:title" content="Abu's Europe Journey">
-<meta property="og:description" content="Following Abu's trip across Bonn, Paris and Stuttgart — 10 August to 19 October 2026, flying home from Munich.">
+<meta property="og:title" content="Abu's Europe Journey — Completed ✅">
+<meta property="og:description" content="Abu's Europe trip is complete — relive the memories from Bonn, Paris, Stuttgart and Munich. 10 August to 19 October 2026.">
 <meta property="og:image" content="https://razhasan.github.io/AbuEuropePlan/images/eiffel-tower.jpg">
 <meta property="og:url" content="https://razhasan.github.io/AbuEuropePlan/">
 <meta name="twitter:card" content="summary_large_image">
@@ -19,6 +19,68 @@
 <meta name="theme-color" content="#123C82">
 <link rel="stylesheet" href="style.css?v=60">
 <script>(function(){try{if(localStorage.getItem('europeTripTheme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+
+<style id="tripFinishedStyles">
+/* ===== Trip finished: overrides + new section ===== */
+#countdown{display:none !important}
+#currentLocationBanner{display:none !important}
+#tripProgressFill{width:100% !important}
+.nav-brand::after{content:" ✅"}
+
+.trip-done-card{max-width:760px;margin:22px auto 8px;padding:18px 20px;border-radius:18px;
+  background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);color:inherit;text-align:center;
+  backdrop-filter:blur(4px)}
+.trip-done-title{font-size:1.25rem;font-weight:700;margin:0 0 4px}
+.trip-done-sub{margin:0 0 14px;opacity:.9}
+.trip-done-stats{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 22px;margin:0 0 14px}
+.trip-done-stats div{min-width:76px}
+.trip-done-stats b{display:block;font-size:1.6rem;line-height:1.1}
+.trip-done-stats span{font-size:.85rem;opacity:.85}
+.trip-done-cta{display:inline-block;cursor:pointer;border:0;border-radius:999px;padding:10px 20px;font:inherit;font-weight:600;
+  background:#fff;color:#123C82;text-decoration:none}
+.trip-done-cta:hover{filter:brightness(.95)}
+
+.memories-section{max-width:1100px;margin:34px auto;padding:0 16px}
+.memories-head{text-align:center;margin-bottom:18px}
+.memories-head h2{margin:0 0 6px}
+.memories-head p{margin:0 auto;max-width:640px;opacity:.85}
+.mem-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:16px 0 26px}
+.mem-btn{cursor:pointer;border:1px solid rgba(18,60,130,.35);background:rgba(18,60,130,.08);color:inherit;
+  border-radius:999px;padding:10px 18px;font:inherit;font-weight:600}
+.mem-btn.primary{background:#123C82;color:#fff;border-color:#123C82}
+.mem-btn:hover{filter:brightness(1.08)}
+.mem-h3{margin:26px 0 12px;font-size:1.1rem}
+.mem-cities{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.mem-card{position:relative;text-align:start;cursor:pointer;border-radius:16px;padding:16px 16px 14px;font:inherit;color:inherit;
+  border:1px solid rgba(128,128,128,.3);background:rgba(18,60,130,.06);transition:transform .15s ease,box-shadow .15s ease}
+.mem-card:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.12)}
+.mem-card .mem-emoji{font-size:1.9rem;display:block;margin-bottom:6px}
+.mem-card .mem-city{font-weight:700;display:block;margin-bottom:4px}
+.mem-card .mem-desc{display:block;font-size:.92rem;opacity:.85;padding-inline-end:46px}
+.mem-like{position:absolute;top:10px;inset-inline-end:10px;cursor:pointer;border:1px solid rgba(128,128,128,.35);
+  background:rgba(255,255,255,.55);color:#222;border-radius:999px;padding:3px 9px;font:inherit;font-size:.85rem}
+.mem-like.on{background:#ffe3e8;border-color:#e0556f}
+[data-theme="dark"] .mem-like{background:rgba(0,0,0,.35);color:#eee}
+[data-theme="dark"] .mem-like.on{background:rgba(224,85,111,.3)}
+[data-theme="dark"] .mem-btn{border-color:rgba(160,190,255,.45);background:rgba(160,190,255,.12)}
+[data-theme="dark"] .mem-btn.primary{background:#2f5fb3;border-color:#2f5fb3}
+[data-theme="dark"] .mem-card{background:rgba(160,190,255,.08)}
+
+.mem-updates{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.mem-updates li{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-radius:14px;
+  border:1px solid rgba(128,128,128,.28);background:rgba(18,60,130,.05)}
+.mem-updates .u-icon{font-size:1.5rem;line-height:1.2}
+.mem-updates .u-date{display:block;font-size:.8rem;opacity:.7;margin-bottom:2px}
+.mem-updates .u-text{display:block}
+
+.finished-badge{display:inline-block;margin-inline-start:10px;padding:2px 10px;border-radius:999px;font-size:.72rem;
+  font-weight:600;background:rgba(46,160,90,.18);color:inherit;border:1px solid rgba(46,160,90,.5);vertical-align:middle}
+
+.mem-confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:9999}
+.mem-confetti i{position:absolute;top:-14px;width:9px;height:14px;opacity:.95;animation:memFall linear forwards}
+@keyframes memFall{to{transform:translateY(110vh) rotate(720deg);opacity:.9}}
+@media (prefers-reduced-motion:reduce){.mem-confetti{display:none}.mem-card{transition:none}}
+</style>
 </head>
 <body>
 
@@ -35,6 +97,7 @@
     </div>
     <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
     <ul class="nav-links" id="navLinks">
+      <li><a href="#memories" id="navMemories">Memories</a></li>
       <li><a href="#planner" data-i18n="nav_planner">Planner</a></li>
       <li><a href="#timeline" data-i18n="nav_timeline">Timeline</a></li>
       <li><a href="#calendar" data-i18n="nav_calendar">Calendar</a></li>
@@ -124,6 +187,17 @@
     <div class="cd-box"><div class="cd-num" id="cd-secs">--</div><div class="cd-label" data-i18n="cd_secs">Seconds</div></div>
   </div>
 
+  <div class="trip-done-card" id="tripDoneCard">
+    <p class="trip-done-title" data-mem="done_title">🏁 Journey complete</p>
+    <p class="trip-done-sub" data-mem="done_sub">Abu is back home in Pakistan. Thank you to everyone who made this trip special 💙</p>
+    <div class="trip-done-stats">
+      <div><b>70</b><span data-mem="stat_days">days in Europe</span></div>
+      <div><b>2</b><span data-mem="stat_countries">countries</span></div>
+      <div><b>4</b><span data-mem="stat_cities">cities</span></div>
+    </div>
+    <button type="button" class="trip-done-cta" id="doneCta" data-mem="done_cta">✨ See memories &amp; updates</button>
+  </div>
+
   <div class="route" id="routeStrip"></div>
 
   <div class="user-guide-row">
@@ -134,6 +208,25 @@
     <a href="#" target="_blank" rel="noopener" class="btn-primary user-guide-btn whatsapp-share-btn" id="shareWhatsappBtn" data-i18n="share_whatsapp_btn">💬 Share on WhatsApp</a>
   </div>
 </header>
+
+<section id="memories" class="memories-section">
+  <div class="memories-head">
+    <h2 data-mem="mem_h2">✨ Memorable Moments &amp; Updates</h2>
+    <p data-mem="mem_intro">Abu's Europe journey is complete 🎉 Relive the best moments, browse the photos and check the latest updates.</p>
+  </div>
+
+  <div class="mem-actions">
+    <button type="button" class="mem-btn primary" data-go="slideshow" data-mem="btn_slideshow">🎬 Relive the trip (slideshow)</button>
+    <button type="button" class="mem-btn" data-go="souvenirs" data-mem="btn_souvenirs">📸 Browse all souvenirs</button>
+    <button type="button" class="mem-btn" data-go="tripmap" data-mem="btn_map">🗺️ See the route</button>
+  </div>
+
+  <h3 class="mem-h3" data-mem="h3_cities">Moments by city</h3>
+  <div class="mem-cities" id="memCities"></div>
+
+  <h3 class="mem-h3" data-mem="h3_updates">Latest updates</h3>
+  <ul class="mem-updates" id="memUpdates"></ul>
+</section>
 
 <section id="planner" class="collapsible-section">
   <button type="button" class="section-header">
@@ -449,7 +542,7 @@
     <span class="de1"></span><span class="de2"></span><span class="de3"></span>
   </div>
   <p id="footerStats">Loading trip summary…</p>
-  <p data-i18n="footer_tagline">Made with love for Abu's big Europe adventure ✈️</p>
+  <p id="footerTagline" data-i18n="footer_tagline">Made with love for Abu's big Europe adventure ✈️</p>
 </footer>
 
 <div class="lightbox" id="lightbox">
@@ -601,6 +694,237 @@
   }
   window.addEventListener('load', function(){ setTimeout(openFromHash, 500); });
   window.addEventListener('hashchange', function(){ setTimeout(openFromHash, 100); });
+})();
+</script>
+
+<script id="tripFinishedScript">
+/* ===== Trip finished: texts, updates list, hearts, confetti.  Edit TRIP_UPDATES below to add news. ===== */
+(function(){
+  var LANGS = ['en','ur','fr','de'];
+
+  /* ---- 1) EDIT HERE: latest updates (newest first). Add a new line anytime. ----
+     date: YYYY-MM-DD   icon: any emoji   text: one sentence per language (en is the fallback) */
+  var TRIP_UPDATES = [
+    { date:'2026-10-20', icon:'🏡', text:{
+        en:'Abu is back home in Pakistan 🇵🇰',
+        ur:'ابو پاکستان اپنے گھر واپس پہنچ گئے ہیں 🇵🇰',
+        fr:'Abu est de retour chez lui au Pakistan 🇵🇰',
+        de:'Abu ist wieder zu Hause in Pakistan 🇵🇰' } },
+    { date:'2026-10-19', icon:'🏁', text:{
+        en:'The Europe tour is complete. Thank you to everyone who hosted and joined along!',
+        ur:'یورپ کا دورہ مکمل ہو گیا۔ میزبانی اور ساتھ دینے والے سب کا شکریہ!',
+        fr:'Le voyage en Europe est terminé. Merci à tous ceux qui ont accueilli et accompagné Abu !',
+        de:'Die Europareise ist beendet. Danke an alle, die Abu aufgenommen und begleitet haben!' } },
+    { date:'2026-10-18', icon:'📖', text:{
+        en:'About fifty of the best souvenir photos were printed into a photo album.',
+        ur:'سب سے اچھی تقریباً پچاس یادگار تصاویر پرنٹ کر کے فوٹو البم بنا دیا گیا۔',
+        fr:'Une cinquantaine des plus belles photos souvenirs ont été imprimées dans un album.',
+        de:'Etwa fünfzig der schönsten Erinnerungsfotos wurden zu einem Fotoalbum gedruckt.' } }
+    /* , { date:'2026-10-25', icon:'💬', text:{ en:'Your news here' } } */
+  ];
+
+  var CITIES = [
+    { id:'bonn',      emoji:'🏠', go:'souvenirs', cat:'bonn' },
+    { id:'paris',     emoji:'🗼', go:'souvenirs', cat:'paris' },
+    { id:'stuttgart', emoji:'🏡', go:'souvenirs', cat:'stuttgart' },
+    { id:'munich',    emoji:'✈️', go:'tripmap' }
+  ];
+
+  var T = {
+    en:{ nav:'Memories',
+      hero:'Journey complete 🏁 · 10 August – 19 October 2026<br>Bonn → Paris → Stuttgart → Munich → home. Abu is safely back in Pakistan 🇵🇰',
+      done_title:'🏁 Journey complete', done_sub:'Abu is back home in Pakistan. Thank you to everyone who made this trip special 💙',
+      stat_days:'days in Europe', stat_countries:'countries', stat_cities:'cities', done_cta:'✨ See memories & updates',
+      mem_h2:'✨ Memorable Moments & Updates', mem_intro:'Abu\'s Europe journey is complete 🎉 Relive the best moments, browse the photos and check the latest updates.',
+      btn_slideshow:'🎬 Relive the trip (slideshow)', btn_souvenirs:'📸 Browse all souvenirs', btn_map:'🗺️ See the route',
+      h3_cities:'Moments by city', h3_updates:'Latest updates',
+      c_bonn:'Bonn', d_bonn:'Family time with Busrah', c_paris:'Paris & Verneuil', d_paris:'Home base and the famous landmarks',
+      c_stuttgart:'Stuttgart', d_stuttgart:'Time with Abdullah', c_munich:'Munich', d_munich:'The last stop before flying home',
+      badge:'Trip finished', foot:'Journey complete · 70 days · 2 countries · 4 cities',
+      tag:'Made with love for Abu\'s big Europe adventure. Thank you for the memories ✈️🏡' },
+    ur:{ nav:'یادیں',
+      hero:'سفر مکمل 🏁 · 10 اگست – 19 اکتوبر 2026<br>بون ← پیرس ← اسٹٹگارٹ ← میونخ ← گھر۔ ابو خیریت سے پاکستان واپس پہنچ گئے ہیں 🇵🇰',
+      done_title:'🏁 سفر مکمل', done_sub:'ابو پاکستان واپس پہنچ گئے ہیں۔ اس سفر کو خاص بنانے والے سب کا شکریہ 💙',
+      stat_days:'دن یورپ میں', stat_countries:'ممالک', stat_cities:'شہر', done_cta:'✨ یادیں اور تازہ خبریں دیکھیں',
+      mem_h2:'✨ یادگار لمحات اور تازہ خبریں', mem_intro:'ابو کا یورپ کا سفر مکمل ہو گیا 🎉 بہترین لمحات دوبارہ دیکھیں، تصاویر دیکھیں اور تازہ خبریں پڑھیں۔',
+      btn_slideshow:'🎬 سفر دوبارہ دیکھیں (سلائیڈ شو)', btn_souvenirs:'📸 تمام یادگار تصاویر', btn_map:'🗺️ راستہ دیکھیں',
+      h3_cities:'شہر بہ شہر یادیں', h3_updates:'تازہ خبریں',
+      c_bonn:'بون', d_bonn:'بُشریٰ کے ساتھ فیملی وقت', c_paris:'پیرس اور ورنوئی', d_paris:'ہمارا گھر اور مشہور مقامات',
+      c_stuttgart:'اسٹٹگارٹ', d_stuttgart:'عبداللہ کے ساتھ وقت', c_munich:'میونخ', d_munich:'گھر روانگی سے پہلے آخری پڑاؤ',
+      badge:'سفر مکمل', foot:'سفر مکمل · 70 دن · 2 ممالک · 4 شہر',
+      tag:'ابو کے یورپ کے عظیم سفر کے لیے محبت سے بنایا گیا۔ یادوں کا شکریہ ✈️🏡' },
+    fr:{ nav:'Souvenirs & infos',
+      hero:'Voyage terminé 🏁 · 10 août – 19 octobre 2026<br>Bonn → Paris → Stuttgart → Munich → retour. Abu est bien rentré au Pakistan 🇵🇰',
+      done_title:'🏁 Voyage terminé', done_sub:'Abu est de retour chez lui au Pakistan. Merci à tous ceux qui ont rendu ce voyage unique 💙',
+      stat_days:'jours en Europe', stat_countries:'pays', stat_cities:'villes', done_cta:'✨ Voir les souvenirs & nouvelles',
+      mem_h2:'✨ Moments inoubliables & nouvelles', mem_intro:'Le voyage d\'Abu en Europe est terminé 🎉 Revivez les meilleurs moments, parcourez les photos et consultez les dernières nouvelles.',
+      btn_slideshow:'🎬 Revivre le voyage (diaporama)', btn_souvenirs:'📸 Toutes les photos souvenirs', btn_map:'🗺️ Voir le parcours',
+      h3_cities:'Moments par ville', h3_updates:'Dernières nouvelles',
+      c_bonn:'Bonn', d_bonn:'Moments en famille avec Busrah', c_paris:'Paris & Verneuil', d_paris:'Notre maison et les lieux célèbres',
+      c_stuttgart:'Stuttgart', d_stuttgart:'Moments avec Abdullah', c_munich:'Munich', d_munich:'Dernière étape avant le retour',
+      badge:'Voyage terminé', foot:'Voyage terminé · 70 jours · 2 pays · 4 villes',
+      tag:'Fait avec amour pour la grande aventure d\'Abu en Europe. Merci pour les souvenirs ✈️🏡' },
+    de:{ nav:'Erinnerungen',
+      hero:'Reise beendet 🏁 · 10. August – 19. Oktober 2026<br>Bonn → Paris → Stuttgart → München → nach Hause. Abu ist wohlbehalten zurück in Pakistan 🇵🇰',
+      done_title:'🏁 Reise beendet', done_sub:'Abu ist wieder zu Hause in Pakistan. Danke an alle, die diese Reise besonders gemacht haben 💙',
+      stat_days:'Tage in Europa', stat_countries:'Länder', stat_cities:'Städte', done_cta:'✨ Erinnerungen & Neuigkeiten ansehen',
+      mem_h2:'✨ Unvergessliche Momente & Neuigkeiten', mem_intro:'Abus Europareise ist beendet 🎉 Erlebe die schönsten Momente noch einmal, stöbere in den Fotos und lies die neuesten Neuigkeiten.',
+      btn_slideshow:'🎬 Reise noch einmal erleben (Diashow)', btn_souvenirs:'📸 Alle Erinnerungsfotos', btn_map:'🗺️ Route ansehen',
+      h3_cities:'Momente nach Stadt', h3_updates:'Neueste Neuigkeiten',
+      c_bonn:'Bonn', d_bonn:'Familienzeit mit Busrah', c_paris:'Paris & Verneuil', d_paris:'Unser Zuhause und die berühmten Orte',
+      c_stuttgart:'Stuttgart', d_stuttgart:'Zeit mit Abdullah', c_munich:'München', d_munich:'Letzter Halt vor dem Heimflug',
+      badge:'Reise beendet', foot:'Reise beendet · 70 Tage · 2 Länder · 4 Städte',
+      tag:'Mit Liebe gemacht für Abus große Europa-Reise. Danke für die Erinnerungen ✈️🏡' }
+  };
+
+  function lang(){
+    var b = document.querySelector('.lang-btn.active');
+    var l = b && b.getAttribute('data-lang');
+    return LANGS.indexOf(l) > -1 ? l : 'en';
+  }
+  function tr(k){ var l = lang(); return (T[l] && T[l][k]) || T.en[k]; }
+
+  function setHTMLIfDiff(el, html){
+    if(!el) return;
+    var tmp = document.createElement('div'); tmp.innerHTML = html;
+    if(el.textContent !== tmp.textContent) el.innerHTML = html;
+  }
+  function setTextIfDiff(el, txt){ if(el && el.textContent !== txt) el.textContent = txt; }
+
+  /* ---- hearts (saved on this device only) ---- */
+  function getLikes(){ try{ return JSON.parse(localStorage.getItem('europeTripMemoryLikes') || '{}'); }catch(e){ return {}; } }
+  function saveLikes(o){ try{ localStorage.setItem('europeTripMemoryLikes', JSON.stringify(o)); }catch(e){} }
+
+  function openSec(id){
+    var s = document.getElementById(id); if(!s) return;
+    var b = s.querySelector('.section-body'), h = s.querySelector('.section-header');
+    if(b && b.getBoundingClientRect().height < 5 && h) h.click();
+    setTimeout(function(){ s.scrollIntoView({behavior:'smooth', block:'start'}); }, 450);
+  }
+
+  function renderCities(){
+    var box = document.getElementById('memCities'); if(!box) return;
+    var likes = getLikes(), html = '';
+    CITIES.forEach(function(c){
+      var on = !!likes[c.id];
+      html += '<div class="mem-card" role="button" tabindex="0" data-city="' + c.id + '">' +
+        '<span class="mem-emoji">' + c.emoji + '</span>' +
+        '<span class="mem-city">' + tr('c_' + c.id) + '</span>' +
+        '<span class="mem-desc">' + tr('d_' + c.id) + '</span>' +
+        '<button type="button" class="mem-like' + (on ? ' on' : '') + '" data-like="' + c.id + '" aria-pressed="' + on + '" aria-label="Like">' + (on ? '❤️' : '🤍') + '</button>' +
+        '</div>';
+    });
+    box.innerHTML = html;
+  }
+
+  function renderUpdates(){
+    var ul = document.getElementById('memUpdates'); if(!ul) return;
+    var l = lang(), html = '';
+    TRIP_UPDATES.forEach(function(u){
+      var d = u.date;
+      try{ d = new Date(u.date + 'T12:00:00').toLocaleDateString(l, {day:'numeric', month:'long', year:'numeric'}); }catch(e){}
+      html += '<li><span class="u-icon">' + u.icon + '</span><span><span class="u-date">' + d + '</span>' +
+              '<span class="u-text">' + (u.text[l] || u.text.en) + '</span></span></li>';
+    });
+    ul.innerHTML = html;
+  }
+
+  function apply(){
+    var l = lang();
+    var sec = document.getElementById('memories');
+    if(sec) sec.setAttribute('dir', l === 'ur' ? 'rtl' : 'ltr');
+    var card = document.getElementById('tripDoneCard');
+    if(card) card.setAttribute('dir', l === 'ur' ? 'rtl' : 'ltr');
+
+    document.querySelectorAll('[data-mem]').forEach(function(el){
+      setTextIfDiff(el, tr(el.getAttribute('data-mem')));
+    });
+    setTextIfDiff(document.getElementById('navMemories'), tr('nav'));
+    setHTMLIfDiff(document.getElementById('heroSubtitle'), tr('hero'));
+    setTextIfDiff(document.getElementById('footerStats'), tr('foot'));
+    setTextIfDiff(document.getElementById('footerTagline'), tr('tag'));
+
+    ['planner','timeline','calendar'].forEach(function(id){
+      var h = document.querySelector('#' + id + ' .section-header'); if(!h) return;
+      var b = h.querySelector('.finished-badge');
+      if(!b){ b = document.createElement('span'); b.className = 'finished-badge'; h.insertBefore(b, h.querySelector('.section-chevron')); }
+      setTextIfDiff(b, tr('badge'));
+    });
+
+    renderCities();
+    renderUpdates();
+  }
+
+  function confetti(){
+    try{ if(sessionStorage.getItem('tripConfettiShown')) return; sessionStorage.setItem('tripConfettiShown','1'); }catch(e){}
+    if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var wrap = document.createElement('div'); wrap.className = 'mem-confetti';
+    var colors = ['#123C82','#e0556f','#f2b705','#2ea05a','#ffffff','#7a5cff'];
+    for(var i = 0; i < 70; i++){
+      var p = document.createElement('i');
+      p.style.left = (Math.random() * 100) + '%';
+      p.style.background = colors[i % colors.length];
+      p.style.animationDuration = (2.6 + Math.random() * 2.4) + 's';
+      p.style.animationDelay = (Math.random() * 1.2) + 's';
+      p.style.transform = 'rotate(' + (Math.random() * 360) + 'deg)';
+      wrap.appendChild(p);
+    }
+    document.body.appendChild(wrap);
+    setTimeout(function(){ wrap.remove(); }, 7000);
+  }
+
+  function init(){
+    apply();
+
+    /* clicks */
+    document.addEventListener('click', function(e){
+      var like = e.target.closest && e.target.closest('[data-like]');
+      if(like){
+        e.stopPropagation();
+        var id = like.getAttribute('data-like'), likes = getLikes();
+        likes[id] = !likes[id]; saveLikes(likes); renderCities();
+        return;
+      }
+      var go = e.target.closest && e.target.closest('[data-go]');
+      if(go){ openSec(go.getAttribute('data-go')); return; }
+      var card = e.target.closest && e.target.closest('.mem-card');
+      if(card){
+        var city = CITIES.filter(function(c){ return c.id === card.getAttribute('data-city'); })[0];
+        if(!city) return;
+        openSec(city.go);
+        if(city.cat){
+          setTimeout(function(){
+            var tb = document.querySelector('#staticSouvenirTabs button[data-cat="' + city.cat + '"]');
+            if(tb) tb.click();
+          }, 150);
+        }
+        return;
+      }
+      if(e.target.id === 'doneCta'){
+        var m = document.getElementById('memories');
+        if(m) m.scrollIntoView({behavior:'smooth', block:'start'});
+      }
+    });
+    document.addEventListener('keydown', function(e){
+      if((e.key === 'Enter' || e.key === ' ') && e.target.classList && e.target.classList.contains('mem-card')){
+        e.preventDefault(); e.target.click();
+      }
+    });
+
+    /* re-apply after a language switch, and if script.js rewrites the texts we override */
+    var ls = document.getElementById('langSwitch');
+    if(ls) ls.addEventListener('click', function(){ setTimeout(apply, 60); setTimeout(apply, 400); });
+    var obs = new MutationObserver(function(){ apply(); });
+    ['heroSubtitle','footerStats','footerTagline'].forEach(function(id){
+      var el = document.getElementById(id);
+      if(el) obs.observe(el, {childList:true, characterData:true, subtree:true});
+    });
+
+    confetti();
+  }
+
+  function start(){ setTimeout(init, 400); }
+  if(document.readyState === 'complete') start(); else window.addEventListener('load', start);
 })();
 </script>
 
